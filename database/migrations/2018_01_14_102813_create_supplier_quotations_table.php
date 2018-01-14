@@ -15,7 +15,7 @@ class CreateSupplierQuotationsTable extends Migration
     {
         Schema::create('supplier_quoatation', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('pr_id');
+            $table->int('pr_id');
             $table->string('pr_type');
             $table->string('item_name');
             $table->string('item_type');

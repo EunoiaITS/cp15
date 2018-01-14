@@ -18,9 +18,6 @@ class CreateQuotationRequisitionTable extends Migration
             $table->string('pr_id');
             $table->string('pr_type');
             $table->string('category');
-            $table->string('item_name');
-            $table->string('item_code');
-            $table->string('quantity');
             $table->timestamps();
         });
     }
