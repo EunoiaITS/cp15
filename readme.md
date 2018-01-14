@@ -39,6 +39,7 @@ We would like to extend our thanks to the following sponsors for helping fund on
 - [SOFTonSOFA](https://softonsofa.com/)
 
 ## Contributing
+
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
 ## Security Vulnerabilities
