@@ -15,7 +15,7 @@ class CreateQrItemsTable extends Migration
     {
         Schema::create('qr_item', function (Blueprint $table) {
             $table->increments('id');
-            $table->increments('qr_id');
+            $table->integer('qr_id');
             $table->string('item_name');
             $table->string('item_no');
             $table->string('quantity');
