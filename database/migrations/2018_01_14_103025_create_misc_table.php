@@ -13,7 +13,12 @@ class CreateMiscTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('misc', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('key');
+            $table->string('value');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class CreateMiscTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('misc');
     }
 }

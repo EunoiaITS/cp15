@@ -13,13 +13,10 @@ class CreateQrItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('qr_order', function (Blueprint $table) {
+        Schema::create('qr_item', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('pr_id');
-            $table->string('pr_type');
-            $table->string('category');
             $table->string('item_name');
-            $table->string('item_code');
+            $table->string('item_no');
             $table->string('quantity');
             $table->timestamps();
         });
@@ -32,6 +29,6 @@ class CreateQrItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('qr_order');
+        Schema::dropIfExists('qr_item');
     }
 }

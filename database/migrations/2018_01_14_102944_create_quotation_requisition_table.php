@@ -13,7 +13,16 @@ class CreateQuotationRequisitionTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('qr_table', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('pr_id');
+            $table->string('pr_type');
+            $table->string('category');
+            $table->string('item_name');
+            $table->string('item_code');
+            $table->string('quantity');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +32,6 @@ class CreateQuotationRequisitionTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('qr');
     }
 }

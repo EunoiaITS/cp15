@@ -13,7 +13,14 @@ class CreateQrInvitationsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('qr_invitation', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('pr_id');
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->text('suppliers');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateQrInvitationsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('qr_invitation');
     }
 }
