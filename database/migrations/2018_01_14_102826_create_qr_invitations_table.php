@@ -15,7 +15,7 @@ class CreateQrInvitationsTable extends Migration
     {
         Schema::create('qr_invitation', function (Blueprint $table) {
             $table->increments('id');
-            $table->int('qr_id');
+            $table->integer('qr_id');
             $table->string('start_date');
             $table->string('end_date');
             $table->text('suppliers');

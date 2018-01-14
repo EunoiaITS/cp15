@@ -15,13 +15,10 @@ class CreateSupplierQuotationsTable extends Migration
     {
         Schema::create('supplier_quoatation', function (Blueprint $table) {
             $table->increments('id');
-            $table->int('pr_id');
-            $table->string('pr_type');
-            $table->string('item_name');
-            $table->string('item_type');
-            $table->string('quantity');
+            $table->integer('qr_id');
             $table->string('unit_price');
-            $table->string('supplier');
+            $table->string('comment');
+            $table->string('file');
             $table->timestamps();
         });
     }
