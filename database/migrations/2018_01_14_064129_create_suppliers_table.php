@@ -13,7 +13,12 @@ class CreateSuppliersTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('suppliers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_unicode_ci';
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class CreateSuppliersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('suppliers');
     }
 }
