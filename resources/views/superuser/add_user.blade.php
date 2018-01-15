@@ -26,7 +26,7 @@
                                 <div class="form-group">
                                     <input type="password" name="password" class="form-control" placeholder="Password" required="required">
                                 </div>
-                                
+
                                 <div class="login-button clearfix">
                                     <button type="submit" class="btn btn-info btn-login">Create</button>
                                     <button class="btn btn-info btn-cancel">Cancel</button>

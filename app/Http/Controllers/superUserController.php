@@ -15,9 +15,7 @@ class superUserController extends Controller
             $user->password = $request->password;
             $user->save();
 
-            flash('New superuser has been Created!you can login now')->success();
-
-            return redirect()->route('/superuser');
+            return redirect()->to('superuser');
         }
     }
 }
