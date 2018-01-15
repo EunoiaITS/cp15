@@ -15,4 +15,28 @@ class Create_suppliers extends Model
         'category',
         'contact'
     ];
+    protected $rules = array(
+        'id' => 'required',
+        'name'  => 'required',
+        'email' => 'required',
+        'category' => 'required',
+        'contact' => 'required'
+    );
+    protected $errors;
+
+    public function validate($data)
+    {
+        $valid = Validator::make($data, $this->rules);
+        if ($valid->fails())
+        {
+            $this->errors = $valid->errors();
+            return false;
+        }
+        return true;
+    }
+
+    public function errors()
+    {
+        return $this->errors;
+    }
 }

@@ -25,7 +25,7 @@ class Misc extends Model
         $valid = Validator::make($data, $this->rules);
         if ($valid->fails())
         {
-            $this->errors = $valid->errors;
+            $this->errors = $valid->errors();
             return false;
         }
         return true;
