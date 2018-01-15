@@ -19,7 +19,7 @@
                             <h3>Create User</h3>
                             <p>Simply Enter Your Username and Password to Create User.</p>
                             <form action="{{url('superuser/create')}}" method="post">
-
+                                {!! csrf_field() !!}
                                 <div class="form-group">
                                     <input type="text" name="email" class="form-control" placeholder="Email" required="required">
                                 </div>
