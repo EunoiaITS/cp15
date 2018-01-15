@@ -17,16 +17,16 @@
                     <div class="col-sm-7">
                         <div class="sign-in-form">
                             <h3>Create User</h3>
+                            <p>{{ $errors }}</p>
                             <p>Simply Enter Your Username and Password to Create User.</p>
                             <form action="{{url('superuser/create')}}" method="post">
                                 {!! csrf_field() !!}
                                 <div class="form-group">
-                                    <input type="text" name="email" class="form-control" placeholder="Email" required="required">
+                                    <input type="text" name="email" class="form-control" placeholder="Email" >
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" class="form-control" placeholder="Password" required="required">
+                                    <input type="password" name="password" class="form-control" placeholder="Password" >
                                 </div>
-
                                 <div class="login-button clearfix">
                                     <button type="submit" class="btn btn-info btn-login">Create</button>
                                     <button class="btn btn-info btn-cancel">Cancel</button>
