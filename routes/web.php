@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/qr-orders', function () {
+    return view('qr_orders.add');
+});
