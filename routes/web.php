@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('superuser/create', 'superUserController@saveUser');
-Route::get('/superuser', function () {
-    return view('superuser.add_user');
-});
+Route::get('/superuser', 'superUserController@saveUser');
 Route::get('/qr-orders', function () {
     return view('qr_orders.add');
 });

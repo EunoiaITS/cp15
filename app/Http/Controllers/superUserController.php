@@ -9,16 +9,17 @@ class superUserController extends Controller
 {
     public function saveUser(Request $request)
     {
+        if($request->isMethod('post')){
             $user = new superUser;
             $user->email = $request->email;
             $user->password = $request->password;
-            if(!$user->errors()){
+            if($user->validate($request->all())){
                 $user->save();
             }
             else{
-                return redirect()->to('superuser')->with('errors',$user->errors());
+                return redirect()->back()->withErrors($user->errors())->withInput();
             }
-
-
+        }
+        return view('superuser.add_user');
     }
 }

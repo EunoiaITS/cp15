@@ -17,19 +17,23 @@
                     <div class="col-sm-7">
                         <div class="sign-in-form">
                             <h3>Create User</h3>
-                            @if(isset($errors))
-                                @foreach($errors as $error)
-                                    <p>{{ $error }}</p>
+                            @if($errors->any())
+                                @foreach($errors->all() as $error)
+                                <p class="alert alert-danger">
+                                    {{ $error }}
+                                </p>
                                 @endforeach
                             @endif
                             <p>Simply Enter Your Username and Password to Create User.</p>
                             <form action="{{url('superuser/create')}}" method="post">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <input type="text" name="email" class="form-control" placeholder="Email" >
+                                    <input type="text" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
+                                    @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('email') }}</p>@endif
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" class="form-control" placeholder="Password" >
+                                    <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password') }}">
+                                    @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('password') }}</p>@endif
                                 </div>
                                 <div class="login-button clearfix">
                                     <button type="submit" class="btn btn-info btn-login">Create</button>

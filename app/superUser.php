@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 
 class superUser extends Model
 {
@@ -11,8 +12,8 @@ class superUser extends Model
         'email', 'password',
     ];
     protected $rules = array(
-        'email' => 'required',
-        'password'  => 'required'
+        'email' => 'required|email',
+        'password'  => 'required|min:6|max:128'
     );
     protected $errors;
 
