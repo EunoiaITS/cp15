@@ -76,8 +76,13 @@
                             <input type="hidden" name="user_id" id="user_id">
                             <div class="col-sm-12">
                                 <div class="btn-button-group clearfix">
+<<<<<<< HEAD
                                     <button type="submit" class="btn btn-info">Save</button>
                                     <button type="button" class="btn btn-info btn-popup close">Cancel</button>
+=======
+                                    <button class="btn btn-info btn-price">Save</button>
+                                    <button class="btn btn-info btn-popup close">Cancel</button>
+>>>>>>> 46bac598a133f0337ce4c4314dcee32157e5572a
                                 </div>
                             </div>
                         </form>
@@ -104,7 +109,7 @@
                     </div><!--// end header got search area -->
                     <div class="col-sm-12">
                         <div class="btn-button-group clearfix">
-                            <button class="btn btn-info btn-price open-popup-comp">Delete</button>
+                            <button class="btn btn-info btn-price">Delete</button>
                             <button class="btn btn-info btn-popup close">Cancel</button>
                         </div>
                     </div>
