@@ -76,7 +76,7 @@
                             <input type="hidden" name="user_id" id="user_id">
                             <div class="col-sm-12">
                                 <div class="btn-button-group clearfix">
-                                    <button class="btn btn-info btn-price open-popup-comp">Save</button>
+                                    <button class="btn btn-info">Save</button>
                                     <button class="btn btn-info btn-popup close">Cancel</button>
                                 </div>
                             </div>
