@@ -4,6 +4,7 @@
             e.preventDefault();
             var id = $(this).attr('rel');
             $('#user_id').val(id);
+            $('#delete_user_id').val(id);
             $('#supplier-name').val($('#name'+id).text());
             $('#pr-email').val($('#email'+id).text());
             var val = $('#role'+id).text();

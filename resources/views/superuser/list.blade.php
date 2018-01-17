@@ -100,6 +100,7 @@
                     </div>
                         <form action="{{url('/superuser/users-delete/')}}" method="post">
                             {{ csrf_field() }}
+                            <input type="hidden" name="user_id" id="delete_user_id">
                     <div class="popup-got-search">
                         <p>Confirm to delete the Supplier from the view Supplier list ?</p>
                     </div><!--// end header got search area -->
