@@ -67,7 +67,7 @@ class superUserController extends Controller
                 ->with('success-message', 'User updated successfully!');
         }
     }
-    
+
     public function deleteUsers(Request $request){
         if($request->isMethod('post')){
             if($request->user_id != null){

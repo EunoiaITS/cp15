@@ -6,7 +6,7 @@
             <div class="brand-wrapper">
                 <!-- Brand -->
                 <div class="brand-name-wrapper">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ URL::asset('assets/img/logo.png') }}" class="img-responsive" alt="">
                         <h3>Company Name</h3>
                     </a>
