@@ -56,11 +56,31 @@ class superUserController extends Controller
 
     public function editUsers(Request $request){
         if($request->isMethod('post')){
-            print_r($request->all());
+            $user = User::find($request->user_id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->role = $request->role;
+            $user->save();
+            return redirect()
+                ->to('superuser/users-list')
+                ->with('success-message', 'User updated successfully!');
         }
     }
-    public function deleteUsers($id){
-        Users::destroy($id);
+    
+    public function deleteUsers(Request $request){
+        if($request->isMethod('post')){
+            if($request->user_id != null){
+                User::destroy($request->user_id);
+                return redirect()
+                    ->to('superuser/users-list')
+                    ->with('success-message', 'User deleted successfully!');
+            }else{
+                return redirect()
+                    ->to('superuser/users-list')
+                    ->with('error-message', 'Something went wrong!');
+            }
+        }
     }
 
 }
