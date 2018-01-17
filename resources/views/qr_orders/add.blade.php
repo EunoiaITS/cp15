@@ -14,6 +14,23 @@
                 <div class="col-sm-10 padding-left-0">
                     <div class="create-qr">
                         <h3 class="text-uppercase color-bbc">Create QR Order</h3>
+                        @if(session()->has('error'))
+                            <p class="alert alert-success">
+                                {{ session()->get('error') }}
+                            </p>
+                        @endif
+                        @if(session()->has('success-message'))
+                            <p class="alert alert-success">
+                                {{ session()->get('success-message') }}
+                            </p>
+                        @endif
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                <p class="alert alert-danger">
+                                    {{ $error }}
+                                </p>
+                            @endforeach
+                        @endif
                         <form action="{{ url('/qr-orders/addQROrder') }}" method="post">
                                 {{ csrf_field() }}
                             <div class="form-group clearfix">
@@ -34,21 +51,21 @@
                             <div id="add-item-table" class="clearfix">
                                 <div class="form-group clearfix">
                                     <label for="pr-name" class="label-d">Items Name <span class="fright">:</span></label>
-                                    <input type="text"  name="item_name" class="form-control from-qr" id="pr-name1">
+                                    <input type="text"  name="item_name1" class="form-control from-qr" id="pr-name1">
                                     @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('item_name') }}</p>@endif
                                 </div>
                                 <div class="form-group clearfix">
                                     <label for="pr-code" class="label-d">Item Code <span class="fright">:</span></label>
-                                    <input type="text" name="item_no" class="form-control from-qr" id="pr-code1">
+                                    <input type="text" name="item_no1" class="form-control from-qr" id="pr-code1">
                                     @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('item_no') }}</p>@endif
                                 </div>
                                 <div class="form-group clearfix" style="position: relative;">
                                     <label for="pr-quantity" class="label-d">Quantity <span class="fright">:</span></label>
-                                    <input type="text" name="quantity" class="form-control from-qr" id="pr-quantity1">
+                                    <input type="text" name="quantity1" class="form-control from-qr" id="pr-quantity1">
                                     @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('quantity') }}</p>@endif
                                 </div>
+                                <input type="hidden" name="count" value="1">
                             </div>
-                            <input type="hidden" name="count" value="1">
                             <button id="add-item-create" class="btn btn-info btn-price add-item-qe">Add Item</button>
 
                             <div class="col-sm-12">
