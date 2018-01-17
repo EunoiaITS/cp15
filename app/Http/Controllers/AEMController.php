@@ -28,26 +28,39 @@ class AEMController extends Controller
 
     public function addQROrder(Request $request){
         if($request->isMethod('post')) {
-//            print_r($request->all());
+            //print_r($request->all());
             $qr = new Quotation_requisition();
             if ($qr->validate($request->all())) {
                 $qr->pr_id = $request->pr_id;
                 $qr->pr_type = $request->pr_type;
                 $qr->category = $request->category;
                 $qr->save();
+                $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
                     $qr_item = new Qr_items();
-                    if($qr_item->validate($request->all())){
-                    $qr_item->qr_id = $qr->id;
-                    $qr_item->item_name = $request->item_name . $i;
-                    $qr_item->item_no = $request->item_no . $i;
-                    $qr_item->quantity  = $request->quantity .$i;
-                    $qr_item->save();
+                    $qr_items['item_name'] = $request->get('item_name' . $i);
+                    $qr_items['item_no'] = $request->get('item_no' . $i);
+                    $qr_items['quantity']  = $request->get('quantity' .$i);
+                    if($qr_item->validate($qr_items)){
+                        $qr_item->qr_id = $qr_item_id;
+                        $qr_item->item_name = $request->get('item_name' . $i);
+                        $qr_item->item_no = $request->get('item_no' . $i);
+                        $qr_item->quantity  = $request->get('quantity' .$i);
+                        $qr_item->save();
+                    }else{
+                        return redirect()
+                            ->to('/qr-orders')
+                            ->withErrors($qr_item->errors());
+                    }
                 }
-                }
-                return redirect()->to('/qr-orders')->withErrors($qr->errors());
+                return redirect()
+                    ->to('/qr-orders')
+                    ->with('success-message', 'Quotation requisition added successfully!');
             } else {
-                return redirect()->to('/qr-orders')->withErrors($qr->errors())->withInput();
+                return redirect()
+                    ->to('/qr-orders')
+                    ->withErrors($qr->errors())
+                    ->withInput();
             }
         }
     }
