@@ -35,6 +35,7 @@
                                     <input type="text" name="itemQuantity1" class="form-control from-qr" id="pr-quantity1">
                                 </div>
                             </div>
+                            <input type="hidden" name="count" value="1">
                             <button id="add-item-create" class="btn btn-info btn-price add-item-qe">Add Item</button>
 
                             <div class="col-sm-12">
