@@ -43,7 +43,7 @@ class AEMController extends Controller
                     $qr_item->item_no = $request->item_no . $i;
                     $qr_item->quantity  = $request->quantity .$i;
                     $qr_item->save();
-                    }
+                }
                 }
                 return redirect()->to('/qr-orders')->withErrors($qr->errors());
             } else {
