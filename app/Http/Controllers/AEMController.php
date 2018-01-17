@@ -28,20 +28,23 @@ class AEMController extends Controller
 
     public function addQROrder(Request $request){
         if($request->isMethod('post')) {
+//            print_r($request->all());
             $qr = new Quotation_requisition();
             if ($qr->validate($request->all())) {
                 $qr->pr_id = $request->pr_id;
                 $qr->pr_type = $request->pr_type;
                 $qr->category = $request->category;
                 $qr->save();
-                for($i = 1; $i <= $this->request->get('count'); $i++)
+                for($i = 1; $i <= $request->count; $i++)
                 $qr_item = new Qr_items();
                 if($qr_item->validate($request->all())){
-                    $qr_item->item_name = $request->item_name;
-                    $qr_item->item_no = $request->item_no;
-                    $qr_item->quantity = $request->quantity;
+                    $qr_item->qr_id = $qr->id;
+                    $qr_item->item_name = $request->item_name . $i;
+                    $qr_item->item_no = $request->item_no . $i;
+                    $qr_item->quantity  = $request->quantity .$i;
                     $qr_item->save();
                 }
+                return redirect()->to('/qr-orders')->withErrors($qr->errors());
             } else {
                 return redirect()->to('/qr-orders')->withErrors($qr->errors())->withInput();
             }

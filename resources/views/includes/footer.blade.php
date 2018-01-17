@@ -19,14 +19,14 @@ add item
             count++;
             var html_create = '<div class="form-group clearfix">'+
                     '<label for="pr-name" class="label-d">Items Name<span class="fright">:</span></label>'+
-                    '<input type="text" name="itemName'+count+'" class="form-control from-qr" id="pr-name'+count+'"></div>'+
+                    '<input type="text" name="item_name'+count+'" class="form-control from-qr" id="pr-name'+count+'"></div>'+
                     '<div class="form-group clearfix">'+
                     '<label for="pr-code" class="label-d">Item No<span class="fright">:</span></label>'+
-                    '<input type="text" name="itemNo'+count+'" class="form-control from-qr" id="pr-code'+count+'">'+
+                    '<input type="text" name="item_no'+count+'" class="form-control from-qr" id="pr-code'+count+'">'+
                     '</div>'+
                     '<div class="form-group clearfix">'+
                     '<label for="pr-quantity" class="label-d">Quantity<span class="fright">:</span></label>'+
-                    '<input type="text" name="itemQuantity'+count+'" class="form-control from-qr" id="pr-quantity'+count+'">'+
+                    '<input type="text" name="quantity'+count+'" class="form-control from-qr" id="pr-quantity'+count+'">'+
                     '</div>'+
                     '<input type="hidden" name="count" value="+count+">';
             $('#add-item-table').append(html_create);

@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
 <!-- content area-->
+
 @if($errors->any())
     @foreach($errors->all() as $error)
         <p class="alert alert-danger">{{$error}}</p>
