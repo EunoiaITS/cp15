@@ -47,6 +47,7 @@
                                     @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('quantity') }}</p>@endif
                                 </div>
                             </div>
+                            <input type="hidden" name="count" value="1">
                             <button id="add-item-create" class="btn btn-info btn-price add-item-qe">Add Item</button>
 
                             <div class="col-sm-12">

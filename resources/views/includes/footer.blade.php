@@ -27,7 +27,8 @@ add item
                     '<div class="form-group clearfix">'+
                     '<label for="pr-quantity" class="label-d">Quantity<span class="fright">:</span></label>'+
                     '<input type="text" name="itemQuantity'+count+'" class="form-control from-qr" id="pr-quantity'+count+'">'+
-                    '</div>';
+                    '</div>'+
+                    '<input type="hidden" name="count" value="+count+">';
             $('#add-item-table').append(html_create);
         });
     });
