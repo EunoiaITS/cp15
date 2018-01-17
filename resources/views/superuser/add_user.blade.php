@@ -1,6 +1,8 @@
+
 @extends('layout')
 @section('content')
 <!-- content area-->
+
 <div class="bbc-content-area mcw">
     <div class="container">
         <div class="row">

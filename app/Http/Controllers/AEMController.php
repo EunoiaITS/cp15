@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Qr_items;
 use App\Quotation_requisition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class AEMController extends Controller
 {
@@ -31,12 +34,19 @@ class AEMController extends Controller
                 $qr->pr_type = $request->pr_type;
                 $qr->category = $request->category;
                 $qr->save();
+                for($i = 1; $i <= $this->request->get('count'); $i++)
+                $qr_item = new Qr_items();
+                if($qr_item->validate($request->all())){
+                    $qr_item->item_name = $request->item_name;
+                    $qr_item->item_no = $request->item_no;
+                    $qr_item->quantity = $request->quantity;
+                    $qr_item->save();
+                }
             } else {
                 return redirect()->to('/qr-orders')->withErrors($qr->errors())->withInput();
             }
         }
     }
-
     public function editQROrder(Request $request){
         //
     }
