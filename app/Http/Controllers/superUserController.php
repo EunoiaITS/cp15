@@ -24,7 +24,10 @@ class superUserController extends Controller
                 $user->save();
             }
             else{
-                return redirect()->to('superuser')->withErrors($user->errors())->withInput();
+                return redirect()
+                    ->to('superuser')
+                    ->withErrors($user->errors())
+                    ->withInput();
             }
         }
 
@@ -37,7 +40,11 @@ class superUserController extends Controller
             $enum = array_add($enum, $v, $v);
         }
 
-        return view('superuser.add_user', ['roles' => $enum]);
+        return view('superuser.add_user', [
+            'roles' => $enum,
+            'page' => 'user',
+            'section' => 'add'
+        ]);
     }
 
     public function viewUsers(){
@@ -51,7 +58,12 @@ class superUserController extends Controller
             $enum = array_add($enum, $v, $v);
         }
 
-        return view('superuser.list', ['users' => $users, 'footer_js' => 'superuser.list-js', 'roles' => $enum]);
+        return view('superuser.list', [
+            'users' => $users,
+            'footer_js' => 'superuser.list-js',
+            'roles' => $enum,
+            'page' => 'view-user'
+        ]);
     }
 
     public function editUsers(Request $request){

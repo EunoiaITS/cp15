@@ -29,31 +29,31 @@
             </div>
             <ul class="nav navbar-nav">
                 <!-- Dropdown-->
-                <li class="panel panel-default" id="dropdown">
+                <li class="panel panel-default @if(isset($page) && $page == 'user'){{ "active" }}@endif" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lvl1">
                         Create Supplier List<span class="icon-right"></span>
                     </a>
                     <!-- Dropdown level 1 -->
-                    <div id="dropdown-lvl1" class="panel-collapse collapse">
+                    <div id="dropdown-lvl1" class="panel-collapse collapse @if(isset($page) && $page == 'user'){{ 'active' }}@endif">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="executive-create-supplier.html">Create</a></li>
+                                <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="executive-create-supplier.html">Create</a></li>
                                 <li><a href="executive-upload-supp.html">Upload</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li><a href="executive-view-supplier.html"> View Supplier List</a></li>
+                <li class="@if(isset($page) && $page == 'view-user'){{ 'active' }}@endif"><a href="executive-view-supplier.html"> View Supplier List</a></li>
                 <!-- Dropdown-->
-                <li class="panel panel-default active" id="dropdown">
+                <li class="panel panel-default" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lvl2">
                         Create QR Order<span class="icon-right"></span>
                     </a>
                     <!-- Dropdown level 1 -->
-                    <div id="dropdown-lvl2" class="panel-collapse collapse active">
+                    <div id="dropdown-lvl2" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="executive-create.html">Create</a></li>
+                                <li class="active"><a href="executive-create.html">Create</a></li>
                                 <li><a href="executive-upload.html">Upload</a></li>
                             </ul>
                         </div>
