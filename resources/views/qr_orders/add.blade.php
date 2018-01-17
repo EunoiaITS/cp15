@@ -8,7 +8,7 @@
                 <div class="col-sm-10 padding-left-0">
                     <div class="create-qr">
                         <h3 class="text-uppercase color-bbc">Create QR Order</h3>
-                        <form action="#">
+                        <form action="{{ url('/') }}">
                             <div class="form-group clearfix">
                                 <label for="pr-id" class="label-d">PR ID <span class="fright">:</span></label>
                                 <input type="text" class="form-control from-qr" id="pr-id">

@@ -23,6 +23,9 @@ Route::get('/superuser', 'superUserController@saveUser');
 Route::get('/superuser/users-list', 'superUserController@viewUsers');
 Route::post('/superuser/users-edit', 'superUserController@editUsers');
 Route::post('/superuser/users-delete', 'superUserController@deleteUsers');
+Route::post('/qr-orders/addQROrder', 'AEMController@addQROrder');
+Route::post('/editQROrder', 'AEMController@editQROrder');
+
 
 Route::get('/qr-orders', function () {
     return view('qr_orders.add');

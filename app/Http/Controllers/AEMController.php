@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Quotation_requisition;
 use Illuminate\Http\Request;
 
 class AEMController extends Controller
@@ -23,7 +24,17 @@ class AEMController extends Controller
     }
 
     public function addQROrder(Request $request){
-        //
+        if($request->isMethod('post')) {
+            $qr = new Quotation_requisition();
+            if ($qr->validate($request->all())) {
+                $qr->pr_id = $request->pr_id;
+                $qr->pr_type = $request->pr_type;
+                $qr->category = $request->category;
+                $qr->save();
+            } else {
+                return redirect()->to('/qr-orders')->withErrors($qr->errors())->withInput();
+            }
+        }
     }
 
     public function editQROrder(Request $request){
