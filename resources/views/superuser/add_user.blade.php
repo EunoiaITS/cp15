@@ -17,10 +17,9 @@
                     <div class="col-sm-7">
                         <div class="sign-in-form">
                             <h3>Create User</h3>
-                            <p>{{ $errors }}</p>
                             <p>Simply Enter Your Username and Password to Create User.</p>
                             <form action="{{url('superuser/create')}}" method="post">
-                                {!! csrf_field() !!}
+                                {{ csrf_field() }}
                                 <div class="form-group">
                                     <input type="text" name="email" class="form-control" placeholder="Email" >
                                 </div>

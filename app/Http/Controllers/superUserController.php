@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\superUser;
+use Illuminate\Support\Facades\Session;
 
 class superUserController extends Controller
 {
@@ -14,8 +15,10 @@ class superUserController extends Controller
             $user->password = $request->password;
             if(!$user->errors()){
                 $user->save();
+                Session::flash('success','User created successfully');
             }
             else{
+                
                 return redirect()->to('superuser')->with('errors',$user->errors());
             }
 
