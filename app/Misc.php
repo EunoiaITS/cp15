@@ -10,12 +10,10 @@ class Misc extends Model
     protected $table = 'misc';
 
     protected $fillable = [
-        'id',
         'key',
         'value'
     ];
     protected $rules = array(
-        'id' => 'required',
         'key'  => 'required',
         'value' => 'required'
     );

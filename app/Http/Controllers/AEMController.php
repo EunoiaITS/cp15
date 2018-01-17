@@ -2,16 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Create_suppliers;
 use App\Qr_items;
 use App\Quotation_requisition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class AEMController extends Controller
 {
     public function addSupplier(Request $request){
-        //
+        if($request->isMethod('post')){
+            //print_r($request->all());
+            $sup = new User();
+                $sup->name = $request->name;
+                $sup->email = $request->email;
+                $sup->role = $request->role;
+                $sup->save();
+                $user_id = $sup->id;
+                $sup_table = new Create_suppliers();
+                    if ($sup_table->validate($request->all())) {
+                        $sup_table->user_id = $user_id;
+                        $sup_table->category = $request->category;
+                        $sup_table->contact = $request->contact;
+                        $sup_table->save();
+                    }else{
+                        return redirect()
+                            ->to('/suppliers/')
+                            ->withErrors($sup_table->errors());
+                    }
+                        return redirect()
+                            ->to('/suppliers/')
+                            ->with('success-message', 'New Supplier added successfully!');
+        }
     }
 
     public function editSupplier(Request $request){

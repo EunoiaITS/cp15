@@ -10,14 +10,12 @@ class Supplier_quotations extends Model
     protected $table = 'supplier_quoatation';
 
     protected $fillable = [
-        'id',
         'qr_id',
         'unit_price',
         'comment',
         'file'
     ];
     protected $rules = array(
-        'id' => 'required',
         'qr_id'  => 'required',
         'unit_price' => 'required',
         'comment' => 'required',

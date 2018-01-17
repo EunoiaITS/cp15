@@ -10,14 +10,12 @@ class Qr_invitations extends Model
     protected $table = 'qr_invitation';
 
     protected $fillable = [
-        'id',
         'qr_id',
         'start_date',
         'end_date',
         'suppliers'
     ];
     protected $rules = array(
-        'id' => 'required',
         'name'  => 'required',
         'email' => 'required',
         'category' => 'required',
