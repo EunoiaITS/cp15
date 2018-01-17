@@ -35,6 +35,7 @@ class AEMController extends Controller
                 $qr->pr_type = $request->pr_type;
                 $qr->category = $request->category;
                 $qr->save();
+<<<<<<< HEAD
                 $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
                     $qr_item = new Qr_items();
@@ -51,6 +52,16 @@ class AEMController extends Controller
                         return redirect()
                             ->to('/qr-orders')
                             ->withErrors($qr_item->errors());
+=======
+                for($i = 1; $i <= $request->count; $i++){
+                    $qr_item = new Qr_items();
+                    if($qr_item->validate($request->all())){
+                    $qr_item->qr_id = $qr->id;
+                    $qr_item->item_name = $request->item_name . $i;
+                    $qr_item->item_no = $request->item_no . $i;
+                    $qr_item->quantity  = $request->quantity .$i;
+                    $qr_item->save();
+>>>>>>> afccbac731f06f74a6ec5d0f7a6d75733138cf07
                     }
                 }
                 return redirect()
