@@ -22,6 +22,7 @@ Route::post('/superuser', 'superUserController@saveUser');
 Route::get('/superuser', 'superUserController@saveUser');
 Route::get('/superuser/users-list', 'superUserController@viewUsers');
 Route::post('/superuser/users-edit', 'superUserController@editUsers');
+Route::post('/superuser/users-delete', 'superUserController@deleteUsers');
 
 Route::get('/qr-orders', function () {
     return view('qr_orders.add');

@@ -98,16 +98,18 @@
                     <div class="search-destination">
                         <h2 class="search-title">Delete Supplier</h2>
                     </div>
-                    <!-- header got seach area -->
+                        <form action="{{url('/superuser/users-delete/')}}" method="post">
+                            {{ csrf_field() }}
                     <div class="popup-got-search">
                         <p>Confirm to delete the Supplier from the view Supplier list ?</p>
                     </div><!--// end header got search area -->
                     <div class="col-sm-12">
                         <div class="btn-button-group clearfix">
-                            <button class="btn btn-info btn-price">Delete</button>
+                            <button type="submit" class="btn btn-info btn-price">Delete</button>
                             <button class="btn btn-info btn-popup close">Cancel</button>
                         </div>
                     </div>
+                        </form>
                 </div>
             </div>
         </div>

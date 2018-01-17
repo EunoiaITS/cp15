@@ -59,5 +59,8 @@ class superUserController extends Controller
             print_r($request->all());
         }
     }
+    public function deleteUsers($id){
+        Users::destroy($id);
+    }
 
 }
