@@ -13,7 +13,7 @@ class ChangeSuppliersTable extends Migration
      */
     public function up()
     {
-        Schema::table('supplier', function (Blueprint $table) {
+        Schema::table('suppliers', function (Blueprint $table) {
             $table->dropColumn('email');
             $table->integer('user_id')->nullable();
         });

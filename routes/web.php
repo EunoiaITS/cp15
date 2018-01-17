@@ -30,3 +30,9 @@ Route::post('/editQROrder', 'AEMController@editQROrder');
 Route::get('/qr-orders', function () {
     return view('qr_orders.add');
 });
+Route::get('/suppliers', function () {
+    return view('suppliers.add');
+});
+Route::get('/qr-orders/view', function () {
+    return view('qr_orders.view');
+});

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 
 class Create_suppliers extends Model
 {
-    protected $table = 'supplier';
+    protected $table = 'suppliers';
 
     protected $fillable = [
         'id',

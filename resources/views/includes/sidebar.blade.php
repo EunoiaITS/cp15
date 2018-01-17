@@ -37,7 +37,7 @@
                     <div id="dropdown-lvl1" class="panel-collapse collapse @if(isset($page) && $page == 'user'){{ 'active' }}@endif">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="executive-create-supplier.html">Create</a></li>
+                                <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/suppliers') }}">Create</a></li>
                                 <li><a href="executive-upload-supp.html">Upload</a></li>
                             </ul>
                         </div>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="executive-order-list.html"> Veiw QR Order List</a></li>
+                <li><a href="{{url('/qr-orders/view/')}}"> Veiw QR Order List</a></li>
                 <li><a href="executive-invite.html"> Invite Suppliers</a></li>
                 <li><a href="executive-view-quatation.html"> View Supplier Quotation</a></li>
                 <li><a href="executive-tender-summary.html"> Tender Summary</a></li>
