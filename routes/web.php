@@ -14,10 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('superuser/create', 'superUserController@saveUser');
-Route::get('/superuser', function () {
-    return view('superuser.add_user');
-});
+
+/*
+ * Super user routes
+ * */
+Route::post('/superuser', 'superUserController@saveUser');
+Route::get('/superuser', 'superUserController@saveUser');
+Route::get('/superuser/users-list', 'superUserController@viewUsers');
+Route::post('/superuser/users-edit', 'superUserController@editUsers');
+
 Route::get('/qr-orders', function () {
     return view('qr_orders.add');
 });
