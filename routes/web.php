@@ -23,6 +23,10 @@ Route::get('/superuser', 'superUserController@saveUser');
 Route::get('/superuser/users-list', 'superUserController@viewUsers');
 Route::post('/superuser/users-edit', 'superUserController@editUsers');
 Route::post('/superuser/users-delete', 'superUserController@deleteUsers');
+
+/**
+ * Admin Executive Manager routes
+ */
 Route::post('/qr-orders/addQROrder', 'AEMController@addQROrder');
 Route::post('/editQROrder', 'AEMController@editQROrder');
 Route::post('suppliers/addSupplier', 'AEMController@addSupplier');
@@ -37,3 +41,11 @@ Route::get('/suppliers', function () {
 Route::get('/qr-orders/view', function () {
     return view('qr_orders.view');
 });
+
+/**
+ * Director routes
+ */
+
+/**
+ * Supplier routes
+ */
