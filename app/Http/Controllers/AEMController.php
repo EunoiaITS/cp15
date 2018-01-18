@@ -42,9 +42,9 @@ class AEMController extends Controller
     }
 
     public function viewSupplier(){
-        $result = User::where('role','suppliers')->get();
+        $result = User::where('role', 'supplier')->get();
         foreach($result as $supplier){
-            $info = Create_suppliers::where('user_id','=',$supplier->id)->get();
+            $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
         }
         return view('suppliers.view', [
