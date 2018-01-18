@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="@if(isset($page) && $page == 'view-user'){{ 'active' }}@endif"><a href="executive-view-supplier.html"> View Supplier List</a></li>
+                <li class="@if(isset($page) && $page == 'view-user'){{ 'active' }}@endif"><a href="{{ url('/suppliers/viewSupplier/') }}"> View Supplier List</a></li>
                 <!-- Dropdown-->
                 <li class="panel panel-default" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lvl2">

@@ -21,25 +21,32 @@ class AEMController extends Controller
                 $sup->role = $request->role;
                 $sup->save();
                 $user_id = $sup->id;
-                $sup_table = new Create_suppliers();
-                    if ($sup_table->validate($request->all())) {
-                        $sup_table->user_id = $user_id;
-                        $sup_table->category = $request->category;
-                        $sup_table->contact = $request->contact;
-                        $sup_table->save();
+                $sup_info = new Create_suppliers();
+                    if ($sup_info->validate($request->all())) {
+                        $sup_info->user_id = $user_id;
+                        $sup_info->category = $request->category;
+                        $sup_info->contact = $request->contact;
+                        $sup_info->save();
                     }else{
                         return redirect()
                             ->to('/suppliers/')
-                            ->withErrors($sup_table->errors());
+                            ->withErrors($sup_info->errors());
                     }
                         return redirect()
                             ->to('/suppliers/')
                             ->with('success-message', 'New Supplier added successfully!');
         }
     }
-
+    public function viewSupplier(){
+        $result = User::where('role','supplier')->get();
+        $id = $result['id'];
+        $info = Create_suppliers::where('user_id','=',$id)->get();
+        return view('suppliers.view')->with([
+            'info' =>$info,
+            'result'=> $result]);
+    }
     public function editSupplier(Request $request){
-        //
+
     }
 
     public function addSupplierExcel(Request $request){
