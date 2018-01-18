@@ -57,7 +57,7 @@ class AEMController extends Controller
     }
 
     public function viewSupplier(){
-        $result = User::where('role', 'supplier')->get();
+        $result = User::where('role','=' ,'suppliers')->get();
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -70,28 +70,17 @@ class AEMController extends Controller
 
     public function editSupplier(Request $request){
         if($request->isMethod('post')){
-            //print_r($request->all());
-            $sup = User::find($request->user_id)->where('role','=','suppliers')->get();
-            $sup->name = $request->name;
-            $sup->email = $request->email;
-            $sup->role = $request->role;
-            $sup->save();
-            $user_id = $sup->id;
-            $sup_info = Create_suppliers::where('user_id','=',$supplier->id)->get();
-            if($sup_info->validate($request->all())){
-                $sup_info->user_id = $user_id;
-                $sup_info->category = $request->category;
-                $sup_info->contact = $request->contact;
-                $sup_info->save();
-                return view('suppliers.view', [
-                    'users' => $users,
-                    'footer_js' => 'suppliers.view-js',
-                    'page' => 'view'
-                ]);
-            }
+            $user = User::find($request->user_id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
+            $user_info = Create_suppliers::where('user_id' ,'=',$request->user_id)->first();
+            $user_info->category = $request->category;
+            $user_info->contact = $request->contact;
+            $user_info->save();
             return redirect()
                 ->to('suppliers/viewSupplier')
-                ->with('success-message', 'Supplier updated successfully!');
+                ->with('success-message', 'User updated successfully!');
         }
     }
 
