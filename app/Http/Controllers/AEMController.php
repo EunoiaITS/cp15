@@ -37,14 +37,18 @@ class AEMController extends Controller
                             ->with('success-message', 'New Supplier added successfully!');
         }
     }
+
     public function viewSupplier(){
         $result = User::where('role','supplier')->get();
-        $id = $result['id'];
-        $info = Create_suppliers::where('user_id','=',$id)->get();
-        return view('suppliers.view')->with([
-            'info' =>$info,
-            'result'=> $result]);
+        foreach($result as $supplier){
+            $info = Create_suppliers::where('user_id','=',$supplier->id)->get();
+            $supplier->info = $info;
+        }
+        return view('suppliers.view', [
+            'result'=> $result
+        ]);
     }
+
     public function editSupplier(Request $request){
 
     }

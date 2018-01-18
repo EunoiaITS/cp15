@@ -39,9 +39,7 @@ Route::get('/qr-orders', function () {
 Route::get('/suppliers', function () {
     return view('suppliers.add');
 });
-Route::get('/suppliers/view', function () {
-    return view('suppliers.view');
-});
+Route::get('/suppliers/view', 'AEMController@viewSupplier');
 Route::get('/qr-orders/view', function () {
     return view('qr_orders.view');
 });
