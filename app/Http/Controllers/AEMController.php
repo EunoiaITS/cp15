@@ -16,19 +16,14 @@ class AEMController extends Controller
     protected $user;
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            $this->user = Auth::user()->user;
-            return $next($request);
-        });
+        $this->authCheck();
     }
     public function authCheck()
     {
         if (Auth::user()) {
-            $user = User::find($id);
-            if ($user->role != ['admin', 'executive', 'manager']) {
+            if (Auth::user()->role != ['admin', 'executive', 'manager']) {
                 return redirect()
-                    ->to('/superuser/')
-                    ->withErrors($user->errors);
+                    ->to('/superuser/');
             }
         }
     }
