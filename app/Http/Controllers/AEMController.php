@@ -21,12 +21,18 @@ class AEMController extends Controller
     public function authCheck()
     {
         if (Auth::user()) {
+<<<<<<< HEAD
             $id = Auth::id();
             $user = User::find($id);
             if ($user->role != 'admin' || $user->role != 'executive' || $user->role != 'manager') {
                 return redirect()
                     ->to('/login')
                     ->with('error-message', 'You don\'t have authorization!');
+=======
+            if (Auth::user()->role != ['admin', 'executive', 'manager']) {
+                return redirect()
+                    ->to('/superuser/');
+>>>>>>> 32f2198b9133468a36d8cf79c4d8230c74211556
             }
         }else{
             return redirect()
@@ -64,8 +70,12 @@ class AEMController extends Controller
     }
 
     public function viewSupplier(){
+<<<<<<< HEAD
         $this->authCheck();
         $result = User::where('role', 'supplier')->get();
+=======
+        $result = User::where('role','=' ,'suppliers')->get();
+>>>>>>> 32f2198b9133468a36d8cf79c4d8230c74211556
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -78,28 +88,17 @@ class AEMController extends Controller
 
     public function editSupplier(Request $request){
         if($request->isMethod('post')){
-            //print_r($request->all());
-            $sup = User::find($request->user_id)->where('role','=','suppliers')->get();
-            $sup->name = $request->name;
-            $sup->email = $request->email;
-            $sup->role = $request->role;
-            $sup->save();
-            $user_id = $sup->id;
-            $sup_info = Create_suppliers::where('user_id','=',$supplier->id)->get();
-            if($sup_info->validate($request->all())){
-                $sup_info->user_id = $user_id;
-                $sup_info->category = $request->category;
-                $sup_info->contact = $request->contact;
-                $sup_info->save();
-                return view('suppliers.view', [
-                    'users' => $users,
-                    'footer_js' => 'suppliers.view-js',
-                    'page' => 'view'
-                ]);
-            }
+            $user = User::find($request->user_id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
+            $user_info = Create_suppliers::where('user_id' ,'=',$request->user_id)->first();
+            $user_info->category = $request->category;
+            $user_info->contact = $request->contact;
+            $user_info->save();
             return redirect()
                 ->to('suppliers/viewSupplier')
-                ->with('success-message', 'Supplier updated successfully!');
+                ->with('success-message', 'User updated successfully!');
         }
     }
 

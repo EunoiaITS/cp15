@@ -36,6 +36,7 @@ Route::post('/editQROrder', 'AEMController@editQROrder');
 Route::post('suppliers/addSupplier', 'AEMController@addSupplier');
 Route::get('suppliers/viewSupplier', 'AEMController@viewSupplier');
 Route::post('suppliers/editSupplier', 'AEMController@editSupplier');
+Route::get('suppliers/editSupplier', 'AEMController@editSupplier');
 Route::post('suppliers/deleteSupplier', 'AEMController@deleteSupplier');
 Route::get('/suppliers', function () {
     return view('suppliers.add');

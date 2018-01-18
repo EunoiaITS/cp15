@@ -65,7 +65,7 @@ edit qr popup
                 </div>
                 <!-- header got seach area -->
                 <div class="popup-got-search">
-                    <form action="{{ url('suppliers/editSuppliers') }}" method="post">
+                    <form action="{{ url('suppliers/editSupplier') }}" method="post">
                         {{ csrf_field() }}
                         <div class="form-group clearfix">
                             <label for="supplier-name" class="label-d">Supplier Name <span class="fright">:</span></label>
@@ -83,6 +83,7 @@ edit qr popup
                             <label for="sup-contact" class="label-d">Contact <span class="fright">:</span></label>
                             <input type="text" name="contact" class="form-control from-qr" id="sup-contact">
                         </div>
+                        <input type="hidden" name="user_id" id="user_id">
                         <div class="col-sm-12">
                             <div class="btn-button-group clearfix">
                                 <button class="btn btn-info btn-price">Save</button>
