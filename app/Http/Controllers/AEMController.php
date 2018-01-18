@@ -9,27 +9,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use App\User;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class AEMController extends Controller
 {
     protected $user;
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            $this->user = Auth::user()->user;
-            return $next($request);
-        });
+        $this->authCheck();
     }
     public function authCheck()
     {
         if (Auth::user()) {
+            $id = Auth::id();
             $user = User::find($id);
-            if ($user->role != ['admin', 'executive', 'manager']) {
+            if ($user->role != 'admin' || $user->role != 'executive' || $user->role != 'manager') {
                 return redirect()
-                    ->to('/superuser/')
-                    ->withErrors($user->errors);
+                    ->to('/login')
+                    ->with('error-message', 'You don\'t have authorization!');
             }
+        }else{
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'You don\'t have authorization!');
         }
     }
     public function addSupplier(Request $request){
@@ -62,6 +64,7 @@ class AEMController extends Controller
     }
 
     public function viewSupplier(){
+        $this->authCheck();
         $result = User::where('role', 'supplier')->get();
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
