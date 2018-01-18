@@ -31,14 +31,16 @@ Route::post('/qr-orders/addQROrder', 'AEMController@addQROrder');
 Route::post('/editQROrder', 'AEMController@editQROrder');
 Route::post('suppliers/addSupplier', 'AEMController@addSupplier');
 Route::get('suppliers/viewSupplier', 'AEMController@viewSupplier');
-
+Route::post('suppliers/editSupplier', 'AEMController@editSupplier');
+Route::post('suppliers/deleteSupplier', 'AEMController@deleteSupplier');
+Route::get('/suppliers', function () {
+    return view('suppliers.add');
+});
 
 Route::get('/qr-orders', function () {
     return view('qr_orders.add');
 });
-Route::get('/suppliers', function () {
-    return view('suppliers.add');
-});
+
 Route::get('/suppliers/view', 'AEMController@viewSupplier');
 Route::get('/qr-orders/view', function () {
     return view('qr_orders.view');

@@ -52,27 +52,28 @@ edit qr popup
                 </div>
                 <!-- header got seach area -->
                 <div class="popup-got-search">
-                    <form action="#">
+                    <form action="{{ url('suppliers/editSuppliers') }}" method="post">
+                        {{ csrf_field() }}
                         <div class="form-group clearfix">
                             <label for="supplier-name" class="label-d">Supplier Name <span class="fright">:</span></label>
-                            <input type="text" class="form-control from-qr" id="supplier-name">
+                            <input type="text" name="name" class="form-control from-qr" id="supplier-name" value="">
                         </div>
                         <div class="form-group clearfix">
-                            <label for="catagory-catagory" class="label-d">Category <span class="fright">:</span></label>
-                            <input type="text" class="form-control from-qr" id="catagory-catagory">
+                            <label for="sup-catagory" class="label-d">Category <span class="fright">:</span></label>
+                            <input type="text" name="category" class="form-control from-qr" id="sup-catagory">
                         </div>
                         <div class="form-group clearfix">
-                            <label for="pr-email" class="label-d">Email Address <span class="fright">:</span></label>
-                            <input type="text" class="form-control from-qr" id="pr-email">
+                            <label for="sup-email" class="label-d">Email Address <span class="fright">:</span></label>
+                            <input type="text" name="email" class="form-control from-qr" id="sup-email">
                         </div>
                         <div class="form-group clearfix">
-                            <label for="pr-contact" class="label-d">Contact <span class="fright">:</span></label>
-                            <input type="text" class="form-control from-qr" id="pr-contact">
+                            <label for="sup-contact" class="label-d">Contact <span class="fright">:</span></label>
+                            <input type="text" name="contact" class="form-control from-qr" id="sup-contact">
                         </div>
                         <div class="col-sm-12">
                             <div class="btn-button-group clearfix">
-                                <button class="btn btn-info btn-price open-popup-comp">Save</button>
-                                <button class="btn btn-info btn-popup close">Cancel</button>
+                                <button class="btn btn-info btn-price">Save</button>
+                                <button class="btn btn-info">Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -93,16 +94,20 @@ delete popup
                 <div class="search-destination">
                     <h2 class="search-title">Delete Supplier</h2>
                 </div>
+                <form action="{{url('/suppliers/deleteSupplier/')}}" method="post">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="user_id" id="delete_user_id">
                 <!-- header got seach area -->
                 <div class="popup-got-search">
                     <p>Confirm to delete the Supplier from the view Supplier list ?</p>
                 </div><!--// end header got search area -->
                 <div class="col-sm-12">
                     <div class="btn-button-group clearfix">
-                        <button class="btn btn-info btn-price open-popup-comp">Delete</button>
-                        <button class="btn btn-info btn-popup close">Cancel</button>
+                        <button class="btn btn-info btn-price">Delete</button>
+                        <button class="btn btn-info">Cancel</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
