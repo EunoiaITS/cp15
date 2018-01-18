@@ -22,7 +22,7 @@
                             @foreach($result as $res)
                             <tr>
                                 <td>{{$res->name}}</td>
-                                <td>@foreach($res as $in){{ $in->category }}@endforeach</td>
+                                <td>@foreach($res->info as $in){{ $in->category }}@endforeach</td>
                                 <td>{{$res->email}}</td>
                                 <td>@foreach($res->info as $in){{ $in->contact }}@endforeach</td>
                                 <td><button class="btn btn-info btn-view-table open-popup popup-left">Edit</button>
