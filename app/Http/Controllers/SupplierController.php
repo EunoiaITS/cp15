@@ -15,6 +15,6 @@ class SupplierController extends Controller
     }
 
     public function editProfile(Request $request){
-        //
+        return view('supplier-controller.profile');
     }
 }

@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', 'UsersController@login');
+Route::post('/login', 'UsersController@login');
+Route::get('/logout', 'UsersController@logout');
+
 /*
  * Super user routes
  * */
@@ -51,3 +55,4 @@ Route::get('/qr-orders/view', function () {
 /**
  * Supplier routes
  */
+Route::get('profile/edit', 'SupplierController@editProfile');

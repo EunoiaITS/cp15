@@ -19,8 +19,8 @@
                 <i class="fa fa-user"></i>
                 <div class="user-icon-dropdown">
                     <ul>
-                        <li><a href="change-password-executive.html">Change Password</a></li>
-                        <li><a href="#">Log Out</a></li>
+                        <li><a href="{{ url('profile/change-password') }}">Change Password</a></li>
+                        <li><a href="{{ url('logout') }}">Log Out</a></li>
                     </ul>
                 </div>
             </div>
