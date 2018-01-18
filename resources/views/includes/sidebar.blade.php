@@ -108,7 +108,7 @@
                             </div>
                         </li>
                     <li class="active"><a href="director-qr-order.html"> View QR Order</a></li>
-                    <li><a href="supplier-list.html"> View Supplier List</a></li>
+                    <li><a href="{{ url('/suppliers/viewSupplier') }}"> View Supplier List</a></li>
                     <li><a href="supplier-quotation.html">Quotation Approval <span class="label label-default">10</span></a></li>
                     <li><a href="tender-summary.html"> Tender Summary</a></li>
                     <li><a href="quotation.html">Allow to View Unit Price</a></li>
