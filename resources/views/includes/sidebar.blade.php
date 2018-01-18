@@ -20,14 +20,19 @@
                 <h2 class="user-profile">User Profile</h2>
                 <div class="user-name-full">
                     <span class="user-name"><b>Name :</b></span>
-                    <span class="user-name-right">Jhon Doe</span>
+                    <span class="user-name-right">@if(isset(Auth::user()->name)){{ Auth::user()->name }}@endif</span>
                 </div>
                 <div class="user-name-full">
                     <span class="user-name"><b>Role :</b></span>
-                    <span class="user-name-right">Executive</span>
+                    <span class="user-name-right">@if(isset(Auth::user()->role)){{ Auth::user()->role }}@endif</span>
                 </div>
             </div>
             <ul class="nav navbar-nav">
+                @if(isset(Auth::user()->role) && Auth::user()->role == 'supplier')
+                    <li class="active"><a href="{{ url('my-qr-orders') }}"> View QR Order List <span class="label label-default">10</span></a></li>
+                    <li><a href="{{ url('profile/edit') }}"> Profile</a></li>
+                    @endif
+                @if(isset(Auth::user()->role) && Auth::user()->role == 'admin' || isset(Auth::user()->role) && Auth::user()->role == 'executive' || isset(Auth::user()->role) && Auth::user()->role == 'manager')
                 <!-- Dropdown-->
                 <li class="panel panel-default @if(isset($page) && $page == 'user'){{ "active" }}@endif" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lvl1">
@@ -63,6 +68,51 @@
                 <li><a href="executive-invite.html"> Invite Suppliers</a></li>
                 <li><a href="executive-view-quatation.html"> View Supplier Quotation</a></li>
                 <li><a href="executive-tender-summary.html"> Tender Summary</a></li>
+                    @endif
+                @if(isset(Auth::user()->role) && Auth::user()->role == 'supplier')
+                    <li class="active"><a href="director-qr-order.html"> View QR Order</a></li>
+                    <li><a href="supplier-list.html"> View Supplier List</a></li>
+                    <li><a href="supplier-quotation.html">Quotation Approval <span class="label label-default">10</span></a></li>
+                    <li><a href="tender-summary.html"> Tender Summary</a></li>
+                    <li><a href="quotation.html">Allow to View Unit Price</a></li>
+                    @endif
+                @if(isset(Auth::user()->role) && Auth::user()->role == 'super_userController')
+                        <!-- Dropdown-->
+                        <li class="panel panel-default @if(isset($page) && $page == 'user'){{ "active" }}@endif" id="dropdown">
+                            <a data-toggle="collapse" href="#dropdown-lvl1">
+                                Create Supplier List<span class="icon-right"></span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-lvl1" class="panel-collapse collapse @if(isset($page) && $page == 'user'){{ 'active' }}@endif">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/suppliers') }}">Create</a></li>
+                                        <li><a href="executive-upload-supp.html">Upload</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Dropdown-->
+                        <li class="panel panel-default" id="dropdown">
+                            <a data-toggle="collapse" href="#dropdown-lvl2">
+                                Create QR Order<span class="icon-right"></span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-lvl2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li class="active"><a href="executive-create.html">Create</a></li>
+                                        <li><a href="executive-upload.html">Upload</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    <li class="active"><a href="director-qr-order.html"> View QR Order</a></li>
+                    <li><a href="supplier-list.html"> View Supplier List</a></li>
+                    <li><a href="supplier-quotation.html">Quotation Approval <span class="label label-default">10</span></a></li>
+                    <li><a href="tender-summary.html"> Tender Summary</a></li>
+                    <li><a href="quotation.html">Allow to View Unit Price</a></li>
+                    @endif
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>

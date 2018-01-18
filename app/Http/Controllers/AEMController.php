@@ -16,25 +16,28 @@ class AEMController extends Controller
         if($request->isMethod('post')){
             //print_r($request->all());
             $sup = new User();
-                $sup->name = $request->name;
-                $sup->email = $request->email;
-                $sup->role = $request->role;
-                $sup->save();
-                $user_id = $sup->id;
-                $sup_info = new Create_suppliers();
-                    if ($sup_info->validate($request->all())) {
-                        $sup_info->user_id = $user_id;
-                        $sup_info->category = $request->category;
-                        $sup_info->contact = $request->contact;
-                        $sup_info->save();
-                    }else{
-                        return redirect()
-                            ->to('/suppliers/')
-                            ->withErrors($sup_info->errors());
-                    }
-                        return redirect()
-                            ->to('/suppliers/')
-                            ->with('success-message', 'New Supplier added successfully!');
+            $sup->name = $request->name;
+            $sup->email = $request->email;
+            $sup->password = bcrypt('supplier');
+            $sup->role = $request->role;
+            $sup->save();
+            $user_id = $sup->id;
+            $sup_info = new Create_suppliers();
+
+            if ($sup_info->validate($request->all())) {
+                $sup_info->user_id = $user_id;
+                $sup_info->category = $request->category;
+                $sup_info->contact = $request->contact;
+                $sup_info->save();
+            }else{
+                return redirect()
+                    ->to('/suppliers/')
+                    ->withErrors($sup_info->errors());
+            }
+
+            return redirect()
+                ->to('/suppliers/')
+                ->with('success-message', 'New Supplier added successfully!');
         }
     }
 
