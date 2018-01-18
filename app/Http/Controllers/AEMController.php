@@ -48,7 +48,8 @@ class AEMController extends Controller
             $supplier->info = $info;
         }
         return view('suppliers.view', [
-            'result'=> $result
+            'result'=> $result,
+            'footer_js' => 'suppliers.view-js'
         ]);
     }
 
