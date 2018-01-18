@@ -51,7 +51,7 @@ class AEMController extends Controller
 
     public function editSupplier(Request $request){
         if($request->isMethod('post')){
-            print_r($request->all());
+            //print_r($request->all());
             $sup = User::find($request->user_id)->where('role','=','suppliers')->get();
             $sup->name = $request->name;
             $sup->email = $request->email;
@@ -64,6 +64,11 @@ class AEMController extends Controller
                 $sup_info->category = $request->category;
                 $sup_info->contact = $request->contact;
                 $sup_info->save();
+                return view('suppliers.view', [
+                    'users' => $users,
+                    'footer_js' => 'suppliers.view-js',
+                    'page' => 'view'
+                ]);
             }
             return redirect()
                 ->to('suppliers/viewSupplier')
