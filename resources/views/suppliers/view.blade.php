@@ -6,8 +6,21 @@
         <div class="row">
             <div class="col-sm-11 col-sm-offset-1">
                 <h3 class="text-uppercase color-bbc">View Supplier List</h3>
+                @if(session()->has('success-message'))
+                    <p class="alert alert-success">
+                        {{ session()->get('success-message') }}
+                    </p>
+                @endif
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        <p class="alert alert-danger">
+                            {{ $error }}
+                        </p>
+                    @endforeach
+                @endif
                 <div class="col-sm-10 padding-left-0">
                     <div class="table table-responsive">
+
                         <table class="table">
                             <thead>
                             <tr>
@@ -21,12 +34,12 @@
                             <tbody>
                             @foreach($result as $res)
                             <tr>
-                                <td>{{$res->name}}</td>
-                                <td>@foreach($res->info as $in){{ $in->category }}@endforeach</td>
-                                <td>{{$res->email}}</td>
-                                <td>@foreach($res->info as $in){{ $in->contact }}@endforeach</td>
-                                <td><button class="btn btn-info btn-view-table open-popup popup-left">Edit</button>
-                                    <button class="btn btn-info btn-view-table open-popup-delete">Delete</button></td>
+                                <td id="name{{$res->id}}">{{$res->name}}</td>
+                                @foreach($res->info as $in)<td id="category{{$in->user_id}}">{{ $in->category }}@endforeach</td>
+                                <td id="email{{$res->id}}">{{$res->email}}</td>
+                                @foreach($res->info as $in)<td id="contact{{$in->user_id}}">{{ $in->contact }}@endforeach</td>
+                                <td><button rel="{{ $res->id }}" id="edit{{ $res->id }}" class="btn btn-info btn-view-table open-popup popup-left">Edit</button>
+                                    <button rel="{{ $res->id }}" id="delete{{ $res->id }}" class="btn btn-info btn-view-table open-popup-delete">Delete</button></td>
                             </tr>
                             @endforeach
                             </tbody>

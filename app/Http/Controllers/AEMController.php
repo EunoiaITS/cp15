@@ -51,6 +51,7 @@ class AEMController extends Controller
 
     public function editSupplier(Request $request){
         if($request->isMethod('post')){
+            print_r($request->all());
             $sup = User::find($request->user_id)->where('role','=','suppliers')->get();
             $sup->name = $request->name;
             $sup->email = $request->email;
