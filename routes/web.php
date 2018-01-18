@@ -26,6 +26,7 @@ Route::post('/superuser/users-delete', 'superUserController@deleteUsers');
 Route::post('/qr-orders/addQROrder', 'AEMController@addQROrder');
 Route::post('/editQROrder', 'AEMController@editQROrder');
 Route::post('suppliers/addSupplier', 'AEMController@addSupplier');
+Route::get('suppliers/viewSupplier', 'AEMController@viewSupplier');
 
 
 Route::get('/qr-orders', function () {
@@ -33,6 +34,9 @@ Route::get('/qr-orders', function () {
 });
 Route::get('/suppliers', function () {
     return view('suppliers.add');
+});
+Route::get('/suppliers/view', function () {
+    return view('suppliers.view');
 });
 Route::get('/qr-orders/view', function () {
     return view('qr_orders.view');
