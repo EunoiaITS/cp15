@@ -21,6 +21,17 @@ class AEMController extends Controller
             return $next($request);
         });
     }
+    public function authCheck()
+    {
+        if (Auth::user()) {
+            $user = User::find($id);
+            if ($user->role != ['admin', 'executive', 'manager']) {
+                return redirect()
+                    ->to('/superuser/')
+                    ->withErrors($user->errors);
+            }
+        }
+    }
     public function addSupplier(Request $request){
         if($request->isMethod('post')){
             //print_r($request->all());
