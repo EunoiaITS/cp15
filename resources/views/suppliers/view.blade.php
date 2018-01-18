@@ -35,9 +35,9 @@
                             @foreach($result as $res)
                             <tr>
                                 <td id="name{{$res->id}}">{{$res->name}}</td>
-                                @foreach($res->info as $in)<td id="category{{$in->user_id}}">{{ $in->category }}@endforeach</td>
+                                <td id="category{{$res->id}}">@foreach($res->info as $in){{ $in->category }}@endforeach</td>
                                 <td id="email{{$res->id}}">{{$res->email}}</td>
-                                @foreach($res->info as $in)<td id="contact{{$in->user_id}}">{{ $in->contact }}@endforeach</td>
+                                <td id="contact{{$res->id}}">@foreach($res->info as $in){{ $in->contact }}@endforeach</td>
                                 <td><button rel="{{ $res->id }}" id="edit{{ $res->id }}" class="btn btn-info btn-view-table open-popup popup-left">Edit</button>
                                     <button rel="{{ $res->id }}" id="delete{{ $res->id }}" class="btn btn-info btn-view-table open-popup-delete">Delete</button></td>
                             </tr>
