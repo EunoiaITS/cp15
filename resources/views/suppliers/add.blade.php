@@ -44,7 +44,7 @@
                                 <label for="pr-contact" class="label-d">Contact <span class="fright">:</span></label>
                                 <input type="text" name="contact" class="form-control from-qr" id="pr-contact">
                             </div>
-                            <input type="hidden" name="role" value="supplier">
+                            <input type="hidden" name="role" value="suppliers">
                             <input type="hidden" name="user_id" value="">
                             <div class="col-sm-9">
                                 <button class="btn btn-info btn-price" style="float: right;">Add Supplier</button>

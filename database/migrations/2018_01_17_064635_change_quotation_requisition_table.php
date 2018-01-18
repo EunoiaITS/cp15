@@ -14,7 +14,7 @@ class ChangeQuotationRequisitionTable extends Migration
     public function up()
     {
         Schema::table('qr_table', function (Blueprint $table) {
-            $table->integer('user_id')->nullable()->after('category');
+            $table->integer('user_id')->after('category');
         });
     }
 

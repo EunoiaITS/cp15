@@ -13,7 +13,7 @@ class Change2SuppliersTable extends Migration
      */
     public function up()
     {
-        Schema::table('supplier', function (Blueprint $table) {
+        Schema::table('suppliers', function (Blueprint $table) {
             $table->dropColumn('name');
         });
     }
