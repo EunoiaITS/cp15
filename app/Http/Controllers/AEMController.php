@@ -9,9 +9,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class AEMController extends Controller
 {
+    protected $user;
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user()->user;
+            return $next($request);
+        });
+    }
     public function addSupplier(Request $request){
         if($request->isMethod('post')){
             //print_r($request->all());
