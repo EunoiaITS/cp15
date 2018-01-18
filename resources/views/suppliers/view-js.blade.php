@@ -9,6 +9,7 @@
             $('#sup-email').val($('#email'+id).text());
             $('#sup-catagory').val($('#category'+id).text());
             $('#sup-contact').val($('#contact'+id).text());
+            $('#sup-category').val($('#category'+id).text());
         });
     });
 </script>
