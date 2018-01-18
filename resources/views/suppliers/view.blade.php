@@ -73,7 +73,7 @@ edit qr popup
                         </div>
                         <div class="form-group clearfix">
                             <label for="sup-catagory" class="label-d">Category <span class="fright">:</span></label>
-                            <input type="text" name="category" class="form-control from-qr" id="sup-catagory">
+                            <input type="text" name="category" class="form-control from-qr" id="sup-category">
                         </div>
                         <div class="form-group clearfix">
                             <label for="sup-email" class="label-d">Email Address <span class="fright">:</span></label>
