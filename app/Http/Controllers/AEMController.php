@@ -14,32 +14,33 @@ use Auth;
 class AEMController extends Controller
 {
     protected $user;
+
     public function __construct()
     {
         $this->authCheck();
     }
+
     public function authCheck()
     {
         if (Auth::user()) {
-<<<<<<< HEAD
             $id = Auth::id();
             $user = User::find($id);
             if ($user->role != 'admin' || $user->role != 'executive' || $user->role != 'manager') {
                 return redirect()
                     ->to('/login')
                     ->with('error-message', 'You don\'t have authorization!');
-=======
-            if (Auth::user()->role != ['admin', 'executive', 'manager']) {
+            } else {
                 return redirect()
-                    ->to('/superuser/');
->>>>>>> 32f2198b9133468a36d8cf79c4d8230c74211556
+                    ->to('/login')
+                    ->with('error-message', 'You don\'t have authorization!');
             }
         }else{
             return redirect()
                 ->to('/login')
-                ->with('error-message', 'You don\'t have authorization!');
+                ->with('error-message', 'Please login first!');
         }
     }
+
     public function addSupplier(Request $request){
         if($request->isMethod('post')){
             //print_r($request->all());
@@ -70,12 +71,9 @@ class AEMController extends Controller
     }
 
     public function viewSupplier(){
-<<<<<<< HEAD
         $this->authCheck();
         $result = User::where('role', 'supplier')->get();
-=======
         $result = User::where('role','=' ,'suppliers')->get();
->>>>>>> 32f2198b9133468a36d8cf79c4d8230c74211556
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
