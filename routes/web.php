@@ -44,6 +44,10 @@ Route::get('suppliers/view-supplier', 'AEMController@viewSupplier');
 Route::post('suppliers/edit-supplier', 'AEMController@editSupplier');
 Route::post('suppliers/delete-supplier', 'AEMController@deleteSupplier');
 
+Route::post('suppliers/invite-suppliers', 'AEMController@inviteSuppliersView');
+Route::get('suppliers/invite-suppliers', 'AEMController@inviteSuppliersView');
+Route::get('suppliers/invite', 'AEMController@inviteSuppliersView');
+
 /**
  * Director routes
  */

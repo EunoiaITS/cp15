@@ -65,7 +65,7 @@ edit qr popup
                 </div>
                 <!-- header got seach area -->
                 <div class="popup-got-search">
-                    <form action="{{ url('suppliers/editSupplier') }}" method="post">
+                    <form action="{{ url('suppliers/edit-supplier') }}" method="post">
                         {{ csrf_field() }}
                         <div class="form-group clearfix">
                             <label for="supplier-name" class="label-d">Supplier Name <span class="fright">:</span></label>
@@ -108,7 +108,7 @@ delete popup
                 <div class="search-destination">
                     <h2 class="search-title">Delete Supplier</h2>
                 </div>
-                <form action="{{url('/suppliers/deleteSupplier/')}}" method="post">
+                <form action="{{url('suppliers/delete-supplier')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="user_id" id="delete_user_id">
                 <!-- header got seach area -->

@@ -91,7 +91,7 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $result = User::where('role', 'supplier')->get();
+        $result = User::where('role', 'suppliers')->get();
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -127,7 +127,7 @@ class AEMController extends Controller
             $user_info->contact = $request->contact;
             $user_info->save();
             return redirect()
-                ->to('suppliers/viewSupplier')
+                ->to('suppliers/view-supplier')
                 ->with('success-message', 'User updated successfully!');
         }
     }
@@ -205,7 +205,7 @@ class AEMController extends Controller
                     }
                 }
                 return redirect()
-                    ->to('/qr-orders')
+                    ->to('/add-qr-orders')
                     ->with('success-message', 'Quotation requisition added successfully!');
             } else {
                 return redirect()
@@ -245,9 +245,45 @@ class AEMController extends Controller
     public function deleteQROrder(Request $request){
         //
     }
-
+    public function inviteSuppliersView(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
+        $invite = Quotation_requisition::all();
+        foreach ($invite as $inv){
+            $suppliers = User::where('role','suppliers')->get();
+            $inv->suppliers = $suppliers;
+        }
+        return view('suppliers.invite')->with(array(
+            'invite'=>$invite,
+            'suppliers'=>$suppliers));
+    }
     public function inviteSuppliers(Request $request){
-        //
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You do not have authorization!');
+            }
+        }
+
+        return view('suppliers.invite');
     }
 
     public function supplierQuotations(Request $request){
