@@ -13,35 +13,38 @@ use Auth;
 
 class AEMController extends Controller
 {
-    protected $user;
 
-    public function __construct()
+    protected function authCheck()
     {
-        $this->authCheck();
-    }
-
-    public function authCheck()
-    {
-        if (Auth::user()) {
-            $id = Auth::id();
-            $user = User::find($id);
-            if ($user->role != 'admin' || $user->role != 'executive' || $user->role != 'manager') {
-                return redirect()
-                    ->to('/login')
-                    ->with('error-message', 'You don\'t have authorization!');
-            } else {
-                return redirect()
-                    ->to('/login')
-                    ->with('error-message', 'You don\'t have authorization!');
-            }
-        }else{
+        if (!Auth::user()) {
             return redirect()
                 ->to('/login')
                 ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
         }
     }
 
     public function addSupplier(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         if($request->isMethod('post')){
             //print_r($request->all());
             $sup = new User();
@@ -68,23 +71,52 @@ class AEMController extends Controller
                 ->to('/suppliers/')
                 ->with('success-message', 'New Supplier added successfully!');
         }
+        return view('suppliers.add', [
+            'page' => 'supplier',
+            'section' => 'add'
+        ]);
     }
 
     public function viewSupplier(){
-        $this->authCheck();
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         $result = User::where('role', 'supplier')->get();
-        $result = User::where('role','=' ,'suppliers')->get();
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
         }
         return view('suppliers.view', [
             'result'=> $result,
-            'footer_js' => 'suppliers.view-js'
+            'footer_js' => 'suppliers.view-js',
+            'page' => 'view-supplier'
         ]);
     }
 
     public function editSupplier(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         if($request->isMethod('post')){
             $user = User::find($request->user_id);
             $user->name = $request->name;
@@ -105,6 +137,19 @@ class AEMController extends Controller
     }
 
     public function deleteSupplier(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         if($request->isMethod('post')){
             if($request->user_id != null){
                 User::destroy($request->user_id);
@@ -120,6 +165,19 @@ class AEMController extends Controller
     }
 
     public function addQROrder(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         if($request->isMethod('post')) {
             //print_r($request->all());
             $qr = new Quotation_requisition();
@@ -142,7 +200,7 @@ class AEMController extends Controller
                         $qr_item->save();
                     }else{
                         return redirect()
-                            ->to('/qr-orders')
+                            ->to('/qr-orders/add-qr-order')
                             ->withErrors($qr_item->errors());
                     }
                 }
@@ -151,12 +209,30 @@ class AEMController extends Controller
                     ->with('success-message', 'Quotation requisition added successfully!');
             } else {
                 return redirect()
-                    ->to('/qr-orders')
+                    ->to('/qr-orders/add-qr-order')
                     ->withErrors($qr->errors())
                     ->withInput();
             }
         }
+        return view('qr_orders.add', [
+            'page' => 'qr-order',
+            'section' => 'add',
+            'footer_js' => 'qr_orders.qr-orders-js'
+        ]);
     }
+
+    public function viewQROrder(Request $request){
+        $qrs = Quotation_requisition::all();
+        foreach($qrs as $qr){
+            $items = Qr_items::where('qr_id', $qr->id)->get();
+            $qr->items = $items;
+        }
+        return view('qr_orders.view', [
+            'qrs' => $qrs,
+            'page' => 'view-qr-order',
+        ]);
+    }
+
     public function editQROrder(Request $request){
         //
     }

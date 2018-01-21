@@ -292,8 +292,6 @@ main navbar and sidebar css
   border-color: #0e142e;
   background: #0e142e;
   box-shadow: 1px 1px 10px rgba(0,0,0,.2);
-  -webkit-box-shadow: 1px 1px 10px rgba(0,0,0,.2);
-  -moz-box-shadow: 1px 1px 10px rgba(0,0,0,.2);
 }
 .mnb .user-login i{
     text-align: center;
@@ -316,8 +314,6 @@ main navbar and sidebar css
     -webkit-transition: all .4s ease-in;
     -moz-transition: all .4s ease-in;
     box-shadow: 1px 1px 10px rgba(0,0,0,.2);
-    -webkit-box-shadow: 1px 1px 10px rgba(0,0,0,.2);
-    -moz-box-shadow: 1px 1px 10px rgba(0,0,0,.2);
 }
 .user-icon-dropdown:before {
     content: "";
@@ -950,6 +946,12 @@ create qr
     font-size: 14px;
     font-weight: 600;
 }
+.pr-text{
+    width: 30%;
+    float: left;
+    text-align: left;
+    margin-left: 15px;
+}
 .fright{
   float: right;
 }
@@ -965,10 +967,24 @@ create qr
 }
 .create-qr .btn.btn-info.add-item-qe {
     position: absolute;
-    bottom: 23px;
-    right: 45px;
+    bottom: 30%;
+    right: 12px;
     height: 40px;
-    width: 120px;
+    width: 95px;
+}
+.btn-price.btn-popup-add {
+    position: absolute;
+    bottom: 30%;
+    right: 12px;
+    height: 40px;
+    width: 95px;
+}
+.qr-overfollow{
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+#add-item-table{
+  margin-top: 30px;
 }
 .create-qr .btn-button-group {
     margin: 36px auto;
@@ -1068,10 +1084,12 @@ Responsive area
       background: #fff;
       width: 90%;
     }
-    .create-qr .btn.btn-info.add-item-qe {
+    .create-qr .btn.btn-info.add-item-qe,
+    .btn-price.btn-popup-add{
       right: 13px;
-      width: 106px;
-    }
+      width: 86px;
+      font-size: 14px;
+   }
     #canvas-holder {
         width: 60%;
         display: block;
@@ -1103,7 +1121,8 @@ Responsive area
         margin: 40px 20px 30px 14px;
     }
     .btn.btn-info {
-        width: 115px;
+      width: 115px;
+      margin-bottom: 10px;
     }
     .sign-in-form p {
         width: 90%;
@@ -1146,6 +1165,9 @@ Responsive area
       width: 40%;
       margin-bottom: 30px;
     }
+    .btn-button-group-opitonal{
+        margin-top: 70px !important;
+    }
     .create-qr {
       padding: 20px 25px;
     }
@@ -1157,9 +1179,14 @@ Responsive area
       margin-left: 16px;
     }
     
-    .create-qr .btn.btn-info.add-item-qe {
-        right: 18px;
-        bottom: 29%;
+    .create-qr .btn.btn-info.add-item-qe{
+      right: 6px;
+      bottom: 34%;
+    }
+    .btn-price.btn-popup-add {
+      right: 6px;
+      bottom: 33%;
+      width: 94px;
     }
     .create-qr .btn-button-group {
         margin: 65px auto;
@@ -1183,7 +1210,8 @@ Responsive area
         float: left;
         width: 100%;
     }
-    .create-qr .btn.btn-info.add-item-qe {
+    .create-qr .btn.btn-info.add-item-qe,
+    .btn-price.btn-popup-add{
       right: 39px;
       bottom: 29%;
     }

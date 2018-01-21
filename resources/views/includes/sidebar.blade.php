@@ -29,52 +29,52 @@
             </div>
             <ul class="nav navbar-nav">
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'supplier')
-                    <li class="active"><a href="{{ url('my-qr-orders') }}"> View QR Order List <span class="label label-default">10</span></a></li>
-                    <li><a href="{{ url('profile/edit') }}"> Profile</a></li>
+                    <li class="active"><a href="{{ url('/invitations') }}"> View QR Order List <span class="label label-default">10</span></a></li>
+                    <li><a href="{{ url('/profile/edit') }}"> Profile</a></li>
                     @endif
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'admin' || isset(Auth::user()->role) && Auth::user()->role == 'executive' || isset(Auth::user()->role) && Auth::user()->role == 'manager')
                 <!-- Dropdown-->
-                <li class="panel panel-default @if(isset($page) && $page == 'user'){{ "active" }}@endif" id="dropdown">
+                <li class="panel panel-default @if(isset($page) && $page == 'supplier'){{ "active" }}@endif" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lvl1">
                         Create Supplier List<span class="icon-right"></span>
                     </a>
                     <!-- Dropdown level 1 -->
-                    <div id="dropdown-lvl1" class="panel-collapse collapse @if(isset($page) && $page == 'user'){{ 'active' }}@endif">
+                    <div id="dropdown-lvl1" class="panel-collapse collapse @if(isset($page) && $page == 'supplier'){{ 'active' }}@endif">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/suppliers') }}">Create</a></li>
-                                <li><a href="executive-upload-supp.html">Upload</a></li>
+                                <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/suppliers/add-supplier') }}">Create</a></li>
+                                <li class="@if(isset($section) && $section == 'excel'){{ 'active' }}@endif"><a href="{{ url('/suppliers/add-supplier') }}">Upload</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li class="@if(isset($page) && $page == 'view-user'){{ 'active' }}@endif"><a href="{{ url('/suppliers/viewSupplier/') }}"> View Supplier List</a></li>
+                <li class="@if(isset($page) && $page == 'view-supplier'){{ 'active' }}@endif"><a href="{{ url('/suppliers/view-supplier/') }}"> View Supplier List</a></li>
                 <!-- Dropdown-->
-                <li class="panel panel-default" id="dropdown">
+                <li class="panel panel-default @if(isset($page) && $page == 'qr-order'){{ "active" }}@endif" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lvl2">
                         Create QR Order<span class="icon-right"></span>
                     </a>
                     <!-- Dropdown level 1 -->
-                    <div id="dropdown-lvl2" class="panel-collapse collapse">
+                    <div id="dropdown-lvl2" class="panel-collapse collapse @if(isset($page) && $page == 'qr-order'){{ "active" }}@endif">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="executive-create.html">Create</a></li>
-                                <li><a href="executive-upload.html">Upload</a></li>
+                                <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/qr-orders/add-qr-order') }}">Create</a></li>
+                                <li class="@if(isset($section) && $section == 'excel'){{ 'active' }}@endif"><a href="{{ url('/qr-orders/add-qr-order') }}">Upload</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li><a href="{{url('/qr-orders/view/')}}"> Veiw QR Order List</a></li>
-                <li><a href="executive-invite.html"> Invite Suppliers</a></li>
-                <li><a href="executive-view-quatation.html"> View Supplier Quotation</a></li>
-                <li><a href="executive-tender-summary.html"> Tender Summary</a></li>
+                <li class="@if(isset($page) && $page == 'view-qr-order'){{ "active" }}@endif"><a href="{{url('/qr-orders/view')}}"> Veiw QR Order List</a></li>
+                <li class="@if(isset($page) && $page == 'invite'){{ "active" }}@endif"><a href="{{url('/invite-suppliers')}}"> Invite Suppliers</a></li>
+                <li class="@if(isset($page) && $page == 'quotations'){{ "active" }}@endif"><a href="{{url('/view-supplier-quotation')}}"> View Supplier Quotation</a></li>
+                <li class="@if(isset($page) && $page == 'tender'){{ "active" }}@endif"><a href="{{url('/tender-summery')}}"> Tender Summary</a></li>
                     @endif
-                @if(isset(Auth::user()->role) && Auth::user()->role == 'supplier')
-                    <li class="active"><a href="director-qr-order.html"> View QR Order</a></li>
-                    <li><a href="supplier-list.html"> View Supplier List</a></li>
-                    <li><a href="supplier-quotation.html">Quotation Approval <span class="label label-default">10</span></a></li>
-                    <li><a href="tender-summary.html"> Tender Summary</a></li>
-                    <li><a href="quotation.html">Allow to View Unit Price</a></li>
+                @if(isset(Auth::user()->role) && Auth::user()->role == 'director')
+                    <li class="active"><a href="{{url('/view-qr-orders')}}"> View QR Order</a></li>
+                    <li><a href="{{url('/view-supplier-list')}}"> View Supplier List</a></li>
+                    <li><a href="{{url('/approve-quotations')}}">Quotation Approval <span class="label label-default">10</span></a></li>
+                    <li><a href="{{url('/tender-summery')}}"> Tender Summary</a></li>
+                    <li><a href="{{url('/allow-price-show')}}">Allow to View Unit Price</a></li>
                     @endif
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'super_userController')
                         <!-- Dropdown-->

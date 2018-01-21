@@ -8,31 +8,6 @@
 <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/jquery.nicescroll.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/main.js') }}"></script>
-<!--================
-add item
-========================-->
-<script>
-    $(document).ready(function(){
-        var count = 1;
-        $('#add-item-create').on('click', function(e){
-            e.preventDefault();
-            count++;
-            var html_create = '<div class="form-group clearfix">'+
-                    '<label for="pr-name" class="label-d">Items Name<span class="fright">:</span></label>'+
-                    '<input type="text" name="item_name'+count+'" class="form-control from-qr" id="pr-name'+count+'"></div>'+
-                    '<div class="form-group clearfix">'+
-                    '<label for="pr-code" class="label-d">Item No<span class="fright">:</span></label>'+
-                    '<input type="text" name="item_no'+count+'" class="form-control from-qr" id="pr-code'+count+'">'+
-                    '</div>'+
-                    '<div class="form-group clearfix">'+
-                    '<label for="pr-quantity" class="label-d">Quantity<span class="fright">:</span></label>'+
-                    '<input type="text" name="quantity'+count+'" class="form-control from-qr" id="pr-quantity'+count+'">'+
-                    '</div>'+
-                    '<input type="hidden" name="count" value="'+count+'">';
-            $('#add-item-table').append(html_create);
-        });
-    });
-</script>
 
 @if(isset($footer_js))
 @include($footer_js)

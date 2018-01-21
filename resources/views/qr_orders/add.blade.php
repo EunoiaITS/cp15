@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-11 col-sm-offset-1">
                 <div class="col-sm-10 padding-left-0">
-                    <div class="create-qr">
+                    <div class="create-qr qr-overfollow">
                         <h3 class="text-uppercase color-bbc">Create QR Order</h3>
                         @if(session()->has('error'))
                             <p class="alert alert-success">
@@ -25,7 +25,7 @@
                                 </p>
                             @endforeach
                         @endif
-                        <form action="{{ url('/qr-orders/addQROrder') }}" method="post">
+                        <form action="{{ url('/qr-orders/add-qr-order') }}" method="post">
                                 {{ csrf_field() }}
                             <div class="form-group clearfix">
                                 <label for="pr-id" class="label-d">PR ID <span class="fright">:</span></label>
@@ -42,30 +42,33 @@
                                 <input type="text" name="category" class="form-control from-qr" id="pr-catagory">
                                 @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('category') }}</p>@endif
                             </div>
-                            <div id="add-item-table" class="clearfix">
-                                <div class="form-group clearfix">
-                                    <label for="pr-name" class="label-d">Items Name <span class="fright">:</span></label>
-                                    <input type="text"  name="item_name1" class="form-control from-qr" id="pr-name1">
-                                    @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('item_name') }}</p>@endif
-                                </div>
-                                <div class="form-group clearfix">
-                                    <label for="pr-code" class="label-d">Item Code <span class="fright">:</span></label>
-                                    <input type="text" name="item_no1" class="form-control from-qr" id="pr-code1">
-                                    @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('item_no') }}</p>@endif
-                                </div>
-                                <div class="form-group clearfix" style="position: relative;">
-                                    <label for="pr-quantity" class="label-d">Quantity <span class="fright">:</span></label>
-                                    <input type="text" name="quantity1" class="form-control from-qr" id="pr-quantity1">
-                                    @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('quantity') }}</p>@endif
-                                </div>
-                                <input type="hidden" name="count" value="1">
+                            <div id="add-item-table" class="col-sm-10 table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Items Name</th>
+                                        <th>Items Code</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="add-item-table-item">
+                                    <tr>
+                                        <td>1</td>
+                                        <td><input name="item_name1" type="text" class="form-control from-qr" id="pr-item-name" name="prItem"></td>
+                                        <td><input name="item_no1" type="text" class="form-control from-qr" id="pr-item-code" name="prItemcode"></td>
+                                        <td><input name="quantity1" type="text" class="form-control from-qr" id="pr-quantity" name="prQuantity"></td>
+                                        <input type="hidden" name="count" value="1">
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <button id="add-item-create" class="btn btn-info btn-price add-item-qe">Add Item</button>
+                            <button type="button" id="add-item-create" class="btn btn-info btn-price add-item-qe">Add Item</button>
 
                             <div class="col-sm-12">
                                 <div class="btn-button-group clearfix">
-                                    <button class="btn btn-info btn-price">Create</button>
-                                    <button class="btn btn-info btn-popup close">Cancel</button>
+                                    <button type="submit" class="btn btn-info btn-price">Create</button>
+                                    <button type="button" onclick="location.reload()" class="btn btn-info btn-popup close">Cancel</button>
                                 </div>
                             </div>
                         </form>
