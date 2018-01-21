@@ -16,4 +16,5 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/css/normalize.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-datetimepicker.css') }}">
 </head>

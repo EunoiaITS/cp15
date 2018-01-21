@@ -7,8 +7,9 @@
 <script src="{{ URL::asset('assets/js/plugins.js') }}"></script>
 <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/jquery.nicescroll.min.js') }}"></script>
+<script src="{{ URL::asset('assets/js/moment.js') }}"></script>
+<script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
 <script src="{{ URL::asset('assets/js/main.js') }}"></script>
-
 @if(isset($footer_js))
 @include($footer_js)
 @endif
