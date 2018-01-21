@@ -18,34 +18,15 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($invite as $inv)
                             <tr>
-                                <td> </td>
+                                <td>{{ $inv->pr_id }}</td>
                                 <td><input type="text" class="form-control from-qr datepicker-f"></td>
                                 <td><input type="text" class="form-control from-qr datepicker-f"></td>
                                 <td><label><input type="checkbox" value=""></label></td>
                                 <td><button class="btn btn-info btn-view-table open-popup">Supplier</button></td>
                             </tr>
-                            <tr>
-                                <td> </td>
-                                <td><input type="text" class="form-control from-qr"></td>
-                                <td><input type="text" class="form-control from-qr"></td>
-                                <td><label><input type="checkbox" value=""></label></td>
-                                <td><button class="btn btn-info btn-view-table open-popup">Supplier</button></td>
-                            </tr>
-                            <tr>
-                                <td> </td>
-                                <td><input type="text" class="form-control from-qr"></td>
-                                <td><input type="text" class="form-control from-qr"></td>
-                                <td><label><input type="checkbox" value=""></label></td>
-                                <td><button class="btn btn-info btn-view-table open-popup">Supplier</button></td>
-                            </tr>
-                            <tr>
-                                <td> </td>
-                                <td><input type="text" class="form-control from-qr"></td>
-                                <td><input type="text" class="form-control from-qr"></td>
-                                <td><label><input type="checkbox" value=""></label></td>
-                                <td><button class="btn btn-info btn-view-table open-popup">Supplier</button></td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -83,14 +64,12 @@ Search popuppage
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($suppliers as $sup)
                             <tr>
-                                <td></td>
-                                <td><label><input type="checkbox" value=""></label></td>
+                                <td>{{ $sup->name }}</td>
+                                <td><label><input type="checkbox" name="suppliers[]" value="{{$sup->id}}"></label></td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td><label><input type="checkbox" value=""></label></td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
