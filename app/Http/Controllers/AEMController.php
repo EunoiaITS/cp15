@@ -127,7 +127,7 @@ class AEMController extends Controller
             $user_info->contact = $request->contact;
             $user_info->save();
             return redirect()
-                ->to('suppliers/viewSupplier')
+                ->to('suppliers/view-supplier')
                 ->with('success-message', 'User updated successfully!');
         }
     }
@@ -246,7 +246,7 @@ class AEMController extends Controller
     }
 
     public function inviteSuppliers(Request $request){
-        //
+        return view('suppliers.invite');
     }
 
     public function supplierQuotations(Request $request){
