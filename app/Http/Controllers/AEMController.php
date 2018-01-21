@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Create_suppliers;
+use App\Qr_invitations;
 use App\Qr_items;
 use App\Quotation_requisition;
 use Illuminate\Http\Request;
@@ -245,7 +246,8 @@ class AEMController extends Controller
     public function deleteQROrder(Request $request){
         //
     }
-    public function inviteSuppliersView(Request $request){
+    public function inviteSuppliers(Request $request){
+//        print_r($request->all());
         if (!Auth::user()) {
             return redirect()
                 ->to('/login')
@@ -260,30 +262,26 @@ class AEMController extends Controller
             }
         }
         $invite = Quotation_requisition::all();
+        $qri = new Qr_invitations();
+        if($request->isMethod('post')) {
+            if ($qri->validate($request->all())) {
+                $qri->qr_id = $request->pr_id;
+                $qri->start_date = $request->start_date;
+                $qri->end_date = $request->end_date;
+                $qri->suppliers = $request->suppliers;
+                $qri->save();
+            }
+        }
         foreach ($invite as $inv){
             $suppliers = User::where('role','suppliers')->get();
             $inv->suppliers = $suppliers;
         }
         return view('suppliers.invite')->with(array(
             'invite'=>$invite,
-            'suppliers'=>$suppliers));
-    }
-    public function inviteSuppliers(Request $request){
-        if (!Auth::user()) {
-            return redirect()
-                ->to('/login')
-                ->with('error-message', 'Please login first!');
-        }else{
-            $id = Auth::id();
-            $user = User::find($id);
-            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
-                return redirect()
-                    ->back()
-                    ->with('error-message', 'You do not have authorization!');
-            }
-        }
+            'suppliers'=>$suppliers,
+            'footer_js' => 'suppliers.invite-js'));
 
-        return view('suppliers.invite');
+
     }
 
     public function supplierQuotations(Request $request){
