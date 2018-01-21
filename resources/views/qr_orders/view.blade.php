@@ -21,17 +21,18 @@
                                 <tbody>
                                 @foreach($qrs as $qr)
                                 <tr>
-                                    <td>{{ $qr->pr_id }}</td>
-                                    <td>{{ $qr->pr_type }}</td>
-                                    <td>{{ $qr->category }}</td>
+                                    <td id="pr_id{{ $qr->id }}">{{ $qr->pr_id }}</td>
+                                    <td id="pr_type{{ $qr->id }}">{{ $qr->pr_type }}</td>
+                                    <td id="category{{ $qr->id }}">{{ $qr->category }}</td>
                                     @foreach($qr->items as $item)
-                                        <span class="hidden">{{ $item->item_name }}</span>
-                                        <span class="hidden">{{ $item->item_no }}</span>
-                                        <span class="hidden">{{ $item->quantity }}</span>
+                                        <span class="hidden item-id{{ $qr->id }}">{{ $item->id }}</span>
+                                        <span id="item-name{{ $item->id }}" class="hidden">{{ $item->item_name }}</span>
+                                        <span id="item-no{{ $item->id }}" class="hidden">{{ $item->item_no }}</span>
+                                        <span id="category{{ $item->id }}" class="hidden">{{ $item->quantity }}</span>
                                     @endforeach
-                                    <td><button class="btn btn-info btn-view-table open-popup-comp">View</button></td>
-                                    <td><button class="btn btn-info btn-view-table open-popup popup-left">Edit</button>
-                                        <button class="btn btn-info btn-view-table open-popup-delete">Delete</button></td>
+                                    <td><button rel="{{ $qr->id }}" id="view{{ $qr->id }}" class="btn btn-info btn-view-table open-popup-comp view-details">View</button></td>
+                                    <td><button rel="{{ $qr->id }}" id="edit{{ $qr->id }}" class="btn btn-info btn-view-table open-popup popup-left edit-qr">Edit</button>
+                                        <button rel="{{ $qr->id }}" id="delete{{ $qr->id }}" class="btn btn-info btn-view-table open-popup-delete delete-qr">Delete</button></td>
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -134,6 +135,7 @@
                                         <th>Items Name</th>
                                         <th>Items Code</th>
                                         <th>Quantity</th>
+                                        <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody id="add-item-table-item">
@@ -142,6 +144,7 @@
                                         <td><input type="text" class="form-control from-qr" id="pr-item-name-edit" name="prItem"></td>
                                         <td><input type="text" class="form-control from-qr" id="pr-item-code-edit" name="prItemcode"></td>
                                         <td><input type="text" class="form-control from-qr" id="pr-quantity-edit" name="prQuantity"></td>
+                                        <td><button class="btn btn-info btn-view-table"><i class="fa fa-times"></i></button></td>
                                     </tr>
                                     </tbody>
                                 </table>

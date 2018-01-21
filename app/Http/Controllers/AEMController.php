@@ -230,6 +230,7 @@ class AEMController extends Controller
         return view('qr_orders.view', [
             'qrs' => $qrs,
             'page' => 'view-qr-order',
+            'footer_js' => 'qr_orders.view-js'
         ]);
     }
 
