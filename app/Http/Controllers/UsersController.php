@@ -36,9 +36,9 @@ class UsersController extends Controller
         if($request->isMethod('post')){
             foreach ($user as $pass){
             if($pass['password'] != bcrypt($request->old_pass)){
-                return redirect()->back()->withError("Old Password does not match");
+                return redirect()->back()->withErrors("Old Password does not match");
             }elseif($request->new_pass != $request->retype_pass){
-                return redirect()->back()->withError("New password does not match");
+                return redirect()->back()->withErrors("New password does not match");
             }else{
                 $user->password = bcrypt($request->new_pass);
                 $user->save();
