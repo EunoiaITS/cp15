@@ -35,14 +35,14 @@ class UsersController extends Controller
             $user = User::find($id);
         }
         if($request->isMethod('post')){
-                if (!Hash::check($request->old_pass, $user->password)) {
+                if (!Hash::check($request->old_pass, Auth::user()->password)) {
                     return redirect()->back()->withErrors("Old Password does not match");
                 }
-                elseif(!$request->new_pass == $request->retype_pass){
+                elseif($request->new_pass != $request->retype_pass){
                     return redirect()->back()->withErrors("New password does not match");
                 }else{
                     $user->password = bcrypt($request->new_pass);
-                    $user->save;
+                    $user->save();
                     //print_r($request->all());
                     return redirect('/change-password')
                         ->with('success-message', 'New password changed successfully!');
