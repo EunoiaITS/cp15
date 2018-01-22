@@ -29,13 +29,13 @@ class UsersController extends Controller
 
     public function login(Request $request){
         if(Auth::user()){
-            return redirect()->to('profile/edit');
+            return redirect()->to('/');
         }
         if($request->isMethod('post')){
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                return redirect('profile/edit');
+                return redirect('/');
             }else{
-                return redirect()->to('login')->with('error-message', 'Wrong username/password!!');
+                return redirect()->to('/login')->with('error-message', 'Wrong username/password!!');
             }
         }
         return view('users.login');
@@ -44,5 +44,14 @@ class UsersController extends Controller
     public function logout(){
         if(Auth::logout());
         return redirect('/login');
+    }
+
+    public function dashboard(){
+        if(!Auth::user()){
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }
+        return view('dashboard');
     }
 }
