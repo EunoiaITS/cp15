@@ -16,6 +16,8 @@ Route::get('/', 'UsersController@dashboard');
 Route::get('/login', 'UsersController@login');
 Route::post('/login', 'UsersController@login');
 Route::get('/logout', 'UsersController@logout');
+Route::get('/change-password', 'UsersController@changePassword');
+
 
 /*
  * Super user routes

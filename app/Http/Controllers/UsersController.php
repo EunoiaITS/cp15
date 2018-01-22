@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -24,7 +25,27 @@ class UsersController extends Controller
     }
 
     public function changePassword(Request $request){
-        //
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+        }
+        if($request->isMethod('post')){
+            foreach ($user as $pass){
+            if($pass->password != bcrypt($request->old_pass)){
+                return redirect()->back()->withError("Old Password does not match");
+            }elseif($request->new_pass != $request->old_pass){
+                return redirect()->back()->withError("New password does not match")
+            }else{
+                $user->password = bcrypt($request->new_pass);
+                $user->save();
+            }
+            }
+        }
+        return view('users.change-password');
     }
 
     public function login(Request $request){
