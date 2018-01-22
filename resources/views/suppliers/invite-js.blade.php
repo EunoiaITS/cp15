@@ -1,8 +1,21 @@
 <script>
     $(document).ready(function(){
-        $('.btn-view-table').on('click', function(e){
+        var suppliers = '';
+        $('.select-suppliers').on('click', function(e){
             e.preventDefault();
-            $('#suppliers').val(id);
+            suppliers = '';
+            var id = $(this).attr('rel');
+            $('.supplier-select').attr('rel', id);
+        });
+        $('#confirm-select').on('click', function(e){
+            e.preventDefault();
+            var qr_id = '';
+            $("input:checkbox[class=supplier-select]:checked").each(function(){
+                qr_id = $(this).attr('rel');
+                suppliers += $(this).val()+',';
+            });
+            $('#selected-suppliers'+qr_id).val(suppliers);
+            suppliers = '';
         });
     });
 </script>

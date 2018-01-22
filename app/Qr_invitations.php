@@ -16,10 +16,10 @@ class Qr_invitations extends Model
         'suppliers'
     ];
     protected $rules = array(
-        'name'  => 'required',
-        'email' => 'required',
-        'category' => 'required',
-        'contact' => 'required'
+        'qr_id'  => 'required',
+        'start_date' => 'required',
+        'end_date' => 'required',
+        'suppliers' => 'required'
     );
     protected $errors;
 

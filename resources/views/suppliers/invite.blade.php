@@ -39,13 +39,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($invite as $inv)
+                            @foreach($qrs as $qr)
                             <tr>
-                                <td><input type="text" name="qr_id" value="{{ $inv->pr_id }}" readonly></td>
-                                <td><input type="text" name="start_date" class="form-control from-qr datepicker-f"></td>
-                                <td><input type="text" name="end_date" class="form-control from-qr datepicker-f"></td>
-                                <td><label><input rel="#supplier-id" name="suppliers" type="checkbox" value=""></label></td>
-                                <td><button name="main" class="btn btn-info btn-view-table open-popup">Supplier</button></td>
+                                <td>{{ $qr->pr_id }}</td>
+                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f"></td>
+                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f"></td>
+                                <td><label><input name="suppliers{{ $qr->id }}" type="checkbox" value="{{ $qr->id }}"></label></td>
+                                <td><button rel="{{ $qr->id }}" type="button" class="btn btn-info btn-view-table open-popup select-suppliers">Supplier</button></td>
+                                <input type="hidden" id="selected-suppliers{{ $qr->id }}" name="selected-suppliers{{ $qr->id }}" value="">
                             </tr>
                             @endforeach
                             </tbody>
@@ -54,7 +55,7 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="btn-button-group clearfix">
-                        <button class="btn btn-info btn-price">Send to Supplier</button>
+                        <button type="submit" class="btn btn-info btn-price">Send to Supplier</button>
                     </div>
                 </div>
             </div>
@@ -89,13 +90,13 @@ Search popuppage
                             @foreach($suppliers as $sup)
                             <tr>
                                 <td>{{ $sup->name }}</td>
-                                <td><label><span class="hidden" id="supplier-id"></span><input rel="" id="supplier-id" type="checkbox" name="suppliers[]" value="{{$sup->id}}"></label></td>
+                                <td><label><input rel="{{ $sup->id }}" class="supplier-select" type="checkbox" name="supplier_id{{ $sup->id }}[]" value="{{$sup->id}}"></label></td>
                             </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <button name="modal" class="btn btn-info btn-popup close">Confirm</button>
+                    <button id="confirm-select" name="modal" class="btn btn-info btn-popup close">Confirm</button>
                 </div><!--// end header got search area -->
             </div>
         </div>

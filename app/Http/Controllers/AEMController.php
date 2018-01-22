@@ -329,7 +329,6 @@ class AEMController extends Controller
     }
 
     public function inviteSuppliers(Request $request){
-//        print_r($request->all());
         if (!Auth::user()) {
             return redirect()
                 ->to('/login')
@@ -343,29 +342,43 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $invite = Quotation_requisition::all();
-        foreach ($invite as $inv){
-            $suppliers = User::where('role','suppliers')->get();
-            $inv->suppliers = $suppliers;
-        }
-        $qri = new Qr_invitations();
+        $qrs = Quotation_requisition::where('status', 'requested')->get();
+        $suppliers = User::where('role', 'supplier')->get();
         if($request->isMethod('post')) {
-            if ($qri->validate($request->all())) {
-                $qri->qr_id = $request->pr_id;
-                $qri->start_date = $request->start_date;
-                $qri->end_date = $request->end_date;
-                $qri->suppliers = $request->suppliers;
-                $qri->save();
+            foreach($qrs as $qr){
+                if($request->get('suppliers'.$qr->id) != null){
+                    echo $request->get('suppliers'.$qr->id).' - '.$request->get('start_date'.$qr->id).' - '.$request->get('end_date'.$qr->id).' - '.$request->get('selected-suppliers'.$qr->id).'<br>';
+                    print_r($request->all());
+                    $invite = new Qr_invitations();
+                    $invites['qr_id'] = $qr->id;
+                    $invites['start_date'] = $request->get('start_date'.$qr->id);
+                    $invites['end_date'] = $request->get('end_date'.$qr->id);
+                    $invites['suppliers'] = $request->get('selected-suppliers'.$qr->id);
+                    if($invite->validate($invites)){
+                        $invite->qr_id = $qr->id;
+                        $invite->start_date = $request->get('start_date'.$qr->id);
+                        $invite->end_date = $request->get('end_date'.$qr->id);
+                        $invite->suppliers = rtrim($request->get('selected-suppliers'.$qr->id), ',');
+                        $invite->save();
+                        $qr->status = 'invited';
+                        $qr->save();
+                    }else{
+                        return redirect()
+                            ->to('/suppliers/invite-suppliers')
+                            ->withErrors($invite->errors());
+                    }
+                }
             }
+            return redirect()
+                ->to('/suppliers/invite-suppliers')
+                ->with('success-message', 'Invitations has been sent successfully!');
         }
-        foreach ($invite as $inv){
-            $suppliers = User::where('role','suppliers')->get();
-            $inv->suppliers = $suppliers;
-        }
-        return view('suppliers.invite')->with(array(
-            'invite'=>$invite,
-            'suppliers'=>$suppliers,
-            'footer_js' => 'suppliers.invite-js'));
+        return view('suppliers.invite', [
+            'qrs' => $qrs,
+            'suppliers' => $suppliers,
+            'page' => 'invite',
+            'footer_js' => 'suppliers.invite-js'
+        ]);
 
 
     }
