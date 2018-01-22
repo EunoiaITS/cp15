@@ -42,6 +42,7 @@
                                 <input type="text" name="category" class="form-control from-qr" id="pr-catagory">
                                 @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('category') }}</p>@endif
                             </div>
+                            <input type="hidden" name="status" value="requested">
                             <div id="add-item-table" class="col-sm-10 table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
