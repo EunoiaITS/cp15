@@ -33,7 +33,8 @@ Route::post('/superuser/users-delete', 'superUserController@deleteUsers');
  */
 Route::get('/qr-orders/add-qr-order', 'AEMController@addQROrder');
 Route::post('/qr-orders/add-qr-order', 'AEMController@addQROrder');
-Route::post('/editQROrder', 'AEMController@editQROrder');
+Route::post('/qr-orders/edit', 'AEMController@editQROrder');
+Route::post('/qr-orders/delete', 'AEMController@deleteQROrder');
 
 Route::get('/qr-orders/view', 'AEMController@viewQROrder');
 
@@ -47,6 +48,8 @@ Route::post('suppliers/delete-supplier', 'AEMController@deleteSupplier');
 Route::post('suppliers/invite-suppliers', 'AEMController@inviteSuppliers');
 Route::get('suppliers/invite-suppliers', 'AEMController@inviteSuppliers');
 Route::get('suppliers/invite', 'AEMController@inviteSuppliers');
+
+Route::get('/tender-summery', 'AEMController@tenderSummery');
 
 /**
  * Director routes
