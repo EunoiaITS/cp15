@@ -18,6 +18,9 @@
                                     <th>Item Code</th>
                                     <th>Quantity<th>
                                     <th>Supplier Name</th>
+                                    @if(Auth::user()->role == 'director')
+                                        <th>Download</th>
+                                        @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -32,6 +35,9 @@
                                             <td>{{ $item->quantity }}</td>
                                             <td></td>
                                             <td>N/A</td>
+                                            @if(Auth::user()->role == 'director')
+                                                <td><a href="#"><i class="fa fa-download"></i></a></td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                     @endforeach

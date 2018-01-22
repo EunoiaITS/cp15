@@ -378,7 +378,7 @@ class AEMController extends Controller
         }else{
             $id = Auth::id();
             $user = User::find($id);
-            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+            if (!in_array($user->role, ['admin', 'executive', 'manager', 'director', 'super_userController'])) {
                 return redirect()
                     ->back()
                     ->with('error-message', 'You don\'t have authorization!');

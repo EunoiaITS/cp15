@@ -54,6 +54,8 @@ Route::get('/tender-summery', 'AEMController@tenderSummery');
 /**
  * Director routes
  */
+Route::get('/qr-orders', 'DirectorController@viewQR');
+Route::get('/suppliers', 'DirectorController@viewSuppliers');
 
 /**
  * Supplier routes
