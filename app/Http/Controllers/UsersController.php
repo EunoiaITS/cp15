@@ -35,17 +35,17 @@ class UsersController extends Controller
         }
         if($request->isMethod('post')){
             foreach ($user as $pass){
-            if($pass->password != bcrypt($request->old_pass)){
+            if($pass['password'] != bcrypt($request->old_pass)){
                 return redirect()->back()->withError("Old Password does not match");
-            }elseif($request->new_pass != $request->old_pass){
-                return redirect()->back()->withError("New password does not match")
+            }elseif($request->new_pass != $request->retype_pass){
+                return redirect()->back()->withError("New password does not match");
             }else{
                 $user->password = bcrypt($request->new_pass);
                 $user->save();
             }
             }
         }
-        return view('users.change-password');
+        return view('users.change-password')->with('success-message', 'New Supplier added successfully!');;
     }
 
     public function login(Request $request){
