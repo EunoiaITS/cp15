@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UsersController@dashboard');
 
 Route::get('/login', 'UsersController@login');
 Route::post('/login', 'UsersController@login');
