@@ -6,6 +6,11 @@
             <div class="row">
                 <div class="col-sm-11 col-sm-offset-1">
                     <h3 class="text-uppercase color-bbc">View QR Order List</h3>
+                    @if(session()->has('success-message'))
+                        <p class="alert alert-success">
+                            {{ session()->get('success-message') }}
+                        </p>
+                    @endif
                     <div class="col-sm-10 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">
@@ -24,11 +29,13 @@
                                     <td id="pr_id{{ $qr->id }}">{{ $qr->pr_id }}</td>
                                     <td id="pr_type{{ $qr->id }}">{{ $qr->pr_type }}</td>
                                     <td id="category{{ $qr->id }}">{{ $qr->category }}</td>
+                                    <?php $count = 0; ?>
                                     @foreach($qr->items as $item)
-                                        <span class="hidden item-id{{ $qr->id }}">{{ $item->id }}</span>
-                                        <span id="item-name{{ $item->id }}" class="hidden">{{ $item->item_name }}</span>
-                                        <span id="item-no{{ $item->id }}" class="hidden">{{ $item->item_no }}</span>
-                                        <span id="category{{ $item->id }}" class="hidden">{{ $item->quantity }}</span>
+                                        <?php $count++; ?>
+                                        <span id="item{{ $count.$qr->id }}" class="hidden item-id{{ $qr->id }}">{{ $item->id }}</span>
+                                        <span id="item-name{{ $count.$qr->id }}" class="hidden">{{ $item->item_name }}</span>
+                                        <span id="item-no{{ $count.$qr->id }}" class="hidden">{{ $item->item_no }}</span>
+                                        <span id="quantity{{ $count.$qr->id }}" class="hidden">{{ $item->quantity }}</span>
                                     @endforeach
                                     <td><button rel="{{ $qr->id }}" id="view{{ $qr->id }}" class="btn btn-info btn-view-table open-popup-comp view-details">View</button></td>
                                     <td><button rel="{{ $qr->id }}" id="edit{{ $qr->id }}" class="btn btn-info btn-view-table open-popup popup-left edit-qr">Edit</button>
@@ -59,15 +66,15 @@
                     <div class="popup-got-search">
                         <div class="form-group clearfix">
                             <p class="label-d">PR ID <span class="fright">:</span></p>
-                            <p class="pr-text">12345</p>
+                            <p id="view-pr-id" class="pr-text">12345</p>
                         </div>
                         <div class="form-group clearfix">
                             <p class="label-d">PR Type <span class="fright">:</span></p>
-                            <p class="pr-text">ABC</p>
+                            <p id="view-pr-type" class="pr-text">ABC</p>
                         </div>
                         <div class="form-group clearfix">
                             <p class="label-d">Category <span class="fright">:</span></p>
-                            <p class="pr-text">Xyz</p>
+                            <p id="view-category" class="pr-text">Xyz</p>
                         </div>
                         <div class="col-sm-10 table-responsive" style="margin-top: 20px;">
                             <table class="table table-bordered">
@@ -79,7 +86,7 @@
                                     <th>Quantity</th>
                                 </tr>
                                 </thead>
-                                <tbody id="add-item-table-item">
+                                <tbody id="add-item-table-view">
                                 <tr>
                                     <td>01</td>
                                     <td>12345</td>
@@ -114,19 +121,21 @@
                     </div>
                     <!-- header got seach area -->
                     <div class="popup-got-search">
-                        <form action="#">
+                        <form method="post" action="{{ url('/qr-orders/edit') }}">
+                            {{ csrf_field() }}
                             <div class="form-group clearfix">
                                 <label for="pr-id" class="label-d">PR ID <span class="fright">:</span></label>
-                                <input type="text" class="form-control from-qr" id="pr-id">
+                                <input name="pr_id" type="text" class="form-control from-qr" id="edit-pr-id">
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-type" class="label-d">PR Type <span class="fright">:</span></label>
-                                <input type="text" class="form-control from-qr" id="pr-type">
+                                <input name="pr_type" type="text" class="form-control from-qr" id="edit-pr-type">
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <input type="text" class="form-control from-qr" id="pr-catagory">
+                                <input name="category" type="text" class="form-control from-qr" id="edit-pr-category">
                             </div>
+                            <input type="hidden" name="qr_id" id="edit-qr-id" value="">
                             <div id="add-item-table" class="col-sm-10 table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
@@ -138,23 +147,23 @@
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="add-item-table-item">
+                                    <tbody id="add-item-table-edit">
                                     <tr>
                                         <td>1</td>
                                         <td><input type="text" class="form-control from-qr" id="pr-item-name-edit" name="prItem"></td>
                                         <td><input type="text" class="form-control from-qr" id="pr-item-code-edit" name="prItemcode"></td>
                                         <td><input type="text" class="form-control from-qr" id="pr-quantity-edit" name="prQuantity"></td>
-                                        <td><button class="btn btn-info btn-view-table"><i class="fa fa-times"></i></button></td>
+                                        <td><button type="button" class="btn btn-info btn-view-table open-popup-delete"><i class="fa fa-times"></i></button></td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <button id="add-item-create" class="btn btn-info btn-price btn-popup-add">Add Item</button>
+                            <button type="button" id="add-item-create" class="btn btn-info btn-price btn-popup-add">Add Item</button>
 
                             <div class="col-sm-12">
                                 <div class="btn-button-group btn-button-group-opitonal clearfix">
                                     <button class="btn btn-info btn-price">Save</button>
-                                    <button class="btn btn-info btn-popup close">Cancel</button>
+                                    <button type="button" class="btn btn-info btn-popup close">Cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -180,10 +189,14 @@
                         <p>Confirm to delete the QR from the view QR Order list ?</p>
                     </div><!--// end header got search area -->
                     <div class="col-sm-12">
+                        <form method="post" action="{{ url('/qr-orders/delete') }}">
+                            {{ csrf_field() }}
                         <div class="btn-button-group clearfix">
-                            <button class="btn btn-info btn-price">Delete</button>
-                            <button class="btn btn-info btn-popup close">Cancel</button>
+                            <input type="hidden" id="delete_id" name="delete_id" value="">
+                            <button type="submit" class="btn btn-info btn-price">Delete</button>
+                            <button type="button" class="btn btn-info btn-popup close">Cancel</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
