@@ -89,7 +89,7 @@ Search popuppage
                             @foreach($suppliers as $sup)
                             <tr>
                                 <td>{{ $sup->name }}</td>
-                                <td><label><span class="hidden" id="supplier-id"></span><input id="supplier-id" type="checkbox" name="suppliers[]" value="{{$sup->id}}"></label></td>
+                                <td><label><span class="hidden" id="supplier-id"></span><input rel="" id="supplier-id" type="checkbox" name="suppliers[]" value="{{$sup->id}}"></label></td>
                             </tr>
                             @endforeach
                             </tbody>
