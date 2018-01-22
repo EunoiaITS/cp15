@@ -32,19 +32,20 @@ class UsersController extends Controller
                 ->with('error-message', 'Please login first!');
         }else{
             $id = Auth::id();
-            $user = User::find(auth()->user()->id);
+            $user = User::find($id);
         }
         if($request->isMethod('post')){
-            print_r($request->all());
                 if (!Hash::check($request->old_pass, $user->password)) {
                     return redirect()->back()->withErrors("Old Password does not match");
                 }
-                elseif($request->new_pass != $request->retype_pass){
+                elseif(!$request->new_pass == $request->retype_pass){
                     return redirect()->back()->withErrors("New password does not match");
                 }else{
                     $user->password = bcrypt($request->new_pass);
                     $user->save;
-                    return redirect('/change-password')->with('success-message', 'New password changed successfully!');
+                    //print_r($request->all());
+                    return redirect('/change-password')
+                        ->with('success-message', 'New password changed successfully!');
                 }
             }
         return view('users.change-password');
