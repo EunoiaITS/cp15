@@ -26,7 +26,7 @@ class SupplierController extends Controller
         }
     }
     public function viewQR(Request $request){
-
+        return view('supplier-controller.view-qr');
     }
 
     public function submitQuotations(Request $request){
