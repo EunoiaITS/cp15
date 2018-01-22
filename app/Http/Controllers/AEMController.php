@@ -186,6 +186,7 @@ class AEMController extends Controller
                 $qr->pr_id = $request->pr_id;
                 $qr->pr_type = $request->pr_type;
                 $qr->category = $request->category;
+                $qr->status = $request->status;
                 $qr->save();
                 $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
@@ -206,7 +207,7 @@ class AEMController extends Controller
                     }
                 }
                 return redirect()
-                    ->to('/qr-orders/add-qr-orders')
+                    ->to('/qr-orders/add-qr-order')
                     ->with('success-message', 'Quotation requisition added successfully!');
             } else {
                 return redirect()
