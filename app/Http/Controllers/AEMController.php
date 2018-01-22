@@ -64,12 +64,12 @@ class AEMController extends Controller
                 $sup_info->save();
             }else{
                 return redirect()
-                    ->to('/suppliers/')
+                    ->to('suppliers/add-supplier')
                     ->withErrors($sup_info->errors());
             }
 
             return redirect()
-                ->to('/suppliers/')
+                ->to('suppliers/add-supplier')
                 ->with('success-message', 'New Supplier added successfully!');
         }
         return view('suppliers.add', [
@@ -262,6 +262,10 @@ class AEMController extends Controller
             }
         }
         $invite = Quotation_requisition::all();
+        foreach ($invite as $inv){
+            $suppliers = User::where('role','suppliers')->get();
+            $inv->suppliers = $suppliers;
+        }
         $qri = new Qr_invitations();
         if($request->isMethod('post')) {
             if ($qri->validate($request->all())) {
@@ -271,10 +275,6 @@ class AEMController extends Controller
                 $qri->suppliers = $request->suppliers;
                 $qri->save();
             }
-        }
-        foreach ($invite as $inv){
-            $suppliers = User::where('role','suppliers')->get();
-            $inv->suppliers = $suppliers;
         }
         return view('suppliers.invite')->with(array(
             'invite'=>$invite,

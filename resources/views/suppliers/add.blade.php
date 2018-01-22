@@ -26,7 +26,7 @@
                             @endforeach
                         @endif
 
-                        <form action="{{ url('suppliers/addSupplier') }}" method="post">
+                        <form action="{{ url('suppliers/add-supplier') }}" method="post">
                                     {{ csrf_field() }}
                             <div class="form-group clearfix">
                                 <label for="supplier-name" class="label-d">Supplier Name <span class="fright">:</span></label>

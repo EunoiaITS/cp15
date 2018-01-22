@@ -28,7 +28,7 @@
                 </div>
             </div>
             <ul class="nav navbar-nav">
-                @if(isset(Auth::user()->role) && Auth::user()->role == 'supplier')
+                @if(isset(Auth::user()->role) && Auth::user()->role == 'suppliers')
                     <li class="active"><a href="{{ url('/invitations') }}"> View QR Order List <span class="label label-default">10</span></a></li>
                     <li><a href="{{ url('/profile/edit') }}"> Profile</a></li>
                     @endif

@@ -55,4 +55,5 @@ Route::get('suppliers/invite', 'AEMController@inviteSuppliers');
 /**
  * Supplier routes
  */
-Route::get('profile/edit', 'SupplierController@editProfile');
+Route::get('/profile', 'SupplierController@viewProfile');
+Route::post('/profile/edit', 'SupplierController@editProfile');

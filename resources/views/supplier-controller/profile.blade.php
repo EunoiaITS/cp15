@@ -8,22 +8,24 @@
                 <div class="col-sm-8 col-sm-offset-1 padding-left-0">
                     <div class="create-qr profile-btn clearfix">
                         <h3 class="text-uppercase color-bbc">Supplier Profile</h3>
-                        <form action="{{ url('profile/edit') }}">
+                        <form action="{{ url('/profile/edit') }}" method="post">
+                            {{ csrf_field() }}
                             <div class="form-group clearfix">
                                 <label for="supplier-name" class="label-d">Supplier Name <span class="fright">:</span></label>
-                                <input name="name" type="text" class="form-control from-qr" id="supplier-name" required="required">
+                                <input name="name" type="text" class="form-control from-qr" id="supplier-name" value="@foreach($result as $res){{$res->name }} @endforeach" required="required">
                             </div>
                             <div class="form-group clearfix">
                                 <label for="email-address" class="label-d">Email Address <span class="fright">:</span></label>
-                                <input name="email" type="email" class="form-control from-qr" id="email-address" required="required">
+                                <input name="email" type="email" class="form-control from-qr" id="email-address" value="@foreach($result as $res){{$res->email }} @endforeach" readonly>
                             </div>
                             <div class="form-group clearfix">
                                 <label for="contact" class="label-d">Contact Number <span class="fright">:</span></label>
-                                <input name="contact" type="text" class="form-control from-qr" id="contact" required="required">
+                                <input name="contact" type="text" class="form-control from-qr" id="contact" value="@foreach($result as $res)@foreach($res->info as $in){{$in->contact }} @endforeach @endforeach" required="required">
                             </div>
+                            <input type="hidden" name="user_id">
                             <div class="col-sm-12">
                                 <div class="btn-button-group btn-group-profile clearfix">
-                                    <button class="btn btn-info btn-price open-popup-comp">Save</button>
+                                    <button type="submit" class="btn btn-info btn-price">Save</button>
                                     <button class="btn btn-info btn-price approve open-popup">Change Password?</button>
                                 </div>
                             </div>
