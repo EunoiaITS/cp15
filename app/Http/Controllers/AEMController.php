@@ -69,7 +69,7 @@ class AEMController extends Controller
             }
 
             return redirect()
-                ->to('/suppliers/add-supplier')
+                ->to('suppliers/add-supplier')
                 ->with('success-message', 'New Supplier added successfully!');
         }
         return view('suppliers.add', [
@@ -344,6 +344,10 @@ class AEMController extends Controller
             }
         }
         $invite = Quotation_requisition::all();
+        foreach ($invite as $inv){
+            $suppliers = User::where('role','suppliers')->get();
+            $inv->suppliers = $suppliers;
+        }
         $qri = new Qr_invitations();
         if($request->isMethod('post')) {
             if ($qri->validate($request->all())) {
