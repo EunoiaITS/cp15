@@ -28,9 +28,9 @@
                 </div>
             </div>
             <ul class="nav navbar-nav">
-                @if(isset(Auth::user()->role) && Auth::user()->role == 'supplier')
-                    <li class="active"><a href="{{ url('/supplier-controller/view-qr/') }}"> View QR Order List <span class="label label-default">10</span></a></li>
-                    <li><a href="{{ url('/profile') }}"> Profile</a></li>
+                @if(isset(Auth::user()->role) && Auth::user()->role == 'suppliers')
+                    <li class="@if(isset($page) && $page == 'view-qr'){{ "active" }}@endif"><a href="{{ url('/supplier-controller/view-qr/') }}"> View QR Order List <span class="label label-default">10</span></a></li>
+                    <li class="@if(isset($page) && $page == 'profile'){{ "active" }}@endif"><a href="{{ url('/profile') }}"> Profile</a></li>
                     @endif
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'admin' || isset(Auth::user()->role) && Auth::user()->role == 'executive' || isset(Auth::user()->role) && Auth::user()->role == 'manager')
                 <!-- Dropdown-->

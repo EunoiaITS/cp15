@@ -51,8 +51,10 @@ class SupplierController extends Controller
                 ->get();
             $qr_item->qr_tab = $qr_tab;
         }
-        return view('supplier-controller.view-qr')
-            ->with('qr_inv',$qr_inv);
+        return view('supplier-controller.view-qr', [
+            'qr_inv' => $qr_inv,
+            'page' => 'view-qr'
+        ]);
     }
 
     public function submitQuotations(Request $request){
@@ -68,21 +70,22 @@ class SupplierController extends Controller
         }else{
             $id = Auth::id();
             $user = User::find($id);
-            if (!in_array($user->role, ['supplier'])) {
+            if (!in_array($user->role, ['suppliers'])) {
                 return redirect()
                     ->back()
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $result = User::where('role', 'supplier')
+        $result = User::where('role', 'suppliers')
             ->where('id','=',$id)->get();
         foreach ($result as $supplier) {
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
         }
-        return view('supplier-controller/profile')->with(array(
-            'result' => $result
-        ));
+        return view('supplier-controller/profile', [
+            'result' => $result,
+            'page' => 'profile'
+        ]);
     }
     public function editProfile(Request $request){
         if (!Auth::user()) {
@@ -92,7 +95,7 @@ class SupplierController extends Controller
         }else{
             $id = Auth::id();
             $user = User::find($id);
-            if (!in_array($user->role, ['supplier'])) {
+            if (!in_array($user->role, ['suppliers'])) {
                 return redirect()
                     ->back()
                     ->with('error-message', 'You don\'t have authorization!');
