@@ -52,6 +52,7 @@ Route::get('suppliers/invite-suppliers', 'AEMController@inviteSuppliers');
 Route::get('suppliers/invite', 'AEMController@inviteSuppliers');
 
 Route::get('/tender-summery', 'AEMController@tenderSummery');
+Route::get('/view-supplier-quotation', 'AEMController@supplierQuotations');
 
 /**
  * Director routes

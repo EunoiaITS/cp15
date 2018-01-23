@@ -421,7 +421,7 @@ class AEMController extends Controller
     }
 
     public function supplierQuotations(Request $request){
-
+        return view('suppliers.quotations');
     }
 
     public function tenderSummery(Request $request){
