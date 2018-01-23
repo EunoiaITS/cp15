@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Change4SupplierQuotationTable extends Migration
+class ChangedSupplierQuotationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,11 @@ class Change4SupplierQuotationTable extends Migration
     public function up()
     {
         Schema::table('supplier_quoatation', function (Blueprint $table) {
-            $table->renameColumn('supplier_id','supp_id')->after('item_id');
+            $table->dropColumn('item_id');
+            $table->dropColumn('supp_id');
+
+            $table->string('supp_id')->after('id');
+            $table->string('item_id')->after('id');
         });
     }
 
