@@ -6,6 +6,7 @@ use App\Create_suppliers;
 use App\Qr_invitations;
 use App\Qr_items;
 use App\Quotation_requisition;
+use App\Supplier_quotations;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -57,11 +58,19 @@ class SupplierController extends Controller
             $qr_item->qri = $qri;
         }
         if($request->isMethod('post')){
-
+            $sup_quo = new Supplier_quotations();
+            $sup_quo->item_id = $request->item_id;
+            $sup_quo->unit_price = $request->unit_price;
+            $sup_quo->comment = $request->comment;
+            $sup_quo->file = $request->file;
+            $sup_quo->supp_id = $request->supp_id;
+            $sup_quo->save();
+            return redirect('supplier-controller/view-qr');
         }
         return view('supplier-controller.view-qr', [
-            'qr_inv' => $qr_inv,
-            'page' => 'view-qr'
+            'qr_inv' =>  $qr_inv,
+            'id'     =>  $id,
+            'page'   =>  'view-qr'
         ]);
     }
 

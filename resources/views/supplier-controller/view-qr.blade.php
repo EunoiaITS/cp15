@@ -26,9 +26,9 @@
                                 @foreach($qinv->qri as $qrt)
                                     @foreach($qinv->qr_table as $qrtab)
                             <tr>
-                                <td>{{ $qrtab->pr_id }}<input type="hidden" name="qr_id" value=""></td>
-                                <td>{{ $qrt->item_no}}</td>
-                                <td>{{ $qrt->quantity}}</td>
+                                <td>{{ $qrtab->pr_id }}<input type="hidden" name="item_id" value="{{$qrt->id}}"></td>
+                                <td>{{ $qrt->item_no}}<input type="hidden" name="item_no" value="{{$qrt->item_no}}"></td>
+                                <td>{{ $qrt->quantity}}<input type="hidden" name="quantity" value="{{$qrt->quantity}}"></td>
                                 <td><input type="text" name="unit_price" class="form-control from-btn-supplier from-qr"> </td>
                                 <td><input type="text" name="comment" class="form-control from-qr from-supplier"> </td>
                                 <td>
@@ -37,6 +37,7 @@
                                         <input type="file" name="file" class="input-upload" name="file">
                                     </div>
                                 </td>
+                                <input type="hidden" name="supp_id" value="{{$id}}">
                                 <td><button type="submit" class="btn btn-primary btn-supplier input-upload">Submit</button></td>
                             </tr>
                                         @endforeach
