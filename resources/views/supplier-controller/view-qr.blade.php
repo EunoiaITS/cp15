@@ -17,6 +17,11 @@
                         {{ session()->get('success-message') }}
                     </p>
                 @endif
+                @if(session()->has('error-message'))
+                    <p class="alert alert-danger">
+                        {{ session()->get('error-message') }}
+                    </p>
+                @endif
                 <div class="col-sm-11 padding-left-0">
                     <div class="table table-responsive">
                         <table class="table">

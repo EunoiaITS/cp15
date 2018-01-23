@@ -10,6 +10,7 @@ use App\Supplier_quotations;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\File;
 
 class SupplierController extends Controller
 {
@@ -64,17 +65,25 @@ class SupplierController extends Controller
                 if(!in_array($ext, ['jpg', 'png','pdf'])){
                     return redirect()->back()->withErrors('File type not matched !');
                 }else{
-                $request->file->storeAs('public/upload',$fileName);
+                    $id = Auth::id();
+                    $path = public_path().'/storage/'.$id.'/';
+                    $dir =File::makeDirectory($path,$mode = 0777, true,true);
+                    if(!File::exists($dir)){
+                        $filePath = $request->file->storeAs($path,$fileName);
+                        $sup_quo = new Supplier_quotations();
+                        $sup_quo->item_id = $request->item_id;
+                        $sup_quo->unit_price = $request->unit_price;
+                        $sup_quo->comment = $request->comment;
+                        $sup_quo->file = $filePath;
+                        $sup_quo->supp_id = $request->supp_id;
+                        $sup_quo->save();
+                        return redirect('supplier-controller/view-qr')
+                            ->with('success-message','Your Quotation has been submitted Successfully !');
+                    }else{
+                        return redirect('supplier-controller/view-qr')
+                            ->with('error-message','Error !! Please try again !!');
+                    }
             }
-                $sup_quo = new Supplier_quotations();
-                $sup_quo->item_id = $request->item_id;
-                $sup_quo->unit_price = $request->unit_price;
-                $sup_quo->comment = $request->comment;
-                $sup_quo->file = "Supplier_file_".$fileName;
-                $sup_quo->supp_id = $request->supp_id;
-                $sup_quo->save();
-                return redirect('supplier-controller/view-qr')
-                    ->with('success-message','Your Quotation has been submitted Successfully !');
             }
         }
         return view('supplier-controller.view-qr', [
