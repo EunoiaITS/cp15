@@ -6,15 +6,20 @@
             e.preventDefault();
             count++;
             addCount++;
-            var html_create ='<tr>'+
+            var html_create ='<tr id="row-add'+addCount+'">'+
                     '<td>'+count+'</td>'+
                     '<td><input type="text" name="add_item_name'+addCount+'" class="form-control from-qr" id="pr-item-name"></td>'+
                     '<td><input type="text" name="add_item_no'+addCount+'" class="form-control from-qr" id="pr-item-code"></td>'+
                     '<td><input type="text" name="add_quantity'+addCount+'" class="form-control from-qr" id="pr-quantity"></td>'+
-                    '<td><button type="button" class="btn btn-primary item-delete-add" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-times"></i></button></td>'+
+                    '<td><button type="button" rel="'+addCount+'" class="btn btn-primary item-delete-add"><i class="fa fa-times"></i></button></td>'+
                     '<input type="hidden" name="addCount" value="'+addCount+'">'+
                     '<tr>';
             $('#add-item-table-edit').append(html_create);
+            $('.item-delete-add').on('click', function(e){
+                e.preventDefault();
+                var row = $(this).attr('rel');
+                $('#row-add'+row).remove();
+            });
         });
         $('.view-details').on('click', function(e){
             e.preventDefault();

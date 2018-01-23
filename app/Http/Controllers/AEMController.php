@@ -277,20 +277,22 @@ class AEMController extends Controller
                 $qr_item->save();
             }
             for($i = 1; $i <= $request->addCount; $i++){
-                $qr_item = new Qr_items();
-                $qr_items['item_name'] = $request->get('add_item_name' . $i);
-                $qr_items['item_no'] = $request->get('add_item_no' . $i);
-                $qr_items['quantity']  = $request->get('add_quantity' .$i);
-                if($qr_item->validate($qr_items)){
-                    $qr_item->qr_id = $request->qr_id;
-                    $qr_item->item_name = $request->get('add_item_name' . $i);
-                    $qr_item->item_no = $request->get('add_item_no' . $i);
-                    $qr_item->quantity  = $request->get('add_quantity' .$i);
-                    $qr_item->save();
-                }else{
-                    return redirect()
-                        ->to('/qr-orders/add-qr-order')
-                        ->withErrors($qr_item->errors());
+                if($request->get('add_item_name' . $i) != null && $request->get('add_item_no' . $i) != null && $request->get('add_quantity' .$i) != null){
+                    $qr_item = new Qr_items();
+                    $qr_items['item_name'] = $request->get('add_item_name' . $i);
+                    $qr_items['item_no'] = $request->get('add_item_no' . $i);
+                    $qr_items['quantity']  = $request->get('add_quantity' .$i);
+                    if($qr_item->validate($qr_items)){
+                        $qr_item->qr_id = $request->qr_id;
+                        $qr_item->item_name = $request->get('add_item_name' . $i);
+                        $qr_item->item_no = $request->get('add_item_no' . $i);
+                        $qr_item->quantity  = $request->get('add_quantity' .$i);
+                        $qr_item->save();
+                    }else{
+                        return redirect()
+                            ->to('/qr-orders/view')
+                            ->withErrors($qr_item->errors());
+                    }
                 }
             }
             return redirect()
