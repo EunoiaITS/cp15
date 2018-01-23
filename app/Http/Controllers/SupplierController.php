@@ -69,7 +69,7 @@ class SupplierController extends Controller
                     $path = public_path().'/storage/'.$id.'/';
                     $dir =File::makeDirectory($path,$mode = 0777, true,true);
                     if(!File::exists($dir)){
-                        $filePath = $request->file->storeAs($path,$fileName);
+                        $filePath = $request->file->storeAs($dir,$fileName);
                         $sup_quo = new Supplier_quotations();
                         $sup_quo->item_id = $request->item_id;
                         $sup_quo->unit_price = $request->unit_price;
