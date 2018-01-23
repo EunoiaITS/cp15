@@ -43,7 +43,6 @@ class UsersController extends Controller
                 }else{
                     $user->password = bcrypt($request->new_pass);
                     $user->save();
-                    //print_r($request->all());
                     return redirect('/change-password')
                         ->with('success-message', 'New password changed successfully!');
                 }
