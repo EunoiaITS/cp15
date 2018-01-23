@@ -50,23 +50,24 @@
                 </div>
                 <!-- header got seach area -->
                 <div class="popup-got-search">
-                    <form action="#">
+                    <form method="post" action="{{ url('/profile/change-password') }}">
+                        {{ csrf_field() }}
                         <div class="form-group clearfix">
                             <label for="old-pass" class="label-d">Old Password<span class="fright">:</span></label>
-                            <input type="password" class="form-control from-qr" id="old-pass" required="required">
+                            <input name="old_pass" type="password" class="form-control from-qr" id="old-pass" required="required">
                         </div>
                         <div class="form-group clearfix">
                             <label for="new-pass" class="label-d">New Password<span class="fright">:</span></label>
-                            <input type="password" class="form-control from-qr" id="new-pass" required="required">
+                            <input name="new_pass" type="password" class="form-control from-qr" id="new-pass" required="required">
                         </div>
                         <div class="form-group clearfix">
                             <label for="retype-pass" class="label-d">Re-type Password <span class="fright">:</span></label>
-                            <input type="password" class="form-control from-qr" id="retype-pass" required="required">
+                            <input name="retype_pass" type="password" class="form-control from-qr" id="retype-pass" required="required">
                         </div>
                         <div class="col-sm-12">
                             <div class="btn-button-group clearfix">
-                                <button class="btn btn-info btn-price open-popup-comp">Save</button>
-                                <button class="btn btn-info btn-popup close">Cancel</button>
+                                <button type="submit" class="btn btn-info btn-price">Save</button>
+                                <button type="button" class="btn btn-info btn-popup close">Cancel</button>
                             </div>
                         </div>
                     </form>
