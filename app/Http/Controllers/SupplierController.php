@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SupplierController extends Controller
 {
@@ -58,34 +59,43 @@ class SupplierController extends Controller
                 ->get();
             $qr_item->qri = $qri;
         }
-        if($request->isMethod('post')){
-            if($request->hasFile('file')){
+        if($request->isMethod('post')) {
+            if ($request->hasFile('file')) {
                 $fileName = $request->file->getClientOriginalName();
                 $ext = $request->file->getClientOriginalExtension();
-                if(!in_array($ext, ['jpg', 'png','pdf'])){
-                    return redirect()->back()->withErrors('File type not matched !');
-                }else{
+                if (in_array($ext, ['jpg', 'png', 'pdf'])) {
                     $id = Auth::id();
-                    $path = public_path().'/storage/'.$id.'/';
-                    $dir =File::makeDirectory($path,$mode = 0777, true,true);
-                    if(!File::exists($dir)){
-                        $filePath = $request->file->storeAs($dir,$fileName);
-                        $sup_quo = new Supplier_quotations();
-                        $sup_quo->item_id = $request->item_id;
-                        $sup_quo->unit_price = $request->unit_price;
-                        $sup_quo->comment = $request->comment;
-                        $sup_quo->file = $filePath;
-                        $sup_quo->supp_id = $request->supp_id;
-                        $sup_quo->save();
-                        return redirect('supplier-controller/view-qr')
-                            ->with('success-message','Your Quotation has been submitted Successfully !');
+                    $path = 'uploads/'.$id;
+                    if (!file_exists($path)) {
+                        $newDir = public_path('uploads\\' . $id);
+                        File::makeDirectory($newDir, 0755, true);
                     }else{
+                        $filePath = $request->file->storeAs($path, $fileName);
+                        $sup_q = new Supplier_quotations();
+                        $sup_q->file = $filePath;
+                        $sup_q->item_id = $request->item_id;
+                        $sup_q->unit_price = $request->unit_price;
+                        $sup_q->comment = $request->comment;
+                        $sup_q->supp_id = $request->supp_id;
+                        $sup_q->save();
                         return redirect('supplier-controller/view-qr')
-                            ->with('error-message','Error !! Please try again !!');
+                            ->with('success-message', 'Your Quotation has been submitted Successfully !');
+                    } }else {
+                        return redirect('supplier-controller/view-qr')
+                            ->with('error-message', 'Your Quotation has not been submitted !!');
+
                     }
             }
-            }
+            $sup_quo = new Supplier_quotations();
+            $sup_quo->item_id = $request->item_id;
+            $sup_quo->unit_price = $request->unit_price;
+            $sup_quo->comment = $request->comment;
+            $sup_quo->supp_id = $request->supp_id;
+            $sup_quo->save();
+            return redirect('supplier-controller/view-qr')
+                ->with('success-message', 'Your Quotation has been submitted Successfully !');
         }
+
         return view('supplier-controller.view-qr', [
             'qr_inv' =>  $qr_inv,
             'id'     =>  $id,
