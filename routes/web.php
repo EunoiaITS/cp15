@@ -59,6 +59,8 @@ Route::get('/view-supplier-quotation', 'AEMController@supplierQuotations');
  */
 Route::get('/qr-orders', 'DirectorController@viewQR');
 Route::get('/suppliers', 'DirectorController@viewSuppliers');
+Route::get('/approve-quotations', 'DirectorController@approveQuotations');
+Route::get('/allow-price-show', 'DirectorController@allowPriceShow');
 
 /**
  * Supplier routes

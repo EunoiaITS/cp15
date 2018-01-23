@@ -8,6 +8,8 @@
 <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/jquery.nicescroll.min.js') }}"></script>
 <script src="{{ URL::asset('assets/js/moment.js') }}"></script>
+<script src="{{ URL::asset('assets/js/Chart.bundle.js') }}"></script>
+<script src="{{ URL::asset('assets/js/index.js') }}"></script>
 <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
 <script src="{{ URL::asset('assets/js/main.js') }}"></script>
 @if(isset($footer_js))
