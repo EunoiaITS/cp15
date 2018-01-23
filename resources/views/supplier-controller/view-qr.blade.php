@@ -23,9 +23,10 @@
                             <form action="{{ url('/supplier-controller/submit-qr/') }}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                             @foreach($qr_inv as $qinv)
-                                @foreach($qinv->qr_tab as $qrt)
+                                @foreach($qinv->qri as $qrt)
+                                    @foreach($qinv->qr_table as $qrtab)
                             <tr>
-                                <td>{{ $qinv->qr_id }}</td>
+                                <td>{{ $qrtab->pr_id }}<input type="hidden" name="qr_id" value=""></td>
                                 <td>{{ $qrt->item_no}}</td>
                                 <td>{{ $qrt->quantity}}</td>
                                 <td><input type="text" name="unit_price" class="form-control from-btn-supplier from-qr"> </td>
@@ -38,6 +39,7 @@
                                 </td>
                                 <td><button type="submit" class="btn btn-primary btn-supplier input-upload">Submit</button></td>
                             </tr>
+                                        @endforeach
                                 @endforeach
                                 @endforeach
                             </form>

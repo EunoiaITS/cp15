@@ -46,10 +46,15 @@ class SupplierController extends Controller
         $id = Auth::id();
         $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")
             ->get();
-        foreach ($qr_inv as $qr_item){
-            $qr_tab = Qr_items::where('id','=',$qr_item->qr_id)
+        foreach ($qr_inv as $qr_tab){
+            $qr_table = Quotation_requisition::where('id','=',$qr_tab->qr_id)
                 ->get();
-            $qr_item->qr_tab = $qr_tab;
+            $qr_tab->qr_table = $qr_table;
+        }
+        foreach ($qr_inv as $qr_item){
+            $qri = Qr_items::where('id','=',$qr_item->qr_id)
+                ->get();
+            $qr_item->qri = $qri;
         }
         if($request->isMethod('post')){
 
