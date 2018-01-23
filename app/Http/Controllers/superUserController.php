@@ -30,7 +30,6 @@ class superUserController extends Controller
                     ->withInput();
             }
         }
-
         $type = DB::select(DB::raw("SHOW COLUMNS FROM users WHERE Field = 'role'"))[0]->Type ;
         preg_match('/^enum\((.*)\)$/', $type, $matches);
         $enum = array();
