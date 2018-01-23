@@ -104,7 +104,7 @@ class SupplierController extends Controller
     }
 
     public function submitQuotations(Request $request){
-        //
+        
     }
 
     public function viewProfile(Request $request)
