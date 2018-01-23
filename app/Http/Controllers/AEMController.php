@@ -186,7 +186,7 @@ class AEMController extends Controller
                 $qr->pr_id = $request->pr_id;
                 $qr->pr_type = $request->pr_type;
                 $qr->category = $request->category;
-                $qr->status = $request->status;
+                $qr->status = 'requested';
                 $qr->save();
                 $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
@@ -237,7 +237,7 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $qrs = Quotation_requisition::all();
+        $qrs = Quotation_requisition::where('status', 'requested')->get();
         foreach($qrs as $qr){
             $items = Qr_items::where('qr_id', $qr->id)->get();
             $qr->items = $items;
@@ -296,6 +296,40 @@ class AEMController extends Controller
             return redirect()
                 ->to('/qr-orders/view')
                 ->with('success-message', 'Quotation Requisition updated successfully!');
+        }
+    }
+
+    public function deleteQRItem(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
+        if($request->isMethod('post')){
+            $qr_item = Qr_items::find($request->delete_item_id);
+            $qr_items = Qr_items::where('qr_id', $qr_item->qr_id)->get();
+            $count = 0;
+            foreach($qr_items as $item){
+                $count++;
+            }
+            if($count < 2){
+                return redirect()
+                    ->to('/qr-orders/view')
+                    ->with('error-message', 'You can\'t delete this item! This is the only item remains!');
+            }else{
+                Qr_items::destroy($request->delete_item_id);
+                return redirect()
+                    ->to('/qr-orders/view')
+                    ->with('success-message', 'Quotation Requisition Item deleted successfully!');
+            }
         }
     }
 

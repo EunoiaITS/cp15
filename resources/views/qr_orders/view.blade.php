@@ -11,6 +11,11 @@
                             {{ session()->get('success-message') }}
                         </p>
                     @endif
+                    @if(session()->has('error-message'))
+                        <p class="alert alert-danger">
+                            {{ session()->get('error-message') }}
+                        </p>
+                    @endif
                     <div class="col-sm-10 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">
@@ -111,7 +116,7 @@
     <!--=============
     edit qr popup
     ==================-->
-    <div class="popup-wrapper-view">
+    <div class="popup-wrapper-view popup-model-qr">
         <div class="popup-base">
             <div class="search-popup">
                 <i class="close fa fa-remove"></i>
@@ -153,7 +158,7 @@
                                         <td><input type="text" class="form-control from-qr" id="pr-item-name-edit" name="prItem"></td>
                                         <td><input type="text" class="form-control from-qr" id="pr-item-code-edit" name="prItemcode"></td>
                                         <td><input type="text" class="form-control from-qr" id="pr-quantity-edit" name="prQuantity"></td>
-                                        <td><button type="button" class="btn btn-info btn-view-table open-popup-delete"><i class="fa fa-times"></i></button></td>
+                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-times"></i></button></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -172,6 +177,32 @@
             </div>
         </div>
     </div><!-- Popup -->
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close-edit-button" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+                    <h4 class="modal-title">Delete QR Order Item</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="popup-got-search">
+                        <p>Are you sure you want to delete this item ?</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form method="post" action="{{ url('/qr-orders/delete-item') }}">
+                        {{ csrf_field() }}
+                        <input type="hidden" id="delete_item_id" name="delete_item_id" value="">
+                        <div class="btn-group-sm-list">
+                            <button type="submit" class="btn btn-info btn-price">Yes</button>
+                            <button type="button" class="btn btn-info btn-popup" data-dismiss="modal">No</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--
    delete popup

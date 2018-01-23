@@ -11,7 +11,7 @@
                     '<td><input type="text" name="add_item_name'+addCount+'" class="form-control from-qr" id="pr-item-name"></td>'+
                     '<td><input type="text" name="add_item_no'+addCount+'" class="form-control from-qr" id="pr-item-code"></td>'+
                     '<td><input type="text" name="add_quantity'+addCount+'" class="form-control from-qr" id="pr-quantity"></td>'+
-                    '<td><button type="button" class="btn btn-info btn-view-table open-popup-delete"><i class="fa fa-times"></i></button></td>'+
+                    '<td><button type="button" class="btn btn-primary item-delete-add" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-times"></i></button></td>'+
                     '<input type="hidden" name="addCount" value="'+addCount+'">'+
                     '<tr>';
             $('#add-item-table-edit').append(html_create);
@@ -58,12 +58,17 @@
                 '<td><input name="item_name'+i+'" type="text" class="form-control from-qr" id="pr-item-name-edit" value="'+item_name+'"></td>'+
                 '<td><input name="item_no'+i+'" type="text" class="form-control from-qr" id="pr-item-code-edit" value="'+item_no+'"></td>'+
                 '<td><input name="quantity'+i+'" type="text" class="form-control from-qr" id="pr-quantity-edit" value="'+quantity+'"></td>'+
-                '<td><button type="button" class="btn btn-info btn-view-table open-popup-delete"><i class="fa fa-times"></i></button></td>'+
+                '<td><button type="button" rel="'+item_id+'" class="btn btn-primary item-delete" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-times"></i></button></td>'+
                 '<input type="hidden" name="editCount" value="'+i+'">'+
                 '<input type="hidden" name="edit_id'+i+'" value="'+item_id+'">'+
                 '</tr>';
             }
             $('#add-item-table-edit').html(html_data);
+            $('.item-delete').on('click', function(e){
+                e.preventDefault();
+                var id_item = $(this).attr('rel');
+                $('#delete_item_id').val(id_item);
+            });
         });
         $('.delete-qr').on('click', function(e){
             e.preventDefault();
