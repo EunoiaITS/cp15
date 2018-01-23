@@ -5,6 +5,18 @@
         <div class="row">
             <div class="col-sm-11 col-sm-offset-1">
                 <h3 class="text-uppercase color-bbc">QR Order</h3>
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        <p class="alert alert-danger">
+                            {{ $error }}
+                        </p>
+                    @endforeach
+                @endif
+                @if(session()->has('success-message'))
+                    <p class="alert alert-success">
+                        {{ session()->get('success-message') }}
+                    </p>
+                @endif
                 <div class="col-sm-11 padding-left-0">
                     <div class="table table-responsive">
                         <table class="table">

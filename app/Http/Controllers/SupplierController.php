@@ -60,6 +60,10 @@ class SupplierController extends Controller
         if($request->isMethod('post')){
             if($request->hasFile('file')){
                 $fileName = $request->file->getClientOriginalName();
+                $ext = $request->file->getClientOriginalExtension();
+                if(!in_array($ext, ['jpg', 'png','pdf'])){
+                    return redirect()->back()->withErrors('File type not matched !');
+                }else{
                 $request->file->storeAs('public/upload',$fileName);
             }
                 $sup_quo = new Supplier_quotations();
@@ -69,7 +73,9 @@ class SupplierController extends Controller
                 $sup_quo->file = "Supplier_file_".$fileName;
                 $sup_quo->supp_id = $request->supp_id;
                 $sup_quo->save();
-                return redirect('supplier-controller/view-qr');
+                return redirect('supplier-controller/view-qr')
+                    ->with('success-message','Your Quotation has been submitted Successfully !');
+            }
         }
         return view('supplier-controller.view-qr', [
             'qr_inv' =>  $qr_inv,
