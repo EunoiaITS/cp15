@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Create_suppliers;
+use App\Qr_invitations;
+use App\Qr_items;
+use App\Quotation_requisition;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -27,7 +30,29 @@ class SupplierController extends Controller
     }
 
     public function viewQR(Request $request){
-        return view('supplier-controller.view-qr');
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['suppliers', 'super_userController'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
+        $id = Auth::id();
+        $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")
+            ->get();
+        foreach ($qr_inv as $qr_item){
+            $qr_tab = Qr_items::where('id','=',$qr_item->qr_id)
+                ->get();
+            $qr_item->qr_tab = $qr_tab;
+        }
+        return view('supplier-controller.view-qr')
+            ->with('qr_inv',$qr_inv);
     }
 
     public function submitQuotations(Request $request){

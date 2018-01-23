@@ -380,7 +380,7 @@ class AEMController extends Controller
             }
         }
         $qrs = Quotation_requisition::where('status', 'requested')->get();
-        $suppliers = User::where('role', 'supplier')->get();
+        $suppliers = User::where('role', 'suppliers')->get();
         if($request->isMethod('post')) {
             foreach($qrs as $qr){
                 if($request->get('suppliers'.$qr->id) != null){
@@ -421,7 +421,7 @@ class AEMController extends Controller
     }
 
     public function supplierQuotations(Request $request){
-        //
+
     }
 
     public function tenderSummery(Request $request){
