@@ -19,7 +19,7 @@
                 @endif
                 <div class="col-sm-10 padding-left-0">
                     <div class="create-qr">
-                        <form action="{{ url('/change-password') }}" method="post">
+                        <form action="{{ url('/profile/change-password') }}" method="post">
                             {{csrf_field()}}
                             <div class="form-group clearfix">
                                 <label for="old-pass" class="label-d">Old Password<span class="fright">:</span></label>
