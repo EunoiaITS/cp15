@@ -50,6 +50,9 @@ class SupplierController extends Controller
                 ->get();
             $qr_item->qr_tab = $qr_tab;
         }
+        if($request->isMethod('post')){
+
+        }
         return view('supplier-controller.view-qr')
             ->with('qr_inv',$qr_inv);
     }
