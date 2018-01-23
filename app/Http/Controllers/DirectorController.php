@@ -51,7 +51,7 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $result = User::where('role', 'supplier')->get();
+        $result = User::where('role', 'suppliers')->get();
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -63,10 +63,14 @@ class DirectorController extends Controller
     }
 
     public function approveQuotations(Request $request){
-        //
+        return view('director.approve-quotations', [
+            'page' => 'approve'
+        ]);
     }
 
     public function allowPriceShow(Request $request){
-        //
+        return view('director.allow-price-show', [
+            'page' => 'allow'
+        ]);
     }
 }
