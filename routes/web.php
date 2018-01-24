@@ -61,6 +61,7 @@ Route::get('/qr-orders', 'DirectorController@viewQR');
 Route::get('/suppliers', 'DirectorController@viewSuppliers');
 Route::get('/approve-quotations', 'DirectorController@approveQuotations');
 Route::get('/allow-price-show', 'DirectorController@allowPriceShow');
+Route::post('/allow-price-show', 'DirectorController@allowPriceShow');
 
 /**
  * Supplier routes
