@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\price_approval;
 use Illuminate\Http\Request;
 use App\User;
 use App\Quotation_requisition;
@@ -83,14 +84,23 @@ class DirectorController extends Controller
             }
         }
         $qr_table = Quotation_requisition::all();
-            $manager = User::where('role','=','manager')->get();
-            $executive = User::where('role','=','executive')->get();
+        foreach ($qr_table as $user){
+            $role = User::Where('role','=','manager')
+                ->orWhere('role','=','executive')->get();
+            $user->role = $role;
+        }
+            if($request->isMethod('post')){
+                $pa = new price_approval();
+                $pa->pr_id = $request->pr_id;
+                $pa->manager = $request->manager;
+                $pa->executive = $request->executive;
+                $pa->save();
+                return redirect('allow-price-show')->with('success-message','Approved !!');
+            }
 
         return view('director.allow-price-show')->with(array(
             'page' => 'allow',
-            'qr_table' => $qr_table,
-            'manager' => $manager,
-            'executive' => $executive
+            'qr_table' => $qr_table
         ));
     }
 }
