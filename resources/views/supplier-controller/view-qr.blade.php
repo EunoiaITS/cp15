@@ -28,6 +28,7 @@
                             <thead>
                             <tr>
                                 <th>PR ID</th>
+                                <th>Item Name</th>
                                 <th>Item Code</th>
                                 <th>Quantity</th>
                                 <th>Unit Price</th>
@@ -37,30 +38,28 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <form action="{{ url('/supplier-controller/submit-qr/') }}" method="post" enctype="multipart/form-data">
-                                {{csrf_field()}}
                             @foreach($qr_inv as $qinv)
-                                @foreach($qinv->qri as $qrt)
-                                    @foreach($qinv->qr_table as $qrtab)
-                            <tr>
-                                <td>{{ $qrtab->pr_id }}<input type="hidden" name="item_id" value="{{$qrt->id}}"></td>
-                                <td>{{ $qrt->item_no}}<input type="hidden" name="item_no" value="{{$qrt->item_no}}"></td>
-                                <td>{{ $qrt->quantity}}<input type="hidden" name="quantity" value="{{$qrt->quantity}}"></td>
-                                <td><input type="text" name="unit_price" class="form-control from-btn-supplier from-qr"> </td>
-                                <td><input type="text" name="comment" class="form-control from-qr from-supplier"> </td>
-                                <td>
-                                    <div class="file btn btn-sm btn-primary btn-supplier">
-                                        <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload</span>
-                                        <input type="file" name="file" class="input-upload" name="file">
-                                    </div>
-                                </td>
-                                <input type="hidden" name="supp_id" value="{{$id}}">
-                                <td><button type="submit" class="btn btn-primary btn-supplier input-upload">Submit</button></td>
-                            </tr>
-                                        @endforeach
+                                @foreach($qinv->items as $qrt)
+                                    <form action="{{ url('/supplier-controller/submit-qr') }}" method="post" enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        <tr>
+                                            <td>@foreach($qinv->qr_table as $qpr){{ $qpr->pr_id }}@endforeach<input type="hidden" name="item_id" value="{{$qrt->id}}"></td>
+                                            <td>{{ $qrt->item_name}}</td>
+                                            <td>{{ $qrt->item_no}}</td>
+                                            <td>{{ $qrt->quantity}}</td>
+                                            <td><input type="text" name="unit_price" class="form-control from-btn-supplier from-qr"> </td>
+                                            <td><input type="text" name="comment" class="form-control from-qr from-supplier"> </td>
+                                            <td>
+                                                <div class="file btn btn-sm btn-primary btn-supplier">
+                                                    <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload</span>
+                                                    <input type="file" name="attachment" class="input-upload" name="file">
+                                                </div>
+                                            </td>
+                                            <td><button type="submit" class="btn btn-primary btn-supplier input-upload">Submit</button></td>
+                                        </tr>
+                                    </form>
+                                    @endforeach
                                 @endforeach
-                                @endforeach
-                            </form>
                             </tbody>
                         </table>
                     </div>

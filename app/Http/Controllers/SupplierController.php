@@ -47,51 +47,25 @@ class SupplierController extends Controller
             }
         }
         $id = Auth::id();
-        $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")
-            ->get();
+        $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->get();
         foreach ($qr_inv as $qr_tab){
-            $qr_table = Quotation_requisition::where('id','=',$qr_tab->qr_id)
-                ->get();
+            $qr_table = Quotation_requisition::where('id', $qr_tab->qr_id)->get();
             $qr_tab->qr_table = $qr_table;
-        }
-        foreach ($qr_inv as $qr_item){
-            $qri = Qr_items::where('id','=',$qr_item->qr_id)
-                ->get();
-            $qr_item->qri = $qri;
+            $qr_items = Qr_items::where('qr_id', $qr_tab->qr_id)->get();
+            $qr_tab->items = $qr_items;
         }
         if($request->isMethod('post')) {
-            if ($request->hasFile('file')) {
-                $fileName = $request->file->getClientOriginalName();
-                $ext = $request->file->getClientOriginalExtension();
-                if (in_array($ext, ['jpg', 'png', 'pdf'])) {
-                    $id = Auth::id();
-                    $path = 'uploads/'.$id;
-                    if (!file_exists($path)) {
-                        $newDir = public_path('uploads\\' . $id);
-                        File::makeDirectory($newDir, 0755, true);
-                    }else{
-                        $filePath = $request->file->storeAs($path, $fileName);
-                        $sup_q = new Supplier_quotations();
-                        $sup_q->file = $filePath;
-                        $sup_q->item_id = $request->item_id;
-                        $sup_q->unit_price = $request->unit_price;
-                        $sup_q->comment = $request->comment;
-                        $sup_q->supp_id = $request->supp_id;
-                        $sup_q->save();
-                        return redirect('supplier-controller/view-qr')
-                            ->with('success-message', 'Your Quotation has been submitted Successfully !');
-                    } }else {
-                        return redirect('supplier-controller/view-qr')
-                            ->with('error-message', 'Your Quotation has not been submitted !!');
-
-                    }
-            }
             $sup_quo = new Supplier_quotations();
             $sup_quo->item_id = $request->item_id;
             $sup_quo->unit_price = $request->unit_price;
             $sup_quo->comment = $request->comment;
-            $sup_quo->supp_id = $request->supp_id;
+            $sup_quo->supp_id = $id;
             $sup_quo->save();
+            if($request->hasFile('attachment')){
+                Storage::disk('uploads')->put('uploaded_file.'.$request->item_id.$id, $request->attachment);
+                $sup_quo->file = 'uploaded_file'.$request->item_id.$id.'.'.$request->attachment->extension();
+                $sup_quo->save();
+            }
             return redirect('supplier-controller/view-qr')
                 ->with('success-message', 'Your Quotation has been submitted Successfully !');
         }
