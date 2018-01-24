@@ -40,6 +40,7 @@
                             <tbody>
                             @foreach($qr_inv as $qinv)
                                 @foreach($qinv->items as $qrt)
+                                    @if(!in_array($qrt->id, $quoted_items))
                                     <form action="{{ url('/supplier-controller/submit-qr') }}" method="post" enctype="multipart/form-data">
                                         {{csrf_field()}}
                                         <tr>
@@ -58,6 +59,7 @@
                                             <td><button type="submit" class="btn btn-primary btn-supplier input-upload">Submit</button></td>
                                         </tr>
                                     </form>
+                                    @endif
                                     @endforeach
                                 @endforeach
                             </tbody>

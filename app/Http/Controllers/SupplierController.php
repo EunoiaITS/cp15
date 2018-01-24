@@ -48,6 +48,11 @@ class SupplierController extends Controller
         }
         $id = Auth::id();
         $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->get();
+        $quoted_items = array();
+        $quotations = Supplier_quotations::whereRaw("FIND_IN_SET($id,supp_id)")->get();
+        foreach($quotations as $quotation){
+            $quoted_items[] = $quotation->item_id;
+        }
         foreach ($qr_inv as $qr_tab){
             $qr_table = Quotation_requisition::where('id', $qr_tab->qr_id)->get();
             $qr_tab->qr_table = $qr_table;
@@ -78,6 +83,7 @@ class SupplierController extends Controller
         return view('supplier-controller.view-qr', [
             'qr_inv' =>  $qr_inv,
             'id'     =>  $id,
+            'quoted_items' => $quoted_items,
             'page'   =>  'view-qr'
         ]);
     }
