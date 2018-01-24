@@ -69,8 +69,27 @@ class DirectorController extends Controller
     }
 
     public function allowPriceShow(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['director', 'super_userController'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
+        $qr_table = Quotation_requisition::all();
+        foreach ($qr_table as $us){
+            $user = User::where('role','=','manager')
+            ->orWhere('role','=','executive');
+            $us->user = $user;
+        }
         return view('director.allow-price-show', [
-            'page' => 'allow'
+            'page' => 'allow',
         ]);
     }
 }

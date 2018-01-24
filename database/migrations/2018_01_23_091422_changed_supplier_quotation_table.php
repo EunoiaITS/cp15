@@ -14,8 +14,7 @@ class ChangedSupplierQuotationTable extends Migration
     public function up()
     {
         Schema::table('supplier_quoatation', function (Blueprint $table) {
-            $table->dropColumn('item_id');
-            $table->dropColumn('supp_id');
+            $table->dropColumn('supplier_id');
 
             $table->string('supp_id')->after('id');
             $table->string('item_id')->after('id');
