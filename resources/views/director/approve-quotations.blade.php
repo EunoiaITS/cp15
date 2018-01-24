@@ -31,7 +31,7 @@
                                     @foreach($qr_item->qr as $qr)
                                         @foreach($qr->inv as $value)
                             <tr>
-                                <td>01 </td>
+                                <td>01</td>
                                 <td>{{$qr->pr_id}}</td>
                                 <td>{{$qr->pr_type}}</td>
                                 <td>{{$value->start_date}}</td>
@@ -40,7 +40,7 @@
                                 <td>{{$qr_item->item_no}}</td>
                                 <td>{{$qr_item->quantity}}</td>
                                 <td>{{$sup_quo->unit_price}}</td>
-                                <td>N/A</td>
+                                <td></td>
                                 <td>{{$sup_quo->comment}}</td>
                                 <td><a href="#">View</a></td>
                                 <td>

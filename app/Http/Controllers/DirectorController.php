@@ -79,22 +79,20 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $supplier_quotation = Supplier_quotations::where('status','requested')->get();
-        foreach ($supplier_quotation as $sup_quo){
-            $qr_item = Qr_items::where('id','=',$sup_quo->item_id)->get();
-            $sup_quo->qr_item = $qr_item;
-            foreach($sup_quo->qr_item as $qr_tab){
-                $qr = Quotation_requisition::where('id','=',$qr_tab->qr_id)->get();
-                $qr_tab->qr = $qr;
-                foreach ($qr_tab->qr as $qr_invite){
-                    $inv = Qr_invitations::where('qr_id','=',$qr_invite->id)->get();
-                    $qr_invite->inv = $inv;
-                }
+        $quotations = Supplier_quotations::all();
+        foreach($quotations as $q){
+            $item_details = Qr_items::where('id', $q->item_id)->get();
+            $q->item_details = $item_details;
+            foreach($item_details as $i){
+                $qr_details = Quotation_requisition::where('id', $i->qr_id)->get();
+                $q->qr_details = $qr_details;
             }
+            $supplier = User::find($q->supp_id);
+            $q->supplier_details = $supplier;
         }
         return view('director.approve-quotations', [
             'page' => 'approve',
-            'supplier_quotation' => $supplier_quotation
+            'quotations' => $quotations
         ]);
     }
 
