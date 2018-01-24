@@ -17,26 +17,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($qr_table as $qrt)
+                                    @foreach($manager as $mng)
+                                    @foreach($executive as $ex)
                                 <tr>
-                                    <td> </td>
-                                    <td><label><input type="checkbox" value=""></label></td>
-                                    <td><label><input type="checkbox" value=""></label></td>
+                                    <td>{{$qrt->pr_id}}</td>
+                                    <td><label><input type="checkbox" value="{{$mng->name}}"></label>{{$mng->name}}</td>
+                                    <td><label><input type="checkbox" value="{{$ex->name}}"></label>{{$ex->name}}</td>
                                 </tr>
-                                <tr>
-                                    <td> </td>
-                                    <td><label><input type="checkbox" value=""></label></td>
-                                    <td><label><input type="checkbox" value=""></label></td>
-                                </tr>
-                                <tr>
-                                    <td> </td>
-                                    <td><label><input type="checkbox" value=""></label></td>
-                                    <td><label><input type="checkbox" value=""></label></td>
-                                </tr>
-                                <tr>
-                                    <td> </td>
-                                    <td><label><input type="checkbox" value=""></label></td>
-                                    <td><label><input type="checkbox" value=""></label></td>
-                                </tr>
+                                        @endforeach
+                                        @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

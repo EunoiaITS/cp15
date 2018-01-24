@@ -83,13 +83,14 @@ class DirectorController extends Controller
             }
         }
         $qr_table = Quotation_requisition::all();
-        foreach ($qr_table as $us){
-            $user = User::where('role','=','manager')
-            ->orWhere('role','=','executive');
-            $us->user = $user;
-        }
-        return view('director.allow-price-show', [
+            $manager = User::where('role','=','manager')->get();
+            $executive = User::where('role','=','executive')->get();
+
+        return view('director.allow-price-show')->with(array(
             'page' => 'allow',
-        ]);
+            'qr_table' => $qr_table,
+            'manager' => $manager,
+            'executive' => $executive
+        ));
     }
 }
