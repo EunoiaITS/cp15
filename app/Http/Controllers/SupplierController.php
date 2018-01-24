@@ -65,6 +65,7 @@ class SupplierController extends Controller
             $sup_quo->unit_price = $request->unit_price;
             $sup_quo->comment = $request->comment;
             $sup_quo->supp_id = $id;
+            $sup_quo->status = 'requested';
             $sup_quo->save();
             if($request->hasFile('attachment')){
                 Storage::disk('uploads')->put('uploaded_file.'.$request->item_id.$id, $request->attachment);

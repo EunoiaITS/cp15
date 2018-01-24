@@ -16,51 +16,23 @@
                                     <th>Items Name</th>
                                     <th>Item Code</th>
                                     <th>Quantity<th>
-                                    <th>Unit Price</th>
+                                    @if(Auth::user()->role == 'manager' || Auth::user()->role == 'executive')<th>Unit Price</th>@endif
                                     <th>Supplier Name</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>587</td>
-                                    <td>N/A</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>587</td>
-                                    <td>N/A</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>587</td>
-                                    <td>N/A</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>587</td>
-                                    <td>N/A</td>
-                                </tr>
+                                @foreach($quotations as $q)
+                                    <tr>
+                                        <td>@foreach($q->qr_details as $qr){{ $qr->pr_id }}@endforeach</td>
+                                        <td>@foreach($q->qr_details as $qr){{ $qr->pr_type }}@endforeach</td>
+                                        <td>@foreach($q->item_details as $qr){{ $qr->item_name }}@endforeach</td>
+                                        <td>@foreach($q->item_details as $qr){{ $qr->item_no }}@endforeach</td>
+                                        <td>@foreach($q->item_details as $qr){{ $qr->quantity }}@endforeach</td>
+                                        <td></td>
+                                        @if(Auth::user()->role == 'manager' || Auth::user()->role == 'executive')<td>@if(Auth::user()->role == $q->show_price || Auth::user()->role == $q->show_price_e){{ $q->unit_price }}@endif</td>@endif
+                                        <td>{{ $q->supplier_details->name }}</td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

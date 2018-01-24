@@ -24,18 +24,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($supqr as $prid)
-                                    @foreach($prid->item as $pr)
-                                    @foreach($pr->quo as $qr)
-                                <tr>
-                                    <td>{{$qr->pr_id}}<input type="hidden" name="pr_id" value=""></td>
-                                    <td><label><input name="manager" type="checkbox" value="manager"></label></td>
-                                    <td><label><input name="executive" type="checkbox" value="executive"></label></td>
-                                </tr>
-                                        @endforeach
-                                        @endforeach
+                                @foreach($quotations as $quot)
+                                    <tr>
+                                        <td>@foreach($quot->quo as $pr){{$pr->pr_id}}@endforeach</td>
+                                        <td><label><input name="manager{{ $quot->id }}" type="checkbox" value="manager" @if($quot->show_price == 'manager'){{ 'checked' }}@endif></label></td>
+                                        <td><label><input name="executive{{ $quot->id }}" type="checkbox" value="executive" @if($quot->show_price_e == 'executive'){{ 'checked' }}@endif></label></td>
+                                    </tr>
                                 @endforeach
-
                                 </tbody>
                             </table>
                         </div>
