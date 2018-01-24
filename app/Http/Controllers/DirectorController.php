@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\price_approval;
+use App\Qr_invitations;
 use App\Supplier_quotations;
 use Illuminate\Http\Request;
 use App\User;
@@ -65,8 +66,35 @@ class DirectorController extends Controller
     }
 
     public function approveQuotations(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['director', 'super_userController'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
+        $supplier_quotation = Supplier_quotations::where('status','requested')->get();
+        foreach ($supplier_quotation as $sup_quo){
+            $qr_item = Qr_items::where('id','=',$sup_quo->item_id)->get();
+            $sup_quo->qr_item = $qr_item;
+            foreach($sup_quo->qr_item as $qr_tab){
+                $qr = Quotation_requisition::where('id','=',$qr_tab->qr_id)->get();
+                $qr_tab->qr = $qr;
+                foreach ($qr_tab->qr as $qr_invite){
+                    $inv = Qr_invitations::where('qr_id','=',$qr_invite->id)->get();
+                    $qr_invite->inv = $inv;
+                }
+            }
+        }
         return view('director.approve-quotations', [
-            'page' => 'approve'
+            'page' => 'approve',
+            'supplier_quotation' => $supplier_quotation
         ]);
     }
 

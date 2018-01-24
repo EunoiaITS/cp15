@@ -385,7 +385,7 @@ class AEMController extends Controller
             foreach($qrs as $qr){
                 if($request->get('suppliers'.$qr->id) != null){
                     echo $request->get('suppliers'.$qr->id).' - '.$request->get('start_date'.$qr->id).' - '.$request->get('end_date'.$qr->id).' - '.$request->get('selected-suppliers'.$qr->id).'<br>';
-                    print_r($request->all());
+                    //print_r($request->all());
                     $invite = new Qr_invitations();
                     $invites['qr_id'] = $qr->id;
                     $invites['start_date'] = $request->get('start_date'.$qr->id);
