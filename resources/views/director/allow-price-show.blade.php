@@ -24,12 +24,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($qr_table as $qrt)
-                                    @foreach($qrt->role as $us)
+                                @foreach($supqr as $prid)
+                                    @foreach($prid->item as $pr)
                                 <tr>
-                                    <td>{{$qrt->pr_id}}<input type="hidden" name="pr_id" value="{{$qrt->pr_id}}"></td>
-                                    <td><label><input name="manager" type="checkbox" value="yes"></label> {{ $us->role}}</td>
-                                    <td><label><input name="executive" type="checkbox" value="yes"></label> {{ $us->role}}</td>
+                                    <td>{{$pr->pr_id}}<input type="hidden" name="pr_id" value=""></td>
+                                    <td><label><input name="approval" type="checkbox" value="yes"></label></td>
+                                    <td><label><input name="approval" type="checkbox" value="yes"></label></td>
                                 </tr>
                                         @endforeach
                                 @endforeach

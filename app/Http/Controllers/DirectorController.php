@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\price_approval;
+use App\Supplier_quotations;
 use Illuminate\Http\Request;
 use App\User;
 use App\Quotation_requisition;
@@ -83,11 +84,10 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $qr_table = Quotation_requisition::all();
-        foreach ($qr_table as $user){
-            $role = User::Where('role','=','manager')
-                ->orWhere('role','=','executive')->get();
-            $user->role = $role;
+        $supqr = Supplier_quotations::all();
+        foreach ($supqr as $qr){
+            $item = Quotation_requisition::where('id','=',$qr->item_id)->get();
+            $qr->item = $item;
         }
             if($request->isMethod('post')){
                 $pa = new price_approval();
@@ -100,7 +100,7 @@ class DirectorController extends Controller
 
         return view('director.allow-price-show')->with(array(
             'page' => 'allow',
-            'qr_table' => $qr_table
+            'supqr' => $supqr
         ));
     }
 }
