@@ -102,11 +102,6 @@ class SupplierController extends Controller
             'page'   =>  'view-qr'
         ]);
     }
-
-    public function submitQuotations(Request $request){
-        
-    }
-
     public function viewProfile(Request $request)
     {
         if (!Auth::user()) {
