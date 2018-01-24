@@ -3,8 +3,15 @@
 <div class="bbc-content-area mcw">
     <div class="container">
         <div class="row">
+            <form action="{{ url('/approve-quotations') }}" method="post">
+                {{csrf_field()}}
             <div class="col-sm-12 col-sm-offset-0">
                 <h3 class="text-uppercase color-bbc">Supplier Quotation</h3>
+                @if(session()->has('success-message'))
+                    <p class="alert alert-success">
+                        {{ session()->get('success-message') }}
+                    </p>
+                @endif
                 <div class="col-sm-11 padding-left-0">
                     <div class="table table-responsive">
                         <table class="table">
@@ -26,30 +33,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($supplier_quotation as $sup_quo)
-                                @foreach($sup_quo->qr_item as $qr_item)
-                                    @foreach($qr_item->qr as $qr)
-                                        @foreach($qr->inv as $value)
-                            <tr>
-                                <td>01</td>
-                                <td>{{$qr->pr_id}}</td>
-                                <td>{{$qr->pr_type}}</td>
-                                <td>{{$value->start_date}}</td>
-                                <td>{{$value->end_date}}</td>
-                                <td>{{$qr_item->item_name}}</td>
-                                <td>{{$qr_item->item_no}}</td>
-                                <td>{{$qr_item->quantity}}</td>
-                                <td>{{$sup_quo->unit_price}}</td>
-                                <td></td>
-                                <td>{{$sup_quo->comment}}</td>
+                            <?php $i= 1;?>
+                            @foreach($quotations as $q)
+                                <tr>
+                                <td>{{$i++}}</td>
+                                <td>@foreach($q->qr_details as $qr){{$qr->pr_id}}@endforeach</td>
+                                <td>@foreach($q->qr_details as $qr){{$qr->pr_type}}@endforeach</td>
+                                <td>@foreach($q->dates as $qr){{ $qr->start_date }}@endforeach</td>
+                                <td>@foreach($q->dates as $qr){{ $qr->start_date }}@endforeach</td>
+                                <td>@foreach($q->item_details as $qr){{ $qr->item_name }}@endforeach</td>
+                                <td>@foreach($q->item_details as $qr){{ $qr->item_no }}@endforeach</td>
+                                <td>@foreach($q->item_details as $qr){{ $qr->quantity }}@endforeach</td>
+                                <td>{{ $q->unit_price }}</td>
+                                <td>{{$q->supplier_details->name}}</td>
+                                <td>{{ $q->comment }}</td>
                                 <td><a href="#">View</a></td>
                                 <td>
-                                    <label><input type="checkbox" value=""></label>
+                                    <label><input type="checkbox" name="state{{ $q->id }}" value="approved" @if($q->status == 'approved'){{ 'checked' }}@endif></label>
                                 </td>
                             </tr>
-                                        @endforeach
-                                    @endforeach
-                                @endforeach
                             @endforeach
                             </tbody>
                         </table>
@@ -58,10 +60,11 @@
                 <div class="col-sm-11 col-sm-offset-1">
                     <div class="btn-button-group clearfix">
                         <button class="btn btn-info btn-price open-popup-comp">Price Comparison</button>
-                        <button class="btn btn-info btn-price approve">Approve</button>
+                        <button type="submit" class="btn btn-info btn-price approve">Approve</button>
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>

@@ -86,10 +86,30 @@ class DirectorController extends Controller
             foreach($item_details as $i){
                 $qr_details = Quotation_requisition::where('id', $i->qr_id)->get();
                 $q->qr_details = $qr_details;
+                foreach ($qr_details as $d){
+                    $dates = Qr_invitations::where('qr_id',$d->id)->get();
+                    $q->dates = $dates;
+                }
             }
             $supplier = User::find($q->supp_id);
             $q->supplier_details = $supplier;
         }
+        if($request->isMethod('post')){
+            foreach($quotations as $edit){
+                $quot_edit = Supplier_quotations::find($edit->id);
+                if($request->get('state'.$edit->id) != null){
+                    $quot_edit->status = 'approved';
+                    $quot_edit->save();
+                }else{
+                    $quot_edit->status = '';
+                    $quot_edit->save();
+                }
+            }
+            return redirect()
+                ->to('/approve-quotations')
+                ->with('success-message',' Quotation Approved Status Changed!!');
+        }
+
         return view('director.approve-quotations', [
             'page' => 'approve',
             'quotations' => $quotations
