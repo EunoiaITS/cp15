@@ -86,8 +86,12 @@ class DirectorController extends Controller
         }
         $supqr = Supplier_quotations::all();
         foreach ($supqr as $qr){
-            $item = Quotation_requisition::where('id','=',$qr->item_id)->get();
+            $item = Qr_items::where('id','=',$qr->item_id)->get();
             $qr->item = $item;
+            foreach($qr->item as $qrid){
+                $quo = Quotation_requisition::where('id','=',$qrid->qr_id)->get();
+                $qrid->quo = $quo;
+            }
         }
             if($request->isMethod('post')){
                 $pa = new price_approval();

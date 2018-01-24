@@ -26,11 +26,13 @@
                                 <tbody>
                                 @foreach($supqr as $prid)
                                     @foreach($prid->item as $pr)
+                                    @foreach($pr->quo as $qr)
                                 <tr>
-                                    <td>{{$pr->pr_id}}<input type="hidden" name="pr_id" value=""></td>
+                                    <td>{{$qr->pr_id}}<input type="hidden" name="pr_id" value=""></td>
                                     <td><label><input name="approval" type="checkbox" value="yes"></label></td>
                                     <td><label><input name="approval" type="checkbox" value="yes"></label></td>
                                 </tr>
+                                        @endforeach
                                         @endforeach
                                 @endforeach
 
