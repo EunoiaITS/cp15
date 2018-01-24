@@ -6,6 +6,7 @@ use App\Create_suppliers;
 use App\Qr_invitations;
 use App\Qr_items;
 use App\Quotation_requisition;
+use App\Supplier_quotations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -421,7 +422,21 @@ class AEMController extends Controller
     }
 
     public function supplierQuotations(Request $request){
-        return view('suppliers.quotations');
+        $quotations = Supplier_quotations::all();
+        foreach($quotations as $q){
+            $item_details = Qr_items::where('id', $q->item_id)->get();
+            $q->item_details = $item_details;
+            foreach($item_details as $i){
+                $qr_details = Quotation_requisition::where('id', $i->qr_id)->get();
+                $q->qr_details = $qr_details;
+            }
+            $supplier = User::find($q->supp_id);
+            $q->supplier_details = $supplier;
+        }
+        return view('suppliers.quotations', [
+            'quotations' => $quotations,
+            'page' => 'quotations'
+        ]);
     }
 
     public function tenderSummery(Request $request){

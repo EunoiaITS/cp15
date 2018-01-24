@@ -62,7 +62,10 @@ class UsersController extends Controller
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
                 return redirect('/');
             }else{
-                return redirect()->to('/login')->with('error-message', 'Wrong username/password!!');
+                return redirect()
+                    ->to('/login')
+                    ->with('error-message', 'Wrong username/password!!')
+                    ->withInput();
             }
         }
         return view('users.login');

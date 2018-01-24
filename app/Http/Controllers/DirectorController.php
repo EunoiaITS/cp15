@@ -110,27 +110,40 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $supqr = Supplier_quotations::all();
-        foreach ($supqr as $qr){
-            $item = Qr_items::where('id','=',$qr->item_id)->get();
-            $qr->item = $item;
-            foreach($qr->item as $qrid){
-                $quo = Quotation_requisition::where('id','=',$qrid->qr_id)->get();
-                $qrid->quo = $quo;
+        $quotations = Supplier_quotations::all();
+        foreach ($quotations as $quotation){
+            $item = Qr_items::where('id', $quotation->item_id)->get();
+            foreach($item as $qrid){
+                $quo = Quotation_requisition::where('id', $qrid->qr_id)->get();
+                $quotation->quo = $quo;
             }
         }
-            if($request->isMethod('post')){
-                $pa = new price_approval();
-                $pa->pr_id = $request->pr_id;
-                $pa->manager = $request->manager;
-                $pa->executive = $request->executive;
-                $pa->save();
-                return redirect('allow-price-show')->with('success-message','Approved !!');
+        if($request->isMethod('post')){
+            foreach($quotations as $edit){
+                $quot_edit = Supplier_quotations::find($edit->id);
+                if($request->get('manager'.$edit->id) != null){
+                    $quot_edit->show_price = 'manager';
+                    $quot_edit->save();
+                }else{
+                    $quot_edit->show_price = '';
+                    $quot_edit->save();
+                }
+                if($request->get('executive'.$edit->id) != null){
+                    $quot_edit->show_price_e = 'executive';
+                    $quot_edit->save();
+                }else{
+                    $quot_edit->show_price_e = '';
+                    $quot_edit->save();
+                }
             }
+            return redirect()
+                ->to('/allow-price-show')
+                ->with('success-message','Price show allowed!');
+        }
 
-        return view('director.allow-price-show')->with(array(
+        return view('director.allow-price-show', [
             'page' => 'allow',
-            'supqr' => $supqr
-        ));
+            'quotations' => $quotations
+        ]);
     }
 }
