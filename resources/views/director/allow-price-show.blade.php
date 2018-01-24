@@ -29,8 +29,8 @@
                                     @foreach($pr->quo as $qr)
                                 <tr>
                                     <td>{{$qr->pr_id}}<input type="hidden" name="pr_id" value=""></td>
-                                    <td><label><input name="approval" type="checkbox" value="yes"></label></td>
-                                    <td><label><input name="approval" type="checkbox" value="yes"></label></td>
+                                    <td><label><input name="manager" type="checkbox" value="manager"></label></td>
+                                    <td><label><input name="executive" type="checkbox" value="executive"></label></td>
                                 </tr>
                                         @endforeach
                                         @endforeach
