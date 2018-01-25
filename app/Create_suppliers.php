@@ -9,13 +9,9 @@ class Create_suppliers extends Model
 {
     protected $table = 'suppliers';
 
-    protected $fillable = [
-        'category',
-        'contact'
-    ];
     protected $rules = array(
-        'category'  => 'required',
-        'contact' => 'required'
+        'category'  => 'nullable',
+        'contact' => 'nullable'
     );
     protected $errors;
 

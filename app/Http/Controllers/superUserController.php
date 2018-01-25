@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Create_suppliers;
 use App\User;
 use Illuminate\Http\Request;
 use App\superUser;
@@ -22,6 +23,13 @@ class superUserController extends Controller
                 $user->password = bcrypt($request->password);
                 $user->role = $request->role;
                 $user->save();
+                if($user->role == 'suppliers'){
+                    $sup = new Create_suppliers();
+                    $sup->user_id = $user->id;
+                    $sup->contact = '';
+                    $sup->category = '';
+                    $sup->save();
+                }
             }
             else{
                 return redirect()
