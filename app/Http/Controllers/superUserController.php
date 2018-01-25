@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\superUser;
 use Illuminate\Support\Facades\Session;
-
+use Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +15,19 @@ class superUserController extends Controller
 {
     public function saveUser(Request $request)
     {
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['super_userController'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         if($request->isMethod('post')){
             $user = new superUser;
             if($user->validate($request->all())){
@@ -55,6 +68,19 @@ class superUserController extends Controller
     }
 
     public function viewUsers(){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['super_userController'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         $users = User::all();
         $type = DB::select(DB::raw("SHOW COLUMNS FROM users WHERE Field = 'role'"))[0]->Type ;
         preg_match('/^enum\((.*)\)$/', $type, $matches);
@@ -74,6 +100,19 @@ class superUserController extends Controller
     }
 
     public function editUsers(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['super_userController'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         if($request->isMethod('post')){
             $user = User::find($request->user_id);
             $user->name = $request->name;
@@ -88,6 +127,19 @@ class superUserController extends Controller
     }
 
     public function deleteUsers(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['super_userController'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         if($request->isMethod('post')){
             if($request->user_id != null){
                 User::destroy($request->user_id);

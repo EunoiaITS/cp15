@@ -77,41 +77,8 @@
                     <li class="@if(isset($page) && $page == 'allow'){{ "active" }}@endif"><a href="{{url('/allow-price-show')}}">Allow to View Unit Price</a></li>
                     @endif
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'super_userController')
-                        <!-- Dropdown-->
-                        <li class="panel panel-default @if(isset($page) && $page == 'user'){{ "active" }}@endif" id="dropdown">
-                            <a data-toggle="collapse" href="#dropdown-lvl1">
-                                Create Supplier List<span class="icon-right"></span>
-                            </a>
-                            <!-- Dropdown level 1 -->
-                            <div id="dropdown-lvl1" class="panel-collapse collapse @if(isset($page) && $page == 'user'){{ 'active' }}@endif">
-                                <div class="panel-body">
-                                    <ul class="nav navbar-nav">
-                                        <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/suppliers') }}">Create</a></li>
-                                        <li><a href="executive-upload-supp.html">Upload</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- Dropdown-->
-                        <li class="panel panel-default" id="dropdown">
-                            <a data-toggle="collapse" href="#dropdown-lvl2">
-                                Create QR Order<span class="icon-right"></span>
-                            </a>
-                            <!-- Dropdown level 1 -->
-                            <div id="dropdown-lvl2" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul class="nav navbar-nav">
-                                        <li class="active"><a href="executive-create.html">Create</a></li>
-                                        <li><a href="executive-upload.html">Upload</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    <li class="active"><a href="director-qr-order.html"> View QR Order</a></li>
-                    <li><a href="{{ url('/suppliers/viewSupplier') }}"> View Supplier List</a></li>
-                    <li><a href="supplier-quotation.html">Quotation Approval <span class="label label-default">10</span></a></li>
-                    <li><a href="tender-summary.html"> Tender Summary</a></li>
-                    <li><a href="quotation.html">Allow to View Unit Price</a></li>
+                    <li><a href="{{ url('/superuser') }}"> Create Users</a></li>
+                    <li><a href="{{ url('/superuser/users-list') }}"> View Users List</a></li>
                     @endif
             </ul>
         </div><!-- /.navbar-collapse -->

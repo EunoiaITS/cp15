@@ -14,7 +14,6 @@
                                     <th>User Name</th>
                                     <th>Role</th>
                                     <th>Email Address</th>
-                                    <th>Password</th>
                                     <th>Edit/Delete</th>
                                 </tr>
                                 </thead>
@@ -24,7 +23,6 @@
                                     <td id="name{{ $user->id }}">{{ $user->name }}</td>
                                     <td id="role{{ $user->id }}">{{ $user->role }}</td>
                                     <td id="email{{ $user->id }}">{{ $user->email }}</td>
-                                    <td id="password{{ $user->id }}">{{ $user->password }}</td>
                                     <td><button rel="{{ $user->id }}" id="edit{{ $user->id }}" class="btn btn-info btn-view-table open-popup popup-left">Edit</button>
                                         <button rel="{{ $user->id }}" id="delete{{ $user->id }}" class="btn btn-info btn-view-table open-popup-delete">Delete</button></td>
                                 </tr>
