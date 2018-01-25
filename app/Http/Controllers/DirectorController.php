@@ -101,7 +101,7 @@ class DirectorController extends Controller
                     $quot_edit->status = 'approved';
                     $quot_edit->save();
                 }else{
-                    $quot_edit->status = '';
+                    $quot_edit->status = 'requested';
                     $quot_edit->save();
                 }
             }
