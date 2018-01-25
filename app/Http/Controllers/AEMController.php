@@ -457,6 +457,9 @@ class AEMController extends Controller
         foreach($qrs as $qr){
             $qr_items = Qr_items::where('qr_id', $qr->id)->get();
             $qr->items = $qr_items;
+            foreach($qr_items as $item){
+                $supplier_quots = Supplier_quotations::where('item_id', $item->id)->get();
+            }
         }
         return view('qr_orders.tender-summery', [
             'qrs' => $qrs,

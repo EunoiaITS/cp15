@@ -74,7 +74,9 @@ class SupplierController extends Controller
                 foreach($files as $file){
                     $filePath = (string)$file;
                 }
-                $sup_quo->file = $filePath;
+                $fileName = explode('\\', $filePath);
+                $count = sizeof($fileName);
+                $sup_quo->file = $fileName[($count-2)].'\\'.$fileName[($count-1)];
                 $sup_quo->save();
             }
             return redirect('supplier-controller/view-qr')
