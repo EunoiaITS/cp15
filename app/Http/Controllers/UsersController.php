@@ -59,6 +59,7 @@ class UsersController extends Controller
             return redirect()->to('/');
         }
         if($request->isMethod('post')){
+
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
                 return redirect('/');
             }else{
@@ -77,11 +78,16 @@ class UsersController extends Controller
     }
 
     public function dashboard(){
+        $id = Auth::id();
+        $user = User::find($id);
         if(!Auth::user()){
             return redirect()
                 ->to('/login')
                 ->with('error-message', 'Please login first!');
-        }
+        }elseif ($user->role == 'suppliers'){
+            return redirect('/supplier-controller/view-qr/');
+        }else{
         return view('dashboard');
+        }
     }
 }
