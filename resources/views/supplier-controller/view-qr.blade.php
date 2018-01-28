@@ -31,6 +31,8 @@
                                 <th>Item Name</th>
                                 <th>Item Code</th>
                                 <th>Quantity</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
                                 <th>Unit Price</th>
                                 <th>Comments</th>
                                 <th>Upload Files</th>
@@ -48,6 +50,8 @@
                                             <td>{{ $qrt->item_name}}</td>
                                             <td>{{ $qrt->item_no}}</td>
                                             <td>{{ $qrt->quantity}}</td>
+                                            <td>{{ $qinv->start_date }}</td>
+                                            <td>{{ $qinv->end_date }}</td>
                                             <td><input type="text" name="unit_price" class="form-control from-btn-supplier from-qr"> </td>
                                             <td><input type="text" name="comment" class="form-control from-qr from-supplier"> </td>
                                             <td>

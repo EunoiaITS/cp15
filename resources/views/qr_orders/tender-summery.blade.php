@@ -17,6 +17,7 @@
                                     <th>Items Name</th>
                                     <th>Item Code</th>
                                     <th>Quantity<th>
+                                    <th>Unit Price</th>
                                     <th>Supplier Name</th>
                                     @if(Auth::user()->role == 'director')
                                         <th>Download</th>
@@ -34,6 +35,7 @@
                                             <td>{{ $item->item_no }}</td>
                                             <td>{{ $item->quantity }}</td>
                                             <td></td>
+                                            <td>12,34,56</td>
                                             <td>N/A</td>
                                             @if(Auth::user()->role == 'director')
                                                 <td><a href="#"><i class="fa fa-download"></i></a></td>
