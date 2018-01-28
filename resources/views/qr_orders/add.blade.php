@@ -29,17 +29,17 @@
                                 {{ csrf_field() }}
                             <div class="form-group clearfix">
                                 <label for="pr-id" class="label-d">PR ID <span class="fright">:</span></label>
-                                <input type="text" name="pr_id" class="form-control from-qr" id="pr-id">
+                                <input type="text" name="pr_id" class="form-control from-qr" id="pr-id" required>
                                 @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('pr_id') }}</p>@endif
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-type" class="label-d">PR Type <span class="fright">:</span></label>
-                                <input type="text" name="pr_type" class="form-control from-qr" id="pr-type">
+                                <input type="text" name="pr_type" class="form-control from-qr" id="pr-type" required>
                                 @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('pr_type') }}</p>@endif
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <input type="text" name="category" class="form-control from-qr" id="pr-catagory">
+                                <input type="text" name="category" class="form-control from-qr" id="pr-catagory" required>
                                 @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('category') }}</p>@endif
                             </div>
                             <input type="hidden" name="status" value="requested">
