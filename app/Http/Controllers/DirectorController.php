@@ -98,12 +98,12 @@ class DirectorController extends Controller
             foreach($quotations as $edit){
                 $quot_edit = Supplier_quotations::find($edit->id);
                 if($request->get('state'.$edit->id) != null){
-                    $i=1;
                     if($quot_edit->status != 'approved'){
-                        $sup_qr = new Create_suppliers();
-                        $sup_qr->qr_id = 'QR-'.$i++;
-                        $sup_qr->save();
-                    }
+                            $count = Create_suppliers::count();
+                            $sup_qr = new Create_suppliers();
+                            $sup_qr->qr_id = 'QR'.sprintf("%08d", ($count+1));
+                            $sup_qr->save();
+                        }
                     $quot_edit->status = 'approved';
                     $quot_edit->save();
                 }else{
