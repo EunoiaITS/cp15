@@ -58,12 +58,12 @@
                 var item_name = $('#item-name'+i+id).text();
                 var item_no = $('#item-no'+i+id).text();
                 var quantity = $('#quantity'+i+id).text();
-                html_data += '<tr>'+
+                html_data += '<tr class="" id="row'+item_id+'">'+
                 '<td>'+i+'</td>'+
                 '<td><input name="item_name'+i+'" type="text" class="form-control from-qr" id="pr-item-name-edit" value="'+item_name+'"></td>'+
                 '<td><input name="item_no'+i+'" type="text" class="form-control from-qr" id="pr-item-code-edit" value="'+item_no+'"></td>'+
                 '<td><input name="quantity'+i+'" type="text" class="form-control from-qr" id="pr-quantity-edit" value="'+quantity+'"></td>'+
-                '<td><button type="button" rel="'+item_id+'" class="btn btn-primary item-delete" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-times"></i></button></td>'+
+                '<td><button type="button" rel="'+item_id+'" class="btn btn-primary item-delete"><i id="btn-delete-'+item_id+'" class="fa fa-times"></i></button></td>'+
                 '<input type="hidden" name="editCount" value="'+i+'">'+
                 '<input type="hidden" name="edit_id'+i+'" value="'+item_id+'">'+
                 '</tr>';
@@ -72,7 +72,18 @@
             $('.item-delete').on('click', function(e){
                 e.preventDefault();
                 var id_item = $(this).attr('rel');
-                $('#delete_item_id').val(id_item);
+                var del_checker = $("#row"+id_item).attr('class');
+                if(del_checker != "bg-danger"){
+                    $("#row"+id_item).attr('class', 'bg-danger');
+                    $("#row"+id_item+" input").prop('readonly', true);
+                    $("#btn-delete-"+id_item).attr('class', 'fa fa-undo');
+                    $('#deleted-items').append('<input type="hidden" id="delete_item_no'+id_item+'" name="delete_item_no'+id_item+'" value="'+id_item+'">');
+                }else{
+                    $("#row"+id_item).attr('class', '');
+                    $("#row"+id_item+" input").prop('readonly', false);
+                    $("#btn-delete-"+id_item).attr('class', 'fa fa-times');
+                    $('#delete_item_no'+id_item).remove();
+                }
             });
         });
         $('.delete-qr').on('click', function(e){

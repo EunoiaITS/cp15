@@ -165,6 +165,7 @@
                             </div>
                             <button type="button" id="add-item-create" class="btn btn-info btn-price btn-popup-add">Add Item</button>
 
+                            <div id="deleted-items"></div>
                             <div class="col-sm-12">
                                 <div class="btn-button-group btn-button-group-opitonal clearfix">
                                     <button class="btn btn-info btn-price">Save</button>

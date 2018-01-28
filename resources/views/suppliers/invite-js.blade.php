@@ -6,6 +6,7 @@
             suppliers = '';
             var id = $(this).attr('rel');
             $('.supplier-select').attr('rel', id);
+            $('.supplier-select').prop('checked', false);
         });
         $('#confirm-select').on('click', function(e){
             e.preventDefault();
