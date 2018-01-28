@@ -469,12 +469,19 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $qrs = Quotation_requisition::where('status', 'approved')->get();
+        $qrs = Supplier_quotations::where('status', 'approved')->get();
         foreach($qrs as $qr){
-            $qr_items = Qr_items::where('qr_id', $qr->id)->get();
+            $qr_items = Qr_items::where('id', $qr->item_id)->get();
             $qr->items = $qr_items;
             foreach($qr_items as $item){
-                $supplier_quots = Supplier_quotations::where('item_id', $item->id)->get();
+                $qr_details = Quotation_requisition::where('id', $item->qr_id)->get();
+                $qr->qr_details = $qr_details;
+            }
+            $supplier = User::find($qr->supp_id);
+            $qr->supplier = $supplier;
+            $supplier_details = Create_suppliers::where('user_id', $qr->supp_id)->get();
+            foreach($supplier_details as $sd){
+                $qr->supplier_details = $sd;
             }
         }
         return view('qr_orders.tender-summery', [

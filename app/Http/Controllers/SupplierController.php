@@ -69,12 +69,12 @@ class SupplierController extends Controller
                 $sup_quo->save();
                 if($request->hasFile('attachment')){
                 Storage::disk('uploads')->put('uploaded_file.'.$request->item_id.$id, $request->attachment);
-                $files = File::allFiles(public_path().'\\uploads\\uploaded_file.'.$request->item_id.$id);
+                $files = File::allFiles(public_path().'/uploads/uploaded_file.'.$request->item_id.$id);
                 $filePath = '';
                 foreach($files as $file){
                     $filePath = (string)$file;
                 }
-                $fileName = explode('\\', $filePath);
+                $fileName = explode('/', $filePath);
                 $count = sizeof($fileName);
                 $sup_quo->file = $fileName[($count-2)].'\\'.$fileName[($count-1)];
                 $sup_quo->save();

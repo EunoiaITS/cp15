@@ -26,22 +26,20 @@
                                 </thead>
                                 <tbody>
                                 @foreach($qrs as $qr)
-                                    @foreach($qr->items as $item)
-                                        <tr>
-                                            <td>{{ $qr->pr_id }}</td>
-                                            <td>{{ $qr->pr_type }}</td>
-                                            <td>{{ $qr->category }}</td>
-                                            <td>{{ $item->item_name }}</td>
-                                            <td>{{ $item->item_no }}</td>
-                                            <td>{{ $item->quantity }}</td>
-                                            <td></td>
-                                            <td>12,34,56</td>
-                                            <td>N/A</td>
-                                            @if(Auth::user()->role == 'director')
-                                                <td><a href="#"><i class="fa fa-download"></i></a></td>
-                                            @endif
-                                        </tr>
-                                        @endforeach
+                                    <tr>
+                                        <td>@foreach($qr->qr_details as $q){{$q->pr_id}}@endforeach</td>
+                                        <td>@foreach($qr->qr_details as $q){{$q->pr_type}}@endforeach</td>
+                                        <td>{{$qr->supplier_details->qr_id}}</td>
+                                        <td>@foreach($qr->items as $item){{ $item->item_name }}@endforeach</td>
+                                        <td>@foreach($qr->items as $item){{ $item->item_no }}@endforeach</td>
+                                        <td>@foreach($qr->items as $item){{ $item->quantity }}@endforeach</td>
+                                        <td></td>
+                                        <td>{{ $qr->unit_price }}</td>
+                                        <td>{{ $qr->supplier->name }}</td>
+                                        @if(Auth::user()->role == 'director')
+                                            <td><a href="#"><i class="fa fa-download"></i></a></td>
+                                        @endif
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>

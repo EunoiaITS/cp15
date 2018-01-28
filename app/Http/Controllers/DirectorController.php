@@ -98,19 +98,22 @@ class DirectorController extends Controller
             foreach($quotations as $edit){
                 $quot_edit = Supplier_quotations::find($edit->id);
                 if($request->get('state'.$edit->id) != null){
-                    if($quot_edit->status != 'approved'){
-                        $sup_check = Create_suppliers::all();
-                        $last_qr ='';
-                        foreach ($sup_check as $check){
-                            $last_qr = $check->qr_id;
-                            if($last_qr != null){
-                                $sup_qr = new Create_suppliers();
-                                $qr =  str_replace('QR', '', $last_qr);
-                                $qr_id = intval($qr);
-                                $sup_qr->qr_id = 'QR'.$qr_id;
+                    $sup_qrs = Create_suppliers::where('user_id', $quot_edit->supp_id)->get();
+                    foreach($sup_qrs as $sup_qr){
+                        if($sup_qr->qr_id == null){
+                            $sup_check = Create_suppliers::whereRaw("qr_id != ''")->get();
+                            if($sup_check->isEmpty()){
+                                $sup_qr->qr_id = 'QR'.sprintf("%08d",1);
                                 $sup_qr->save();
                             }else{
-                                $sup_qr->qr_id = 'QR'.sprintf("%08d",1);
+                                $last_qr = null;
+                                $to_sort = array();
+                                foreach ($sup_check as $check){
+                                    $to_sort[] = intval(str_replace('QR', '', $check->qr_id));
+                                    sort($to_sort);
+                                    $last_qr = $to_sort[(sizeof($to_sort)-1)];
+                                }
+                                $sup_qr->qr_id = 'QR'.sprintf("%08d", ($last_qr+1));
                                 $sup_qr->save();
                             }
                         }

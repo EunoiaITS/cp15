@@ -11,7 +11,8 @@ class Create_suppliers extends Model
 
     protected $rules = array(
         'category'  => 'nullable',
-        'contact' => 'nullable'
+        'contact' => 'nullable',
+        'qr_id' => 'nullable'
     );
     protected $errors;
 
