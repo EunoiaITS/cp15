@@ -181,9 +181,19 @@ class AEMController extends Controller
             }
         }
         if($request->isMethod('post')) {
-            //print_r($request->all());
             $qr = new Quotation_requisition();
             if ($qr->validate($request->all())) {
+                for($i = 1; $i <= $request->count; $i++){
+                    $qr_item = new Qr_items();
+                    $qr_items['item_name'] = $request->get('item_name' . $i);
+                    $qr_items['item_no'] = $request->get('item_no' . $i);
+                    $qr_items['quantity']  = $request->get('quantity' .$i);
+                    if(!$qr_item->validate($qr_items)){
+                        return redirect()
+                            ->to('/qr-orders/add-qr-order')
+                            ->withErrors($qr_item->errors());
+                    }
+                }
                 $qr->pr_id = $request->pr_id;
                 $qr->pr_type = $request->pr_type;
                 $qr->category = $request->category;
@@ -191,21 +201,11 @@ class AEMController extends Controller
                 $qr->save();
                 $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
-                    $qr_item = new Qr_items();
-                    $qr_items['item_name'] = $request->get('item_name' . $i);
-                    $qr_items['item_no'] = $request->get('item_no' . $i);
-                    $qr_items['quantity']  = $request->get('quantity' .$i);
-                    if($qr_item->validate($qr_items)){
-                        $qr_item->qr_id = $qr_item_id;
-                        $qr_item->item_name = $request->get('item_name' . $i);
-                        $qr_item->item_no = $request->get('item_no' . $i);
-                        $qr_item->quantity  = $request->get('quantity' .$i);
-                        $qr_item->save();
-                    }else{
-                        return redirect()
-                            ->to('/qr-orders/add-qr-order')
-                            ->withErrors($qr_item->errors());
-                    }
+                    $qr_item->qr_id = $qr_item_id;
+                    $qr_item->item_name = $request->get('item_name' . $i);
+                    $qr_item->item_no = $request->get('item_no' . $i);
+                    $qr_item->quantity  = $request->get('quantity' .$i);
+                    $qr_item->save();
                 }
                 return redirect()
                     ->to('/qr-orders/add-qr-order')
