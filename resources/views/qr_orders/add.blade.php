@@ -56,9 +56,9 @@
                                     <tbody id="add-item-table-item">
                                     <tr>
                                         <td>1</td>
-                                        <td><input name="item_name1" type="text" class="form-control from-qr" id="pr-item-name" name="prItem"></td>
-                                        <td><input name="item_no1" type="text" class="form-control from-qr" id="pr-item-code" name="prItemcode"></td>
-                                        <td><input name="quantity1" type="text" class="form-control from-qr" id="pr-quantity" name="prQuantity"></td>
+                                        <td><input name="item_name1" type="text" class="form-control from-qr" id="pr-item-name" name="prItem" required></td>
+                                        <td><input name="item_no1" type="text" class="form-control from-qr" id="pr-item-code" name="prItemcode" required></td>
+                                        <td><input name="quantity1" type="text" class="form-control from-qr" id="pr-quantity" name="prQuantity" required></td>
                                         <input type="hidden" name="count" value="1">
                                     </tr>
                                     </tbody>
