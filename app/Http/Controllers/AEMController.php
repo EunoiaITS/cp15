@@ -296,6 +296,22 @@ class AEMController extends Controller
                     }
                 }
             }
+            $qr_elements = Qr_items::where('qr_id', $qr->id)->get();
+            foreach($qr_elements as $qe){
+                if($request->get('delete_item_no'.$qe->id) != null){
+                    $count = 0;
+                    foreach($qr_elements as $item){
+                        $count++;
+                    }
+                    if($count < 2){
+                        return redirect()
+                            ->to('/qr-orders/view')
+                            ->with('error-message', 'You can\'t delete all items!');
+                    }else{
+                        Qr_items::destroy($request->get('delete_item_no'.$qe->id));
+                    }
+                }
+            }
             return redirect()
                 ->to('/qr-orders/view')
                 ->with('success-message', 'Quotation Requisition updated successfully!');
