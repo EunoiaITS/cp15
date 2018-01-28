@@ -14,13 +14,16 @@ class Supplier_quotations extends Model
         'supp_id',
         'unit_price',
         'comment',
+        'status',
         'file'
     ];
     protected $rules = array(
         'item_id'  => 'required',
         'supp_id'  => 'required',
         'unit_price' => 'required',
-        'comment' => 'required'
+        'status' => 'required',
+        'comment'=> 'nullable',
+        'file'=> 'nullable'
     );
     protected $errors;
 
