@@ -79,7 +79,7 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $quotations = Supplier_quotations::where('status','requested')->get();
+        $quotations = Supplier_quotations::where('status','=','requested')->get();
         foreach($quotations as $q){
             $item_details = Qr_items::where('id', $q->item_id)->get();
             $q->item_details = $item_details;
@@ -98,6 +98,12 @@ class DirectorController extends Controller
             foreach($quotations as $edit){
                 $quot_edit = Supplier_quotations::find($edit->id);
                 if($request->get('state'.$edit->id) != null){
+                    $i=1;
+                    if($quot_edit->status != 'approved'){
+                        $sup_qr = new Create_suppliers();
+                        $sup_qr->qr_id = 'QR-'.$i++;
+                        $sup_qr->save();
+                    }
                     $quot_edit->status = 'approved';
                     $quot_edit->save();
                 }else{
