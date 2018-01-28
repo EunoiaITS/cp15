@@ -469,7 +469,7 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $qrs = Quotation_requisition::all();
+        $qrs = Quotation_requisition::where('status', 'approved')->get();
         foreach($qrs as $qr){
             $qr_items = Qr_items::where('qr_id', $qr->id)->get();
             $qr->items = $qr_items;
