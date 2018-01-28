@@ -42,12 +42,14 @@
                             @foreach($qrs as $qr)
                             <tr>
                                 <td>{{ $qr->pr_id }}</td>
-                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f"></td>
-                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f"></td>
+                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.$qr->invite->start_date.'" readonly' }}@endif></td>
+                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.$qr->invite->end_date.'" readonly' }}@endif></td>
                                 <td><label><input name="suppliers{{ $qr->id }}" type="checkbox" value="{{ $qr->id }}"></label></td>
                                 <td><button rel="{{ $qr->id }}" type="button" class="btn btn-info btn-view-table open-popup select-suppliers">Supplier</button></td>
                                 <input type="hidden" id="selected-suppliers{{ $qr->id }}" name="selected-suppliers{{ $qr->id }}" value="">
                             </tr>
+                            @if($qr->invite != null)<input type="hidden" name="action{{ $qr->id }}" value="edit">@endif
+                            <span id="sup{{ $qr->id }}" class="hidden">@if($qr->invite != null){{ $qr->invite->suppliers }}@endif</span>
                             @endforeach
                             </tbody>
                         </table>
@@ -86,14 +88,12 @@ Search popuppage
                                 <th>Select</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            @foreach($suppliers as $sup)
-                            <tr>
-                                <td>{{ $sup->name }}</td>
-                                <td><label><input rel="{{ $sup->id }}" class="supplier-select" type="checkbox" name="supplier_id{{ $sup->id }}[]" value="{{$sup->id}}"></label></td>
-                            </tr>
-                            @endforeach
+                            <tbody id="supplier-list">
                             </tbody>
+                            @foreach($suppliers as $sup)
+                                <span id="sup-id-{{ $sup->id }}" class="hidden">{{ $sup->id }}</span>
+                                <span id="sup-name-{{ $sup->id }}" class="hidden">{{ $sup->name }}</span>
+                            @endforeach
                         </table>
                     </div>
                     <button id="confirm-select" name="modal" class="btn btn-info btn-popup close">Confirm</button>

@@ -201,6 +201,7 @@ class AEMController extends Controller
                 $qr->save();
                 $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
+                    $qr_item = new Qr_items();
                     $qr_item->qr_id = $qr_item_id;
                     $qr_item->item_name = $request->get('item_name' . $i);
                     $qr_item->item_no = $request->get('item_no' . $i);
@@ -396,13 +397,27 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $qrs = Quotation_requisition::where('status', 'requested')->get();
+        $qrs = Quotation_requisition::all();
         $suppliers = User::where('role', 'suppliers')->get();
+        foreach($qrs as $qr){
+            $invitations = Qr_invitations::where('qr_id', $qr->id)->get();
+            if($invitations->isNotEmpty()){
+                foreach($invitations as $invitation){
+                    $qr->invite = $invitation;
+                }
+            }
+        }
         if($request->isMethod('post')) {
             foreach($qrs as $qr){
                 if($request->get('suppliers'.$qr->id) != null){
-                    echo $request->get('suppliers'.$qr->id).' - '.$request->get('start_date'.$qr->id).' - '.$request->get('end_date'.$qr->id).' - '.$request->get('selected-suppliers'.$qr->id).'<br>';
-                    //print_r($request->all());
+                    if($request->get('action'.$qr->id) == 'edit'){
+                        $invite = Qr_invitations::find($qr->id);
+                        $invite->suppliers = rtrim($invite->suppliers.','.$request->get('selected-suppliers'.$qr->id), ',');
+                        $invite->save();
+                        return redirect()
+                            ->to('/suppliers/invite-suppliers')
+                            ->with('success-message', 'Invitations has been sent successfully!');
+                    }
                     $invite = new Qr_invitations();
                     $invites['qr_id'] = $qr->id;
                     $invites['start_date'] = $request->get('start_date'.$qr->id);
