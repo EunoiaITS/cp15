@@ -7,42 +7,11 @@
                     <div class="col-sm-10 padding-left-0">
                         <div class="create-qr qr-overfollow">
                             <h3 class="text-uppercase color-bbc">Excel Upload</h3>
-                            <style>
-                                table,tr,td{
-                                    border:1px solid black;
-                                }
-                            </style>
-                            <table>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Email</td>
-                                    <td>Category</td>
-                                    <td>Contact</td>
-                                    <td>Password</td>
-
-                                </tr>
-                                <tr>
-                                    <td><?php echo $results[0][0]['name'];?></td>
-                                    <td><?php echo $results[0][0]['email'];?></td>
-                                    <td><?php echo $results[0][0]['category'];?></td>
-                                    <td><?php echo $results[0][0]['contact'];?></td>
-                                    <td><?php echo $results[0][0]['password'];?></td>
-                                </tr>
-                                <tr>
-                                    <td><?php echo $results[0][1]['name'];?></td>
-                                    <td><?php echo $results[0][1]['email'];?></td>
-                                    <td><?php echo $results[0][1]['category'];?></td>
-                                    <td><?php echo $results[0][1]['contact'];?></td>
-                                    <td><?php echo $results[0][1]['password'];?></td>
-                                </tr>
-                                <tr>
-                                    <td><?php echo $results[0][2]['name'];?></td>
-                                    <td><?php echo $results[0][2]['email'];?></td>
-                                    <td><?php echo $results[0][2]['category'];?></td>
-                                    <td><?php echo $results[0][2]['contact'];?></td>
-                                    <td><?php echo $results[0][2]['password'];?></td>
-                                </tr>
-                            </table>
+                            @if(session()->has('success-message'))
+                                <p class="alert alert-success">
+                                    {{ session()->get('success-message') }}
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>
