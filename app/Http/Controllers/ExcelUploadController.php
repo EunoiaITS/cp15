@@ -41,10 +41,8 @@ class ExcelUploadController extends Controller
                 }
             }
         }
-        return view('excel-upload.imported-data',[
-            'success-message'=>'Uploaded Successfully !!',
-            'result' => $results
-        ]);
+        return redirect('/excel-upload/')
+            ->with('success-message','Uploaded Successfully !!');
     }
 
 }
