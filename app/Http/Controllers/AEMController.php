@@ -411,12 +411,14 @@ class AEMController extends Controller
             foreach($qrs as $qr){
                 if($request->get('suppliers'.$qr->id) != null){
                     if($request->get('action'.$qr->id) == 'edit'){
-                        $invite = Qr_invitations::find($qr->id);
-                        $invite->suppliers = rtrim($invite->suppliers.','.$request->get('selected-suppliers'.$qr->id), ',');
-                        $invite->save();
-                        return redirect()
-                            ->to('/suppliers/invite-suppliers')
-                            ->with('success-message', 'Invitations has been sent successfully!');
+                        $invite = Qr_invitations::where('qr_id', $qr->id)->get();
+                        foreach($invite as $in){
+                            $in->suppliers = rtrim($in->suppliers.','.$request->get('selected-suppliers'.$qr->id), ',');
+                            $in->save();
+                            return redirect()
+                                ->to('/suppliers/invite-suppliers')
+                                ->with('success-message', 'Invitations has been sent successfully!');
+                        }
                     }
                     $invite = new Qr_invitations();
                     $invites['qr_id'] = $qr->id;
