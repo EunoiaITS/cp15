@@ -28,6 +28,20 @@
                                     <td><?php echo $results[0][0]['contact'];?></td>
                                     <td><?php echo $results[0][0]['password'];?></td>
                                 </tr>
+                                <tr>
+                                    <td><?php echo $results[0][1]['name'];?></td>
+                                    <td><?php echo $results[0][1]['email'];?></td>
+                                    <td><?php echo $results[0][1]['category'];?></td>
+                                    <td><?php echo $results[0][1]['contact'];?></td>
+                                    <td><?php echo $results[0][1]['password'];?></td>
+                                </tr>
+                                <tr>
+                                    <td><?php echo $results[0][2]['name'];?></td>
+                                    <td><?php echo $results[0][2]['email'];?></td>
+                                    <td><?php echo $results[0][2]['category'];?></td>
+                                    <td><?php echo $results[0][2]['contact'];?></td>
+                                    <td><?php echo $results[0][2]['password'];?></td>
+                                </tr>
                             </table>
                         </div>
                     </div>
