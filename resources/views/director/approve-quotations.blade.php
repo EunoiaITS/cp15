@@ -49,7 +49,7 @@
                                 <td>{{ $q->comment }}</td>
                                 <td><a href="@if($q->file != null){{ URL::asset('/uploads/'.$q->file) }}@endif" target="_blank">View</a></td>
                                 <td>
-                                    <label><input type="checkbox" name="state{{ $q->id }}" value="approved" @if($q->status == 'approved'){{ 'checked' }}@endif></label>
+                                    <label><input type="checkbox" rel="@foreach($q->item_details as $qr){{ $qr->item_name }}@endforeach" class="select-items" name="state{{ $q->id }}" value="approved" @if($q->status == 'approved'){{ 'checked' }}@endif></label>
                                 </td>
                             </tr>
                             @endforeach
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-sm-11 col-sm-offset-1">
                     <div class="btn-button-group clearfix">
-                        <button class="btn btn-info btn-price open-popup-comp">Price Comparison</button>
+                        <button type="button" id="price-compare" class="btn btn-info btn-price open-popup-comp">Price Comparison</button>
                         <button type="submit" class="btn btn-info btn-price approve">Approve</button>
                     </div>
                 </div>
@@ -82,9 +82,9 @@ price comparison popup
                     <h2 class="search-title pie-search">Price Comparison</h2>
                 </div>
                 <!-- header got seach area -->
-                <div class="popup-got-search popup-pie clearfix">
+                <div class="popup-got-search popup-pie clearfix" id="item-chart">
                     <!-- Pie chart -->
-                    <div id="canvas-holder" class="canvas-holder-2">
+                    <div id="canvas-holder">
                         <p class="text-center">Item 1</p>
                         <canvas id="chart-area"/>
                     </div>
@@ -92,16 +92,16 @@ price comparison popup
                         <p class="text-center">Item 2</p>
                         <canvas id="chart-area2" />
                     </div>
+                    <!-- Pie chart -->
+                    <div id="canvas-holder">
+                        <p class="text-center">Item 3</p>
+                        <canvas id="chart-area3"/>
+                    </div>
+                    <div id="canvas-holder">
+                        <p class="text-center">Item 4</p>
+                        <canvas id="chart-area4" />
+                    </div>
                     <div class="clearfix">
-                        <!-- Pie chart -->
-                        <div id="canvas-holder">
-                            <p class="text-center">Item 3</p>
-                            <canvas id="chart-area3"/>
-                        </div>
-                        <div id="canvas-holder" class="canvas-holder-1">
-                            <p class="text-center">Item 4</p>
-                            <canvas id="chart-area4" />
-                        </div>
                     </div>
                 </div><!--// end header got search area -->
                 <button class="btn btn-info btn-popup close">Close</button>

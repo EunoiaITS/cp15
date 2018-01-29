@@ -132,7 +132,8 @@ class DirectorController extends Controller
 
         return view('director.approve-quotations', [
             'page' => 'approve',
-            'quotations' => $quotations
+            'quotations' => $quotations,
+            'footer_js' => 'director.price-compare-js'
         ]);
     }
 
