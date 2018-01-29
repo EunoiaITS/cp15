@@ -71,3 +71,11 @@ Route::get('/profile', 'SupplierController@viewProfile');
 Route::post('/profile/edit', 'SupplierController@editProfile');
 Route::get('/supplier-controller/view-qr/', 'SupplierController@viewQR');
 Route::post('/supplier-controller/submit-qr/', 'SupplierController@viewQR');
+
+/**
+ * Supplier routes
+ */
+
+Route::get('/excel-upload', 'ExcelUploadController@uploadFile');
+Route::get('/import-data', 'ExcelUploadController@importData');
+Route::post('/import-data', 'ExcelUploadController@importData');
