@@ -46,7 +46,6 @@
             $("input:checkbox[class=supplier-select]:checked").each(function(){
                 suppliers += $(this).val()+',';
             });
-            alert(id);
             $('#selected-suppliers'+id).val(suppliers);
             suppliers = '';
         });
