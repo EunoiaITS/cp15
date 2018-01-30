@@ -15,7 +15,7 @@
                             <form action="{{url('/suppliers/import-data')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <label>Upload File</label>
-                                <input type="file" name="file"><br/>
+                                <input type="file" name="file" required><br/>
                                 <input type="submit" value="upload">
                             </form>
                         </div>
