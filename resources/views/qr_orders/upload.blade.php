@@ -6,13 +6,13 @@
                 <div class="col-sm-11 col-sm-offset-1">
                     <div class="col-sm-10 padding-left-0">
                         <div class="create-qr qr-overfollow">
-                            <h3 class="text-uppercase color-bbc">Excel Upload</h3>
+                            <h3 class="text-uppercase color-bbc">Quotation Requisition Upload</h3>
                             @if(session()->has('success-message'))
                                 <p class="alert alert-success">
                                     {{ session()->get('success-message') }}
                                 </p>
                             @endif
-                            <form action="{{url('import-data.blade.php')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('/qr-orders/import-data')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <label>Upload File</label>
                                 <input type="file" name="file"><br/>

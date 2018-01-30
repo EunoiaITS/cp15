@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use Auth;
+use Excel;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
 
 class AEMController extends Controller
 {
@@ -505,5 +508,40 @@ class AEMController extends Controller
             'qrs' => $qrs,
             'page' => 'tender'
         ]);
+    }
+    public function uploadFile(){
+        return view('qr_orders.upload');
+    }
+    public function importData(Request $request){
+        if($request->isMethod('post')) {
+            $file = Input::file('file');
+            $file_name = $file->getClientOriginalName();
+            $file->move('uploads', $file_name);
+            $results = Excel::load('uploads/' . $file_name, function ($reader) {
+                $reader->all();
+            })->get();
+            foreach ($results as $result => $res) {
+                foreach ($res as $r) {
+                    $qr = new Quotation_requisition();
+                            $qr->pr_id = trim($r->pr_id);
+                            $qr->pr_type = trim($r->pr_type);
+                            $qr->category = trim($r->category);
+                            $qr->status = 'requested';
+                            $qr->save();
+                            $qr_item_id = $qr->id;
+                            $qr_item = new Qr_items();
+                            $qr_item->qr_id = $qr_item_id;
+                            $qr_item->item_name = trim($r->item_name);
+                            $qr_item->item_no = trim($r->item_code);
+                            $qr_item->quantity  = trim($r->quantity);
+                            $qr_item->save();
+                }
+            }
+        }
+//        return view('qr_orders.import-data',[
+//            'results' => $results
+//        ]);
+        return redirect('/qr-orders/upload-qr-order')
+            ->with('success-message','Uploaded Successfully !!');
     }
 }

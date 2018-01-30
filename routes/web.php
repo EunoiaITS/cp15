@@ -54,6 +54,10 @@ Route::get('suppliers/invite', 'AEMController@inviteSuppliers');
 Route::get('/tender-summery', 'AEMController@tenderSummery');
 Route::get('/view-supplier-quotation', 'AEMController@supplierQuotations');
 
+Route::get('/qr-orders/upload-qr-order', 'AEMController@uploadFile');
+Route::get('/qr-orders/import-data', 'AEMController@uploadFile');
+Route::post('/qr-orders/import-data', 'AEMController@importData');
+
 /**
  * Director routes
  */
