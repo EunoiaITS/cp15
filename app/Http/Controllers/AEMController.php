@@ -531,8 +531,8 @@ class AEMController extends Controller
                             $qr_item_id = $qr->id;
                             $qr_item = new Qr_items();
                             $qr_item->qr_id = $qr_item_id;
-                            $qr_item->item_name = trim($r->itemname);
-                            $qr_item->item_no = trim($r->itemcode);
+                            $qr_item->item_name = trim($r->itemsname);
+                            $qr_item->item_no = trim($r->itemscode);
                             $qr_item->quantity  = trim($r->quantity);
                             $qr_item->save();
                 }
