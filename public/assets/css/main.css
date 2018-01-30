@@ -122,10 +122,11 @@ login form css
     float: left;
     margin-right: 10px;
 }
-.logo-area h3{
-    line-height: 47px;
+.logo-area h3 {
+    line-height: 50px;
     letter-spacing: 1px;
     margin-top: 7px;
+    font-size: 36px;
 }
 .sign-in-form{
     margin: 90px 66px 41px 30px;
@@ -237,8 +238,8 @@ main navbar and sidebar css
     width: 17%;
     float: left;
 }
-.navbar-brand h3{
-    font-size: 20px;
+.navbar-brand h3 {
+    font-size: 17px;
     float: left;
     margin: 14px 10px;
     text-transform: uppercase;
@@ -1117,7 +1118,7 @@ Responsive area
 }
 
 @media (max-width: 1200px){
-    h3 {
+    .logo-area h3, h3 {
         font-size: 28px;
     }
     .btn.btn-info.btn-left {
@@ -1176,8 +1177,11 @@ Responsive area
     .login-logo {
         border-radius: 12px 12px 1px 0px;
     }
-    h3 {
+    .logo-area h3, h3 {
         font-size: 30px;
+    }
+    .navbar-brand h3 {
+      font-size: 15px;
     }
     .logo-area {
         margin-bottom: 70px;

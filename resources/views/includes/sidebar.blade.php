@@ -8,7 +8,7 @@
                 <div class="brand-name-wrapper">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ URL::asset('assets/img/logo.png') }}" class="img-responsive" alt="">
-                        <h3>Company Name</h3>
+                        <h3>BBC EState Sdn Bhd</h3>
                     </a>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
                                 <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/suppliers/add-supplier') }}">Create</a></li>
-                                <li class="@if(isset($section) && $section == 'excel'){{ 'active' }}@endif"><a href="{{ url('/suppliers/add-supplier') }}">Upload</a></li>
+                                <li class="@if(isset($section) && $section == 'excel'){{ 'active' }}@endif"><a href="{{ url('/suppliers/upload') }}">Upload</a></li>
                             </ul>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
                                 <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/qr-orders/add-qr-order') }}">Create</a></li>
-                                <li class="@if(isset($section) && $section == 'excel'){{ 'active' }}@endif"><a href="{{ url('/qr-orders/add-qr-order') }}">Upload</a></li>
+                                <li class="@if(isset($section) && $section == 'excel'){{ 'active' }}@endif"><a href="{{ url('/qr-orders/upload-qr-order') }}">Upload</a></li>
                             </ul>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'director')
                     <li class="@if(isset($page) && $page == 'qr-order'){{ "active" }}@endif"><a href="{{url('/qr-orders')}}"> View QR Order</a></li>
                     <li class="@if(isset($page) && $page == 'view-supplier'){{ "active" }}@endif"><a href="{{url('/suppliers')}}"> View Supplier List</a></li>
-                    <li class="@if(isset($page) && $page == 'approve'){{ "active" }}@endif"><a href="{{url('/approve-quotations')}}">Quotation Approval <span class="label label-default">10</span></a></li>
+                    <li class="@if(isset($page) && $page == 'approve'){{ "active" }}@endif"><a href="{{url('/approve-quotations')}}">Quotation Approval <span class="label label-default">@if(isset($count)){{$count}}@endif</span></a></li>
                     <li class="@if(isset($page) && $page == 'tender'){{ "active" }}@endif"><a href="{{url('/tender-summery')}}"> Tender Summary</a></li>
                     <li class="@if(isset($page) && $page == 'allow'){{ "active" }}@endif"><a href="{{url('/allow-price-show')}}">Allow to View Unit Price</a></li>
                     @endif

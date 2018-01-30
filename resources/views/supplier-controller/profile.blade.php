@@ -26,7 +26,6 @@
                             <div class="col-sm-12">
                                 <div class="btn-button-group btn-group-profile clearfix">
                                     <button type="submit" class="btn btn-info btn-price">Save</button>
-                                    <button class="btn btn-info btn-price approve open-popup">Change Password?</button>
                                 </div>
                             </div>
                         </form>

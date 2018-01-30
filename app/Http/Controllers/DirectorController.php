@@ -83,6 +83,7 @@ class DirectorController extends Controller
         $item_suppliers = array();
         $item_prices = array();
         $item_ids = array();
+        $count = Supplier_quotations::where('status','=','requested')->count();
         foreach($quotations as $q){
             $item_ids[] = $q->item_id;
             $item_details = Qr_items::where('id', $q->item_id)->get();
@@ -154,6 +155,7 @@ class DirectorController extends Controller
             'quotations' => $quotations,
             'item_prices' => $item_prices,
             'item_suppliers' => $item_suppliers,
+            'count' => $count,
             'footer_js' => 'director.price-compare-js'
         ]);
     }
