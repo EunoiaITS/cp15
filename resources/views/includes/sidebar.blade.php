@@ -43,7 +43,7 @@
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
                                 <li class="@if(isset($section) && $section == 'add'){{ 'active' }}@endif"><a href="{{ url('/suppliers/add-supplier') }}">Create</a></li>
-                                <li class="@if(isset($section) && $section == 'excel'){{ 'active' }}@endif"><a href="{{ url('/suppliers/add-supplier') }}">Upload</a></li>
+                                <li class="@if(isset($section) && $section == 'excel'){{ 'active' }}@endif"><a href="{{ url('/suppliers/upload') }}">Upload</a></li>
                             </ul>
                         </div>
                     </div>

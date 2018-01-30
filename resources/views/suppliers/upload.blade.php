@@ -12,7 +12,7 @@
                                     {{ session()->get('success-message') }}
                                 </p>
                             @endif
-                            <form action="{{url('import-data.blade.php')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('/suppliers/import-data')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <label>Upload File</label>
                                 <input type="file" name="file"><br/>

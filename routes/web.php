@@ -58,6 +58,9 @@ Route::get('/qr-orders/upload-qr-order', 'AEMController@uploadFile');
 Route::get('/qr-orders/import-data', 'AEMController@uploadFile');
 Route::post('/qr-orders/import-data', 'AEMController@importData');
 
+Route::get('/suppliers/upload', 'AEMController@uploadSuppliersFile');
+Route::post('/suppliers/import-data', 'AEMController@importSuppliersData');
+
 /**
  * Director routes
  */
@@ -76,9 +79,4 @@ Route::post('/profile/edit', 'SupplierController@editProfile');
 Route::get('/supplier-controller/view-qr/', 'SupplierController@viewQR');
 Route::post('/supplier-controller/submit-qr/', 'SupplierController@viewQR');
 
-/**
- * Supplier routes
- */
 
-Route::get('/excel-upload', 'ExcelUploadController@uploadFile');
-Route::post('/import-data', 'ExcelUploadController@importData');
