@@ -80,6 +80,7 @@ class DirectorController extends Controller
             }
         }
         $quotations = Supplier_quotations::where('status','=','requested')->get();
+        $count = Supplier_quotations::where('status','=','requested')->count();
         foreach($quotations as $q){
             $item_details = Qr_items::where('id', $q->item_id)->get();
             $q->item_details = $item_details;
@@ -133,6 +134,7 @@ class DirectorController extends Controller
         return view('director.approve-quotations', [
             'page' => 'approve',
             'quotations' => $quotations,
+            'count' => $count,
             'footer_js' => 'director.price-compare-js'
         ]);
     }

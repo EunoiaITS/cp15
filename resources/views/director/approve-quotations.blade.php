@@ -47,7 +47,7 @@
                                 <td>{{ $q->unit_price }}</td>
                                 <td>{{$q->supplier_details->name}}</td>
                                 <td>{{ $q->comment }}</td>
-                                <td><a href="@if($q->file != null){{ URL::asset('/uploads/'.$q->file) }}@endif" target="_blank">View</a></td>
+                                <td><a href="@if($q->file != null){{ URL::asset('/'.$q->file) }}@endif" target="_blank">View</a></td>
                                 <td>
                                     <label><input type="checkbox" rel="@foreach($q->item_details as $qr){{ $qr->item_name }}@endforeach" class="select-items" name="state{{ $q->id }}" value="approved" @if($q->status == 'approved'){{ 'checked' }}@endif></label>
                                 </td>
