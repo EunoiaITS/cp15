@@ -77,5 +77,4 @@ Route::post('/supplier-controller/submit-qr/', 'SupplierController@viewQR');
  */
 
 Route::get('/excel-upload', 'ExcelUploadController@uploadFile');
-Route::get('/import-data', 'ExcelUploadController@importData');
 Route::post('/import-data', 'ExcelUploadController@importData');
