@@ -523,16 +523,16 @@ class AEMController extends Controller
             foreach ($results as $result => $res) {
                 foreach ($res as $r) {
                     $qr = new Quotation_requisition();
-                            $qr->pr_id = trim($r->pr_id);
-                            $qr->pr_type = trim($r->pr_type);
+                            $qr->pr_id = trim($r->prid);
+                            $qr->pr_type = trim($r->prtype);
                             $qr->category = trim($r->category);
                             $qr->status = 'requested';
                             $qr->save();
                             $qr_item_id = $qr->id;
                             $qr_item = new Qr_items();
                             $qr_item->qr_id = $qr_item_id;
-                            $qr_item->item_name = trim($r->item_name);
-                            $qr_item->item_no = trim($r->item_code);
+                            $qr_item->item_name = trim($r->itemname);
+                            $qr_item->item_no = trim($r->itemcode);
                             $qr_item->quantity  = trim($r->quantity);
                             $qr_item->save();
                 }
