@@ -19,6 +19,29 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    protected $rules = array(
+        'name'  => 'required',
+        'email'  => 'required|email|unique',
+        'password' => 'required|min:6|max:100'
+    );
+    protected $errors;
+
+    public function validate($data)
+    {
+        $valid = Validator::make($data, $this->rules);
+        if ($valid->fails())
+        {
+            $this->errors = $valid->errors();
+            return false;
+        }
+        return true;
+    }
+
+    public function errors()
+    {
+        return $this->errors;
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

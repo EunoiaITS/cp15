@@ -51,30 +51,34 @@ class AEMController extends Controller
             }
         }
         if($request->isMethod('post')){
-            //print_r($request->all());
             $sup = new User();
-            $sup->name = $request->name;
-            $sup->email = $request->email;
-            $sup->password = bcrypt('supplier');
-            $sup->role = 'suppliers';
-            $sup->save();
-            $user_id = $sup->id;
-            $sup_info = new Create_suppliers();
+            if($sup->validate($request->all())){
+                $sup->name = $request->name;
+                $sup->email = $request->email;
+                $sup->password = bcrypt($request->password);
+                $sup->role = 'suppliers';
+                $user_id = $sup->id;
+                $sup_info = new Create_suppliers();
 
-            if ($sup_info->validate($request->all())) {
-                $sup_info->user_id = $user_id;
-                $sup_info->category = $request->category;
-                $sup_info->contact = $request->contact;
-                $sup_info->save();
+                if ($sup_info->validate($request->all())) {
+                    $sup_info->user_id = $user_id;
+                    $sup_info->category = $request->category;
+                    $sup_info->contact = $request->contact;
+                    $sup_info->save();
+                }else{
+                    return redirect()
+                        ->to('/suppliers/add-supplier')
+                        ->withErrors($sup_info->errors());
+                }
+
+                return redirect()
+                    ->to('suppliers/add-supplier')
+                    ->with('success-message', 'New Supplier added successfully!');
             }else{
                 return redirect()
                     ->to('/suppliers/add-supplier')
-                    ->withErrors($sup_info->errors());
+                    ->withErrors($sup->errors());
             }
-
-            return redirect()
-                ->to('suppliers/add-supplier')
-                ->with('success-message', 'New Supplier added successfully!');
         }
         return view('suppliers.add', [
             'page' => 'supplier',
@@ -187,14 +191,16 @@ class AEMController extends Controller
             $qr = new Quotation_requisition();
             if ($qr->validate($request->all())) {
                 for($i = 1; $i <= $request->count; $i++){
-                    $qr_item = new Qr_items();
-                    $qr_items['item_name'] = $request->get('item_name' . $i);
-                    $qr_items['item_no'] = $request->get('item_no' . $i);
-                    $qr_items['quantity']  = $request->get('quantity' .$i);
-                    if(!$qr_item->validate($qr_items)){
-                        return redirect()
-                            ->to('/qr-orders/add-qr-order')
-                            ->withErrors($qr_item->errors());
+                    if($request->get('item_name' . $i) != null && $request->get('item_no' . $i) != null && $request->get('quantity' .$i) != null){
+                        $qr_item = new Qr_items();
+                        $qr_items['item_name'] = $request->get('item_name' . $i);
+                        $qr_items['item_no'] = $request->get('item_no' . $i);
+                        $qr_items['quantity']  = $request->get('quantity' .$i);
+                        if(!$qr_item->validate($qr_items)){
+                            return redirect()
+                                ->to('/qr-orders/add-qr-order')
+                                ->withErrors($qr_item->errors());
+                        }
                     }
                 }
                 $qr->pr_id = $request->pr_id;
@@ -204,12 +210,14 @@ class AEMController extends Controller
                 $qr->save();
                 $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
-                    $qr_item = new Qr_items();
-                    $qr_item->qr_id = $qr_item_id;
-                    $qr_item->item_name = $request->get('item_name' . $i);
-                    $qr_item->item_no = $request->get('item_no' . $i);
-                    $qr_item->quantity  = $request->get('quantity' .$i);
-                    $qr_item->save();
+                    if($request->get('item_name' . $i) != null && $request->get('item_no' . $i) != null && $request->get('quantity' .$i) != null){
+                        $qr_item = new Qr_items();
+                        $qr_item->qr_id = $qr_item_id;
+                        $qr_item->item_name = $request->get('item_name' . $i);
+                        $qr_item->item_no = $request->get('item_no' . $i);
+                        $qr_item->quantity  = $request->get('quantity' .$i);
+                        $qr_item->save();
+                    }
                 }
                 return redirect()
                     ->to('/qr-orders/add-qr-order')

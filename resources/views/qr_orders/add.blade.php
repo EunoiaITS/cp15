@@ -51,6 +51,7 @@
                                         <th>Items Name</th>
                                         <th>Items Code</th>
                                         <th>Quantity</th>
+                                        <th>Remove</th>
                                     </tr>
                                     </thead>
                                     <tbody id="add-item-table-item">
@@ -59,6 +60,7 @@
                                         <td><input name="item_name1" type="text" class="form-control from-qr" id="pr-item-name" name="prItem" required></td>
                                         <td><input name="item_no1" type="text" class="form-control from-qr" id="pr-item-code" name="prItemcode" required></td>
                                         <td><input name="quantity1" type="text" class="form-control from-qr" id="pr-quantity" name="prQuantity" required></td>
+                                        <td><button type="button" class="btn btn-primary"><i class="fa fa-times"></i></button></td>
                                         <input type="hidden" name="count" value="1">
                                     </tr>
                                     </tbody>
