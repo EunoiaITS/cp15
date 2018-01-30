@@ -122,10 +122,11 @@ login form css
     float: left;
     margin-right: 10px;
 }
-.logo-area h3{
-    line-height: 47px;
+.logo-area h3 {
+    line-height: 50px;
     letter-spacing: 1px;
     margin-top: 7px;
+    font-size: 36px;
 }
 .sign-in-form{
     margin: 90px 66px 41px 30px;
