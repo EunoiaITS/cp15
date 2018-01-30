@@ -80,7 +80,11 @@ class DirectorController extends Controller
             }
         }
         $quotations = Supplier_quotations::where('status','=','requested')->get();
+        $item_suppliers = array();
+        $item_prices = array();
+        $item_ids = array();
         foreach($quotations as $q){
+            $item_ids[] = $q->item_id;
             $item_details = Qr_items::where('id', $q->item_id)->get();
             $q->item_details = $item_details;
             foreach($item_details as $i){
@@ -93,6 +97,21 @@ class DirectorController extends Controller
             }
             $supplier = User::find($q->supp_id);
             $q->supplier_details = $supplier;
+        }
+        $item_ids = array_unique($item_ids);
+        foreach($item_ids as $ids){
+            $item_name = Qr_items::find($ids);
+            $supp_quot = Supplier_quotations::where('item_id', $ids)
+                ->where('status', 'requested')->get();
+            $prices = '';
+            $supps = '';
+            foreach($supp_quot as $quot){
+                $prices .= $quot->unit_price.',';
+                $sup = User::find($quot->supp_id);
+                $supps .= '"'.$sup->name.'",';
+            }
+            $item_prices[$item_name->item_name] = rtrim($prices, ',');
+            $item_suppliers[$item_name->item_name] = rtrim($supps, ',');
         }
         if($request->isMethod('post')){
             foreach($quotations as $edit){
@@ -133,6 +152,8 @@ class DirectorController extends Controller
         return view('director.approve-quotations', [
             'page' => 'approve',
             'quotations' => $quotations,
+            'item_prices' => $item_prices,
+            'item_suppliers' => $item_suppliers,
             'footer_js' => 'director.price-compare-js'
         ]);
     }

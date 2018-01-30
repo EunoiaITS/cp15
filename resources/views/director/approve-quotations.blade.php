@@ -33,7 +33,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $i= 1;?>
+                            <?php $i= 1; ?>
                             @foreach($quotations as $q)
                                 <tr>
                                 <td>{{$i++}}</td>
@@ -45,7 +45,7 @@
                                 <td>@foreach($q->item_details as $qr){{ $qr->item_no }}@endforeach</td>
                                 <td>@foreach($q->item_details as $qr){{ $qr->quantity }}@endforeach</td>
                                 <td id="unit-price-{{ $q->id }}">{{ $q->unit_price }}</td>
-                                <td>{{$q->supplier_details->name}}</td>
+                                <td id="supplier-name-{{ $q->id }}">{{$q->supplier_details->name}}</td>
                                 <td>{{ $q->comment }}</td>
                                 <td><a href="@if($q->file != null){{ URL::asset('/uploads/'.$q->file) }}@endif" target="_blank">View</a></td>
                                 <td>
