@@ -41,6 +41,10 @@
                                 <input type="text" name="email" class="form-control from-qr" id="pr-email">
                             </div>
                             <div class="form-group clearfix">
+                                <label for="pr-password" class="label-d">Password <span class="fright">:</span></label>
+                                <input type="password" name="password" class="form-control from-qr" id="pr-password">
+                            </div>
+                            <div class="form-group clearfix">
                                 <label for="pr-contact" class="label-d">Contact <span class="fright">:</span></label>
                                 <input type="text" name="contact" class="form-control from-qr" id="pr-contact">
                             </div>
