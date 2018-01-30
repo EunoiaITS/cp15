@@ -72,7 +72,7 @@
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'director')
                     <li class="@if(isset($page) && $page == 'qr-order'){{ "active" }}@endif"><a href="{{url('/qr-orders')}}"> View QR Order</a></li>
                     <li class="@if(isset($page) && $page == 'view-supplier'){{ "active" }}@endif"><a href="{{url('/suppliers')}}"> View Supplier List</a></li>
-                    <li class="@if(isset($page) && $page == 'approve'){{ "active" }}@endif"><a href="{{url('/approve-quotations')}}">Quotation Approval <span class="label label-default">{{$count}}</span></a></li>
+                    <li class="@if(isset($page) && $page == 'approve'){{ "active" }}@endif"><a href="{{url('/approve-quotations')}}">Quotation Approval <span class="label label-default">@if(isset($count)){{$count}}@endif</span></a></li>
                     <li class="@if(isset($page) && $page == 'tender'){{ "active" }}@endif"><a href="{{url('/tender-summery')}}"> Tender Summary</a></li>
                     <li class="@if(isset($page) && $page == 'allow'){{ "active" }}@endif"><a href="{{url('/allow-price-show')}}">Allow to View Unit Price</a></li>
                     @endif
