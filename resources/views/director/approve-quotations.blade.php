@@ -41,15 +41,15 @@
                                 <td>@foreach($q->qr_details as $qr){{$qr->pr_type}}@endforeach</td>
                                 <td>@foreach($q->dates as $qr){{ $qr->start_date }}@endforeach</td>
                                 <td>@foreach($q->dates as $qr){{ $qr->end_date }}@endforeach</td>
-                                <td>@foreach($q->item_details as $qr){{ $qr->item_name }}@endforeach</td>
+                                <td id="item-name-{{ $q->id }}">@foreach($q->item_details as $qr){{ $qr->item_name }}@endforeach</td>
                                 <td>@foreach($q->item_details as $qr){{ $qr->item_no }}@endforeach</td>
                                 <td>@foreach($q->item_details as $qr){{ $qr->quantity }}@endforeach</td>
-                                <td>{{ $q->unit_price }}</td>
+                                <td id="unit-price-{{ $q->id }}">{{ $q->unit_price }}</td>
                                 <td>{{$q->supplier_details->name}}</td>
                                 <td>{{ $q->comment }}</td>
                                 <td><a href="@if($q->file != null){{ URL::asset('/uploads/'.$q->file) }}@endif" target="_blank">View</a></td>
                                 <td>
-                                    <label><input type="checkbox" rel="@foreach($q->item_details as $qr){{ $qr->item_name }}@endforeach" class="select-items" name="state{{ $q->id }}" value="approved" @if($q->status == 'approved'){{ 'checked' }}@endif></label>
+                                    <label><input type="checkbox" rel="{{ $q->id }}" class="select-items" name="state{{ $q->id }}" value="approved" @if($q->status == 'approved'){{ 'checked' }}@endif></label>
                                 </td>
                             </tr>
                             @endforeach

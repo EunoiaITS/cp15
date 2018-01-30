@@ -30,10 +30,12 @@
 
     var item_names = [];
     var uniqueNames = [];
+    var quot_id = '';
     $('#price-compare').on('click', function(e) {
         e.preventDefault();
         $("input:checkbox[class=select-items]:checked").each(function(){
-            item_names.push($(this).attr('rel'));
+            quot_id = $(this).attr('rel');
+            item_names.push($('#item-name-'+quot_id).text());
         });
         $.each(item_names, function(i, el){
             if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
