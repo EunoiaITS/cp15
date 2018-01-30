@@ -520,8 +520,9 @@ class AEMController extends Controller
     public function uploadFile(){
         return view('qr_orders.upload');
     }
-    public function importData(Request $request){
-        if($request->isMethod('post')) {
+    public function importData(Request $request)
+    {
+        if ($request->isMethod('post')) {
             $file = Input::file('file');
             $file_name = $file->getClientOriginalName();
             $file->move('uploads', $file_name);
@@ -530,28 +531,38 @@ class AEMController extends Controller
             })->get();
             foreach ($results as $result => $res) {
                 foreach ($res as $r) {
-                    $qr = new Quotation_requisition();
-                            $qr->pr_id = trim($r->prid);
-                            $qr->pr_type = trim($r->prtype);
-                            $qr->category = trim($r->category);
-                            $qr->status = 'requested';
-                            $qr->save();
-                            $qr_item_id = $qr->id;
-                            $qr_item = new Qr_items();
-                            $qr_item->qr_id = $qr_item_id;
-                            $qr_item->item_name = trim($r->itemsname);
-                            $qr_item->item_no = trim($r->itemscode);
-                            $qr_item->quantity  = trim($r->quantity);
-                            $qr_item->save();
+                    if((Quotation_requisition::where('pr_id', '=', $r->prid)
+                            ->orWhere('pr_type','=',$r->prtype)
+                            ->orWhere('category','=',$r->category)->count() > 0)){
+                        $qr_item = new Qr_items();
+                        $qr_item->item_name = trim($r->itemsname);
+                        $qr_item->item_no = trim($r->itemscode);
+                        $qr_item->quantity = trim($r->quantity);
+                        $qr_item->save();
+                    } else {
+                        $qr = new Quotation_requisition();
+                        $qr->pr_id = trim($r->prid);
+                        $qr->pr_type = trim($r->prtype);
+                        $qr->category = trim($r->category);
+                        $qr->status = 'requested';
+                        $qr->save();
+                        $qr_item_id = $qr->id;
+                        $qr_item = new Qr_items();
+                        $qr_item->qr_id = $qr_item_id;
+                        $qr_item->item_name = trim($r->itemsname);
+                        $qr_item->item_no = trim($r->itemscode);
+                        $qr_item->quantity = trim($r->quantity);
+                        $qr_item->save();
+                        }
+                    }
                 }
             }
-        }
 //        return view('qr_orders.import-data',[
 //            'results' => $results
 //        ]);
-        return redirect('/qr-orders/upload-qr-order')
-            ->with('success-message','Uploaded Successfully !!');
-    }
+            return redirect('/qr-orders/upload-qr-order')
+                ->with('success-message', 'Uploaded Successfully !!');
+        }
     public function uploadSuppliersFile(){
         return view('suppliers.upload');
     }
