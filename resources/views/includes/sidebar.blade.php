@@ -8,7 +8,7 @@
                 <div class="brand-name-wrapper">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ URL::asset('assets/img/logo.png') }}" class="img-responsive" alt="">
-                        <h3>Company Name</h3>
+                        <h3>BBC EState Sdn Bhd</h3>
                     </a>
                 </div>
             </div>
