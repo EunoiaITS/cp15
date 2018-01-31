@@ -581,7 +581,7 @@ class AEMController extends Controller
             })->get();
             foreach ($results as $result => $res) {
                 foreach ($res as $r) {
-                    if(!User::where('email','=',$r->email)->exists()){
+                    if(!User::where('email','=',$r->email)->exists()) {
                         $user = new User();
                         $user->name = trim($r->name);
                         $user->email = trim($r->email);
@@ -596,9 +596,6 @@ class AEMController extends Controller
                             $sup_info->contact = trim($r->contact);
                             $sup_info->save();
                         }
-                    }else{
-                        return redirect('/suppliers/upload/')
-                            ->with('error-message','User already Exists !');
                     }
                 }
             }
