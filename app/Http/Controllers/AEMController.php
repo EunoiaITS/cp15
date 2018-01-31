@@ -57,9 +57,9 @@ class AEMController extends Controller
                 $sup->email = $request->email;
                 $sup->password = bcrypt($request->password);
                 $sup->role = 'suppliers';
+                $sup->save();
                 $user_id = $sup->id;
                 $sup_info = new Create_suppliers();
-
                 if ($sup_info->validate($request->all())) {
                     $sup_info->user_id = $user_id;
                     $sup_info->category = $request->category;

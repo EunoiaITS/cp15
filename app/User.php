@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     protected $rules = array(
         'name'  => 'required',
-        'email'  => 'required|email|unique',
+        'email'  => 'required|unique:users',
         'password' => 'required|min:6|max:100'
     );
     protected $errors;
