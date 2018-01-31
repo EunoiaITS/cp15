@@ -535,7 +535,13 @@ class AEMController extends Controller
                     if (Quotation_requisition::where('pr_id', '=', $r->prid)
                         ->Where('pr_type', '=', $r->prtype)
                         ->Where('category', '=', $r->category)->exists()) {
+                        $qrs = Quotation_requisition::where('pr_id', '=', $r->prid)->get();
+                        $qr_item_id = '';
+                        foreach($qrs as $qr){
+                            $qr_item_id = $qr->id;
+                        }
                         $qr_item = new Qr_items();
+                        $qr_item->qr_id = $qr_item_id;
                         $qr_item->item_name = trim($r->itemsname);
                         $qr_item->item_no = trim($r->itemscode);
                         $qr_item->quantity = trim($r->quantity);
