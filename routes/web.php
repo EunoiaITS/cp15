@@ -54,9 +54,9 @@ Route::get('suppliers/invite', 'AEMController@inviteSuppliers');
 Route::get('/tender-summery', 'AEMController@tenderSummery');
 Route::get('/view-supplier-quotation', 'AEMController@supplierQuotations');
 
-Route::get('/qr-orders/upload-qr-order', 'AEMController@uploadFile');
-Route::get('/qr-orders/import-data', 'AEMController@uploadFile');
-Route::post('/qr-orders/import-data', 'AEMController@importData');
+Route::get('/qr-orders/upload-qr-order', 'AEMController@uploadQRFile');
+Route::get('/qr-orders/import-data', 'AEMController@uploadQRFile');
+Route::post('/qr-orders/import-data', 'AEMController@importQRData');
 
 Route::get('/suppliers/upload', 'AEMController@uploadSuppliersFile');
 Route::post('/suppliers/import-data', 'AEMController@importSuppliersData');

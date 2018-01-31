@@ -517,10 +517,10 @@ class AEMController extends Controller
             'page' => 'tender'
         ]);
     }
-    public function uploadFile(){
+    public function uploadQRFile(){
         return view('qr_orders.upload');
     }
-    public function importData(Request $request)
+    public function importQRData(Request $request)
     {
         if ($request->isMethod('post')) {
             $file = Input::file('file');
@@ -534,13 +534,11 @@ class AEMController extends Controller
                 foreach ($res as $r) {
                     if (Quotation_requisition::where('pr_id', '=', $r->prid)
                         ->Where('pr_type', '=', $r->prtype)
-                        ->Where('category', '=', $r->category)->exists()
-                    ) {
+                        ->Where('category', '=', $r->category)->exists()) {
                         $qr_item = new Qr_items();
                         $qr_item->item_name = trim($r->itemsname);
                         $qr_item->item_no = trim($r->itemscode);
                         $qr_item->quantity = trim($r->quantity);
-                        $qr_item->qr_id = $d->qr_id;
                         $qr_item->save();
                     } else {
                         $qr = new Quotation_requisition();
