@@ -12,6 +12,11 @@
                                     {{ session()->get('success-message') }}
                                 </p>
                             @endif
+                            @if(session()->has('error-message'))
+                                <p class="alert alert-danger">
+                                    {{ session()->get('error-message') }}
+                                </p>
+                            @endif
                             <form action="{{url('/suppliers/import-data')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <label>Upload File</label>

@@ -577,19 +577,24 @@ class AEMController extends Controller
             })->get();
             foreach ($results as $result => $res) {
                 foreach ($res as $r) {
-                    $user = new User();
-                    $user->name = trim($r->name);
-                    $user->email = trim($r->email);
-                    $user->password = bcrypt('supplier');
-                    $user->role = 'suppliers';
-                    $user->save();
-                    $user_id = $user->id;
-                    $sup_info = new Create_suppliers();
-                    if ($sup_info->validate($request->all())) {
-                        $sup_info->user_id = $user_id;
-                        $sup_info->category = trim($r->category);
-                        $sup_info->contact = trim($r->contact);
-                        $sup_info->save();
+                    if(User::where('email','=',$r->email)->exists()){
+                        return redirect('/suppliers/upload/')
+                            ->with('error-message','User already Exists !');
+                    }else{
+                        $user = new User();
+                        $user->name = trim($r->name);
+                        $user->email = trim($r->email);
+                        $user->password = bcrypt('supplier');
+                        $user->role = 'suppliers';
+                        $user->save();
+                        $user_id = $user->id;
+                        $sup_info = new Create_suppliers();
+                        if ($sup_info->validate($request->all())) {
+                            $sup_info->user_id = $user_id;
+                            $sup_info->category = trim($r->category);
+                            $sup_info->contact = trim($r->contact);
+                            $sup_info->save();
+                        }
                     }
                 }
             }
