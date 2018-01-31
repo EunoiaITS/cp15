@@ -529,15 +529,18 @@ class AEMController extends Controller
             $results = Excel::load('uploads/' . $file_name, function ($reader) {
                 $reader->all();
             })->get();
+
             foreach ($results as $result => $res) {
                 foreach ($res as $r) {
-                    if((Quotation_requisition::where('pr_id', '=', $r->prid)
-                            ->orWhere('pr_type','=',$r->prtype)
-                            ->orWhere('category','=',$r->category)->count() > 0)){
+                    if (Quotation_requisition::where('pr_id', '=', $r->prid)
+                        ->Where('pr_type', '=', $r->prtype)
+                        ->Where('category', '=', $r->category)->exists()
+                    ) {
                         $qr_item = new Qr_items();
                         $qr_item->item_name = trim($r->itemsname);
                         $qr_item->item_no = trim($r->itemscode);
                         $qr_item->quantity = trim($r->quantity);
+                        $qr_item->qr_id = $d->qr_id;
                         $qr_item->save();
                     } else {
                         $qr = new Quotation_requisition();
@@ -553,7 +556,6 @@ class AEMController extends Controller
                         $qr_item->item_no = trim($r->itemscode);
                         $qr_item->quantity = trim($r->quantity);
                         $qr_item->save();
-                        }
                     }
                 }
             }
@@ -563,6 +565,7 @@ class AEMController extends Controller
             return redirect('/qr-orders/upload-qr-order')
                 ->with('success-message', 'Uploaded Successfully !!');
         }
+    }
     public function uploadSuppliersFile(){
         return view('suppliers.upload');
     }
