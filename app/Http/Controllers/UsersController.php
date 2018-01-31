@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use App\Supplier_quotations;
 
 class UsersController extends Controller
 {
@@ -86,6 +87,11 @@ class UsersController extends Controller
                 ->with('error-message', 'Please login first!');
         }elseif ($user->role == 'suppliers'){
             return redirect('/supplier-controller/view-qr/');
+        }elseif ($user->role == 'director'){
+            $count = Supplier_quotations::where('status','=','requested')->count();
+            return view('dashboard',[
+                'count'=>$count
+            ]);
         }else{
         return view('dashboard');
         }
