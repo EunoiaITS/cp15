@@ -529,7 +529,6 @@ class AEMController extends Controller
             $results = Excel::load('uploads/' . $file_name, function ($reader) {
                 $reader->all();
             })->get();
-
             foreach ($results as $result => $res) {
                 foreach ($res as $r) {
                     if (Quotation_requisition::where('pr_id', '=', $r->prid)
@@ -582,10 +581,7 @@ class AEMController extends Controller
             })->get();
             foreach ($results as $result => $res) {
                 foreach ($res as $r) {
-                    if(User::where('email','=',$r->email)->exists()){
-                        return redirect('/suppliers/upload/')
-                            ->with('error-message','User already Exists !');
-                    }else{
+                    if(!User::where('email','=',$r->email)->exists()){
                         $user = new User();
                         $user->name = trim($r->name);
                         $user->email = trim($r->email);
@@ -600,6 +596,9 @@ class AEMController extends Controller
                             $sup_info->contact = trim($r->contact);
                             $sup_info->save();
                         }
+                    }else{
+                        return redirect('/suppliers/upload/')
+                            ->with('error-message','User already Exists !');
                     }
                 }
             }
