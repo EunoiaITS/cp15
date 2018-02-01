@@ -10,9 +10,21 @@ use Illuminate\Support\Facades\Session;
 use Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\view;
 
 class superUserController extends Controller
 {
+    public function __construct()
+    {
+        $sup_quo = Supplier_quotations::count();
+        View::share('sup_quo_count', $sup_quo);
+
+        $quo_app = Supplier_quotations::where('status','=','requested')->count();
+        View::share('quo_approve', $quo_app);
+
+        $tender = Supplier_quotations::where('status','=','approved')->count();
+        View::share('tender', $tender);
+    }
     public function saveUser(Request $request)
     {
         if (!Auth::user()) {

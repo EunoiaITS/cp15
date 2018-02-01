@@ -11,9 +11,21 @@ use App\Quotation_requisition;
 use App\Qr_items;
 use App\Create_suppliers;
 use Auth;
+use Illuminate\Support\Facades\view;
 
 class DirectorController extends Controller
 {
+    public function __construct()
+    {
+        $sup_quo = Supplier_quotations::count();
+        View::share('sup_quo_count', $sup_quo);
+
+        $quo_app = Supplier_quotations::where('status','=','requested')->count();
+        View::share('quo_approve', $quo_app);
+
+        $tender = Supplier_quotations::where('status','=','approved')->count();
+        View::share('tender', $tender);
+    }
     public function viewQR(Request $request){
         if (!Auth::user()) {
             return redirect()
@@ -83,7 +95,6 @@ class DirectorController extends Controller
         $item_suppliers = array();
         $item_prices = array();
         $item_ids = array();
-        $count = Supplier_quotations::where('status','=','requested')->count();
         foreach($quotations as $q){
             $item_ids[] = $q->item_id;
             $item_details = Qr_items::where('id', $q->item_id)->get();
@@ -155,7 +166,6 @@ class DirectorController extends Controller
             'quotations' => $quotations,
             'item_prices' => $item_prices,
             'item_suppliers' => $item_suppliers,
-            'count' => $count,
             'footer_js' => 'director.price-compare-js'
         ]);
     }

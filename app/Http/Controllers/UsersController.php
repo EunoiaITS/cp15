@@ -7,9 +7,22 @@ use Auth;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Supplier_quotations;
+use Illuminate\Support\Facades\view;
 
 class UsersController extends Controller
+
 {
+    public function __construct()
+    {
+        $sup_quo = Supplier_quotations::count();
+        View::share('sup_quo_count', $sup_quo);
+
+        $quo_app = Supplier_quotations::where('status','=','requested')->count();
+        View::share('quo_approve', $quo_app);
+
+        $tender = Supplier_quotations::where('status','=','approved')->count();
+        View::share('tender', $tender);
+    }
     public function add(Request $request){
         //
     }
@@ -87,11 +100,6 @@ class UsersController extends Controller
                 ->with('error-message', 'Please login first!');
         }elseif ($user->role == 'suppliers'){
             return redirect('/supplier-controller/view-qr/');
-        }elseif ($user->role == 'director'){
-            $count = Supplier_quotations::where('status','=','requested')->count();
-            return view('dashboard',[
-                'count'=>$count
-            ]);
         }else{
         return view('dashboard');
         }

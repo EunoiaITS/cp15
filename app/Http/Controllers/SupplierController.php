@@ -12,9 +12,21 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\view;
 
 class SupplierController extends Controller
 {
+    public function __construct()
+    {
+        $sup_quo = Supplier_quotations::count();
+        View::share('sup_quo_count', $sup_quo);
+
+        $quo_app = Supplier_quotations::where('status','=','requested')->count();
+        View::share('quo_approve', $quo_app);
+
+        $tender = Supplier_quotations::where('status','=','approved')->count();
+        View::share('tender', $tender);
+    }
     protected function authCheck()
     {
         if (!Auth::user()) {
