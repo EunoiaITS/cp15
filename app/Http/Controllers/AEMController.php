@@ -123,7 +123,6 @@ class AEMController extends Controller
             'page' => 'view-supplier'
         ]);
     }
-
     public function editSupplier(Request $request){
         if (!Auth::user()) {
             return redirect()

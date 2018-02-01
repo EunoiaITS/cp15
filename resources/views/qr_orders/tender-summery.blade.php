@@ -17,7 +17,9 @@
                                     <th>Items Name</th>
                                     <th>Item Code</th>
                                     <th>Quantity<th>
-                                    <th>Unit Price</th>
+                                    @if(Auth::user()->role == 'director' || Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
+                                        <th>Unit Price</th>
+                                    @endif
                                     <th>Supplier Name</th>
                                     @if(Auth::user()->role == 'director')
                                         <th>Download</th>
@@ -34,7 +36,9 @@
                                         <td>@foreach($qr->items as $item){{ $item->item_no }}@endforeach</td>
                                         <td>@foreach($qr->items as $item){{ $item->quantity }}@endforeach</td>
                                         <td></td>
+                                        @if(Auth::user()->role == 'director' || Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
                                         <td>{{ $qr->unit_price }}</td>
+                                        @endif
                                         <td>{{ $qr->supplier->name }}</td>
                                         @if(Auth::user()->role == 'director')
                                             <td><a href="#"><i class="fa fa-download"></i></a></td>
