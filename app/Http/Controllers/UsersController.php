@@ -6,9 +6,23 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use App\Supplier_quotations;
+use Illuminate\Support\Facades\view;
 
 class UsersController extends Controller
+
 {
+    public function __construct()
+    {
+        $sup_quo = Supplier_quotations::count();
+        View::share('sup_quo_count', $sup_quo);
+
+        $quo_app = Supplier_quotations::where('status','=','requested')->count();
+        View::share('quo_approve', $quo_app);
+
+        $tender = Supplier_quotations::where('status','=','approved')->count();
+        View::share('tender', $tender);
+    }
     public function add(Request $request){
         //
     }

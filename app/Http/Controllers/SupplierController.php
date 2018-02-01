@@ -12,9 +12,21 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\view;
 
 class SupplierController extends Controller
 {
+    public function __construct()
+    {
+        $sup_quo = Supplier_quotations::count();
+        View::share('sup_quo_count', $sup_quo);
+
+        $quo_app = Supplier_quotations::where('status','=','requested')->count();
+        View::share('quo_approve', $quo_app);
+
+        $tender = Supplier_quotations::where('status','=','approved')->count();
+        View::share('tender', $tender);
+    }
     protected function authCheck()
     {
         if (!Auth::user()) {
@@ -48,6 +60,7 @@ class SupplierController extends Controller
         }
         $id = Auth::id();
         $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->get();
+        $count = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->count();
         $quoted_items = array();
         $quotations = Supplier_quotations::whereRaw("FIND_IN_SET($id,supp_id)")->get();
         foreach($quotations as $quotation){
@@ -85,6 +98,7 @@ class SupplierController extends Controller
         return view('supplier-controller.view-qr', [
             'qr_inv' =>  $qr_inv,
             'id'     =>  $id,
+            'count' => $count,
             'quoted_items' => $quoted_items,
             'page'   =>  'view-qr'
         ]);
