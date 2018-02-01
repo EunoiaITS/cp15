@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\view;
+use Illuminate\Support\Facades\View;
 
 class superUserController extends Controller
 {

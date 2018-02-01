@@ -7,7 +7,7 @@ use Auth;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Supplier_quotations;
-use Illuminate\Support\Facades\view;
+use Illuminate\Support\Facades\View;
 
 class UsersController extends Controller
 

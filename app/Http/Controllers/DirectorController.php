@@ -11,7 +11,7 @@ use App\Quotation_requisition;
 use App\Qr_items;
 use App\Create_suppliers;
 use Auth;
-use Illuminate\Support\Facades\view;
+use Illuminate\Support\Facades\View;
 
 class DirectorController extends Controller
 {

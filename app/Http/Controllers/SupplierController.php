@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\view;
+use Illuminate\Support\Facades\View;
 
 class SupplierController extends Controller
 {
