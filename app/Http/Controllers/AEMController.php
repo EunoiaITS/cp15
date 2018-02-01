@@ -419,41 +419,49 @@ class AEMController extends Controller
             }
         }
         if($request->isMethod('post')) {
+            $count = 0;
             foreach($qrs as $qr){
                 if($request->get('suppliers'.$qr->id) != null){
                     if($request->get('action'.$qr->id) == 'edit'){
-                        $invite = Qr_invitations::where('qr_id', $qr->id)->get();
-                        foreach($invite as $in){
+                        $invited = Qr_invitations::where('qr_id', $qr->id)->get();
+                        foreach($invited as $in){
                             $in->suppliers = rtrim($in->suppliers.','.$request->get('selected-suppliers'.$qr->id), ',');
                             $in->save();
-                            return redirect()
-                                ->to('/suppliers/invite-suppliers')
-                                ->with('success-message', 'Invitations has been sent successfully!');
+                            $count++;
                         }
                     }
-                    $invite = new Qr_invitations();
-                    $invites['qr_id'] = $qr->id;
-                    $invites['start_date'] = $request->get('start_date'.$qr->id);
-                    $invites['end_date'] = $request->get('end_date'.$qr->id);
-                    $invites['suppliers'] = $request->get('selected-suppliers'.$qr->id);
-                    if($invite->validate($invites)){
-                        $invite->qr_id = $qr->id;
-                        $invite->start_date = $request->get('start_date'.$qr->id);
-                        $invite->end_date = $request->get('end_date'.$qr->id);
-                        $invite->suppliers = rtrim($request->get('selected-suppliers'.$qr->id), ',');
-                        $invite->save();
-                        $qr->status = 'invited';
-                        $qr->save();
-                    }else{
-                        return redirect()
-                            ->to('/suppliers/invite-suppliers')
-                            ->withErrors($invite->errors());
+                    if($request->get('action_add_'.$qr->id) == 'add'){
+                        $invitee = new Qr_invitations();
+                        $invites['qr_id'] = $qr->id;
+                        $invites['start_date'] = $request->get('start_date'.$qr->id);
+                        $invites['end_date'] = $request->get('end_date'.$qr->id);
+                        $invites['suppliers'] = $request->get('selected-suppliers'.$qr->id);
+                        if($invitee->validate($invites)){
+                            $invitee->qr_id = $qr->id;
+                            $invitee->start_date = $request->get('start_date'.$qr->id);
+                            $invitee->end_date = $request->get('end_date'.$qr->id);
+                            $invitee->suppliers = rtrim($request->get('selected-suppliers'.$qr->id), ',');
+                            $invitee->save();
+                            $qr->status = 'invited';
+                            $qr->save();
+                            $count++;
+                        }else{
+                            return redirect()
+                                ->to('/suppliers/invite-suppliers')
+                                ->withErrors($invitee->errors());
+                        }
                     }
                 }
             }
-            return redirect()
-                ->to('/suppliers/invite-suppliers')
-                ->with('success-message', 'Invitations has been sent successfully!');
+            if($count == 0){
+                return redirect()
+                    ->to('/suppliers/invite-suppliers')
+                    ->with('error', 'No Invitations were selected!');
+            }else{
+                return redirect()
+                    ->to('/suppliers/invite-suppliers')
+                    ->with('success-message', 'Invitations has been sent successfully!');
+            }
         }
         return view('suppliers.invite', [
             'qrs' => $qrs,

@@ -175,29 +175,71 @@ class DirectorController extends Controller
             }
         }
         $quotations = Supplier_quotations::all();
+        $prs = array();
         foreach ($quotations as $quotation){
             $item = Qr_items::where('id', $quotation->item_id)->get();
             foreach($item as $qrid){
                 $quo = Quotation_requisition::where('id', $qrid->qr_id)->get();
                 $quotation->quo = $quo;
+                foreach($quo as $q){
+                    $prs[] = $q->pr_id;
+                }
+            }
+        }
+        $prs = array_unique($prs);
+        $qrs = new \stdClass();
+        foreach($prs as $pr){
+            $qr = Quotation_requisition::where('pr_id', $pr)->get();
+            foreach($qr as $qs){
+                $var_count = 'qr'.$qs->id;
+                $qrs->$var_count = $qs;
             }
         }
         if($request->isMethod('post')){
-            foreach($quotations as $edit){
-                $quot_edit = Supplier_quotations::find($edit->id);
+            foreach($qrs as $edit){
+                $quot_edit = Quotation_requisition::find($edit->id);
+                $qr_items = Qr_items::where('qr_id', $quot_edit->id)->get();
                 if($request->get('manager'.$edit->id) != null){
-                    $quot_edit->show_price = 'manager';
+                    $quot_edit->show_price_m = 'manager';
                     $quot_edit->save();
+                    foreach($qr_items as $items){
+                        $quots = Supplier_quotations::where('item_id', $items->id)->get();
+                        foreach($quots as $qq){
+                            $qq->show_price = 'manager';
+                            $qq->save();
+                        }
+                    }
                 }else{
-                    $quot_edit->show_price = '';
+                    $quot_edit->show_price_m = '';
                     $quot_edit->save();
+                    foreach($qr_items as $items){
+                        $quots = Supplier_quotations::where('item_id', $items->id)->get();
+                        foreach($quots as $qq){
+                            $qq->show_price = '';
+                            $qq->save();
+                        }
+                    }
                 }
                 if($request->get('executive'.$edit->id) != null){
                     $quot_edit->show_price_e = 'executive';
                     $quot_edit->save();
+                    foreach($qr_items as $items){
+                        $quots = Supplier_quotations::where('item_id', $items->id)->get();
+                        foreach($quots as $qq){
+                            $qq->show_price_e = 'executive';
+                            $qq->save();
+                        }
+                    }
                 }else{
                     $quot_edit->show_price_e = '';
                     $quot_edit->save();
+                    foreach($qr_items as $items){
+                        $quots = Supplier_quotations::where('item_id', $items->id)->get();
+                        foreach($quots as $qq){
+                            $qq->show_price_e = '';
+                            $qq->save();
+                        }
+                    }
                 }
             }
             return redirect()
@@ -207,7 +249,8 @@ class DirectorController extends Controller
 
         return view('director.allow-price-show', [
             'page' => 'allow',
-            'quotations' => $quotations
+            'quotations' => $qrs
         ]);
     }
+
 }

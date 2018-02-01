@@ -24,11 +24,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($quotations as $quot)
+                                @foreach($quotations as $pr)
                                     <tr>
-                                        <td>@foreach($quot->quo as $pr){{$pr->pr_id}}@endforeach</td>
-                                        <td><label><input name="manager{{ $quot->id }}" type="checkbox" value="manager" @if($quot->show_price == 'manager'){{ 'checked' }}@endif></label></td>
-                                        <td><label><input name="executive{{ $quot->id }}" type="checkbox" value="executive" @if($quot->show_price_e == 'executive'){{ 'checked' }}@endif></label></td>
+                                        <td>{{ $pr->pr_id }}</td>
+                                        <td><label><input name="manager{{ $pr->id }}" type="checkbox" value="manager" @if($pr->show_price_m == 'manager'){{ 'checked' }}@endif></label></td>
+                                        <td><label><input name="executive{{ $pr->id }}" type="checkbox" value="executive" @if($pr->show_price_e == 'executive'){{ 'checked' }}@endif></label></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

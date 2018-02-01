@@ -8,7 +8,7 @@
             <div class="col-sm-11 col-sm-offset-1">
                 <h3 class="text-uppercase color-bbc">Invite Suppliers</h3>
                 @if(session()->has('error'))
-                    <p class="alert alert-success">
+                    <p class="alert alert-danger">
                         {{ session()->get('error') }}
                     </p>
                 @endif
@@ -47,6 +47,7 @@
                                 <td><label><input name="suppliers{{ $qr->id }}" type="checkbox" value="{{ $qr->id }}"></label></td>
                                 <td><button rel="{{ $qr->id }}" type="button" class="btn btn-info btn-view-table open-popup select-suppliers">Supplier</button></td>
                                 <input type="hidden" id="selected-suppliers{{ $qr->id }}" name="selected-suppliers{{ $qr->id }}" value="">
+                                @if($qr->invite == null)<input type="hidden" id="action-add-{{ $qr->id }}" name="action_add_{{ $qr->id }}" value="">@endif
                             </tr>
                             @if($qr->invite != null)<input type="hidden" name="action{{ $qr->id }}" value="edit">@endif
                             <span id="sup{{ $qr->id }}" class="hidden">@if($qr->invite != null){{ $qr->invite->suppliers }}@endif</span>

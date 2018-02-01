@@ -47,6 +47,7 @@
                 suppliers += $(this).val()+',';
             });
             $('#selected-suppliers'+id).val(suppliers);
+            $('#action-add-'+id).val('add');
             suppliers = '';
         });
     });
