@@ -1,8 +1,8 @@
-<?php $supplier = ''; ?>
+@php $supplier = ''; @endphp
 @foreach($suppliers as $s)
-    <?php $supplier .= '"'.$s->id.'",'; ?>
+    @php $supplier .= '"'.$s->id.'",'; @endphp
     @endforeach
-<?php $supplier = rtrim($supplier, ','); ?>
+@php $supplier = rtrim($supplier, ','); @endphp
 <script>
     $(document).ready(function(){
         var suppliers = '';
