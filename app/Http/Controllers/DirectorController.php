@@ -285,6 +285,19 @@ class DirectorController extends Controller
     }
 
     public function systemLog(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['director', 'super_userController', 'manager', 'executive', 'admin'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
         $page_no = 1;
         $amount = 10;
         $start = 1;
@@ -322,7 +335,8 @@ class DirectorController extends Controller
         return view('director.logs', [
             'current' => $page_no,
             'page' => $total_logs/$amount,
-            'logs' => $logsPerPage
+            'logs' => $logsPerPage,
+            'log_page' => 'log'
         ]);
     }
 
