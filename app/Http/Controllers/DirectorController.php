@@ -279,4 +279,46 @@ class DirectorController extends Controller
         ]);
     }
 
+    public function systemLog(Request $request){
+        $page_no = 1;
+        $amount = 10;
+        $start = 1;
+        $logs = new \stdClass();
+        $invites = Qr_invitations::all();
+        $delim = 0;
+        foreach($invites as $invite){
+            $pr_id = Quotation_requisition::where('id', $invite->qr_id)->first();
+            $invite->pr_id = $pr_id->pr_id;
+            $suppliers = explode(',', $invite->suppliers);
+            foreach($suppliers as $s){
+                $supplier = User::find($s);
+                $delim++;
+                $sup = new \stdClass();
+                $sup->name = $supplier->name;
+                $sup->details = $invite;
+                $logs->$delim = $sup;
+            }
+        }
+        $total_logs = 0;
+        $logsPerPage = new \stdClass();
+        foreach($logs as $log){
+            $total_logs++;
+        }
+        if($total_logs < $amount){
+            $amount = $total_logs;
+        }
+        if($request->page != null && $page_no != 1){
+            $page_no = $request->page;
+            $start = ($page_no * $amount) - 1;
+        }
+        for($i = $start; $i < ($start + $amount); $i++){
+            $logsPerPage->$i = $logs->$i;
+        }
+        return view('director.logs', [
+            'current' => $page_no,
+            'page' => $total_logs/$amount,
+            'logs' => $logsPerPage
+        ]);
+    }
+
 }
