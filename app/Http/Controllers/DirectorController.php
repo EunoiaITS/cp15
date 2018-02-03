@@ -91,7 +91,8 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $quotations = Supplier_quotations::where('status','=','requested')->get();
+        $quotations = Supplier_quotations::where('status','=','requested')
+            ->orWhere('status','=','rejected')->get();
         $item_suppliers = array();
         $item_prices = array();
         $item_ids = array();
@@ -141,8 +142,8 @@ class DirectorController extends Controller
             foreach($quotations as $edit){
                 $quot_edit = Supplier_quotations::find($edit->id);
                 if($request->get('state'.$edit->id) != null){
-                    if(Supplier_quotations::Where('status','=','approved')
-                        ->Where('item_id',$quot_edit->item_id)->exists()){
+                    if(Supplier_quotations::where('status','=','approved')
+                        ->where('item_id',$quot_edit->item_id)->exists()){
                         return redirect()
                             ->to('/approve-quotations')
                             ->with('error-message',' Quotation Already Approved !');
