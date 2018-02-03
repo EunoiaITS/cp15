@@ -91,7 +91,8 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $quotations = Supplier_quotations::where('status','=','requested')->get();
+        $quotations = Supplier_quotations::where('status','=','requested')
+            ->orWhere('status','=','rejected')->get();
         $item_suppliers = array();
         $item_prices = array();
         $item_ids = array();
@@ -129,6 +130,20 @@ class DirectorController extends Controller
             foreach($quotations as $edit){
                 $quot_edit = Supplier_quotations::find($edit->id);
                 if($request->get('state'.$edit->id) != null){
+                    $mul_item = Supplier_quotations::Where('id','=',$quot_edit->id)
+                        ->Where('item_id','=',$quot_edit->item_id)->get();
+                    $mul_array = (array)$mul_item;
+                    if(Supplier_quotations::Where('status','=','approved')
+                        ->Where('item_id',$quot_edit->item_id)->exists()){
+                        return redirect()
+                            ->to('/approve-quotations')
+                            ->with('error-message',' Quotation Already Approved !');
+                    }
+                    elseif (count($mul_array) != count(array_unique($mul_array))){
+                        return redirect()
+                            ->to('/approve-quotations')
+                            ->with('error-message',' Can not Approve Multiple Suppliers for same Item !');
+                    }
                     $sup_qrs = Create_suppliers::where('user_id', $quot_edit->supp_id)->get();
                     foreach($sup_qrs as $sup_qr){
                         if($sup_qr->qr_id == null){
@@ -167,6 +182,7 @@ class DirectorController extends Controller
             'item_prices' => $item_prices,
             'item_suppliers' => $item_suppliers,
             'footer_js' => 'director.price-compare-js'
+
         ]);
     }
 
