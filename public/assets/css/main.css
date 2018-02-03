@@ -60,6 +60,26 @@ a:hover, a:focus{
     clear: both;
 }
 
+/*-- log page css style --*/
+
+.float-right{
+  float: right;
+  display: block;
+  margin-top: 40px;
+}
+.pagination > li > a, .pagination > li > span{
+  color: #029ff9;
+  transition: all .2s ease-in;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus, .pagination > li > span:focus {
+    z-index: 3;
+    color: #fff;
+    background-color: #091d60;
+    border-color: #091d60;
+}
+
 /* ==========================================================================
    Browser Upgrade Prompt
    ========================================================================== */

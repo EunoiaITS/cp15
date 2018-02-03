@@ -127,22 +127,27 @@ class DirectorController extends Controller
             $item_suppliers[$item_name->item_name] = rtrim($supps, ',');
         }
         if($request->isMethod('post')){
+            foreach ($quotations as $check){
+                $quot_check = Supplier_quotations::find($check->id);
+                $sq_id = Supplier_quotations::Where('id','=',$quot_check->id)
+                    ->Where('status','=','requested')->get();
+                foreach ($sq_id as $all_item){
+                    $count = array($all_item->item_id);
+                    if(count($count) != count(array_unique($count))){
+                        return redirect()
+                            ->to('/approve-quotations')
+                            ->with('error-message',' Can not Approve Multiple Suppliers for same Item !');
+                    }
+                }
+            }
             foreach($quotations as $edit){
                 $quot_edit = Supplier_quotations::find($edit->id);
                 if($request->get('state'.$edit->id) != null){
-                    $mul_item = Supplier_quotations::Where('id','=',$quot_edit->id)
-                        ->Where('item_id','=',$quot_edit->item_id)->get();
-                    $mul_array = (array)$mul_item;
                     if(Supplier_quotations::Where('status','=','approved')
                         ->Where('item_id',$quot_edit->item_id)->exists()){
                         return redirect()
                             ->to('/approve-quotations')
                             ->with('error-message',' Quotation Already Approved !');
-                    }
-                    elseif (count($mul_array) != count(array_unique($mul_array))){
-                        return redirect()
-                            ->to('/approve-quotations')
-                            ->with('error-message',' Can not Approve Multiple Suppliers for same Item !');
                     }
                     $sup_qrs = Create_suppliers::where('user_id', $quot_edit->supp_id)->get();
                     foreach($sup_qrs as $sup_qr){
