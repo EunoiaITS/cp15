@@ -18,6 +18,7 @@ Route::post('/login', 'UsersController@login');
 Route::get('/logout', 'UsersController@logout');
 Route::get('/profile/change-password', 'UsersController@changePassword');
 Route::post('/profile/change-password', 'UsersController@changePassword');
+Route::get('/system-log', 'DirectorController@systemLog');
 
 
 /*

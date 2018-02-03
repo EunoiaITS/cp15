@@ -70,6 +70,7 @@
                 <li class="@if(isset($page) && $page == 'invite'){{ "active" }}@endif"><a href="{{url('suppliers/invite-suppliers')}}"> Invite Suppliers</a></li>
                 <li class="@if(isset($page) && $page == 'quotations'){{ "active" }}@endif"><a href="{{url('/view-supplier-quotation')}}"> View Supplier Quotation <span class="label label-default">@if(isset($sup_quo_count)){{$sup_quo_count}}@endif</span></a></li>
                 <li class="@if(isset($page) && $page == 'tender'){{ "active" }}@endif"><a href="{{url('/tender-summery')}}"> Tender Summary<span class="label label-default">@if(isset($tender)){{$tender}}@endif</span></a></li>
+                <li class="@if(isset($log_page) && $log_page == 'log'){{ "active" }}@endif"><a href="{{url('/system-log')}}">Log</a></li>
                     @endif
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'director')
                     <li class="@if(isset($page) && $page == 'qr-order'){{ "active" }}@endif"><a href="{{url('/qr-orders')}}"> View QR Order</a></li>
@@ -77,6 +78,7 @@
                     <li class="@if(isset($page) && $page == 'approve'){{ "active" }}@endif"><a href="{{url('/approve-quotations')}}">Quotation Approval <span class="label label-default">@if(isset($quo_approve)){{$quo_approve}}@endif</span></a></li>
                     <li class="@if(isset($page) && $page == 'tender'){{ "active" }}@endif"><a href="{{url('/tender-summery')}}"> Tender Summary</a></li>
                     <li class="@if(isset($page) && $page == 'allow'){{ "active" }}@endif"><a href="{{url('/allow-price-show')}}">Allow to View Unit Price</a></li>
+                    <li class="@if(isset($log_page) && $log_page == 'log'){{ "active" }}@endif"><a href="{{url('/system-log')}}">Log</a></li>
                     @endif
                 @if(isset(Auth::user()->role) && Auth::user()->role == 'super_userController')
                     <li><a href="{{ url('/superuser') }}"> Create Users</a></li>
