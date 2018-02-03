@@ -18,6 +18,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @if($page != 0)
                                 @foreach($logs as $log)
                                     <tr>
                                         <td>{{ $log->details->pr_id }}</td>
@@ -26,6 +27,7 @@
                                         <td>{{ $log->name }}</td>
                                     </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -34,11 +36,13 @@
                         <div class="float-right">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
+                                    @if($page != 0)
                                     <li class="page-item @if($current == 1){{ 'disabled' }}@endif"><a class="page-link" href="?page=1"><i class="fa fa-angle-left"></i></a></li>
                                     @for($i = 1; $i <= $page; $i++)
                                         <li class="page-item @if($current == $i){{ 'active' }}@endif"><a class="page-link" href="?page={{ $i }}">{{ $i }}</a></li>
                                         @endfor
                                     <li class="page-item @if($current == $page){{ 'disabled' }}@endif"><a class="page-link" href="?page={{ $page }}"><i class="fa fa-angle-right"></i></a></li>
+                                        @endif
                                 </ul>
                             </nav>
                         </div>
