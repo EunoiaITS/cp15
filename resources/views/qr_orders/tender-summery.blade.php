@@ -36,8 +36,10 @@
                                         <td>@foreach($qr->items as $item){{ $item->item_no }}@endforeach</td>
                                         <td>@foreach($qr->items as $item){{ $item->quantity }}@endforeach</td>
                                         <td></td>
-                                        @if(Auth::user()->role == 'director' || Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
+                                        @if(Auth::user()->role == 'director')
                                         <td>{{ $qr->unit_price }}</td>
+                                            @elseif(Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
+                                            <td>@if(Auth::user()->role == $qr->show_price || Auth::user()->role == $qr->show_price_e){{ $qr->unit_price }}@endif</td>
                                         @endif
                                         <td>{{ $qr->supplier->name }}</td>
                                         @if(Auth::user()->role == 'director')
