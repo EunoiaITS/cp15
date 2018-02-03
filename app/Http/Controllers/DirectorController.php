@@ -91,8 +91,7 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $quotations = Supplier_quotations::where('status','=','requested')
-            ->orWhere('status','=','rejected')->get();
+        $quotations = Supplier_quotations::where('status','=','requested')->get();
         $item_suppliers = array();
         $item_prices = array();
         $item_ids = array();
@@ -127,13 +126,12 @@ class DirectorController extends Controller
             $item_suppliers[$item_name->item_name] = rtrim($supps, ',');
         }
         if($request->isMethod('post')){
+            $items = array();
             foreach ($quotations as $check){
-                $quot_check = Supplier_quotations::find($check->id);
-                $sq_id = Supplier_quotations::Where('id','=',$quot_check->id)
-                    ->Where('status','=','requested')->get();
-                foreach ($sq_id as $all_item){
-                    $count = array($all_item->item_id);
-                    if(count($count) != count(array_unique($count))){
+                if($request->get('state'.$check->id) != null){
+                    $quot_check = Supplier_quotations::find($check->id);
+                    $items[] = $quot_check->item_id;
+                    if(count($items) != count(array_unique($items))){
                         return redirect()
                             ->to('/approve-quotations')
                             ->with('error-message',' Can not Approve Multiple Suppliers for same Item !');
@@ -171,6 +169,13 @@ class DirectorController extends Controller
                     }
                     $quot_edit->status = 'approved';
                     $quot_edit->save();
+                    $latest_id = $quot_edit->item_id;
+                    $sup_q = Supplier_quotations::Where('item_id','=',$latest_id)
+                        ->Where('status','=','requested')->get();
+                    foreach ($sup_q as $sq){
+                        $sq->status = 'rejected';
+                        $sq->save();
+                    }
                 }else{
                     $quot_edit->status = 'requested';
                     $quot_edit->save();
