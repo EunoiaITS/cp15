@@ -23,17 +23,17 @@
             if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
         });
         var html_chart = '';
-        for(i = 0; i < uniqueNames.length; i++){
+        for(var i = 0; i < uniqueNames.length; i++){
             html_chart += '<div id="canvas-holder">'+
             '<p class="text-center">'+uniqueNames[i]+'</p>'+
             '<canvas id="chart-area'+i+'"/>'+
             '</div>';
         }
         $('#item-chart').html(html_chart);
-        for(i = 0; i < uniqueNames.length; i++){
+        for(var i = 0; i < uniqueNames.length; i++){
             var item_prices = [];
             var item_supps = [];
-            for(j = 0; j < item_details.length; j++){
+            for(var j = 0; j < item_details.length; j++){
                 if(item_details[j].name == uniqueNames[i]){
                     item_prices.push(item_details[j].price);
                     item_supps.push(item_details[j].supplier);
