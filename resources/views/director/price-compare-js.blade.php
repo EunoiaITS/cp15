@@ -44,6 +44,7 @@
                 data: {
                     labels: item_supps,
                     datasets: [{
+                        label: 'Unit Price',
                         data: item_prices,
                         backgroundColor: [
                             '#365A86',
