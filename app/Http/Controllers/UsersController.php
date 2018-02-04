@@ -101,7 +101,7 @@ class UsersController extends Controller
         }elseif ($user->role == 'suppliers'){
             return redirect('/supplier-controller/view-qr/');
         }else{
-        return view('dashboard');
+            return view('dashboard');
         }
     }
 }

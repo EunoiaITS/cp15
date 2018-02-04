@@ -340,7 +340,7 @@ class DirectorController extends Controller
         }
         return view('director.logs', [
             'current' => $page_no,
-            'page' => $total_logs/$amount,
+            'page' => (($total_logs != 0) ? $total_logs/$amount : 0),
             'logs' => $logsPerPage,
             'log_page' => 'log'
         ]);
