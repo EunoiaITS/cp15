@@ -71,18 +71,11 @@ class AEMController extends Controller
                 $sup->role = 'suppliers';
                 $sup->save();
                 $user_id = $sup->id;
-                $sup_info = new Create_suppliers();
-                if ($sup_info->validate($request->all())) {
+                    $sup_info = new Create_suppliers();
                     $sup_info->user_id = $user_id;
                     $sup_info->category = $request->category;
                     $sup_info->contact = $request->contact;
                     $sup_info->save();
-                }else{
-                    return redirect()
-                        ->to('/suppliers/add-supplier')
-                        ->withErrors($sup_info->errors());
-                }
-
                 return redirect()
                     ->to('suppliers/add-supplier')
                     ->with('success-message', 'New Supplier added successfully!');
