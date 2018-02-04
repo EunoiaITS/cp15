@@ -31,7 +31,7 @@
                                     <tr>
                                         <td>@foreach($qr->qr_details as $q){{$q->pr_id}}@endforeach</td>
                                         <td>@foreach($qr->qr_details as $q){{$q->pr_type}}@endforeach</td>
-                                        <td>{{$qr->supplier_details->qr_id}}</td>
+                                        <td>@if($qr->supplier_details->qr_id != null){{$qr->supplier_details->qr_id}}@endif</td>
                                         <td>@foreach($qr->items as $item){{ $item->item_name }}@endforeach</td>
                                         <td>@foreach($qr->items as $item){{ $item->item_no }}@endforeach</td>
                                         <td>@foreach($qr->items as $item){{ $item->quantity }}@endforeach</td>
