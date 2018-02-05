@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="header-logo">
-                <h3 class="text-center">BBC EState Sdn Bhd</h3>
+                <h3 class="text-center">Bumihas Sdn Bhd</h3>
             </div>
             <div class="user-login">
                 <i class="fa fa-user"></i>
