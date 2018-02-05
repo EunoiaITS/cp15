@@ -28,6 +28,11 @@
                                         {{ session()->get('success-message') }}
                                     </p>
                                 @endif
+                                @if(session()->has('error-message'))
+                                    <p class="alert alert-success">
+                                        {{ session()->get('error-message') }}
+                                    </p>
+                                @endif
                                 @if($errors->any())
                                     @foreach($errors->all() as $error)
                                         <p class="alert alert-danger">

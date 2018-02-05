@@ -28,6 +28,11 @@
                                         {{ session()->get('error-message') }}
                                     </p>
                                 @endif
+                                @if(session()->has('success-message'))
+                                    <p class="alert alert-success">
+                                        {{ session()->get('success-message') }}
+                                    </p>
+                                @endif
                                 <form method="post" action="{{ url('login') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">

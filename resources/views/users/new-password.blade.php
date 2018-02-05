@@ -28,6 +28,11 @@
                                         {{ session()->get('success-message') }}
                                     </p>
                                 @endif
+                                @if(session()->has('error-message'))
+                                    <p class="alert alert-success">
+                                        {{ session()->get('error-message') }}
+                                    </p>
+                                @endif
                                 @if($errors->any())
                                     @foreach($errors->all() as $error)
                                         <p class="alert alert-danger">
@@ -35,14 +40,15 @@
                                         </p>
                                     @endforeach
                                 @endif
-                                <form method="post" action="{{ url('login') }}">
+                                <form method="post" action="{{ url('/new-password/{token}') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <input name="password" type="text" class="form-control" placeholder="New Password" required="required" value="">
+                                        <input name="password" type="password" class="form-control" placeholder="New Password" required="required" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input name="repass" type="text" class="form-control" placeholder="Confirm Password" required="required" value="">
+                                        <input name="repass" type="password" class="form-control" placeholder="Confirm Password" required="required" value="">
                                     </div>
+                                    <input type="text" name="email" value="{{ $email }}" hidden>
                                     <div class="login-button clearfix">
                                         <button type="submit" class="btn btn-info btn-login">Submit</button>
                                         <button type="button" class="btn btn-info btn-cancel">Cancel</button>

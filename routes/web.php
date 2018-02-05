@@ -21,7 +21,7 @@ Route::post('/profile/change-password', 'UsersController@changePassword');
 Route::get('/system-log', 'DirectorController@systemLog');
 Route::get('/forget-password', 'UsersController@webForgetPassword');
 Route::post('/forget-password', 'UsersController@webForgetPassword');
-Route::get('/new-password/{token}', 'UsersController@newPasswordView');
+Route::get('/new-password/{token}', 'UsersController@newPassword');
 Route::post('/new-password/{token}', 'UsersController@newPassword');
 
 

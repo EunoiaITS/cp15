@@ -160,10 +160,10 @@ class UsersController extends Controller
             $message .= '</body></html>';
             mail($request->email, $subject, $message, $headers);
 
-            $genLink = new ForgotPassword();
+            $genLink = new ForgetPassword();
 
             $genLink->email = $request->email;
-            $genLink->link = $linkExtension;
+            $genLink->token = $linkExtension;
 
             $genLink->save();
 
@@ -191,15 +191,15 @@ class UsersController extends Controller
             if($request->password == $request->repass){
                 User::where('email', $request->email)
                     ->update(['password' => bcrypt($request->password)]);
-                ForgotPassword::where('email', $request->email)->delete();
+                ForgetPassword::where('email', $request->email)->delete();
             }
-            return view('users.new-password',[
-                'success-message'=> 'Your password has been reset. Try login now.'."\n".'Thank you!'
-            ]);
+            return redirect()
+                ->to('/login')
+                ->with('success-message', 'Your password has been reset. Try login now.'."\n".'Thank you!');
         }
-        $tokenCheck = ForgotPassword::where('token', $token)->get();
+        $tokenCheck = ForgetPassword::where('token', $token)->get();
         if($tokenCheck->first()){
-            return view('forgot-password', [
+            return view('users.new-password', [
                 'email' => $tokenCheck[0]['email'],
                 'token' => $token
             ]);
