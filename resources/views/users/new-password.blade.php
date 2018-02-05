@@ -16,13 +16,13 @@
                                 <h3>Bumihas Sdn Bhd</h3>
                             </div>
                             <div class="alert-message">
-                                <h3>Please <br> Enter Your <br> Email and <br> Password.</h3>
+                                <h3>Please <br> Enter Your <br> New Password </h3>
                             </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="sign-in-form">
-                                <h3>Sign In</h3>
-                                <p>Simply Enter Your Email and Password to login.</p>
+                                <h3>Reset Password</h3>
+                                <p>Simply Enter Your Password to Reset Your Password.</p>
                                 @if(session()->has('error-message'))
                                     <p class="alert alert-danger">
                                         {{ session()->get('error-message') }}
@@ -31,14 +31,13 @@
                                 <form method="post" action="{{ url('login') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <input name="email" type="text" class="form-control" placeholder="Email" required="required" value="{{ old('email') }}">
+                                        <input name="password" type="text" class="form-control" placeholder="New Password" required="required" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input name="password" type="password" class="form-control" placeholder="Password" required="required">
+                                        <input name="new-password" type="text" class="form-control" placeholder="Confirm Password" required="required" value="">
                                     </div>
-                                    <a href="{{ url('forget-password') }}">Forget Password ?</a>
                                     <div class="login-button clearfix">
-                                        <button type="submit" class="btn btn-info btn-login">Login</button>
+                                        <button type="submit" class="btn btn-info btn-login">Submit</button>
                                         <button type="button" class="btn btn-info btn-cancel">Cancel</button>
                                     </div>
                                 </form>

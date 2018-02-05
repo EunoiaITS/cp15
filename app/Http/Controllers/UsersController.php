@@ -104,4 +104,25 @@ class UsersController extends Controller
             return view('dashboard');
         }
     }
+    function getView($link){
+        $linkCheck = ForgotPassword::where('link', $link)->get();
+        if($linkCheck->first()){
+            return view('forgot-password', ['email' => $linkCheck[0]['email']]);
+        }else{
+            return 'This link doesn\'t exist';
+        }
+    }
+    public function forgetPasswordView(){
+        return view('users.forget-password');
+    }
+    public function forgetPassword(){
+
+        return view('users.forget-password');
+    }
+    public function newPasswordView(){
+        return view('users.new-password');
+    }
+    public function newPassword(){
+        return view('users.new-password');
+    }
 }
