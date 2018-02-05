@@ -12,7 +12,7 @@
                     <div class="login-form clearfix">
                         <div class="col-sm-5 login-logo">
                             <div class="logo-area text-uppercase">
-                                <img src="{{ URL::asset('assets/img/logo.png') }}" class="img-responsive" alt="">
+                                <img src="{{ URL::asset('public/assets/img/logo.png') }}" class="img-responsive" alt="">
                                 <h3>Bumihas Sdn Bhd</h3>
                             </div>
                             <div class="alert-message">
@@ -35,13 +35,13 @@
                                         </p>
                                     @endforeach
                                 @endif
-                                <form method="post" action="{{ url('login') }}">
+                                <form method="post" action="{{ url('/new-password') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <input name="password" type="text" class="form-control" placeholder="New Password" required="required" value="">
+                                        <input name="password" type="password" class="form-control" placeholder="New Password" required="required" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input name="repass" type="text" class="form-control" placeholder="Confirm Password" required="required" value="">
+                                        <input name="repass" type="password" class="form-control" placeholder="Confirm Password" required="required" value="">
                                     </div>
                                     <div class="login-button clearfix">
                                         <button type="submit" class="btn btn-info btn-login">Submit</button>

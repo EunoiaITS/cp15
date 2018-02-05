@@ -52,7 +52,7 @@
                                 <td id="unit-price-{{ $q->id }}">{{ $q->unit_price }}</td>
                                 <td id="supplier-name-{{ $q->id }}">{{$q->supplier_details->name}}</td>
                                 <td>{{ $q->comment }}</td>
-                                <td><a href="@if($q->file != null){{ URL::asset('/uploads/'.$q->file) }}@endif" target="_blank">View</a></td>
+                                <td><a href="@if($q->file != null){{ URL::asset('/public/uploads/'.$q->file) }}@endif" target="_blank">View</a></td>
                                 <td>
                                     <label><input type="checkbox" rel="{{ $q->id }}" class="select-items" name="state{{ $q->id }}" value="approved" @if($q->status == 'approved'){{ 'checked' }}@endif></label>
                                 </td>

@@ -163,7 +163,7 @@ class UsersController extends Controller
             $genLink = new ForgotPassword();
 
             $genLink->email = $request->email;
-            $genLink->link = $linkExtension;
+            $genLink->token = $linkExtension;
 
             $genLink->save();
 
