@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Supplier_quotations;
 use Illuminate\Support\Facades\View;
+use App\ForgetPassword;
+
 
 class UsersController extends Controller
 
@@ -104,25 +106,105 @@ class UsersController extends Controller
             return view('dashboard');
         }
     }
-    function getView($link){
-        $linkCheck = ForgotPassword::where('link', $link)->get();
-        if($linkCheck->first()){
-            return view('forgot-password', ['email' => $linkCheck[0]['email']]);
-        }else{
-            return 'This link doesn\'t exist';
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
+        return $randomString;
     }
-    public function forgetPasswordView(){
-        return view('users.forget-password');
-    }
-    public function forgetPassword(){
+    public function webForgetPassword(Request $request){
+        if($request->isMethod('post')){
+            if(!$request->email){
+                return redirect()->back()->with('error-message', 'Please provide an email!');
+            }
 
+            $mailCheck = User::where('email', $request->email)->get();
+            if(!$mailCheck->first()){
+                return redirect()->back()->with('error-message', 'Wrong email address!');
+            }
+
+            $reqCheck = ForgetPassword::where('email', $request->email)->get();
+            if($reqCheck->first()){
+                return redirect()->back()->with('error-message', 'An email with password reset link has been sent to you already!');
+            }
+
+            $linkExtension = $this->generateRandomString();
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $headers .= 'From: resetpassword@bbcplantation.com.my' . "\r\n" .
+                'Reply-To: resetpassword@bbcplantation.com.my' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+            $subject = "Bumihas Sdn Bhd Password reset";
+            $message = '<html><body>';
+            $message .= '<h1>Hi '.$mailCheck[0]['name'].',</h1>';
+            $message .= '<p style="font-size:18px;">You recently requested to reset your password. Please click the button/link below to reset.</p>';
+            $message .= '<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td>
+                              <div>
+                                <!--[if mso]>
+                                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://litmus.com" style="height:36px;v-text-anchor:middle;width:150px;" arcsize="5%" strokecolor="#EB7035" fillcolor="#EB7035">
+                                    <w:anchorlock/>
+                                    <center style="color:#ffffff;font-family:Helvetica, Arial,sans-serif;font-size:16px;">I am a button &rarr;</center>
+                                  </v:roundrect>
+                                <![endif]-->
+                                <a href="'.url('/new-password').'/'.$linkExtension.'" style="background-color:#EB7035;border:1px solid #EB7035;border-radius:3px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:16px;line-height:44px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;mso-hide:all;">Reset password &rarr;</a>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>';
+            $message .= '<br><br>Thank You<br>Bumihas Sdn Bhd<br>Customer Care Team';
+            $message .= '</body></html>';
+            mail($request->email, $subject, $message, $headers);
+
+            $genLink = new ForgotPassword();
+
+            $genLink->email = $request->email;
+            $genLink->link = $linkExtension;
+
+            $genLink->save();
+
+            return redirect()
+                ->to('forget-password/')
+                ->with('success-message','Password Reset Link Has Been Send To Your Email Successfully !');
+        }
         return view('users.forget-password');
     }
     public function newPasswordView(){
         return view('users.new-password');
     }
-    public function newPassword(){
-        return view('users.new-password');
+    public function newPassword($token,Request $request){
+        if($request->isMethod('post')){
+            if(!$request->password or !$request->repass){
+                return redirect()->back()->with('error-message', 'Password fields are required!');
+            }
+            if($request->password != $request->repass){
+                return redirect()->back()->with('error-message', 'Password fields should match!');
+            }
+            $user = User::where('email', $request->email)->get();
+            if(!$user->first()){
+                return redirect()->back()->with('error-message', 'E-mail address was not found!');
+            }
+            if($request->password == $request->repass){
+                User::where('email', $request->email)
+                    ->update(['password' => bcrypt($request->password)]);
+                ForgotPassword::where('email', $request->email)->delete();
+            }
+            return view('users.new-password',[
+                'success-message'=> 'Your password has been reset. Try login now.'."\n".'Thank you!'
+            ]);
+        }
+        $tokenCheck = ForgotPassword::where('token', $token)->get();
+        if($tokenCheck->first()){
+            return view('forgot-password', [
+                'email' => $tokenCheck[0]['email'],
+                'token' => $token
+            ]);
+        }else{
+            return 'This link doesn\'t exist';
+        }
     }
 }

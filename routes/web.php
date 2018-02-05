@@ -19,10 +19,12 @@ Route::get('/logout', 'UsersController@logout');
 Route::get('/profile/change-password', 'UsersController@changePassword');
 Route::post('/profile/change-password', 'UsersController@changePassword');
 Route::get('/system-log', 'DirectorController@systemLog');
-Route::get('/forget-password', 'UsersController@forgetPasswordView');
-Route::post('/forget-password', 'UsersController@forgetPassword');
-Route::get('/new-password', 'UsersController@newPasswordView');
-Route::post('/new-password', 'UsersController@newPassword');
+Route::get('/forget-password', 'UsersController@webForgetPassword');
+Route::post('/forget-password', 'UsersController@webForgetPassword');
+Route::get('/new-password/{token}', 'UsersController@newPasswordView');
+Route::post('/new-password/{token}', 'UsersController@newPassword');
+
+
 
 
 

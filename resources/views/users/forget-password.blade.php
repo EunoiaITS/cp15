@@ -23,15 +23,22 @@
                             <div class="sign-in-form">
                                 <h3>Forget Password</h3>
                                 <p>Simply Enter Your Email to Reset Your Password.</p>
-                                @if(session()->has('error-message'))
-                                    <p class="alert alert-danger">
-                                        {{ session()->get('error-message') }}
+                                @if(session()->has('success-message'))
+                                    <p class="alert alert-success">
+                                        {{ session()->get('success-message') }}
                                     </p>
                                 @endif
-                                <form method="post" action="{{ url('login') }}">
+                                @if($errors->any())
+                                    @foreach($errors->all() as $error)
+                                        <p class="alert alert-danger">
+                                            {{ $error }}
+                                        </p>
+                                    @endforeach
+                                @endif
+                                <form method="post" action="{{ url('/forget-password') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <input name="email" type="text" class="form-control" placeholder="Email" required="required" value="{{ old('email') }}">
+                                        <input name="email" type="text" class="form-control" placeholder="Email" required="required" value="">
                                     </div>
                                     <div class="login-button clearfix">
                                         <button type="submit" class="btn btn-info btn-login">Submit</button>

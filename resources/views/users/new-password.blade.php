@@ -23,10 +23,17 @@
                             <div class="sign-in-form">
                                 <h3>Reset Password</h3>
                                 <p>Simply Enter Your Password to Reset Your Password.</p>
-                                @if(session()->has('error-message'))
-                                    <p class="alert alert-danger">
-                                        {{ session()->get('error-message') }}
+                                @if(session()->has('success-message'))
+                                    <p class="alert alert-success">
+                                        {{ session()->get('success-message') }}
                                     </p>
+                                @endif
+                                @if($errors->any())
+                                    @foreach($errors->all() as $error)
+                                        <p class="alert alert-danger">
+                                            {{ $error }}
+                                        </p>
+                                    @endforeach
                                 @endif
                                 <form method="post" action="{{ url('login') }}">
                                     {{ csrf_field() }}
@@ -34,7 +41,7 @@
                                         <input name="password" type="text" class="form-control" placeholder="New Password" required="required" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input name="new-password" type="text" class="form-control" placeholder="Confirm Password" required="required" value="">
+                                        <input name="repass" type="text" class="form-control" placeholder="Confirm Password" required="required" value="">
                                     </div>
                                     <div class="login-button clearfix">
                                         <button type="submit" class="btn btn-info btn-login">Submit</button>
