@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Supplier_quotations;
 use Illuminate\Support\Facades\View;
 use App\ForgetPassword;
+use Illuminate\Mail;
 
 
 class UsersController extends Controller
@@ -132,44 +133,37 @@ class UsersController extends Controller
             }
 
             $linkExtension = $this->generateRandomString();
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $headers .= 'From: resetpassword@bbcplantation.com.my' . "\r\n" .
-                'Reply-To: resetpassword@bbcplantation.com.my' . "\r\n" .
-                'X-Mailer: PHP/' . phpversion();
-            $subject = "Bumihas Sdn Bhd Password reset";
-            $message = '<html><body>';
-            $message .= '<h1>Hi '.$mailCheck[0]['name'].',</h1>';
-            $message .= '<p style="font-size:18px;">You recently requested to reset your password. Please click the button/link below to reset.</p>';
-            $message .= '<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td>
-                              <div>
-                                <!--[if mso]>
-                                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://litmus.com" style="height:36px;v-text-anchor:middle;width:150px;" arcsize="5%" strokecolor="#EB7035" fillcolor="#EB7035">
-                                    <w:anchorlock/>
-                                    <center style="color:#ffffff;font-family:Helvetica, Arial,sans-serif;font-size:16px;">I am a button &rarr;</center>
-                                  </v:roundrect>
-                                <![endif]-->
-                                <a href="'.url('/new-password').'/'.$linkExtension.'" style="background-color:#EB7035;border:1px solid #EB7035;border-radius:3px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:16px;line-height:44px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;mso-hide:all;">Reset password &rarr;</a>
-                              </div>
-                            </td>
-                          </tr>
-                        </table>';
-            $message .= '<br><br>Thank You<br>Bumihas Sdn Bhd<br>Customer Care Team';
-            $message .= '</body></html>';
-            mail($request->email, $subject, $message, $headers);
+            $link = url('/new-password').'/'.$linkExtension;
 
-            $genLink = new ForgetPassword();
+            $transport = (new \Swift_SmtpTransport('ssl://mail.bbcplantation.com.my', 465))
+                ->setUsername("resetpassword@bbcplantation.com.my")
+                ->setPassword('$nW-~KmU]A$g');
 
-            $genLink->email = $request->email;
-            $genLink->token = $linkExtension;
+            $mailer = new \Swift_Mailer($transport);
 
-            $genLink->save();
+            $message = (new \Swift_Message('Bumihas Sdn Bhd - Password Reset Link'))
+                ->setFrom(['resetpassword@bbcplantation.com.my' => 'Bumihas Sdn Bhd'])
+                ->setTo([$request->email => 'User'])
+                ->setBody("Hello ".$mailCheck[0]['name']."!\r\n\r\nClick/Go to the link below to reset password.\r\n\r\n".$link."\r\n\r\nThank You\r\nBumihas Sdn Bhd\r\nCustomer Care Team");
 
-            return redirect()
-                ->to('forget-password/')
-                ->with('success-message','Password Reset Link Has Been Send To Your Email Successfully !');
+            $result = $mailer->send($message);
+
+            if($result){
+                $genLink = new ForgetPassword();
+
+                $genLink->email = $request->email;
+                $genLink->token = $linkExtension;
+
+                $genLink->save();
+
+                return redirect()
+                    ->to('forget-password/')
+                    ->with('success-message','Password Reset Link Has Been Send To Your Email Successfully !');
+            }else{
+                return redirect()
+                    ->to('forget-password/')
+                    ->with('error-message','Something went wrong while sending the email! Please try again!');
+            }
         }
         return view('users.forget-password');
     }
