@@ -169,7 +169,7 @@ class UsersController extends Controller
 
             return redirect()
                 ->to('forget-password/')
-                ->with('success-message','Password Reset Link Has Been Send To Your Email Successfully !');
+                ->with('success-message','Password Reset Link Has Been Send To Your Email Successfully ! Do Not Forget To Check Your Spam Folder !');
         }
         return view('users.forget-password');
     }
