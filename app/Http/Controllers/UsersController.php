@@ -141,10 +141,29 @@ class UsersController extends Controller
 
             $mailer = new \Swift_Mailer($transport);
 
-            $message = (new \Swift_Message('Bumihas Sdn Bhd - Password Reset Link'))
-                ->setFrom(['resetpassword@bbcplantation.com.my' => 'Bumihas Sdn Bhd'])
-                ->setTo([$request->email => 'User'])
-                ->setBody("Hello ".$mailCheck[0]['name']."!\r\n\r\nClick/Go to the link below to reset password.\r\n\r\n".$link."\r\n\r\nThank You\r\nBumihas Sdn Bhd\r\nCustomer Care Team");
+            $message = new \Swift_Message('Bumihas Sdn Bhd - Password Reset Link');
+            $message->setFrom(['resetpassword@bbcplantation.com.my' => 'Admin - Bumihas Sdn Bhd']);
+            $message->setTo([$request->email => $mailCheck[0]['name']]);
+            $message->setBody('<html><body>'.
+                '<h1>Hi '.$mailCheck[0]['name'].',</h1>'.
+                '<p style="font-size:18px;">You recently requested to reset your password. Please click the button/link below to reset.</p>'.
+                '<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td>
+                              <div>
+                                <!--[if mso]>
+                                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://litmus.com" style="height:36px;v-text-anchor:middle;width:150px;" arcsize="5%" strokecolor="#EB7035" fillcolor="#EB7035">
+                                    <w:anchorlock/>
+                                    <center style="color:#ffffff;font-family:Helvetica, Arial,sans-serif;font-size:16px;">I am a button &rarr;</center>
+                                  </v:roundrect>
+                                <![endif]-->
+                                <a href="'.$link.'" style="background-color:#EB7035;border:1px solid #EB7035;border-radius:3px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:16px;line-height:44px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;mso-hide:all;">Reset password &rarr;</a>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>'.
+                '<br><br>Thank You<br>Bumihas Sdn Bhd<br>Customer Care Team</body></html>',
+                'text/html');
 
             $result = $mailer->send($message);
 
