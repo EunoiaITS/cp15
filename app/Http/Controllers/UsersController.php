@@ -164,6 +164,9 @@ class UsersController extends Controller
                     ->to('forget-password/')
                     ->with('error-message','Something went wrong while sending the email! Please try again!');
             }
+            return redirect()
+                ->to('forget-password/')
+                ->with('success-message','Password Reset Link Has Been Send To Your Email Successfully ! Do Not Forget To Check Your Spam Folder !');
         }
         return view('users.forget-password');
     }
