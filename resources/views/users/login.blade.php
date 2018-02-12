@@ -12,7 +12,7 @@
                     <div class="login-form clearfix">
                         <div class="col-sm-5 login-logo">
                             <div class="logo-area text-uppercase">
-                                <img src="{{ URL::asset('assets/img/logo.png') }}" class="img-responsive" alt="">
+                                <img src="{{ URL::asset('public/assets/img/logo.png') }}" class="img-responsive" alt="">
                                 <h3>BBC Plantation</h3>
                             </div>
                             <div class="alert-message">

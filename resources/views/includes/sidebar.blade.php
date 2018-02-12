@@ -9,8 +9,8 @@
                 <!-- Brand -->
                 <div class="brand-name-wrapper">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ URL::asset('assets/img/logo.png') }}" class="img-responsive" alt="">
-                        <h3>Bumihas Sdn Bhd</h3>
+                        <img src="{{ URL::asset('public/assets/img/logo.png') }}" class="img-responsive" alt="">
+                        <h3>BBC Plantation</h3>
                     </a>
                 </div>
             </div>

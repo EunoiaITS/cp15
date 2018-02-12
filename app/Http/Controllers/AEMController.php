@@ -532,6 +532,9 @@ class AEMController extends Controller
     public function uploadQRFile(){
         return view('qr_orders.upload');
     }
+//    public function testFile(){
+//        return view('qr_orders.test');
+//    }
     public function importQRData(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -540,40 +543,47 @@ class AEMController extends Controller
             $file->move('uploads', $file_name);
             $results = Excel::load('uploads/' . $file_name, function ($reader) {
                 $reader->all();
-            })->get();
+            })->toArray();
             foreach ($results as $result => $res) {
-                foreach ($res as $r) {
-                    if (Quotation_requisition::where('pr_id', '=', $r->prid)
-                        ->Where('pr_type', '=', $r->prtype)
-                        ->Where('category', '=', $r->category)->exists()) {
-                        $data = Quotation_requisition::where('pr_id', '=', $r->prid)->get();
-                        foreach ($data as $d){
-                            $qr_item = new Qr_items();
-                            $qr_item_id = $d->id;
-                            $qr_item->item_name = trim($r->itemsname);
-                            $qr_item->item_no = trim($r->itemscode);
-                            $qr_item->quantity = trim($r->quantity);
-                            $qr_item->qr_id = $d->id;
-                            $qr_item->save();
+                if($res['pr_id'] != 0){
+                $keys = array_keys($res);
+                $item = strstr($res['pr_id'], '(');
+                $left = ltrim($item, '(');
+                $item_name = substr( $left, 0, -1 );
+                $item_no = strstr($res['pr_id'], '(', true);
+                if (Quotation_requisition::where('pr_id', '=', trim($keys[2]))
+                    ->Where('pr_type', '=', trim($keys[4]))
+                    ->Where('category', '=', 'N/A')->exists()
+                ) {
+                    $data = Quotation_requisition::where('pr_id', '=', trim($keys[2]))->get();
+                    foreach ($data as $d) {
+                        $qr_item = new Qr_items();
+                        $qr_item_id = $d->id;
+                        $qr_item->item_name = trim($item_name);
+                        $qr_item->item_no = trim(intval($item_no));
+                        $qr_item->quantity = trim($res['status']);
+                        $qr_item->qr_id = $d->id;
+                        $qr_item->save();
                         }
                     } else {
                         $qr = new Quotation_requisition();
-                        $qr->pr_id = trim($r->prid);
-                        $qr->pr_type = trim($r->prtype);
-                        $qr->category = trim($r->category);
+                        $qr->pr_id = trim($keys[2]);
+                        $qr->pr_type = trim($keys[4]);
+                        $qr->category = 'N/A';
                         $qr->status = 'requested';
                         $qr->save();
                         $qr_item_id = $qr->id;
                         $qr_item = new Qr_items();
                         $qr_item->qr_id = $qr_item_id;
-                        $qr_item->item_name = trim($r->itemsname);
-                        $qr_item->item_no = trim($r->itemscode);
-                        $qr_item->quantity = trim($r->quantity);
+                        $qr_item->item_name = trim($item_name);
+                        $qr_item->item_no = trim(intval($item_no));
+                        $qr_item->quantity = trim($res['status']);
+                        //$qr_item->quantity = trim($res->status);
                         $qr_item->save();
                     }
                 }
-            }
-//        return view('qr_orders.import-data',[
+                }
+//        return view('qr_orders.test',[
 //            'results' => $results
 //        ]);
             return redirect('/qr-orders/upload-qr-order')
