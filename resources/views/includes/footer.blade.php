@@ -1,3 +1,10 @@
+<div class="container">
+    <div class="row">
+        <div class="bbc-footer">
+            <p class="text-center">© Vemax Technology | Powered by <a target="_blank" href="http://www.eunoiaits.com/">Eunoia I.T Solutions</a></p>
+        </div>
+    </div>
+</div>
 </div>
 
 <!-- js file -->
