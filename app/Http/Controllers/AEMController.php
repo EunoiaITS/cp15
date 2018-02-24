@@ -551,11 +551,14 @@ class AEMController extends Controller
                 $left = ltrim($item, '(');
                 $item_name = substr( $left, 0, -1 );
                 $item_no = strstr($res['pr_id'], '(', true);
-                if (Quotation_requisition::where('pr_id', '=', trim($keys[2]))
-                    ->Where('pr_type', '=', trim($keys[4]))
+                $pr_id= strtoupper($keys[2]);
+                $pr_t = str_replace('_',' ',$keys[4]);
+                $pr_type = ucwords($pr_t);
+                if (Quotation_requisition::where('pr_id', '=', trim($pr_id))
+                    ->Where('pr_type', '=', trim($pr_type))
                     ->Where('category', '=', 'N/A')->exists()
                 ) {
-                    $data = Quotation_requisition::where('pr_id', '=', trim($keys[2]))->get();
+                    $data = Quotation_requisition::where('pr_id', '=', trim($pr_id))->get();
                     foreach ($data as $d) {
                         $qr_item = new Qr_items();
                         $qr_item_id = $d->id;
@@ -567,8 +570,8 @@ class AEMController extends Controller
                         }
                     } else {
                         $qr = new Quotation_requisition();
-                        $qr->pr_id = trim($keys[2]);
-                        $qr->pr_type = trim($keys[4]);
+                        $qr->pr_id = trim($pr_id);
+                        $qr->pr_type = trim($pr_type);
                         $qr->category = 'N/A';
                         $qr->status = 'requested';
                         $qr->save();
