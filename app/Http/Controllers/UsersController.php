@@ -141,8 +141,8 @@ class UsersController extends Controller
 
             $mailer = new \Swift_Mailer($transport);
 
-            $message = new \Swift_Message('Bumihas Sdn Bhd - Password Reset Link');
-            $message->setFrom(['resetpassword@bbcplantation.com.my' => 'Admin - Bumihas Sdn Bhd']);
+            $message = new \Swift_Message('BBC Plantation - Password Reset Link');
+            $message->setFrom(['resetpassword@bbcplantation.com.my' => 'Admin - BBC Plantation']);
             $message->setTo([$request->email => $mailCheck[0]['name']]);
             $message->setBody('<html><body>'.
                 '<h1>Hi '.$mailCheck[0]['name'].',</h1>'.
@@ -162,7 +162,7 @@ class UsersController extends Controller
                             </td>
                           </tr>
                         </table>'.
-                '<br><br>Thank You<br>Bumihas Sdn Bhd<br>Customer Care Team</body></html>',
+                '<br><br>Thank You<br>BBC Plantation<br>Customer Care Team</body></html>',
                 'text/html');
 
             $result = $mailer->send($message);
