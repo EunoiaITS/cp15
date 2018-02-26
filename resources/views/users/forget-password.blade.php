@@ -13,7 +13,7 @@
                         <div class="col-sm-5 login-logo">
                             <div class="logo-area text-uppercase">
                                 <img src="{{ URL::asset('public/assets/img/logo.png') }}" class="img-responsive" alt="">
-                                <h3>Bumihas Sdn Bhd</h3>
+                                <h3>BBC Plantation</h3>
                             </div>
                             <div class="alert-message">
                                 <h3>Please <br> Enter Your <br> Email </h3>
