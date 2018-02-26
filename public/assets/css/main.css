@@ -1128,6 +1128,15 @@ supplier
     margin: 18px 0px;
     float: right;
 }
+/*.bbc-footer{
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+}*/
+.bbc-footer p{
+    font-size: 14px;
+    padding: 20px 0px;
+}
 /*--
 Responsive area
 =========================--*/
