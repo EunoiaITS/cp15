@@ -46,42 +46,73 @@
     });
 
     /*===================
+    view Popup price comparison 
+    ===================*/
+
+    $(".open-popup-comparison").on("click",function(){
+        $(".popup-wrapper-compa").fadeIn();
+        return false;
+    });
+    $(".close-comp").on("click",function(){
+        $(".popup-wrapper-compa").fadeOut();
+    });
+
+
+    /*===================
     Popup delete section
     ===================*/
 
     $(".open-popup-delete").on("click",function(){
-        $(".popup-wrapper-delete").fadeIn();
-        return false;
-    });
+            $(".popup-wrapper-delete").fadeIn();
+            return false;
+        });
     $(".close").on("click",function(){
-        $(".popup-wrapper-delete").fadeOut();
+            $(".popup-wrapper-delete").fadeOut();
     });
+
+      /*===================
+   PRID popup comparison
+    ===================*/
+
+    $(".prid-popup-button").on("click",function(){
+            $(".popup-prid-comparison").fadeIn();
+            return false;
+        });
+    $(".close").on("click",function(){
+            $(".popup-prid-comparison").fadeOut();
+    });
+
+
 }());
 
+   
+
 /*=======================================
-        Datepicker init
-      =========================================*/
+  Datepicker init
+  =========================================*/
 
-      $('.datepicker-f').datetimepicker({
-        format: "DD/MM/YYYY",
-        icons: {
-          up: 'fa fa-angle-up',
-          down: 'fa fa-angle-down',
-          previous: 'fa fa-angle-left',
-          next: 'fa fa-angle-right',
-        }
-      });
+    $('.datepicker-f').datetimepicker({
+      format: "DD/MM/YYYY",
+      icons: {
+        up: 'fa fa-angle-up',
+        down: 'fa fa-angle-down',
+        previous: 'fa fa-angle-left',
+        next: 'fa fa-angle-right',
+      }
+    });
 
-      /*=======================================
-        Timepicker init 
-      =========================================*/
+    /*=======================================
+      Timepicker init 
+    =========================================*/
 
-        $('.timepicker-f').datetimepicker({
-        format: "HH:mm A",
-        icons: {
-          up: 'fa fa-angle-up',
-          down: 'fa fa-angle-down',
-          previous: 'fa fa-angle-left',
-          next: 'fa fa-angle-right',
-        }
-      });
+      $('.timepicker-f').datetimepicker({
+      format: "HH:mm A",
+      icons: {
+        up: 'fa fa-angle-up',
+        down: 'fa fa-angle-down',
+        previous: 'fa fa-angle-left',
+        next: 'fa fa-angle-right',
+      }
+    });
+
+
