@@ -17,4 +17,5 @@
     <link rel="stylesheet" href="{{ URL::asset('public/assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('public/assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('public/assets/css/bootstrap-datetimepicker.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('public/assets/css/bootstrap-select.css') }}">
 </head>
