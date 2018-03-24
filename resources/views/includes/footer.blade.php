@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="bbc-footer">
-            <p class="text-center">© Vemax Technology | Powered by <a target="_blank" href="http://www.eunoiaits.com/">Eunoia I.T Solutions</a></p>
+            <p class="text-center">© Vemax Technology</p>
         </div>
     </div>
 </div>
@@ -17,7 +17,14 @@
 <script src="{{ URL::asset('public/assets/js/moment.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/Chart.bundle.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/bootstrap-datetimepicker.js') }}"></script>
+<script src="{{ URL::asset('public/assets/js/bootstrap-select.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/main.js') }}"></script>
+<!-- bootstrap select callback -->
+<script>
+    $( document ).ready(function() {
+        $('.selectfilter').selectpicker({});
+    });
+</script>
 @if(isset($footer_js))
 @include($footer_js)
 @endif

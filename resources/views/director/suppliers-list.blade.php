@@ -6,6 +6,13 @@
             <div class="row">
                 <div class="col-sm-11 col-sm-offset-1">
                     <h3 class="text-uppercase color-bbc">Supplier List</h3>
+                    <!-- fliter button: new added -->
+                     <div class="supplier-filter-option">
+                        <select class="selectfilter" title="Filter">
+                          <option value="acending">Ascending A-Z</option>
+                          <option value="decending">Descending Z-A</option>
+                        </select>
+                    </div>
                     <div class="col-sm-10 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">
@@ -29,6 +36,20 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+                <!-- pagination -->
+                <div class="col-sm-10">
+                    <div class="float-pagination">
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                          </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
