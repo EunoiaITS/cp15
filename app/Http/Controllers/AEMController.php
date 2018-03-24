@@ -105,7 +105,9 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $result = User::where('role', 'suppliers')->get();
+        $result = User::where('role', 'suppliers')
+        ->orderBy('name','asc')
+        ->paginate(3);
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;

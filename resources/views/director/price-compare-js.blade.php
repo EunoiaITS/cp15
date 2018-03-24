@@ -3,6 +3,14 @@
     var randomScalingFactor = function() {
         return Math.round(Math.random() * 50);
     };
+    $('.select-items').on('change',function () {
+       var itemCode = $(this).attr('id');
+        if(!$(this).is(':checked')){
+            $('.'+itemCode).prop('checked', false);
+        }else{
+            $('.'+itemCode).prop('checked', true);
+        }
+    });
 
     $('#price-compare').on('click', function(e) {
         e.preventDefault();

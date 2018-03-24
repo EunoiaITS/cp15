@@ -20,7 +20,6 @@
                 @endif
                 <div class="col-sm-10 padding-left-0">
                     <div class="table table-responsive">
-
                         <table class="table">
                             <thead>
                             <tr>
@@ -44,6 +43,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        {{ $result->links() }}
                     </div>
                 </div>
             </div>

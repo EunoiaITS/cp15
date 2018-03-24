@@ -1,5 +1,4 @@
 <script>
-    $(document).ready(function(){
         $('.btn-view-table').on('click', function(e){
             e.preventDefault();
             var id = $(this).attr('rel');
@@ -10,5 +9,4 @@
             $('#sup-category').val($('#category'+id).text());
             $('#sup-contact').val($('#contact'+id).text());
         });
-    });
 </script>
