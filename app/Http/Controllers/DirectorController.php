@@ -68,10 +68,10 @@ class DirectorController extends Controller
         }
         $asc_result = User::where('role', 'suppliers')
             ->orderBy('name','asc')
-            ->paginate(3);
+            ->paginate(30);
         $desc_result = User::where('role', 'suppliers')
             ->orderBy('name','desc')
-            ->paginate(3);
+            ->paginate(30);
         foreach($asc_result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
