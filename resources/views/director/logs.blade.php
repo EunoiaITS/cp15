@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="col-sm-10">
-                        <div class="float-right">
+                        <div class="float-pagination">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
                                     @if($page != 0)

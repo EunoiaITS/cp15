@@ -9,13 +9,13 @@
                     <!-- fliter button: new added -->
                      <div class="supplier-filter-option">
                         <select class="selectfilter" title="Filter">
-                          <option value="acending">Ascending A-Z</option>
-                          <option value="decending">Descending Z-A</option>
+                          <option class="asc" value="ascending">Ascending A-Z</option>
+                          <option class="desc" value="descending">Descending Z-A</option>
                         </select>
                     </div>
                     <div class="col-sm-10 padding-left-0">
                         <div class="table table-responsive">
-                            <table class="table">
+                            <table class="table sort-table" id="sort-table">
                                 <thead>
                                 <tr>
                                     <th>Supplier Name</th>
@@ -24,15 +24,7 @@
                                     <th>Contact</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                @foreach($result as $res)
-                                    <tr>
-                                        <td id="name{{$res->id}}">{{$res->name}}</td>
-                                        <td id="category{{$res->id}}">@foreach($res->info as $in){{ $in->category }}@endforeach</td>
-                                        <td id="email{{$res->id}}">{{$res->email}}</td>
-                                        <td id="contact{{$res->id}}">@foreach($res->info as $in){{ $in->contact }}@endforeach</td>
-                                    </tr>
-                                    @endforeach
+                                <tbody id="filtered-data">
                                 </tbody>
                             </table>
                         </div>
@@ -42,12 +34,11 @@
                 <div class="col-sm-10">
                     <div class="float-pagination">
                         <nav aria-label="Page navigation example">
-                          <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                          <ul class="p-asc">
+                              {{ $asc_result -> links() }}
+                          </ul>
+                          <ul class="p-desc">
+                              {{ $desc_result -> links() }}
                           </ul>
                         </nav>
                     </div>

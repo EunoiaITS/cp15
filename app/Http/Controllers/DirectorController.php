@@ -66,14 +66,25 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $result = User::where('role', 'suppliers')->get();
-        foreach($result as $supplier){
+        $asc_result = User::where('role', 'suppliers')
+            ->orderBy('name','asc')
+            ->paginate(3);
+        $desc_result = User::where('role', 'suppliers')
+            ->orderBy('name','desc')
+            ->paginate(3);
+        foreach($asc_result as $supplier){
+            $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
+            $supplier->info = $info;
+        }
+        foreach($desc_result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
         }
         return view('director.suppliers-list', [
-            'result'=> $result,
-            'page' => 'view-supplier'
+            'asc_result'=> $asc_result,
+            'desc_result'=> $desc_result,
+            'page' => 'view-supplier',
+            'footer_js' => 'director.suppliers-js'
         ]);
     }
 

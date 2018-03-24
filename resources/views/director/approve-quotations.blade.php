@@ -69,14 +69,6 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="bbc-footer">
-                <p class="text-center">© Vemax Technology</p>
-            </div>
-        </div>
-    </div>
-    </div>
 
     <!--
    PR ID popup content
