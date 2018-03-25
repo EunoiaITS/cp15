@@ -99,8 +99,7 @@ class UsersController extends Controller
         $user = User::find($id);
         if(!Auth::user()){
             return redirect()
-                ->to('/login')
-                ->with('error-message', 'Please login first!');
+                ->to('/login');
         }elseif ($user->role == 'suppliers'){
             return redirect('/supplier-controller/view-qr/');
         }else{

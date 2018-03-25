@@ -1,5 +1,8 @@
 @extends('layout')
 @section('content')
+<!--    --><?php //echo '<pre>';
+//    print_r($quotations);
+//    echo '</pre>';?>
     <!-- content area-->
     <div class="bbc-content-area mcw">
         <div class="container">
@@ -19,34 +22,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>01 </td>
-                                    <td class="prid-popup-button">PR2142</td>
-                                    <td> Rado Passion </td>
-                                    <td> 12/2/2017</td>
-                                    <td>12/2/2017</td>
-                                </tr>
-                                <tr>
-                                    <td>02 </td>
-                                    <td class="prid-popup-button">PR2142</td>
-                                    <td> Rado Passion </td>
-                                    <td> 12/2/2017</td>
-                                    <td>12/2/2017</td>
-                                </tr>
-                                <tr>
-                                    <td>03 </td>
-                                    <td class="prid-popup-button">PR2142</td>
-                                    <td> Rado Passion </td>
-                                    <td> 12/2/2017</td>
-                                    <td>12/2/2017</td>
-                                </tr>
-                                <tr>
-                                    <td>04 </td>
-                                    <td class="prid-popup-button">PR2142</td>
-                                    <td> Rado Passion </td>
-                                    <td> 12/2/2017</td>
-                                    <td>12/2/2017</td>
-                                </tr>
+                                <?php $i= 1; ?>
+                                @foreach($quotations as $q)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td class="prId" id=""><a data-toggle="modal" data-target="#myModal{{$i}}">{{ $q->qr_details->pr_id }}</a></td>
+                                        <td>{{ $q->qr_details->pr_type }}</td>
+                                        <td>{{ $q->qr_dates->start_date }}</td>
+                                        <td>{{ $q->qr_dates->end_date }}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -73,13 +58,16 @@
     <!--
    PR ID popup content
    ========================-->
-    <div class="popup-prid-comparison">
+    <?php $j=1;?>
+    @foreach($quotations as $q)
+        <?php $j++?>
+    <div id="myModal{{$j}}" class="modal fade" role="dialog">
         <div class="popup-base">
             <div class="search-popup">
-                <i class="close fa fa-remove"></i>
+                <i class="close fa fa-remove" data-dismiss="modal"></i>
                 <div class="row">
                     <div class="search-destination">
-                        <h2 class="pr-title"><span class="pr-id">PR ID:</span><span class="prtext">PR1234</span></h2>
+                        <h2 class="pr-title"><span class="pr-id">PR ID:</span><span class="prtext"></span></h2>
                     </div>
                     <!-- header got seach area -->
                     <div class="popup-got-search popup-pie clearfix">
@@ -99,116 +87,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <?php $c = 0;?>
+                                @foreach($q->sup_quo as $qr)
+                                    @if(isset($qr->ex) && ($qr->exists == 'yes'))
+                                        <?php $c++;?>
                                 <tr>
-                                    <td>1 </td>
-                                    <td>722068</td>
-                                    <td>Bearing 84284106</td>
-                                    <td>4</td>
-                                    <td>300</td>
-                                    <td>ABC</td>
-                                    <td></td>
-                                    <td><a href="#">View</a></td>
+                                    <td>{{ $c }}</td>
+                                    <td>{{ $qr->item_no }}</td>
+                                    <td>{{ $qr->item_name }}</td>
+                                    <td>{{ $qr->quantity }}</td>
+                                    <td>{{ $qr->unit_price }}</td>
+                                    <td>{{ $qr->sup_details->name }}</td>
+                                    <td>{{ $qr->comment }}</td>
+                                    <td><a href="{{ $qr->file }}">View</a></td>
                                     <td><input type="checkbox" name="checkboxicon"></td>
                                 </tr>
-                                <tr>
-                                    <td>2 </td>
-                                    <td>722068</td>
-                                    <td>Bearing 84284106</td>
-                                    <td>4</td>
-                                    <td>300</td>
-                                    <td>DEF</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
-                                <tr>
-                                    <td>3 </td>
-                                    <td>722068</td>
-                                    <td>Bearing 84284106</td>
-                                    <td>4</td>
-                                    <td>100</td>
-                                    <td>XYZ</td>
-                                    <td></td>
-                                    <td><a href="#">View</a></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>722068</td>
-                                    <td>84284106 NUT</td>
-                                    <td>2</td>
-                                    <td>1000</td>
-                                    <td>ABC</td>
-                                    <td></td>
-                                    <td><a href="#">View</a></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>722068</td>
-                                    <td>84284106 NUT</td>
-                                    <td>2</td>
-                                    <td>1000</td>
-                                    <td>DEF</td>
-                                    <td></td>
-                                    <td><a href="#">View</a></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>722068</td>
-                                    <td>84284106 NUT</td>
-                                    <td>2</td>
-                                    <td>200</td>
-                                    <td>XYZ</td>
-                                    <td></td>
-                                    <td><a href="#">View</a></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>7228441</td>
-                                    <td>SEAL 5133799</td>
-                                    <td>2</td>
-                                    <td>800</td>
-                                    <td>ABC</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>7228441</td>
-                                    <td>SEAL 5133799 (62X42X17)</td>
-                                    <td>2</td>
-                                    <td>450</td>
-                                    <td>DEF</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>7228441</td>
-                                    <td>SEAL 5133799 (62X42X17)</td>
-                                    <td>2</td>
-                                    <td>450</td>
-                                    <td>XYZ</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
-                                </tr>
+                                @endif
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -221,7 +116,7 @@
             </div>
         </div>
     </div><!-- Popup -->
-
+    @endforeach
     <!--
     price comparison popup
     ========================-->

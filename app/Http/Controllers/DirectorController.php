@@ -68,10 +68,10 @@ class DirectorController extends Controller
         }
         $asc_result = User::where('role', 'suppliers')
             ->orderBy('name','asc')
-            ->paginate(30);
+            ->paginate(3);
         $desc_result = User::where('role', 'suppliers')
             ->orderBy('name','desc')
-            ->paginate(30);
+            ->paginate(3);
         foreach($asc_result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -102,12 +102,14 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $quotations = Supplier_quotations::where('status','=','requested')
+        $quots = Supplier_quotations::where('status','=','requested')
             ->orWhere('status','=','rejected')->get();
         $item_suppliers = array();
         $item_prices = array();
         $item_ids = array();
-        foreach($quotations as $q){
+        $pr_ids = array();
+        $pr_unique = array();
+        foreach($quots as $q){
             $item_ids[] = $q->item_id;
             $item_details = Qr_items::where('id', $q->item_id)->get();
             $q->item_details = $item_details;
@@ -115,6 +117,7 @@ class DirectorController extends Controller
                 $qr_details = Quotation_requisition::where('id', $i->qr_id)->get();
                 $q->qr_details = $qr_details;
                 foreach ($qr_details as $d){
+                    $pr_ids[] = $d->pr_id;
                     $dates = Qr_invitations::where('qr_id',$d->id)->get();
                     $q->dates = $dates;
                 }
@@ -122,20 +125,34 @@ class DirectorController extends Controller
             $supplier = User::find($q->supp_id);
             $q->supplier_details = $supplier;
         }
-        $item_ids = array_unique($item_ids);
-        foreach($item_ids as $ids){
-            $item_name = Qr_items::find($ids);
-            $supp_quot = Supplier_quotations::where('item_id', $ids)
-                ->where('status', 'requested')->get();
-            $prices = '';
-            $supps = '';
-            foreach($supp_quot as $quot){
-                $prices .= $quot->unit_price.',';
-                $sup = User::find($quot->supp_id);
-                $supps .= '"'.$sup->name.'",';
+        $pr_ids = array_unique($pr_ids);
+        $quotations = new \stdClass();
+        $count = 0;
+        foreach ($pr_ids as $pr){
+            $count++;
+            $pr_details = new \stdClass();
+            $qr_id = Quotation_requisition::Where('pr_id',$pr)->first();
+            $pr_details->qr_details = $qr_id;
+            $qr_dates = Qr_invitations::Where('qr_id',$qr_id->id)->first();
+            $pr_details->qr_dates = $qr_dates;
+            $items = Qr_items::Where('qr_id',$qr_id->id)->get();
+            foreach ($items as $item){
+                $sup_quo = Supplier_quotations::Where('item_id',$item->id)
+                            ->Where('status','requested')
+                            ->orWhere('status','rejected')->get();
+                if($sup_quo->first()) {
+                    $item->ex = 'yes';
+                    foreach ($sup_quo as $sq) {
+                        $sup_name = User::find($sq->supp_id);
+                        $item->sup_details = $sup_name;
+                        $item->comment = $sq->comment;
+                        $item->unit_price = $sq->unit_price;
+                        $item->file = $sq->file;
+                    }
+                }
             }
-            $item_prices[$item_name->item_name] = rtrim($prices, ',');
-            $item_suppliers[$item_name->item_name] = rtrim($supps, ',');
+            $pr_details->sup_quo = $items;
+            $quotations->$count = $pr_details;
         }
         if($request->isMethod('post')){
             $items = array();
@@ -203,7 +220,8 @@ class DirectorController extends Controller
             'quotations' => $quotations,
             'item_prices' => $item_prices,
             'item_suppliers' => $item_suppliers,
-            'footer_js' => 'director.price-compare-js'
+            'footer_js' => 'director.price-compare-js',
+            'pr_ids' => $pr_ids
 
         ]);
     }

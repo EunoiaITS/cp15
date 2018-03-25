@@ -1,4 +1,5 @@
 <script>
+
     // pie chart
     var randomScalingFactor = function() {
         return Math.round(Math.random() * 50);
