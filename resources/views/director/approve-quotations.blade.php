@@ -1,14 +1,21 @@
 @extends('layout')
 @section('content')
-<!--    --><?php //echo '<pre>';
-//    print_r($quotations);
-//    echo '</pre>';?>
     <!-- content area-->
     <div class="bbc-content-area mcw">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-sm-offset-0">
                     <h3 class="text-uppercase color-bbc">Supplier Quotation</h3>
+                    @if(session()->has('success-message'))
+                    <p class="alert alert-success">
+                        {{ session()->get('success-message') }}
+                    </p>
+                    @endif
+                    @if(session()->has('error-message'))
+                    <p class="alert alert-danger">
+                        {{ session()->get('error-message') }}
+                    </p>
+                    @endif
                     <div class="col-sm-11 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">
@@ -26,7 +33,7 @@
                                 @foreach($quotations as $q)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td class="prId" id=""><a data-toggle="modal" data-target="#myModal{{$i}}">{{ $q->qr_details->pr_id }}</a></td>
+                                        <td class="prId" id=""><a class="prid-popup-button pr-modal" rel="{{$i}}">{{ $q->qr_details->pr_id }}</a></td>
                                         <td>{{ $q->qr_details->pr_type }}</td>
                                         <td>{{ $q->qr_dates->start_date }}</td>
                                         <td>{{ $q->qr_dates->end_date }}</td>
@@ -61,13 +68,15 @@
     <?php $j=1;?>
     @foreach($quotations as $q)
         <?php $j++?>
-    <div id="myModal{{$j}}" class="modal fade" role="dialog">
+    <div id="myModal{{$j}}" class="popup-prid-comparison">
+        <form action="{{ url('/approve-quotations') }}" method="post">
+            {{csrf_field()}}
         <div class="popup-base">
             <div class="search-popup">
-                <i class="close fa fa-remove" data-dismiss="modal"></i>
+                <i class="close fa fa-remove"></i>
                 <div class="row">
                     <div class="search-destination">
-                        <h2 class="pr-title"><span class="pr-id">PR ID:</span><span class="prtext"></span></h2>
+                        <h2 class="pr-title"><span class="pr-id">PR ID: {{ $q->qr_details->pr_id }}</span><span class="prtext"></span></h2>
                     </div>
                     <!-- header got seach area -->
                     <div class="popup-got-search popup-pie clearfix">
@@ -94,13 +103,17 @@
                                 <tr>
                                     <td>{{ $c }}</td>
                                     <td>{{ $qr->item_no }}</td>
-                                    <td>{{ $qr->item_name }}</td>
+                                    <td id="item-name-{{ $qr->id }}">{{ $qr->item_name }}</td>
                                     <td>{{ $qr->quantity }}</td>
-                                    <td>{{ $qr->unit_price }}</td>
-                                    <td>{{ $qr->sup_details->name }}</td>
+                                    <td id="unit-price-{{ $qr->id }}">{{ $qr->unit_price }}</td>
+                                    <td id="supplier-name-{{ $qr->id }}">{{ $qr->sup_details->name }}</td>
                                     <td>{{ $qr->comment }}</td>
-                                    <td><a href="{{ $qr->file }}">View</a></td>
-                                    <td><input type="checkbox" name="checkboxicon"></td>
+                                    <td><a href="@if($qr->file != null){{ URL::asset('/public/uploads/'.$qr->file) }}@endif" target="_blank">View</a></td>
+                                    <td>
+                                        <label>
+                                            <input type="checkbox" rel="{{ $qr->id }}" class="select-items{{$j}}" name="state{{ $qr->id }}">
+                                        </label>
+                                    </td>
                                 </tr>
                                 @endif
                                 @endforeach
@@ -109,51 +122,52 @@
                         </div>
                     </div><!--// end header got search area -->
                     <div class="btn-button-group clearfix">
-                        <button class="btn btn-info btn-price open-popup-comparison">Price Comparison</button>
-                        <button class="btn btn-info btn-price close approve">Approve</button>
+                        <button type="button" id="price-compare" class="btn btn-info btn-price open-popup-comp">Price Comparison</button>
+                        <button type="submit" class="btn btn-info btn-price approve">Approve</button>
                     </div>
                 </div>
             </div>
         </div>
+      </form>
     </div><!-- Popup -->
     @endforeach
-    <!--
-    price comparison popup
-    ========================-->
-    <div class="popup-wrapper-compa">
-        <div class="popup-base">
-            <div class="search-popup">
-                <i class="close-comp fa fa-remove"></i>
-                <div class="row">
-                    <div class="search-destination">
-                        <h2 class="search-title pie-search">Price Comparison</h2>
-                    </div>
-                    <!-- header got seach area -->
-                    <div class="popup-got-search popup-pie clearfix">
-                        <!-- Pie chart -->
-                        <div id="canvas-holder" class="canvas-holder-2">
-                            <p class="text-center">Item 1</p>
-                            <canvas id="chart-area"/>
-                        </div>
-                        <div id="canvas-holder">
-                            <p class="text-center">Item 2</p>
-                            <canvas id="chart-area2" />
-                        </div>
-                        <div class="clearfix">
-                            <!-- Pie chart -->
-                            <div id="canvas-holder">
-                                <p class="text-center">Item 3</p>
-                                <canvas id="chart-area3"/>
-                            </div>
-                            <div id="canvas-holder" class="canvas-holder-1">
-                                <p class="text-center">Item 4</p>
-                                <canvas id="chart-area4" />
-                            </div>
-                        </div>
-                    </div><!--// end header got search area -->
-                    <button class="btn btn-info btn-popup close-comp">Close</button>
+<!--
+price comparison popup
+========================-->
+<div class="popup-wrapper-compa">
+    <div class="popup-base">
+        <div class="search-popup">
+            <i class="close fa fa-remove"></i>
+            <div class="row">
+                <div class="search-destination">
+                    <h2 class="search-title pie-search">Price Comparison</h2>
                 </div>
+                <!-- header got seach area -->
+                <div class="popup-got-search popup-pie clearfix" id="item-chart">
+                    <!-- Pie chart -->
+                    <div id="canvas-holder">
+                        <p class="text-center">Item 1</p>
+                        <canvas id="chart-area"/>
+                    </div>
+                    <div id="canvas-holder">
+                        <p class="text-center">Item 2</p>
+                        <canvas id="chart-area2" />
+                    </div>
+                    <!-- Pie chart -->
+                    <div id="canvas-holder">
+                        <p class="text-center">Item 3</p>
+                        <canvas id="chart-area3"/>
+                    </div>
+                    <div id="canvas-holder">
+                        <p class="text-center">Item 4</p>
+                        <canvas id="chart-area4" />
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                </div><!--// end header got search area -->
+                <button class="btn btn-info btn-popup close">Close</button>
             </div>
         </div>
-    </div><!-- Popup -->
+    </div>
+</div><!-- Popup -->
 @endsection

@@ -73,13 +73,14 @@
       /*===================
    PRID popup comparison
     ===================*/
-
+    var prId = '';
     $(".prid-popup-button").on("click",function(){
-            $(".popup-prid-comparison").fadeIn();
+            prId = $(this).attr('rel');
+            $("#myModal"+prId).fadeIn();
             return false;
         });
     $(".close").on("click",function(){
-            $(".popup-prid-comparison").fadeOut();
+            $("#myModal"+prId).fadeOut();
     });
 
 

@@ -68,10 +68,10 @@ class DirectorController extends Controller
         }
         $asc_result = User::where('role', 'suppliers')
             ->orderBy('name','asc')
-            ->paginate(3);
+            ->paginate(30);
         $desc_result = User::where('role', 'suppliers')
             ->orderBy('name','desc')
-            ->paginate(3);
+            ->paginate(30);
         foreach($asc_result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -147,6 +147,8 @@ class DirectorController extends Controller
                         $item->sup_details = $sup_name;
                         $item->comment = $sq->comment;
                         $item->unit_price = $sq->unit_price;
+                        $item->status = $sq->status;
+                        $item->id = $sq->id;
                         $item->file = $sq->file;
                     }
                 }
@@ -156,7 +158,7 @@ class DirectorController extends Controller
         }
         if($request->isMethod('post')){
             $items = array();
-            foreach ($quotations as $check){
+            foreach ($quots as $check){
                 if($request->get('state'.$check->id) != null){
                     $quot_check = Supplier_quotations::find($check->id);
                     $items[] = $quot_check->item_id;
@@ -167,7 +169,7 @@ class DirectorController extends Controller
                     }
                 }
             }
-            foreach($quotations as $edit){
+            foreach($quots as $edit){
                 $quot_edit = Supplier_quotations::find($edit->id);
                 if($request->get('state'.$edit->id) != null){
                     if(Supplier_quotations::where('status','=','approved')

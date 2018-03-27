@@ -4,16 +4,21 @@
     var randomScalingFactor = function() {
         return Math.round(Math.random() * 50);
     };
-    $('.select-items').on('change',function () {
-       var itemCode = $(this).attr('id');
-        if(!$(this).is(':checked')){
-            $('.'+itemCode).prop('checked', false);
-        }else{
-            $('.'+itemCode).prop('checked', true);
-        }
+//    $('.select-items').on('change',function () {
+//       var itemCode = $(this).attr('id');
+//        if(!$(this).is(':checked')){
+//            $('.'+itemCode).prop('checked', false);
+//        }else{
+//            $('.'+itemCode).prop('checked', true);
+//        }
+//    });
+    var detectPr = '';
+    $('.pr-modal').on('click',function (e) {
+        e.preventDefault();
+        detectPr = $(this).attr('rel');
     });
-
     $('#price-compare').on('click', function(e) {
+        alert(detectPr);
         e.preventDefault();
         var item_names = [];
         var uniqueNames = [];
