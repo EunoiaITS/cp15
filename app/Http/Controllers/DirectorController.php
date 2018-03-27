@@ -141,11 +141,8 @@ class DirectorController extends Controller
                             ->Where('status','=','requested')
                             ->orWhere('status','=','rejected')->get();
                 if($sup_quo->first()) {
-                    $sq_cl = new \stdClass();
-                    $sq_count = 0;
                     $item->ex = 'yes';
                     foreach ($sup_quo as $sq) {
-                        $sq_count ++;
                         $sup_name = User::find($sq->supp_id);
                         $sq->sup_details = $sup_name;
                     }
