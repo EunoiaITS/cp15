@@ -154,7 +154,8 @@ class DirectorController extends Controller
                         $sq_cl->id = $sq->id;
                         $sq_cl->file = $sq->file;
                     }
-                    $item->quotations = $sup_quo;
+
+                    $item->supplierQuote = $sup_quo;
                 }
             }
             $pr_details->sup_quo = $items;
