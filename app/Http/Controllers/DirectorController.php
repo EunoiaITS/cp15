@@ -138,19 +138,23 @@ class DirectorController extends Controller
             $items = Qr_items::Where('qr_id',$qr_id->id)->get();
             foreach ($items as $item){
                 $sup_quo = Supplier_quotations::Where('item_id',$item->id)
-                            ->Where('status','requested')
-                            ->orWhere('status','rejected')->get();
+                            ->Where('status','=','requested')
+                            ->orWhere('status','=','rejected')->get();
                 if($sup_quo->first()) {
+                    $sq_cl = new \stdClass();
+                    $sq_count = 0;
                     $item->ex = 'yes';
                     foreach ($sup_quo as $sq) {
+                        $sq_count ++;
                         $sup_name = User::find($sq->supp_id);
-                        $item->sup_details = $sup_name;
-                        $item->comment = $sq->comment;
-                        $item->unit_price = $sq->unit_price;
-                        $item->status = $sq->status;
-                        $item->id = $sq->id;
-                        $item->file = $sq->file;
+                        $sq_cl->sup_details = $sup_name;
+                        $sq_cl->comment = $sq->comment;
+                        $sq_cl->unit_price = $sq->unit_price;
+                        $sq_cl->status = $sq->status;
+                        $sq_cl->id = $sq->id;
+                        $sq_cl->file = $sq->file;
                     }
+                    $item->quotations = $sup_quo;
                 }
             }
             $pr_details->sup_quo = $items;

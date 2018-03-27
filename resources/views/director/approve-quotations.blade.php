@@ -1,5 +1,14 @@
 @extends('layout')
 @section('content')
+    <?php echo '<pre>';
+    foreach ($quotations as $q){
+        foreach ($q->sup_quo as $qr){
+            foreach ($qr->quotations as $quo){
+                print_r($quo);
+            }
+        }
+    }
+        echo '</pre>';?>
     <!-- content area-->
     <div class="bbc-content-area mcw">
         <div class="container">
@@ -92,31 +101,31 @@
                                     <th>Supplier Name</th>
                                     <th>Comment</th>
                                     <th>File</th>
-                                    <th>Seclection</th>
+                                    <th>Selection</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php $c = 0;?>
-                                @foreach($q->sup_quo as $qr)
-                                    @if(isset($qr->ex) && ($qr->exists == 'yes'))
-                                        <?php $c++;?>
-                                <tr>
-                                    <td>{{ $c }}</td>
-                                    <td>{{ $qr->item_no }}</td>
-                                    <td id="item-name-{{ $qr->id }}">{{ $qr->item_name }}</td>
-                                    <td>{{ $qr->quantity }}</td>
-                                    <td id="unit-price-{{ $qr->id }}">{{ $qr->unit_price }}</td>
-                                    <td id="supplier-name-{{ $qr->id }}">{{ $qr->sup_details->name }}</td>
-                                    <td>{{ $qr->comment }}</td>
-                                    <td><a href="@if($qr->file != null){{ URL::asset('/public/uploads/'.$qr->file) }}@endif" target="_blank">View</a></td>
-                                    <td>
-                                        <label>
-                                            <input type="checkbox" rel="{{ $qr->id }}" class="select-items{{$j}}" name="state{{ $qr->id }}">
-                                        </label>
-                                    </td>
-                                </tr>
-                                @endif
-                                @endforeach
+                                {{--@foreach($q->sup_quo as $qr)--}}
+                                    {{--@if(isset($qr->ex) && ($qr->exists == 'yes'))--}}
+                                        {{--<?php $c++;?>--}}
+                                {{--<tr>--}}
+                                    {{--<td>{{ $c }}</td>--}}
+                                    {{--<td>{{ $qr->item_no }}</td>--}}
+                                    {{--<td id="item-name-{{ $qr->id }}">{{ $qr->item_name }}</td>--}}
+                                    {{--<td>{{ $qr->quantity }}</td>--}}
+                                    {{--<td id="unit-price-{{ $qr->id }}">{{ $qr->unit_price }}</td>--}}
+                                    {{--<td id="supplier-name-{{ $qr->id }}">{{ $qr->sup_details->name }}</td>--}}
+                                    {{--<td>{{ $qr->comment }}</td>--}}
+                                    {{--<td><a href="@if($qr->file != null){{ URL::asset('/public/uploads/'.$qr->file) }}@endif" target="_blank">View</a></td>--}}
+                                    {{--<td>--}}
+                                        {{--<label>--}}
+                                            {{--<input type="checkbox" rel="{{ $qr->id }}" class="select-items{{$j}}" name="state{{ $qr->id }}">--}}
+                                        {{--</label>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                                {{--@endif--}}
+                                {{--@endforeach--}}
                                 </tbody>
                             </table>
                         </div>
