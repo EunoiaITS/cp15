@@ -169,7 +169,7 @@ price comparison popup
                     <div class="clearfix">
                     </div>
                 </div><!--// end header got search area -->
-                <button class="btn btn-info btn-popup close">Close</button>
+                <button class="btn btn-info btn-popup close-comp">Close</button>
             </div>
         </div>
     </div>

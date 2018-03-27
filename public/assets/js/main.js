@@ -82,8 +82,6 @@
     $(".close").on("click",function(){
             $("#myModal"+prId).fadeOut();
     });
-
-
 }());
 
    
