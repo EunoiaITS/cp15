@@ -1,14 +1,5 @@
 @extends('layout')
 @section('content')
-    <?php echo '<pre>';
-    foreach ($quotations as $q){
-        foreach ($q->sup_quo as $qr){
-            foreach ($qr->quotations as $quo){
-                print_r($quo);
-            }
-        }
-    }
-        echo '</pre>';?>
     <!-- content area-->
     <div class="bbc-content-area mcw">
         <div class="container">
@@ -117,17 +108,17 @@
                                     <td id="item-name-{{ $sq->id }}">{{ $qr->item_name }}</td>
                                     <td>{{ $qr->quantity }}</td>
                                     <td id="unit-price-{{ $sq->id }}">{{ $sq->unit_price }}</td>
-                                    <td id="supplier-name-{{ $sq->id }}">{{ $qr->sup_details->name }}</td>
+                                    <td id="supplier-name-{{ $sq->id }}">{{ $sq->sup_details->name }}</td>
                                     <td>{{ $sq->comment }}</td>
-                                    <td><a href="@if($sq->file != null){{ URL::asset('/public/uploads/'.$sq->file) }}@endif" target="_blank">View</a></td>
+                                    <td><a href="@if($sq->file != null){{ URL::asset('/public/uploads/'.$sq->file) }}@endif" target="_blank"><?php if($sq->file != null){echo "View";}?></a></td>
                                     <td>
                                         <label>
                                             <input type="checkbox" rel="{{ $sq->id }}" class="select-items{{$j}}" name="state{{ $sq->id }}">
                                         </label>
                                     </td>
                                 </tr>
-                                        @endforeach
-                                            @endif
+                                @endforeach
+                                @endif
                                 @endif
                                 @endforeach
                                 </tbody>

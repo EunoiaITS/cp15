@@ -147,14 +147,8 @@ class DirectorController extends Controller
                     foreach ($sup_quo as $sq) {
                         $sq_count ++;
                         $sup_name = User::find($sq->supp_id);
-                        $sq_cl->sup_details = $sup_name;
-                        $sq_cl->comment = $sq->comment;
-                        $sq_cl->unit_price = $sq->unit_price;
-                        $sq_cl->status = $sq->status;
-                        $sq_cl->id = $sq->id;
-                        $sq_cl->file = $sq->file;
+                        $sq->sup_details = $sup_name;
                     }
-
                     $item->supplierQuote = $sup_quo;
                 }
             }
