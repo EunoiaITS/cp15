@@ -17,14 +17,14 @@
         e.preventDefault();
         detectPr = $(this).attr('rel');
     });
-    $('#price-compare').on('click', function(e) {
-        alert(detectPr);
+    $('.price-compare').on('click', function(e) {
         e.preventDefault();
         var item_names = [];
         var uniqueNames = [];
         var item_details = [];
         var quot_id = '';
-        $("input:checkbox[class=select-items]:checked").each(function(){
+        var selectClass = 'select-items'+detectPr;
+        $("input:checkbox[class="+selectClass+"]:checked").each(function(){
             quot_id = $(this).attr('rel');
             item_names.push($('#item-name-'+quot_id).text());
             item_details.push({

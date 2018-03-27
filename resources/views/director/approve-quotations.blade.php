@@ -122,7 +122,7 @@
                         </div>
                     </div><!--// end header got search area -->
                     <div class="btn-button-group clearfix">
-                        <button type="button" id="price-compare" class="btn btn-info btn-price open-popup-comp">Price Comparison</button>
+                        <button type="button" class="btn btn-info btn-price open-popup-comp price-compare">Price Comparison</button>
                         <button type="submit" class="btn btn-info btn-price approve">Approve</button>
                     </div>
                 </div>
