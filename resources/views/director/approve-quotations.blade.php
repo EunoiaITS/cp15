@@ -33,7 +33,7 @@
                                 @foreach($quotations as $q)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td class="prId" id=""><a class="prid-popup-button pr-modal" rel="{{$i}}">{{ $q->qr_details->pr_id }}</a></td>
+                                        <td class="prId" id=""><a class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $q->qr_details->pr_id }}</a></td>
                                         <td>{{ $q->qr_details->pr_type }}</td>
                                         <td>{{ $q->qr_dates->start_date }}</td>
                                         <td>{{ $q->qr_dates->end_date }}</td>
@@ -73,7 +73,7 @@
             {{csrf_field()}}
         <div class="popup-base">
             <div class="search-popup">
-                <i class="close fa fa-remove"></i>
+                <i class="close fa fa-remove" data-dismiss="modal"></i>
                 <div class="row">
                     <div class="search-destination">
                         <h2 class="pr-title"><span class="pr-id">PR ID: {{ $q->qr_details->pr_id }}</span><span class="prtext"></span></h2>
