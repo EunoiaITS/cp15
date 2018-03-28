@@ -107,13 +107,13 @@
                                     <td>{{ $qr->item_no }}</td>
                                     <td id="item-name-{{ $sq->id }}">{{ $qr->item_name }}</td>
                                     <td>{{ $qr->quantity }}</td>
-                                    <td id="unit-price-{{ $sq->id }}">{{ $sq->unit_price }}</td>
+                                    <td id="unit-price-{{ $sq->id }}" class="up-htl">{{ $sq->unit_price }}</td>
                                     <td id="supplier-name-{{ $sq->id }}">{{ $sq->sup_details->name }}</td>
                                     <td>{{ $sq->comment }}</td>
                                     <td><a href="@if($sq->file != null){{ URL::asset('/public/uploads/'.$sq->file) }}@endif" target="_blank"><?php if($sq->file != null){echo "View";}?></a></td>
                                     <td>
                                         <label>
-                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-items{{$j}}" name="state{{ $sq->id }}">
+                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-items{{$j}}" id="sel-itm" name="state{{ $sq->id }}">
                                         </label>
                                     </td>
                                 </tr>

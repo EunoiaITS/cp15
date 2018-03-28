@@ -4,6 +4,8 @@
     var randomScalingFactor = function() {
         return Math.round(Math.random() * 50);
     };
+    // Code snippet for selected same items
+
 //    $('.select-items').on('change',function () {
 //       var itemCode = $(this).attr('id');
 //        if(!$(this).is(':checked')){
