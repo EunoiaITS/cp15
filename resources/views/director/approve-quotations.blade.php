@@ -133,7 +133,7 @@
                                     <td><a href="@if($sq->file != null){{ URL::asset('/public/uploads/'.$sq->file) }}@endif" target="_blank"><?php if($sq->file != null){echo "View";}?></a></td>
                                     <td>
                                         <label>
-                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-items{{$j}}" id="sel-itm" name="state{{ $sq->id }}">
+                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-multiple select-items{{$j}}" id="{{$qr->item_no}}" value="{{$qr->item_no}}" name="state{{ $sq->id }}">
                                         </label>
                                     </td>
                                 </tr>

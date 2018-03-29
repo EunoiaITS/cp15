@@ -6,14 +6,15 @@
     };
     // Code snippet for selected same items
 
-//    $('.select-items').on('change',function () {
-//       var itemCode = $(this).attr('id');
-//        if(!$(this).is(':checked')){
-//            $('.'+itemCode).prop('checked', false);
-//        }else{
-//            $('.'+itemCode).prop('checked', true);
-//        }
-//    });
+    $('.select-multiple').on('change',function (ev) {
+        ev.preventDefault();
+        var itemCode = $(this).attr('id');
+        if(!$(this).is(':checked')){
+            $('#'+itemCode).prop('checked', false);
+        }else{
+            $('#'+itemCode).prop('checked', true);
+        }
+    });
     var detectPr = '';
     $('.pr-modal').on('click',function (e) {
         e.preventDefault();
