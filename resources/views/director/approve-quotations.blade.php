@@ -31,10 +31,18 @@
                                 <tbody>
                                 <?php $j=1;
                                 $checker = 1;
+                                $checker2 = 0;
                                 if($current > 1){
                                     $checker = $current*2;
+                                    $checker2 = ($current*2)+3;
+                                }else if( $quot_count = 1 && $current = 1){
+                                    $checker2 = 2;
+                                }else if( $quot_count = 2 && $current = 1){
+                                    $checker2 = 3;
+                                }else{
+                                    $checker2 = ($current*2)+2;
                                 }?>
-                                @for($i= $checker; $i < $checker+3; $i++ )
+                                @for($i= $checker; $i < $checker2; $i++ )
                                     <tr>
                                         <td>{{ $j++ }}</td>
                                         <td class="prId" id=""><a class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $quotations->$i->qr_details->pr_id }}</a></td>
