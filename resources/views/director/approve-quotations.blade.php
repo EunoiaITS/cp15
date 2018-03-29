@@ -29,16 +29,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php $i= 1; ?>
-                                @foreach($quotations as $q)
+                                <?php $j=1;
+                                $checker = 1;
+                                if($current > 1){
+                                    $checker = $current*2;
+                                }?>
+                                @for($i= $checker; $i < $checker+3; $i++ )
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td class="prId" id=""><a class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $q->qr_details->pr_id }}</a></td>
-                                        <td>{{ $q->qr_details->pr_type }}</td>
-                                        <td>{{ $q->qr_dates->start_date }}</td>
-                                        <td>{{ $q->qr_dates->end_date }}</td>
+                                        <td>{{ $j++ }}</td>
+                                        <td class="prId" id=""><a class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $quotations->$i->qr_details->pr_id }}</a></td>
+                                        <td>{{ $quotations->$i->qr_details->pr_type }}</td>
+                                        <td>{{ $quotations->$i->qr_dates->start_date }}</td>
+                                        <td>{{ $quotations->$i->qr_dates->end_date }}</td>
                                     </tr>
-                                @endforeach
+                                @endfor
                                 </tbody>
                             </table>
                         </div>
@@ -48,11 +52,17 @@
                         <div class="float-pagination">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                                    @if(isset($quot_count) && $quot_count/3 > 1)
+                                        <li class="page-item"><a class="page-link" href="?page=@if($current > 1){{$current - 1}}@else{{ $current }}@endif"><i class="fa fa-angle-left"></i></a></li>
+                                        @for($i = 1; $i <= $quot_count/3; $i++)
+                                            <li class="page-item @if($current == $i){{ 'active' }}@endif"><a class="page-link" href="?page={{$i}}">{{$i}}</a></li>
+                                        @endfor
+                                        <li class="page-item"><a class="page-link" href="?page=@if($quot_count/3 > 1 && $current < $quot_count/3){{$current + 1}}@else{{ $current }}@endif"><i class="fa fa-angle-right"></i></a></li>
+                                    @else
+                                        <li class="page-item disabled"><a class="page-link disabled" href="#"><i class="fa fa-angle-left"></i></a></li>
+                                        <li class="page-item @if($current == 1){{ 'active' }}@endif"><a class="page-link" href="?page={{$current}}">{{$current}}</a></li>
+                                        <li class="page-item disabled"><a class="page-link disabled" href="#"><i class="fa fa-angle-right"></i></a></li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -65,7 +75,7 @@
     <!--
    PR ID popup content
    ========================-->
-    <?php $j=1;?>
+    <?php $j=0;?>
     @foreach($quotations as $q)
         <?php $j++?>
     <div id="myModal{{$j}}" class="popup-prid-comparison">

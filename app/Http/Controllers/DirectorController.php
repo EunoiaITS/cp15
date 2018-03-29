@@ -66,25 +66,23 @@ class DirectorController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $asc_result = User::where('role', 'suppliers')
-            ->orderBy('name','asc')
-            ->paginate(30);
-        $desc_result = User::where('role', 'suppliers')
-            ->orderBy('name','desc')
-            ->paginate(30);
-        foreach($asc_result as $supplier){
+        $cur_order ='asc';
+        if (isset($request->order)){
+            $cur_order = $request->order;
+        }
+        $result = User::where('role', 'suppliers')
+            ->orderBy('name',$cur_order)
+            ->paginate(3);
+        foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
         }
-        foreach($desc_result as $supplier){
-            $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
-            $supplier->info = $info;
-        }
+
         return view('director.suppliers-list', [
-            'asc_result'=> $asc_result,
-            'desc_result'=> $desc_result,
+            'result'=> $result,
             'page' => 'view-supplier',
-            'footer_js' => 'director.suppliers-js'
+            'footer_js' => 'director.suppliers-js',
+            'cur_order' => $cur_order
         ]);
     }
 
@@ -151,6 +149,15 @@ class DirectorController extends Controller
             }
             $pr_details->sup_quo = $items;
             $quotations->$count = $pr_details;
+        }
+        $current = 1;
+        if(isset($request->page)){
+            $current = $request->page;
+        }
+        if($current > $count/3){
+            return redirect()
+                ->back()
+                ->with('error-message','This Page doesn\'t Exist');
         }
         if($request->isMethod('post')){
             $items = array();
@@ -219,7 +226,9 @@ class DirectorController extends Controller
             'item_prices' => $item_prices,
             'item_suppliers' => $item_suppliers,
             'footer_js' => 'director.price-compare-js',
-            'pr_ids' => $pr_ids
+            'pr_ids' => $pr_ids,
+            'quot_count' => $count,
+            'current' => $current
 
         ]);
     }

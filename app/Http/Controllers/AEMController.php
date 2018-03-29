@@ -91,7 +91,7 @@ class AEMController extends Controller
         ]);
     }
 
-    public function viewSupplier(){
+    public function viewSupplier(Request $request){
         if (!Auth::user()) {
             return redirect()
                 ->to('/login')
@@ -105,8 +105,12 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
+        $cur_order ='asc';
+        if (isset($request->order)){
+            $cur_order = $request->order;
+        }
         $result = User::where('role', 'suppliers')
-        ->orderBy('name','asc')
+        ->orderBy('name',$cur_order)
         ->paginate(3);
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
@@ -115,7 +119,8 @@ class AEMController extends Controller
         return view('suppliers.view', [
             'result'=> $result,
             'footer_js' => 'suppliers.view-js',
-            'page' => 'view-supplier'
+            'page' => 'view-supplier',
+            'cur_order' => $cur_order
         ]);
     }
     public function editSupplier(Request $request){

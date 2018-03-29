@@ -18,6 +18,13 @@
                         </p>
                     @endforeach
                 @endif
+            <!-- fliter button: new added -->
+                <div class="supplier-filter-option">
+                    <select class="selectfilter" title="Filter">
+                        <option class="asc" value="ascending">Ascending A-Z</option>
+                        <option class="desc" value="descending">Descending Z-A</option>
+                    </select>
+                </div>
                 <div class="col-sm-10 padding-left-0">
                     <div class="table table-responsive">
                         <table class="table">
@@ -43,8 +50,15 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $result->links() }}
                     </div>
+                </div>
+            </div>
+            <!-- pagination -->
+            <div class="col-sm-10">
+                <div class="float-pagination">
+                    <nav aria-label="Page navigation example">
+                        {{ $result->appends([ 'order' => $cur_order ])->links() }}
+                    </nav>
                 </div>
             </div>
         </div>
