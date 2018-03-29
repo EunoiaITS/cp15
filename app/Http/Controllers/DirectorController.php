@@ -101,7 +101,7 @@ class DirectorController extends Controller
             }
         }
         $quots = Supplier_quotations::where('status','=','requested')
-            ->orWhere('status','=','rejected')->get();
+            ->orWhere('status','=','rejected')->orderBy('unit_price','desc')->get();
         $item_suppliers = array();
         $item_prices = array();
         $item_ids = array();
@@ -133,11 +133,12 @@ class DirectorController extends Controller
             $pr_details->qr_details = $qr_id;
             $qr_dates = Qr_invitations::Where('qr_id',$qr_id->id)->first();
             $pr_details->qr_dates = $qr_dates;
-            $items = Qr_items::Where('qr_id',$qr_id->id)->orderBy('item_name','asc')->get();
+            $items = Qr_items::Where('qr_id',$qr_id->id)->get();
             foreach ($items as $item){
                 $sup_quo = Supplier_quotations::Where('item_id',$item->id)
                             ->Where('status','=','requested')
-                            ->orWhere('status','=','rejected')->orderBy('unit_price','desc')->get();
+                            ->orWhere('status','=','rejected')
+                            ->orderBy('unit_price','desc')->get();
                 if($sup_quo->first()) {
                     $item->ex = 'yes';
                     foreach ($sup_quo as $sq) {
