@@ -111,7 +111,7 @@ class AEMController extends Controller
         }
         $result = User::where('role', 'suppliers')
         ->orderBy('name',$cur_order)
-        ->paginate(3);
+        ->paginate(30);
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
