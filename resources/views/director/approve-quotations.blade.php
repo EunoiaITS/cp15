@@ -34,17 +34,16 @@
                                 $checker2 = 0;
                                 if($current > 1){
                                     $checker = $current*2;
-                                    $checker2 = ($current*2)+3;
+                                    $checker2 = ($current*2)+50;
                                 }else if( $quot_count = 1 && $current = 1){
                                     $checker2 = 2;
                                 }else if( $quot_count = 2 && $current = 1){
-                                    $checker2 = 3;
+                                    $checker2 = 50;
                                 }else{
                                     $checker2 = ($current*2)+2;
                                 }?>
-                                @for($i= $checker; $i < $checker+3; $i++ )
+                                @for($i= $checker; $i < $checker+50; $i++ )
                                     @if(isset($quotations->$i->qr_details->pr_id))
-
                                     <tr>
                                         <td>{{ $j++ }}</td>
                                         <td class="prId" id=""><a class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $quotations->$i->qr_details->pr_id }}</a></td>
@@ -63,12 +62,12 @@
                         <div class="float-pagination">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    @if(isset($quot_count) && $quot_count/3 > 1)
+                                    @if(isset($quot_count) && $quot_count/50 > 1)
                                         <li class="page-item"><a class="page-link" href="?page=@if($current > 1){{$current - 1}}@else{{ $current }}@endif"><i class="fa fa-angle-left"></i></a></li>
-                                        @for($i = 1; $i <= $quot_count/3; $i++)
+                                        @for($i = 1; $i <= $quot_count/50; $i++)
                                             <li class="page-item @if($current == $i){{ 'active' }}@endif"><a class="page-link" href="?page={{$i}}">{{$i}}</a></li>
                                         @endfor
-                                        <li class="page-item"><a class="page-link" href="?page=@if($quot_count/3 > 1 && $current < $quot_count/3){{$current + 1}}@else{{ $current }}@endif"><i class="fa fa-angle-right"></i></a></li>
+                                        <li class="page-item"><a class="page-link" href="?page=@if($quot_count/50 > 1 && $current < $quot_count/50){{$current + 1}}@else{{ $current }}@endif"><i class="fa fa-angle-right"></i></a></li>
                                     @else
                                         <li class="page-item disabled"><a class="page-link disabled" href="#"><i class="fa fa-angle-left"></i></a></li>
                                         <li class="page-item @if($current == 1){{ 'active' }}@endif"><a class="page-link" href="?page={{$current}}">{{$current}}</a></li>

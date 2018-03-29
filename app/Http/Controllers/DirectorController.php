@@ -155,7 +155,7 @@ class DirectorController extends Controller
             $current = $request->page;
         }
 
-        if( $count > 3 && $current > $count/3 ){
+        if( $count > 50 && $current > $count/50 ){
             return redirect()
                 ->back()
                 ->with('error-message','This Page doesn\'t Exist');
