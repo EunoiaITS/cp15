@@ -42,7 +42,9 @@
                                 }else{
                                     $checker2 = ($current*2)+2;
                                 }?>
-                                @for($i= $checker; $i < $checker2; $i++ )
+                                @for($i= $checker; $i < $checker+3; $i++ )
+                                    @if(isset($quotations->$i->qr_details->pr_id))
+
                                     <tr>
                                         <td>{{ $j++ }}</td>
                                         <td class="prId" id=""><a class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $quotations->$i->qr_details->pr_id }}</a></td>
@@ -50,6 +52,7 @@
                                         <td>{{ $quotations->$i->qr_dates->start_date }}</td>
                                         <td>{{ $quotations->$i->qr_dates->end_date }}</td>
                                     </tr>
+                                    @endif
                                 @endfor
                                 </tbody>
                             </table>
