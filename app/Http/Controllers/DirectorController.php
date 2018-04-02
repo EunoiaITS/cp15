@@ -162,6 +162,17 @@ class DirectorController extends Controller
                 ->with('error-message','This Page doesn\'t Exist');
         }
         if($request->isMethod('post')){
+            $req_keys = 0;
+            foreach ($request->all() as $k => $v){
+                if(strpos($k,'ate') != false){
+                    $req_keys++;
+                }
+            }
+            if($req_keys < 1 ){
+                return redirect()
+                    ->to('/approve-quotations')
+                    ->with('error-message','No Quotations Were Selected To Approve !');
+            }
             $items = array();
             foreach ($quots as $check){
                 if($request->get('state'.$check->id) != null){

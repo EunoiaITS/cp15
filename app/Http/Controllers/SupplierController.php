@@ -73,7 +73,14 @@ class SupplierController extends Controller
             $qr_tab->items = $qr_items;
         }
         if($request->isMethod('post')) {
-            $sup_quo = new Supplier_quotations();
+            $quot_check = Supplier_quotations::Where('item_id','=',$request->item_id)
+                ->Where('supp_id','=',$id);
+            if($quot_check->first()){
+                return redirect()
+                    ->to('supplier-controller/view-qr')
+                    ->with('error-message','You already have submitted Quotation for this item !');
+            }
+                $sup_quo = new Supplier_quotations();
                 $sup_quo->item_id = $request->item_id;
                 $sup_quo->unit_price = $request->unit_price;
                 $sup_quo->comment = $request->comment;

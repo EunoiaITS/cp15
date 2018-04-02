@@ -1,11 +1,12 @@
 @extends('layout')
 @section('content')
+
     <!-- content area-->
     <div class="bbc-content-area mcw">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-sm-offset-0">
-                    <h3 class="text-uppercase color-bbc">Supplier Quotation</h3>
+                    <h3 class="text-uppercase color-bbc">Quotation Approval</h3>
                     @if(session()->has('success-message'))
                     <p class="alert alert-success">
                         {{ session()->get('success-message') }}
@@ -46,7 +47,7 @@
                                     @if(isset($quotations->$i->qr_details->pr_id))
                                     <tr>
                                         <td>{{ $j++ }}</td>
-                                        <td class="prId" id=""><a class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $quotations->$i->qr_details->pr_id }}</a></td>
+                                        <td class="prId" id=""><a style="cursor: pointer;" class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $quotations->$i->qr_details->pr_id }}</a></td>
                                         <td>{{ $quotations->$i->qr_details->pr_type }}</td>
                                         <td>{{ $quotations->$i->qr_dates->start_date }}</td>
                                         <td>{{ $quotations->$i->qr_dates->end_date }}</td>
@@ -104,15 +105,16 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Item Code</th>
-                                    <th>Item Name</th>
-                                    <th>Quantity</th>
-                                    <th>Unit Price</th>
-                                    <th>Supplier Name</th>
-                                    <th>Comment</th>
-                                    <th>File</th>
-                                    <th>Selection</th>
+                                    <th style="text-align: center;">No</th>
+                                    <th style="text-align: center;">Item Code</th>
+                                    <th style="text-align: center;">Item Name</th>
+                                    <th style="text-align: center;">Quantity</th>
+                                    <th style="text-align: center;">Unit Price</th>
+                                    <th style="text-align: center;">Supplier Name</th>
+                                    <th style="text-align: center;">Comment</th>
+                                    <th style="text-align: center;">File</th>
+                                    <th style="text-align: center;">Price Compare</th>
+                                    <th style="text-align: center;">To Approve</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -121,19 +123,24 @@
                                     @if(isset($qr->ex) && ($qr->exists == 'yes'))
                                         @if(isset($qr->supplierQuote))
                                             @foreach($qr->supplierQuote as $sq)
-                                        <?php $c++;?>
+                                <?php $c++;?>
                                 <tr>
-                                    <td>{{ $c }}</td>
-                                    <td>{{ $qr->item_no }}</td>
-                                    <td id="item-name-{{ $sq->id }}">{{ $qr->item_name }}</td>
-                                    <td>{{ $qr->quantity }}</td>
-                                    <td id="unit-price-{{ $sq->id }}" class="up-htl">{{ $sq->unit_price }}</td>
-                                    <td id="supplier-name-{{ $sq->id }}">{{ $sq->sup_details->name }}</td>
-                                    <td>{{ $sq->comment }}</td>
-                                    <td><a href="@if($sq->file != null){{ URL::asset('/public/uploads/'.$sq->file) }}@endif" target="_blank"><?php if($sq->file != null){echo "View";}?></a></td>
-                                    <td>
+                                    <td style="text-align: center;">{{ $c }}</td>
+                                    <td style="text-align: center;">{{ $qr->item_no }}</td>
+                                    <td style="text-align: center;" id="item-name-{{ $sq->id }}">{{ $qr->item_name }}</td>
+                                    <td style="text-align: center;">{{ $qr->quantity }}</td>
+                                    <td style="text-align: center;" id="unit-price-{{ $sq->id }}" class="up-htl">{{ $sq->unit_price }}</td>
+                                    <td style="text-align: center;" id="supplier-name-{{ $sq->id }}">{{ $sq->sup_details->name }}</td>
+                                    <td style="text-align: center;">{{ $sq->comment }}</td>
+                                    <td style="text-align: center;"><a href="@if($sq->file != null){{ URL::asset('/public/uploads/'.$sq->file) }}@endif" target="_blank"><?php if($sq->file != null){echo "View";}?></a></td>
+                                    <td style="text-align: center;">
                                         <label>
-                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-multiple select-items{{$j}}" id="{{$qr->item_no}}" value="{{$qr->item_no}}" name="state{{ $sq->id }}">
+                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-multiple {{$qr->item_no}} select-items{{$j}}" id="{{$qr->item_no}}{{$j}}" value="{{$qr->item_no}}">
+                                        </label>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <label>
+                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-items{{$j}}" name="state{{ $sq->id }}">
                                         </label>
                                     </td>
                                 </tr>

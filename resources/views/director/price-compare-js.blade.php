@@ -5,15 +5,19 @@
         return Math.round(Math.random() * 50);
     };
     // Code snippet for selected same items
-
+    var itemCode ='';
     $('.select-multiple').on('change',function (ev) {
         ev.preventDefault();
-        var itemCode = $(this).attr('id');
+        itemCode = $(this).val();
         if(!$(this).is(':checked')){
-            $('#'+itemCode).prop('checked', false);
+            $('.'+itemCode).prop('checked', false);
         }else{
-            $('#'+itemCode).prop('checked', true);
+            $('.'+itemCode).prop('checked', true);
+            $("."+itemCode+":checkbox:checked").each(function() {
+                //alert(itemCode);
+            });
         }
+
     });
     var detectPr = '';
     $('.pr-modal').on('click',function (e) {
@@ -27,8 +31,10 @@
         var item_details = [];
         var quot_id = '';
         var selectClass = 'select-items'+detectPr;
-        $("input:checkbox[class="+selectClass+"]:checked").each(function(){
+        $("."+selectClass+":checkbox:checked").each(function(){
+            //alert(selectClass);
             quot_id = $(this).attr('rel');
+            //alert(quot_id);
             item_names.push($('#item-name-'+quot_id).text());
             item_details.push({
                 name: $('#item-name-'+quot_id).text(),
