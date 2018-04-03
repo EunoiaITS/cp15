@@ -430,7 +430,6 @@ class AEMController extends Controller
             }
         }
         if($request->isMethod('post')) {
-            print_r($request);
             $count = 0;
             foreach($qrs as $qr){
                 if($request->get('suppliers'.$qr->id) != null){
