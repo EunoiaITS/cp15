@@ -444,8 +444,8 @@ class AEMController extends Controller
                     if($request->get('action_add_'.$qr->id) == 'add'){
                         $invitee = new Qr_invitations();
                         $invites['qr_id'] = $qr->id;
-                        $invites['start_date'] = $request->get('start_date'.$qr->id);
-                        $invites['end_date'] = $request->get('end_date'.$qr->id);
+                        $invites['start_date'] = date('Y-m-d H:i:s', strtotime($request->get('start_date'.$qr->id)));
+                        $invites['end_date'] = date('Y-m-d H:i:s', strtotime($request->get('end_date'.$qr->id)));
                         $invites['suppliers'] = $request->get('selected-suppliers'.$qr->id);
                         if($invitee->validate($invites)){
                             $invitee->qr_id = $qr->id;
