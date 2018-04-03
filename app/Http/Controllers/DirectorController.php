@@ -102,64 +102,42 @@ class DirectorController extends Controller
         }
         $quots = Supplier_quotations::where('status','=','requested')
             ->orWhere('status','=','rejected')->orderBy('unit_price','desc')->get();
-        $item_suppliers = array();
-        $item_prices = array();
-        $item_ids = array();
         $pr_ids = array();
-        $pr_unique = array();
         foreach($quots as $q){
-            $item_ids[] = $q->item_id;
             $item_details = Qr_items::where('id', $q->item_id)->get();
-            $q->item_details = $item_details;
             foreach($item_details as $i){
                 $qr_details = Quotation_requisition::where('id', $i->qr_id)->get();
-                $q->qr_details = $qr_details;
                 foreach ($qr_details as $d){
                     $pr_ids[] = $d->pr_id;
-                    $dates = Qr_invitations::where('qr_id',$d->id)->get();
-                    $q->dates = $dates;
                 }
             }
-            $supplier = User::find($q->supp_id);
-            $q->supplier_details = $supplier;
         }
         $pr_ids = array_unique($pr_ids);
-        $quotations = new \stdClass();
-        $count = 0;
-        foreach ($pr_ids as $pr){
-            $count++;
-            $pr_details = new \stdClass();
-            $qr_id = Quotation_requisition::Where('pr_id',$pr)->first();
-            $pr_details->qr_details = $qr_id;
-            $qr_dates = Qr_invitations::Where('qr_id',$qr_id->id)->first();
-            $pr_details->qr_dates = $qr_dates;
-            $items = Qr_items::Where('qr_id',$qr_id->id)->get();
-            foreach ($items as $item){
-                $sup_quo = Supplier_quotations::Where('item_id',$item->id)
-                            ->Where('status','=','requested')
-                            ->orWhere('status','=','rejected')
-                            ->orderBy('unit_price','desc')->get();
-                if($sup_quo->first()) {
-                    $item->ex = 'yes';
-                    foreach ($sup_quo as $sq) {
-                        $sup_name = User::find($sq->supp_id);
-                        $sq->sup_details = $sup_name;
+        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(2);
+        foreach($allInvites as $invite){
+            foreach($pr_ids as $prs){
+                $qr_det = Quotation_requisition::Where('pr_id', $prs)->first();
+                if($qr_det->id == $invite->qr_id){
+                    $invite->invited = 'yes';
+                    $invite->qr_details = $qr_det;
+                    $qr_items = Qr_items::Where('qr_id',$qr_det->id)->get();
+                    foreach ($qr_items as $item){
+                        $sup_quo = Supplier_quotations::Where('item_id', $item->id)
+                            ->Where('status', '=', 'requested')
+                            ->orWhere('status', '=', 'rejected')
+                            ->orderBy('unit_price', 'desc')->get();
+                        if($sup_quo->first()) {
+                            $item->ex = 'yes';
+                            foreach ($sup_quo as $sq) {
+                                $sup_name = User::find($sq->supp_id);
+                                $sq->sup_details = $sup_name;
+                            }
+                            $item->supplierQuote = $sup_quo;
+                        }
                     }
-                    $item->supplierQuote = $sup_quo;
+                    $invite->qr_items = $qr_items;
                 }
             }
-            $pr_details->sup_quo = $items;
-            $quotations->$count = $pr_details;
-        }
-        $current = 1;
-        if(isset($request->page)){
-            $current = $request->page;
-        }
-
-        if( $count > 50 && $current > $count/50 ){
-            return redirect()
-                ->back()
-                ->with('error-message','This Page doesn\'t Exist');
         }
         if($request->isMethod('post')){
             $req_keys = 0;
@@ -235,13 +213,8 @@ class DirectorController extends Controller
 
         return view('director.approve-quotations', [
             'page' => 'approve',
-            'quotations' => $quotations,
-            'item_prices' => $item_prices,
-            'item_suppliers' => $item_suppliers,
             'footer_js' => 'director.price-compare-js',
-            'pr_ids' => $pr_ids,
-            'quot_count' => $count,
-            'current' => $current
+            'allInvites' => $allInvites
 
         ]);
     }

@@ -30,30 +30,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php $j=1;
-                                $checker = 1;
-                                $checker2 = 0;
-                                if($current > 1){
-                                    $checker = $current*2;
-                                    $checker2 = ($current*2)+50;
-                                }else if( $quot_count = 1 && $current = 1){
-                                    $checker2 = 2;
-                                }else if( $quot_count = 2 && $current = 1){
-                                    $checker2 = 50;
-                                }else{
-                                    $checker2 = ($current*2)+2;
-                                }?>
-                                @for($i= $checker; $i < $checker+50; $i++ )
-                                    @if(isset($quotations->$i->qr_details->pr_id))
-                                    <tr>
-                                        <td>{{ $j++ }}</td>
-                                        <td class="prId" id=""><a style="cursor: pointer;" class="pr-modal" rel="{{$i}}" data-toggle="modal" data-target="#myModal{{$i}}">{{ $quotations->$i->qr_details->pr_id }}</a></td>
-                                        <td>{{ $quotations->$i->qr_details->pr_type }}</td>
-                                        <td>{{ $quotations->$i->qr_dates->start_date }}</td>
-                                        <td>{{ $quotations->$i->qr_dates->end_date }}</td>
-                                    </tr>
-                                    @endif
-                                @endfor
+                                <?php $count = 0; ?>
+                                @foreach($allInvites as $invite)
+                                    @if(isset($invite->invited) && $invite->invited == 'yes')
+                                        <?php $count++; ?>
+                                        <tr>
+                                            <td>{{ $count }}</td>
+                                            <td><a style="cursor: pointer" class="pr-modal" rel="{{ $count }}" data-toggle="modal" data-target="#myModal{{ $count }}">{{ $invite->qr_details->pr_id }}</a></td>
+                                            <td>{{ $invite->qr_details->pr_type }}</td>
+                                            <td>{{ date('d-M-Y', strtotime($invite->start_date)) }}</td>
+                                            <td>{{ date('d-M-Y', strtotime($invite->end_date)) }}</td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -62,19 +51,7 @@
                     <div class="col-sm-10">
                         <div class="float-pagination">
                             <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    @if(isset($quot_count) && $quot_count/50 > 1)
-                                        <li class="page-item"><a class="page-link" href="?page=@if($current > 1){{$current - 1}}@else{{ $current }}@endif"><i class="fa fa-angle-left"></i></a></li>
-                                        @for($i = 1; $i <= $quot_count/50; $i++)
-                                            <li class="page-item @if($current == $i){{ 'active' }}@endif"><a class="page-link" href="?page={{$i}}">{{$i}}</a></li>
-                                        @endfor
-                                        <li class="page-item"><a class="page-link" href="?page=@if($quot_count/50 > 1 && $current < $quot_count/50){{$current + 1}}@else{{ $current }}@endif"><i class="fa fa-angle-right"></i></a></li>
-                                    @else
-                                        <li class="page-item disabled"><a class="page-link disabled" href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <li class="page-item @if($current == 1){{ 'active' }}@endif"><a class="page-link" href="?page={{$current}}">{{$current}}</a></li>
-                                        <li class="page-item disabled"><a class="page-link disabled" href="#"><i class="fa fa-angle-right"></i></a></li>
-                                    @endif
-                                </ul>
+                                {{ $allInvites->links() }}
                             </nav>
                         </div>
                     </div>
@@ -87,7 +64,7 @@
    PR ID popup content
    ========================-->
     <?php $j=0;?>
-    @foreach($quotations as $q)
+    @foreach($allInvites as $invite)
         <?php $j++?>
     <div id="myModal{{$j}}" class="popup-prid-comparison">
         <form action="{{ url('/approve-quotations') }}" method="post">
@@ -97,7 +74,7 @@
                 <i class="close fa fa-remove" data-dismiss="modal"></i>
                 <div class="row">
                     <div class="search-destination">
-                        <h2 class="pr-title"><span class="pr-id">PR ID: {{ $q->qr_details->pr_id }}</span><span class="prtext"></span></h2>
+                        <h2 class="pr-title"><span class="pr-id">PR ID: {{ $invite->qr_details->pr_id }}</span><span class="prtext"></span></h2>
                     </div>
                     <!-- header got seach area -->
                     <div class="popup-got-search popup-pie clearfix">
@@ -119,7 +96,7 @@
                                 </thead>
                                 <tbody>
                                 <?php $c = 0;?>
-                                @foreach($q->sup_quo as $qr)
+                                @foreach($invite->qr_items as $qr)
                                     @if(isset($qr->ex) && ($qr->exists == 'yes'))
                                         @if(isset($qr->supplierQuote))
                                             @foreach($qr->supplierQuote as $sq)
