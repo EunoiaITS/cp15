@@ -50,8 +50,8 @@
                                             <td>{{ $qrt->item_name}}</td>
                                             <td>{{ $qrt->item_no}}</td>
                                             <td>{{ $qrt->quantity}}</td>
-                                            <td>{{ $qinv->start_date }}</td>
-                                            <td>{{ $qinv->end_date }}</td>
+                                            <td>{{ date('m/d/Y',strtotime($qinv->start_date)) }}</td>
+                                            <td>{{ date('m/d/Y',strtotime($qinv->end_date)) }}</td>
                                             <td><input type="text" name="unit_price" class="form-control from-btn-supplier from-qr" required></td>
                                             <td><input type="text" name="comment" class="form-control from-qr from-supplier"> </td>
                                             <td>
