@@ -59,7 +59,7 @@ class SupplierController extends Controller
             }
         }
         $id = Auth::id();
-        $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->get();
+        $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->paginate(2);
         $count = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->count();
         $quoted_items = array();
         $quotations = Supplier_quotations::whereRaw("FIND_IN_SET($id,supp_id)")->get();

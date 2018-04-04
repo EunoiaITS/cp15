@@ -21,7 +21,6 @@
     var detectPr = '';
     $('.pr-modal').on('click',function (e) {
         e.preventDefault();
-        $('.'+itemCode).prop('checked', false);
         detectPr = $(this).attr('rel');
     });
     $('.price-compare').on('click', function(e) {
@@ -89,5 +88,6 @@
             var ctx = document.getElementById("chart-area"+i).getContext("2d");
             window.myPie = new Chart(ctx, config);
         }
+        $('.'+itemCode).prop('checked', false);
     });
 </script>

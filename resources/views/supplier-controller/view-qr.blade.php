@@ -71,6 +71,14 @@
                     </div>
                 </div>
             </div>
+            <!-- pagination -->
+            <div class="col-sm-10">
+                <div class="float-pagination">
+                    <nav aria-label="Page navigation example">
+                        {{ $qr_inv->links() }}
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 </div>

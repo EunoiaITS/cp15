@@ -111,7 +111,7 @@ class AEMController extends Controller
         }
         $result = User::where('role', 'suppliers')
             ->orderBy('name',$cur_order)
-            ->paginate(30);
+            ->paginate(20);
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -261,7 +261,7 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $qrs = Quotation_requisition::latest()->paginate(50);
+        $qrs = Quotation_requisition::latest()->paginate(20);
         foreach($qrs as $qr){
             $items = Qr_items::where('qr_id', $qr->id)->get();
             $qr->items = $items;

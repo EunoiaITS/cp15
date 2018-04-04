@@ -72,7 +72,7 @@ class DirectorController extends Controller
         }
         $result = User::where('role', 'suppliers')
             ->orderBy('name',$cur_order)
-            ->paginate(30);
+            ->paginate(20);
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -113,7 +113,7 @@ class DirectorController extends Controller
             }
         }
         $pr_ids = array_unique($pr_ids);
-        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(50);
+        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(20);
         foreach($allInvites as $invite){
             foreach($pr_ids as $prs){
                 $qr_det = Quotation_requisition::Where('pr_id', $prs)->first();
