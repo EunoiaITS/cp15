@@ -22,7 +22,7 @@
                         {{ session()->get('error-message') }}
                     </p>
                 @endif
-                <div class="col-sm-11 padding-left-0">
+                <div class="col-sm-12 padding-left-0">
                     <div class="table table-responsive">
                         <table class="table">
                             <thead>
