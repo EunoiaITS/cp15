@@ -118,7 +118,7 @@
                                     </td>
                                     <td style="text-align: center;">
                                         <label>
-                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-items{{$j}}" name="state{{ $sq->id }}">
+                                            <input type="checkbox" rel="{{ $sq->id }}" name="state{{ $sq->id }}">
                                         </label>
                                     </td>
                                 </tr>
