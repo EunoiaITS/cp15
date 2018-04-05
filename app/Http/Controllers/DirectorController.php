@@ -113,30 +113,28 @@ class DirectorController extends Controller
             }
         }
         $pr_ids = array_unique($pr_ids);
-        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(2);
+        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(20);
         foreach($allInvites as $invite){
-            foreach($pr_ids as $prs){
-                $qr_det = Quotation_requisition::Where('pr_id', $prs)->first();
-                if($qr_det->id == $invite->qr_id){
-                    $invite->invited = 'yes';
-                    $invite->qr_details = $qr_det;
-                    $qr_items = Qr_items::Where('qr_id',$qr_det->id)->get();
-                    foreach ($qr_items as $item){
-                        $sup_quo = Supplier_quotations::Where('item_id', $item->id)
-                            ->Where('status', '=', 'requested')
-                            ->orWhere('status', '=', 'rejected')
-                            ->orderBy('unit_price', 'desc')->get();
-                        if($sup_quo->first()) {
-                            $item->ex = 'yes';
-                            foreach ($sup_quo as $sq) {
-                                $sup_name = User::find($sq->supp_id);
-                                $sq->sup_details = $sup_name;
-                            }
-                            $item->supplierQuote = $sup_quo;
+            $qr_det = Quotation_requisition::find($invite->qr_id);
+            if(in_array($qr_det->pr_id, $pr_ids)){
+                $invite->invited = 'yes';
+                $invite->qr_details = $qr_det;
+                $qr_items = Qr_items::Where('qr_id', $qr_det->id)->get();
+                foreach ($qr_items as $item){
+                    $sup_quo = Supplier_quotations::Where('item_id', $item->id)
+                        ->Where('status', '=', 'requested')
+                        ->orWhere('status', '=', 'rejected')
+                        ->orderBy('unit_price', 'desc')->get();
+                    if($sup_quo->first()) {
+                        $item->ex = 'yes';
+                        foreach ($sup_quo as $sq) {
+                            $sup_name = User::find($sq->supp_id);
+                            $sq->sup_details = $sup_name;
                         }
+                        $item->supplierQuote = $sup_quo;
                     }
-                    $invite->qr_items = $qr_items;
                 }
+                $invite->qr_items = $qr_items;
             }
         }
         if($request->isMethod('post')){

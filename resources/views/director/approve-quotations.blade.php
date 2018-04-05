@@ -65,6 +65,7 @@
    ========================-->
     <?php $j=0;?>
     @foreach($allInvites as $invite)
+        @if(isset($invite->invited) && $invite->invited == 'yes')
         <?php $j++?>
     <div id="myModal{{$j}}" class="popup-prid-comparison">
         <form action="{{ url('/approve-quotations') }}" method="post">
@@ -97,7 +98,7 @@
                                 <tbody>
                                 <?php $c = 0;?>
                                 @foreach($invite->qr_items as $qr)
-                                    @if(isset($qr->ex) && ($qr->exists == 'yes'))
+                                    @if(isset($qr->ex) && ($qr->ex == 'yes'))
                                         @if(isset($qr->supplierQuote))
                                             @foreach($qr->supplierQuote as $sq)
                                 <?php $c++;?>
@@ -117,7 +118,7 @@
                                     </td>
                                     <td style="text-align: center;">
                                         <label>
-                                            <input type="checkbox" rel="{{ $sq->id }}" class="select-items{{$j}}" name="state{{ $sq->id }}">
+                                            <input type="checkbox" rel="{{ $sq->id }}" name="state{{ $sq->id }}">
                                         </label>
                                     </td>
                                 </tr>
@@ -138,6 +139,7 @@
         </div>
       </form>
     </div><!-- Popup -->
+        @endif
     @endforeach
 <!--
 price comparison popup
