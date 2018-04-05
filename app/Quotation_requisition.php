@@ -15,7 +15,7 @@ class Quotation_requisition extends Model
         'category'
     ];
     protected $rules = array(
-        'pr_id'  => 'required',
+        'pr_id'  => 'required|unique:qr_table',
         'pr_type' => 'required',
         'category' => 'required'
     );

@@ -222,6 +222,14 @@ class AEMController extends Controller
                 $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
                     if($request->get('item_name' . $i) != null && $request->get('item_no' . $i) != null && $request->get('quantity' .$i) != null){
+                        $qr_items = Qr_items::Where('qr_id',$qr_item_id)->get();
+                        foreach ($qr_items as $item){
+                            if($item->item_no == $request->get('item_no'.$i)){
+                                return redirect()
+                                    ->to('/qr-orders/add-qr-order')
+                                    ->with('error-message','Can not Add Same Items For Same PR !');
+                            }
+                        }
                         $qr_item = new Qr_items();
                         $qr_item->qr_id = $qr_item_id;
                         $qr_item->item_name = $request->get('item_name' . $i);
