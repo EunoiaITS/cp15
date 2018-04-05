@@ -98,7 +98,7 @@
                                 <tbody>
                                 <?php $c = 0;?>
                                 @foreach($invite->qr_items as $qr)
-                                    @if(isset($qr->ex) && ($qr->ex== 'yes'))
+                                    @if(isset($qr->ex) && ($qr->ex == 'yes'))
                                         @if(isset($qr->supplierQuote))
                                             @foreach($qr->supplierQuote as $sq)
                                 <?php $c++;?>
@@ -122,9 +122,9 @@
                                         </label>
                                     </td>
                                 </tr>
-                                            @endforeach
-                                        @endif
-                                    @endif
+                                @endforeach
+                                @endif
+                                @endif
                                 @endforeach
                                 </tbody>
                             </table>

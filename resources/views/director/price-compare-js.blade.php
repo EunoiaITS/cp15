@@ -56,7 +56,7 @@
             var item_prices = [];
             var item_supps = [];
             for(var j = 0; j < item_details.length; j++){
-                if(item_details[j].name === uniqueNames[i]){
+                if(item_details[j].name == uniqueNames[i]){
                     item_prices.push(item_details[j].price);
                     item_supps.push(item_details[j].supplier);
                 }
