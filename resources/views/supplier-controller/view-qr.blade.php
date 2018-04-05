@@ -3,7 +3,7 @@
 <div class="bbc-content-area mcw">
     <div class="container">
         <div class="row">
-            <div class="col-sm-11 col-sm-offset-1">
+            <div class="col-sm-12">
                 <h3 class="text-uppercase color-bbc">QR Order</h3>
                 @if($errors->any())
                     @foreach($errors->all() as $error)
@@ -22,7 +22,7 @@
                         {{ session()->get('error-message') }}
                     </p>
                 @endif
-                <div class="col-sm-11 padding-left-0">
+                <div class="col-sm-12 padding-left-0">
                     <div class="table table-responsive">
                         <table class="table">
                             <thead>

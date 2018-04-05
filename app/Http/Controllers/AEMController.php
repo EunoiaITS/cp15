@@ -71,11 +71,11 @@ class AEMController extends Controller
                 $sup->role = 'suppliers';
                 $sup->save();
                 $user_id = $sup->id;
-                    $sup_info = new Create_suppliers();
-                    $sup_info->user_id = $user_id;
-                    $sup_info->category = $request->category;
-                    $sup_info->contact = $request->contact;
-                    $sup_info->save();
+                $sup_info = new Create_suppliers();
+                $sup_info->user_id = $user_id;
+                $sup_info->category = $request->category;
+                $sup_info->contact = $request->contact;
+                $sup_info->save();
                 return redirect()
                     ->to('suppliers/add-supplier')
                     ->with('success-message', 'New Supplier added successfully!');
@@ -110,8 +110,8 @@ class AEMController extends Controller
             $cur_order = $request->order;
         }
         $result = User::where('role', 'suppliers')
-        ->orderBy('name',$cur_order)
-        ->paginate(30);
+            ->orderBy('name',$cur_order)
+            ->paginate(30);
         foreach($result as $supplier){
             $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
             $supplier->info = $info;
@@ -261,7 +261,7 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $qrs = Quotation_requisition::all();
+        $qrs = Quotation_requisition::latest()->paginate(50);
         foreach($qrs as $qr){
             $items = Qr_items::where('qr_id', $qr->id)->get();
             $qr->items = $items;
@@ -446,6 +446,7 @@ class AEMController extends Controller
                         $invites['qr_id'] = $qr->id;
                         $invites['start_date'] = date('Y-m-d H:i:s', strtotime($request->get('start_date'.$qr->id)));
                         $invites['end_date'] = date('Y-m-d H:i:s', strtotime($request->get('end_date'.$qr->id)));
+
                         $invites['suppliers'] = $request->get('selected-suppliers'.$qr->id);
                         if($invitee->validate($invites)){
                             $invitee->qr_id = $qr->id;
@@ -553,27 +554,27 @@ class AEMController extends Controller
             })->toArray();
             foreach ($results as $result => $res) {
                 if($res['pr_id'] != 0){
-                $keys = array_keys($res);
-                $item = strstr($res['pr_id'], '(');
-                $left = ltrim($item, '(');
-                $item_name = substr( $left, 0, -1 );
-                $item_no = strstr($res['pr_id'], '(', true);
-                $pr_id= strtoupper($keys[2]);
-                $pr_t = str_replace('_',' ',$keys[4]);
-                $pr_type = ucwords($pr_t);
-                if (Quotation_requisition::where('pr_id', '=', trim($pr_id))
-                    ->Where('pr_type', '=', trim($pr_type))
-                    ->Where('category', '=', 'N/A')->exists()
-                ) {
-                    $data = Quotation_requisition::where('pr_id', '=', trim($pr_id))->get();
-                    foreach ($data as $d) {
-                        $qr_item = new Qr_items();
-                        $qr_item_id = $d->id;
-                        $qr_item->item_name = trim($item_name);
-                        $qr_item->item_no = trim(intval($item_no));
-                        $qr_item->quantity = trim($res['status']);
-                        $qr_item->qr_id = $d->id;
-                        $qr_item->save();
+                    $keys = array_keys($res);
+                    $item = strstr($res['pr_id'], '(');
+                    $left = ltrim($item, '(');
+                    $item_name = substr( $left, 0, -1 );
+                    $item_no = strstr($res['pr_id'], '(', true);
+                    $pr_id= strtoupper($keys[2]);
+                    $pr_t = str_replace('_',' ',$keys[4]);
+                    $pr_type = ucwords($pr_t);
+                    if (Quotation_requisition::where('pr_id', '=', trim($pr_id))
+                        ->Where('pr_type', '=', trim($pr_type))
+                        ->Where('category', '=', 'N/A')->exists()
+                    ) {
+                        $data = Quotation_requisition::where('pr_id', '=', trim($pr_id))->get();
+                        foreach ($data as $d) {
+                            $qr_item = new Qr_items();
+                            $qr_item_id = $d->id;
+                            $qr_item->item_name = trim($item_name);
+                            $qr_item->item_no = trim(intval($item_no));
+                            $qr_item->quantity = trim($res['status']);
+                            $qr_item->qr_id = $d->id;
+                            $qr_item->save();
                         }
                     } else {
                         $qr = new Quotation_requisition();
@@ -592,7 +593,7 @@ class AEMController extends Controller
                         $qr_item->save();
                     }
                 }
-                }
+            }
 //        return view('qr_orders.test',[
 //            'results' => $results
 //        ]);

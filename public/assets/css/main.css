@@ -733,7 +733,7 @@ input.input-upload{
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 1px solid #ddd;
-    font-size: 15px;
+    font-size: 14px;
     color: #3e3e67;
 }
 
@@ -1142,11 +1142,11 @@ supplier
     font-size: 14px;
 }
 .form-control.from-qr.from-btn-supplier {
-  width: 100px;
+  width: 90px;
   height: 36px;
 }
 .form-control.from-qr.from-supplier {
-  width: 180px;
+  width: 95px;
   height: 36px;
 }
 .profile-btn .label-d {
