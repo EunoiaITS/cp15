@@ -121,9 +121,7 @@ class DirectorController extends Controller
                 $invite->qr_details = $qr_det;
                 $qr_items = Qr_items::Where('qr_id', $qr_det->id)->get();
                 foreach ($qr_items as $item){
-                    $sup_quo = Supplier_quotations::Where('item_id', $item->id)
-                        ->Where('status', '=', 'requested')
-                        ->orWhere('status', '=', 'rejected')
+                    $sup_quo = Supplier_quotations::whereRaw('item_id ='.$item->id.' AND (status = "requested" OR status = "rejected")')
                         ->orderBy('unit_price', 'desc')->get();
                     if($sup_quo->first()) {
                         $item->ex = 'yes';
