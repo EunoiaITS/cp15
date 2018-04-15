@@ -189,6 +189,8 @@ class DirectorController extends Controller
                         }
                     }
                     $quot_edit->status = 'approved';
+                    $quot_edit->show_price = 'manager';
+                    $quot_edit->show_price_e = 'executive';
                     $quot_edit->save();
                     $latest_id = $quot_edit->item_id;
                     $sup_q = Supplier_quotations::Where('item_id','=',$latest_id)

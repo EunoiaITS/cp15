@@ -16,6 +16,7 @@ use Excel;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
+use DateTime;
 
 class AEMController extends Controller
 {
@@ -494,19 +495,52 @@ class AEMController extends Controller
     }
 
     public function supplierQuotations(Request $request){
-        $quotations = Supplier_quotations::all();
-        foreach($quotations as $q){
+        $quots = Supplier_quotations::where('status','=','requested')
+            ->orWhere('status','=','rejected')
+            ->orWhere('status','=','approved')
+            ->orderBy('unit_price','desc')->get();
+        $pr_ids = array();
+        foreach($quots as $q){
             $item_details = Qr_items::where('id', $q->item_id)->get();
-            $q->item_details = $item_details;
             foreach($item_details as $i){
                 $qr_details = Quotation_requisition::where('id', $i->qr_id)->get();
-                $q->qr_details = $qr_details;
+                foreach ($qr_details as $d){
+                    $pr_ids[] = $d->pr_id;
+                }
             }
-            $supplier = User::find($q->supp_id);
-            $q->supplier_details = $supplier;
+        }
+        $pr_ids = array_unique($pr_ids);
+        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(20);
+        foreach($allInvites as $invite){
+            $today = (new DateTime())->format('Y-m-d');
+            $expiry = (new DateTime($invite->end_date))->format('Y-m-d');
+            $qr_det = Quotation_requisition::find($invite->qr_id);
+            if(in_array($qr_det->pr_id, $pr_ids)){
+                $invite->invited = 'yes';
+                $invite->qr_details = $qr_det;
+                $qr_items = Qr_items::Where('qr_id', $qr_det->id)->get();
+                foreach ($qr_items as $item){
+                    $sup_quo = Supplier_quotations::whereRaw('item_id ='.$item->id.' AND (status = "requested" OR status = "rejected" OR status = "approved")')
+                        ->orderBy('unit_price', 'desc')->get();
+                    if($sup_quo->first()) {
+                        $item->ex = 'yes';
+                        foreach ($sup_quo as $sq) {
+                            if(strtotime($today) > strtotime($expiry)){
+                                $sq->show_price = 'manager';
+                                $sq->show_price_e = 'executive';
+                                $sq->save();
+                            }
+                            $sup_name = User::find($sq->supp_id);
+                            $sq->sup_details = $sup_name;
+                        }
+                        $item->supplierQuote = $sup_quo;
+                    }
+                }
+                $invite->qr_items = $qr_items;
+            }
         }
         return view('suppliers.quotations', [
-            'quotations' => $quotations,
+            'allInvites' => $allInvites,
             'page' => 'quotations'
         ]);
     }
