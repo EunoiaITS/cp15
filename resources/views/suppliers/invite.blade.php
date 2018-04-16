@@ -24,7 +24,6 @@
                         </p>
                     @endforeach
                 @endif
-
                 <div class="col-sm-10 padding-left-0">
                     <div class="table table-responsive">
 
@@ -94,19 +93,21 @@ Search popuppage
                                <tr>
                                     <td colspan="2">
                                         <div class="supplier-filter-option simple-qr-invite">
-                                            <select class="selectfilter" title="Category">
-                                              <option value="nt-aplicable">Not Applicable</option>
-                                              <option value="computer">Computer/IT</option>
-                                              <option value="hardware">Hardware</option>
-                                              <option value="petroleum">Petroleum</option>
+                                            <select id="supp-cat" class="selectfilter" title="Category">
+                                                @foreach($categories as $category)
+                                                    <option id="{{$category}}" value="{{$category}}">{{$category}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </td>
                                 </tr>
+                            @if(isset($suppliers))
                             @foreach($suppliers as $sup)
                                 <span id="sup-id-{{ $sup->id }}" class="hidden">{{ $sup->id }}</span>
                                 <span id="sup-name-{{ $sup->id }}" class="hidden">{{ $sup->name }}</span>
+                                <span id="sup-category-{{ $sup->id }}" class="hidden">{{ $sup->category }}</span>
                             @endforeach
+                            @endif
                         </table>
                     </div>
                     <button id="confirm-select" name="modal" class="btn btn-info btn-popup close">Confirm</button>
@@ -114,12 +115,6 @@ Search popuppage
             </div>
         </div>
     </div>
-</div><!-- Popup -->
- <!-- bootstrap select callback -->
-<script>
-    $( document ).ready(function() {
-        $('.selectfilter').selectpicker({});
-    });
-</script>
+</div>
 
 @endsection

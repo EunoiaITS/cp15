@@ -4,64 +4,53 @@
     <div class="bbc-content-area mcw">
         <div class="container">
             <div class="row">
-                <div class="col-sm-11 col-sm-offset-1">
+                <div class="col-sm-12 col-sm-offset-0">
                     <h3 class="text-uppercase color-bbc">Tender Summary</h3>
+                    @if(session()->has('success-message'))
+                        <p class="alert alert-success">
+                            {{ session()->get('success-message') }}
+                        </p>
+                    @endif
+                    @if(session()->has('error-message'))
+                        <p class="alert alert-danger">
+                            {{ session()->get('error-message') }}
+                        </p>
+                    @endif
                     <div class="col-sm-11 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>PR ID</th>
-                                        <th>PR Type</th>
-                                        <th>Issue Date</th>
-                                        <th>End Date</th>
-                                    </tr>
-                                </thead>                  
-                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><span class="tender-pr-id">PR 18001981</span></td>
-                                        <td>Direct Charge Pr</td>
-                                        <td>20/03/2018</td>
-                                        <td>28/03/2018</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td><span class="tender-pr-id">PR 18002379</span></td>
-                                        <td>Direct Charge Pr</td>
-                                        <td>05/03/2018</td>
-                                        <td>20/03/2018</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td><span class="tender-pr-id">PR 18002388</span></td>
-                                        <td>Direct Charge Pr</td>
-                                        <td>27/04/2018</td>
-                                        <td>08/05/2018</td>
-                                    </tr>
-                                    <tr>
-                                       <td>4</td>
-                                        <td><span class="tender-pr-id">PR 18002015</span></td>
-                                        <td>Direct Charge Pr</td>
-                                        <td>22/03/2018</td>
-                                        <td>24/03/2018</td>
-                                    </tr>
+                                <tr>
+                                    <th>No</th>
+                                    <th>PR ID</th>
+                                    <th>PR Type</th>
+                                    <th>Issue Date</th>
+                                    <th>End Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php $count = 0; ?>
+                                @foreach($allInvites as $invite)
+                                    @if(isset($invite->invited) && $invite->invited == 'yes')
+                                        <?php $count++; ?>
+                                        <tr>
+                                            <td>{{ $count }}</td>
+                                            <td><a style="cursor: pointer" class="pr-modal" rel="{{ $count }}" data-toggle="modal" data-target="#myModal{{ $count }}">{{ $invite->qr_details->pr_id }}</a></td>
+                                            <td>{{ $invite->qr_details->pr_type }}</td>
+                                            <td>{{ date('d-M-Y', strtotime($invite->start_date)) }}</td>
+                                            <td>{{ date('d-M-Y', strtotime($invite->end_date)) }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <!-- pagination -->
-                    <div class="col-sm-11">
+                    <div class="col-sm-10">
                         <div class="float-pagination">
                             <nav aria-label="Page navigation example">
-                              <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-                              </ul>
+                                {{ $allInvites->links() }}
                             </nav>
                         </div>
                     </div>
@@ -69,142 +58,74 @@
             </div>
         </div>
     </div>
-    
-     <!--
-        PR ID popup content
-        ========================-->
-        <div class="popup-tender-summary">
-            <div class="popup-base">
-                <div class="search-popup">
-                    <i class="close fa fa-remove"></i>
-                    <div class="row">
-                        <div class="search-destination">
-                            <h2 class="pr-title"><span class="pr-id">PR ID:</span><span class="prtext">PR18001981</span></h2>
-                        </div>
-                        <!-- header got seach area -->
-                        <div class="popup-got-search popup-pie clearfix">
-                           <div class="table table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>QR ID</th>
-                                            <th>Item Code</th>
-                                            <th>Items Name</th>
-                                            <th>Quantity</th>
-                                            <th>Unit Price</th>
-                                            <th>Supplier Name</th>
-                                            <th>File</th>
-                                        </tr>
-                                    </thead>                  
-                                     <tbody>
-                                        <tr>
-                                            <td>1 </td>
-                                            <td>QR000000001</td>
-                                            <td>540364</td>
-                                            <td>DRIVE SOCKET SET 3/8 INCH (35PICS)</td>
-                                            <td>2</td>
-                                            <td>98</td>
-                                            <td>BCD</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                         <tr>
-                                           <td>2 </td>
-                                            <td>QR000000001</td>
-                                            <td>540366</td>
-                                            <td>SCREWDRIVER (-) 10 X 200MM</td>
-                                            <td>3</td>
-                                            <td>78</td>
-                                            <td>BCD</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                           <td>3</td>
-                                            <td>QR000000001</td>
-                                            <td>540367</td>
-                                            <td>DRIVE SOCKET SET 3/8 INCH (35PICS)</td>
-                                            <td>2</td>
-                                            <td>78</td>
-                                            <td>BCD</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 </td>
-                                            <td>QR000000001</td>
-                                            <td>540368</td>
-                                            <td>DRIVE SOCKET SET 3/8 INCH (35PICS)</td>
-                                            <td>2</td>
-                                            <td>45</td>
-                                            <td>BCD</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                         <tr>
-                                            <td>5 </td>
-                                            <td>QR000000001</td>
-                                            <td>797878</td>
-                                            <td>AXLE CONE</td>
-                                            <td>4</td>
-                                            <td>432</td>
-                                            <td>BCD</td>
-                                            <td></td>
-                                        </tr>
-                                         <tr>
-                                            <td>6</td>
-                                            <td>QR000000002</td>
-                                            <td>540365</td>
-                                            <td>SCREWDRIVER (+) 3 X 150MM</td>
-                                            <td>3</td>
-                                            <td>22</td>
-                                            <td>CDE</td>
-                                            <td></td>
-                                        </tr>
-                                         <tr>
-                                            <td>7</td>
-                                            <td>QR000000002</td>
-                                            <td>480020</td>
-                                            <td>TYPE LEVER 760MM</td>
-                                            <td>2</td>
-                                            <td>66</td>
-                                            <td>CDE</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                           <td>8</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                           <td>9</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                           <td>10</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+    <!--
+   PR ID popup content
+   ========================-->
+    <?php $j=0;?>
+    @foreach($allInvites as $invite)
+        @if(isset($invite->invited) && $invite->invited == 'yes')
+            <?php $j++?>
+            <div id="myModal{{$j}}" class="popup-prid-comparison">
+                <form action="{{ url('/approve-quotations') }}" method="post">
+                    {{csrf_field()}}
+                    <div class="popup-base">
+                        <div class="search-popup">
+                            <i class="close fa fa-remove" data-dismiss="modal"></i>
+                            <div class="row">
+                                <div class="search-destination">
+                                    <h2 class="pr-title"><span class="pr-id">PR ID: {{ $invite->qr_details->pr_id }}</span><span class="prtext"></span></h2>
+                                </div>
+                                <!-- header got seach area -->
+                                <div class="popup-got-search popup-pie clearfix">
+                                    <div class="table table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th style="text-align: center;">No</th>
+                                                <th style="text-align: center;">Item Code</th>
+                                                <th style="text-align: center;">Item Name</th>
+                                                <th style="text-align: center;">Quantity</th>
+                                                @if(Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
+                                                    <th>Unit Price</th>
+                                                @endif
+                                                <th style="text-align: center;">Supplier Name</th>
+                                                <th style="text-align: center;">Comment</th>
+                                                <th style="text-align: center;">File</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $c = 0;?>
+                                            @foreach($invite->qr_items as $qr)
+                                                @if(isset($qr->ex) && ($qr->ex == 'yes'))
+                                                    @if(isset($qr->supplierQuote))
+                                                        @foreach($qr->supplierQuote as $sq)
+                                                            <?php $c++;?>
+                                                            <tr>
+                                                                <td style="text-align: center;">{{ $c }}</td>
+                                                                <td style="text-align: center;">{{ $qr->item_no }}</td>
+                                                                <td style="text-align: center;">{{ $qr->item_name }}</td>
+                                                                <td style="text-align: center;">{{ $qr->quantity }}</td>
+                                                                @if(Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
+                                                                    <td>@if(Auth::user()->role == $sq->show_price || Auth::user()->role == $sq->show_price_e){{ $sq->unit_price }}@endif</td>
+                                                                @endif
+                                                                <td style="text-align: center;">{{ $sq->sup_details->name }}</td>
+                                                                <td style="text-align: center;">{{ $sq->comment }}</td>
+                                                                <td style="text-align: center;"><a href="@if($sq->file != null){{ URL::asset('/public/uploads/'.$sq->file) }}@endif" target="_blank"><?php if($sq->file != null){echo "View";}?></a></td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div><!--// end header got search area -->
                             </div>
-                        </div><!--// end header got search area -->
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div><!-- Popup -->
-        
-    @endsection
+                </form>
+            </div><!-- Popup -->
+        @endif
+    @endforeach
+@endsection

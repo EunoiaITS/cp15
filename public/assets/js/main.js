@@ -73,13 +73,14 @@
       /*===================
    PRID popup comparison
     ===================*/
-
+    var prId = '';
     $(".prid-popup-button").on("click",function(){
-            $(".popup-prid-comparison").fadeIn();
-            return false;
-        });
+        prId = $(this).attr('rel');
+        $("#myModal"+prId).fadeIn();
+        return false;
+    });
     $(".close").on("click",function(){
-            $(".popup-prid-comparison").fadeOut();
+        $("#myModal"+prId).fadeOut();
     });
 
 
@@ -104,8 +105,8 @@
   =========================================*/
 
     $('.datepicker-f').datetimepicker({
-      format: "DD/MM/YYYY",
-      icons: {
+        format: "YYYY-MM-DD",
+        icons: {
         up: 'fa fa-angle-up',
         down: 'fa fa-angle-down',
         previous: 'fa fa-angle-left',

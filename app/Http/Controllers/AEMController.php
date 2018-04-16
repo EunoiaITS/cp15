@@ -174,9 +174,34 @@ class AEMController extends Controller
         if($request->isMethod('post')){
             if($request->user_id != null){
                 User::destroy($request->user_id);
+                $sup_det = Create_suppliers::where('user_id',$request->user_id)->get();
+                foreach ($sup_det as $sd){
+                    Create_suppliers::destroy($sd->id);
+                }
+                $sup_qu = Supplier_quotations::where('supp_id',$request->user_id)->get();
+                foreach ($sup_qu as $sq){
+                    Supplier_quotations::destroy($sq->id);
+                }
+                $sqr_inv = Qr_invitations::whereRaw("FIND_IN_SET($request->user_id,suppliers)")->get();
+                print_r($request->user_id);
+                foreach ($sqr_inv as $sqi) {
+                    $suppliers = array();
+                    $suppliers = explode(',', $sqi->suppliers);
+                    for($i =0;$i < sizeof($suppliers);$i++){
+                        if ($suppliers[$i] === $request->user_id) {
+                            unset($suppliers[$i]);
+                        }
+                    }
+                    $updated_sups = '';
+                    foreach ($suppliers as $sup){
+                        $updated_sups .= $sup . ',';
+                    }
+                    $sqi->suppliers = rtrim($updated_sups,',');
+                    $sqi->save();
+                }
                 return redirect()
                     ->to('suppliers/view-supplier')
-                    ->with('success-message', 'User deleted successfully!');
+                    ->with('success-message', 'Supplier Deleted Successfully !');
             }else{
                 return redirect()
                     ->to('suppliers/view-supplier')
@@ -407,6 +432,14 @@ class AEMController extends Controller
             $qr_items = Qr_items::where('qr_id', $request->delete_id)->get();
             foreach($qr_items as $item){
                 Qr_items::destroy($item->id);
+                $sq_itm = Supplier_quotations::where('item_id',$item->id)->get();
+                foreach ($sq_itm as $sqitm){
+                    Supplier_quotations::destroy($sqitm->id);
+                }
+                $qr_inv = Qr_invitations::where('qr_id',$request->delete_id)->get();
+                foreach ($qr_inv as $invd){
+                    Qr_invitations::destroy($invd->id);
+                }
             }
             return redirect()
                 ->to('/qr-orders/view')
@@ -430,6 +463,15 @@ class AEMController extends Controller
         }
         $qrs = Quotation_requisition::all();
         $suppliers = User::where('role', 'suppliers')->get();
+        $sup_cat = array();
+        foreach ($suppliers as $sup){
+            $sup_details = Create_suppliers::where('user_id','=',$sup->id)->get();
+            foreach ($sup_details as $sup_det){
+                $sup_cat[] = $sup_det->category;
+                $sup->category = $sup_det->category;
+            }
+            $sup_cat = array_unique($sup_cat);
+        }
         foreach($qrs as $qr){
             $invitations = Qr_invitations::where('qr_id', $qr->id)->get();
             if($invitations->isNotEmpty()){
@@ -486,12 +528,11 @@ class AEMController extends Controller
         }
         return view('suppliers.invite', [
             'qrs' => $qrs,
+            'categories' => $sup_cat,
             'suppliers' => $suppliers,
             'page' => 'invite',
             'footer_js' => 'suppliers.invite-js'
         ]);
-
-
     }
 
     public function supplierQuotations(Request $request){
@@ -559,23 +600,43 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $qrs = Supplier_quotations::where('status','=','approved')->get();
-        foreach($qrs as $qr){
-            $qr_items = Qr_items::where('id', $qr->item_id)->get();
-            $qr->items = $qr_items;
-            foreach($qr_items as $item){
-                $qr_details = Quotation_requisition::where('id', $item->qr_id)->get();
-                $qr->qr_details = $qr_details;
+        $quots = Supplier_quotations::where('status','=','approved')
+            ->orderBy('unit_price','desc')->get();
+        $pr_ids = array();
+        foreach($quots as $q){
+            $item_details = Qr_items::where('id', $q->item_id)->get();
+            foreach($item_details as $i){
+                $qr_details = Quotation_requisition::where('id', $i->qr_id)->get();
+                foreach ($qr_details as $d){
+                    $pr_ids[] = $d->pr_id;
+                }
             }
-            $supplier = User::find($qr->supp_id);
-            $qr->supplier = $supplier;
-            $supplier_details = Create_suppliers::where('user_id', $qr->supp_id)->get();
-            foreach($supplier_details as $sd){
-                $qr->supplier_details = $sd;
+        }
+        $pr_ids = array_unique($pr_ids);
+        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(20);
+        foreach($allInvites as $invite){
+            $qr_det = Quotation_requisition::find($invite->qr_id);
+            if(in_array($qr_det->pr_id, $pr_ids)){
+                $invite->invited = 'yes';
+                $invite->qr_details = $qr_det;
+                $qr_items = Qr_items::Where('qr_id', $qr_det->id)->get();
+                foreach ($qr_items as $item){
+                    $sup_quo = Supplier_quotations::whereRaw('item_id ='.$item->id.' AND (status = "approved")')
+                        ->orderBy('unit_price', 'desc')->get();
+                    if($sup_quo->first()) {
+                        $item->ex = 'yes';
+                        foreach ($sup_quo as $sq) {
+                            $sup_name = User::find($sq->supp_id);
+                            $sq->sup_details = $sup_name;
+                        }
+                        $item->supplierQuote = $sup_quo;
+                    }
+                }
+                $invite->qr_items = $qr_items;
             }
         }
         return view('qr_orders.tender-summery', [
-            'qrs' => $qrs,
+            'allInvites' => $allInvites,
             'page' => 'tender'
         ]);
     }

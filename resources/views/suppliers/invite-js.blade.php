@@ -5,6 +5,7 @@
 @php $supplier = rtrim($supplier, ','); @endphp
 <script>
     $(document).ready(function(){
+        $('.selectfilter').selectpicker({});
         var suppliers = '';
         var sups = '';
         var id = '';
@@ -14,7 +15,7 @@
             id = $(this).attr('rel');
             $('.supplier-select').attr('rel', id);
             $('.supplier-select').prop('checked', false);
-            var all_supp = [<?php echo $supplier; ?>];
+            var all_supp = [<?php if(isset($supplier)){echo $supplier; }?>];
             if($('#sup'+id).text() != ''){
                 sups = $('#sup'+id).text().split(',');
                 var difference = $(all_supp).not(sups).get();
@@ -22,10 +23,11 @@
                 difference.forEach(function(item){
                     var sup_id = $('#sup-id-'+item).text();
                     var sup_name = $('#sup-name-'+item).text();
-                    html += '<tr id="sup-show-{{ $sup->id }}">'+
-                    '<td>'+sup_name+'</td>'+
-                    '<td><label><input rel="'+sup_id+'" class="supplier-select" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
-                    '</tr>';
+                    var sup_category = $('#sup-category-'+item).text();
+                    html += '<tr id="sup-show-<?php if(isset($sup->id)){ echo $sup->id;}  ?>">'+
+                        '<td>'+sup_name+'</td>'+
+                        '<td><label><input id="'+sup_category+'" rel="'+sup_id+'" class="supplier-select" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
+                        '</tr>';
                 });
                 $('#supplier-list').html(html);
             }else{
@@ -51,4 +53,8 @@
             suppliers = '';
         });
     });
+    $('#supp-cat').on('change',function (e) {
+        e.preventDefault();
+        var cat = $(this).val();
+    })
 </script>
