@@ -10,61 +10,61 @@
                         <div class="table table-responsive">
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th>PR ID</th>
-                                    <th>PR Type</th>
-                                    <th>QR ID</th>
-                                    <th>Items Name</th>
-                                    <th>Item Code</th>
-                                    <th>Quantity<th>
-                                    @if(Auth::user()->role == 'director' || Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
-                                        <th>Unit Price</th>
-                                    @endif
-                                    <th>Supplier Name</th>
-                                    @if(Auth::user()->role == 'director')
-                                        <th>Download</th>
-                                        @endif
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($qrs as $qr)
                                     <tr>
-                                        <td>@foreach($qr->qr_details as $q){{$q->pr_id}}@endforeach</td>
-                                        <td>@foreach($qr->qr_details as $q){{$q->pr_type}}@endforeach</td>
-                                        <td>@if($qr->supplier_details->qr_id != null){{$qr->supplier_details->qr_id}}@endif</td>
-                                        <td>@foreach($qr->items as $item){{ $item->item_name }}@endforeach</td>
-                                        <td>@foreach($qr->items as $item){{ $item->item_no }}@endforeach</td>
-                                        <td>@foreach($qr->items as $item){{ $item->quantity }}@endforeach</td>
-                                        <td></td>
-                                        @if(Auth::user()->role == 'director')
-                                        <td>{{ $qr->unit_price }}</td>
-                                            @elseif(Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
-                                            <td>@if(Auth::user()->role == $qr->show_price || Auth::user()->role == $qr->show_price_e){{ $qr->unit_price }}@endif</td>
-                                        @endif
-                                        <td>{{ $qr->supplier->name }}</td>
-                                        @if(Auth::user()->role == 'director')
-                                            <td><a href="#"><i class="fa fa-download"></i></a></td>
-                                        @endif
+                                        <th>No</th>
+                                        <th>PR ID</th>
+                                        <th>PR Type</th>
+                                        <th>Issue Date</th>
+                                        <th>End Date</th>
                                     </tr>
-                                    @endforeach
+                                </thead>                  
+                                 <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><span class="tender-pr-id">PR 18001981</span></td>
+                                        <td>Direct Charge Pr</td>
+                                        <td>20/03/2018</td>
+                                        <td>28/03/2018</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><span class="tender-pr-id">PR 18002379</span></td>
+                                        <td>Direct Charge Pr</td>
+                                        <td>05/03/2018</td>
+                                        <td>20/03/2018</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td><span class="tender-pr-id">PR 18002388</span></td>
+                                        <td>Direct Charge Pr</td>
+                                        <td>27/04/2018</td>
+                                        <td>08/05/2018</td>
+                                    </tr>
+                                    <tr>
+                                       <td>4</td>
+                                        <td><span class="tender-pr-id">PR 18002015</span></td>
+                                        <td>Direct Charge Pr</td>
+                                        <td>22/03/2018</td>
+                                        <td>24/03/2018</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                     <!-- pagination -->
-                        <div class="col-sm-11">
-                            <div class="float-pagination">
-                                <nav aria-label="Page navigation example">
-                                  <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-                                  </ul>
-                                </nav>
-                            </div>
+                    <!-- pagination -->
+                    <div class="col-sm-11">
+                        <div class="float-pagination">
+                            <nav aria-label="Page navigation example">
+                              <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                              </ul>
+                            </nav>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
