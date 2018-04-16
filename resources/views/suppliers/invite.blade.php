@@ -91,6 +91,18 @@ Search popuppage
                             </thead>
                             <tbody id="supplier-list">
                             </tbody>
+                               <tr>
+                                    <td colspan="2">
+                                        <div class="supplier-filter-option simple-qr-invite">
+                                            <select class="selectfilter" title="Category">
+                                              <option value="nt-aplicable">Not Applicable</option>
+                                              <option value="computer">Computer/IT</option>
+                                              <option value="hardware">Hardware</option>
+                                              <option value="petroleum">Petroleum</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
                             @foreach($suppliers as $sup)
                                 <span id="sup-id-{{ $sup->id }}" class="hidden">{{ $sup->id }}</span>
                                 <span id="sup-name-{{ $sup->id }}" class="hidden">{{ $sup->name }}</span>
@@ -103,4 +115,11 @@ Search popuppage
         </div>
     </div>
 </div><!-- Popup -->
+ <!-- bootstrap select callback -->
+<script>
+    $( document ).ready(function() {
+        $('.selectfilter').selectpicker({});
+    });
+</script>
+
 @endsection
