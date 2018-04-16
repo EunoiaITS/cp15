@@ -73,15 +73,28 @@
       /*===================
    PRID popup comparison
     ===================*/
-    var prId = '';
+
     $(".prid-popup-button").on("click",function(){
-            prId = $(this).attr('rel');
-            $("#myModal"+prId).fadeIn();
+            $(".popup-prid-comparison").fadeIn();
             return false;
         });
     $(".close").on("click",function(){
-            $("#myModal"+prId).fadeOut();
+            $(".popup-prid-comparison").fadeOut();
     });
+
+
+    /*--======================
+    Tender summary popup
+    ====================--*/
+    $(".tender-pr-id").on("click",function(){
+            $(".popup-tender-summary").fadeIn();
+            return false;
+        });
+    $(".close").on("click",function(){
+            $(".popup-tender-summary").fadeOut();
+    });
+
+
 }());
 
    
@@ -91,7 +104,7 @@
   =========================================*/
 
     $('.datepicker-f').datetimepicker({
-      format: "YYYY-MM-DD",
+      format: "DD/MM/YYYY",
       icons: {
         up: 'fa fa-angle-up',
         down: 'fa fa-angle-down',
