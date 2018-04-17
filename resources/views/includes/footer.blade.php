@@ -18,6 +18,8 @@
 <script src="{{ URL::asset('public/assets/js/Chart.bundle.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/bootstrap-datetimepicker.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/bootstrap-select.js') }}"></script>
+<!-- jquery-ui.min.js file -->
+<script src="{{ URL::asset('public/assets/js/jquery-ui.min.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/main.js') }}"></script>
 <!-- bootstrap select callback -->
 <script>
