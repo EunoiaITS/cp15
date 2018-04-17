@@ -6,6 +6,7 @@ use App\Create_suppliers;
 use App\Qr_invitations;
 use App\Qr_items;
 use App\Quotation_requisition;
+use App\Suppliers_category;
 use App\Supplier_quotations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -63,6 +64,11 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
+        $categories = Suppliers_category::all();
+        $cat = null;
+        foreach ($categories as $ca){
+            $cat .= '{label:"'.$ca->category.'"},';
+        }
         if($request->isMethod('post')){
             $sup = new User();
             if($sup->validate($request->all())){
@@ -88,7 +94,9 @@ class AEMController extends Controller
         }
         return view('suppliers.add', [
             'page' => 'supplier',
-            'section' => 'add'
+            'section' => 'add',
+            'cat'=> $cat,
+            'footer_js' => 'suppliers.add-js'
         ]);
     }
 
@@ -153,10 +161,6 @@ class AEMController extends Controller
         }
     }
 
-    public function addSupplierExcel(Request $request){
-        //
-    }
-
     public function deleteSupplier(Request $request){
         if (!Auth::user()) {
             return redirect()
@@ -183,22 +187,24 @@ class AEMController extends Controller
                     Supplier_quotations::destroy($sq->id);
                 }
                 $sqr_inv = Qr_invitations::whereRaw("FIND_IN_SET($request->user_id,suppliers)")->get();
-                print_r($request->user_id);
-                foreach ($sqr_inv as $sqi) {
-                    $suppliers = array();
-                    $suppliers = explode(',', $sqi->suppliers);
-                    for($i =0;$i < sizeof($suppliers);$i++){
-                        if ($suppliers[$i] === $request->user_id) {
-                            unset($suppliers[$i]);
+                    foreach ($sqr_inv as $sqi) {
+                        $suppliers = explode(',', $sqi->suppliers);
+                        for($i =0;$i < sizeof($suppliers);$i++){
+                            if ($suppliers[$i] === $request->user_id) {
+                                unset($suppliers[$i]);
+                            }
                         }
+                        $updated_sups = '';
+                        foreach ($suppliers as $sup){
+                            $updated_sups .= $sup . ',';
+                        }
+                        $sqi->suppliers = rtrim($updated_sups,',');
+                        $sqi->save();
                     }
-                    $updated_sups = '';
-                    foreach ($suppliers as $sup){
-                        $updated_sups .= $sup . ',';
+                $check = Qr_invitations::where('suppliers','=','')->get();
+                    foreach ($check as $ch){
+                        Qr_invitations::destroy($ch->id);
                     }
-                    $sqi->suppliers = rtrim($updated_sups,',');
-                    $sqi->save();
-                }
                 return redirect()
                     ->to('suppliers/view-supplier')
                     ->with('success-message', 'Supplier Deleted Successfully !');
@@ -223,6 +229,11 @@ class AEMController extends Controller
                     ->back()
                     ->with('error-message', 'You don\'t have authorization!');
             }
+        }
+        $categories = Suppliers_category::all();
+        $cat = null;
+        foreach ($categories as $ca){
+            $cat .= '{label:"'.$ca->category.'"},';
         }
         if($request->isMethod('post')) {
             $qr = new Quotation_requisition();
@@ -277,6 +288,7 @@ class AEMController extends Controller
         return view('qr_orders.add', [
             'page' => 'qr-order',
             'section' => 'add',
+            'cat' => $cat,
             'footer_js' => 'qr_orders.qr-orders-js'
         ]);
     }
@@ -295,6 +307,11 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
+        $categories = Suppliers_category::all();
+        $cat = null;
+        foreach ($categories as $ca){
+            $cat .= '{label:"'.$ca->category.'"},';
+        }
         $qrs = Quotation_requisition::latest()->paginate(20);
         foreach($qrs as $qr){
             $items = Qr_items::where('qr_id', $qr->id)->get();
@@ -303,6 +320,7 @@ class AEMController extends Controller
         return view('qr_orders.view', [
             'qrs' => $qrs,
             'page' => 'view-qr-order',
+            'cat' => $cat,
             'footer_js' => 'qr_orders.view-js'
         ]);
     }
@@ -409,10 +427,6 @@ class AEMController extends Controller
         }
     }
 
-    public function addQROrderExcel(Request $request){
-        //
-    }
-
     public function deleteQROrder(Request $request){
         if (!Auth::user()) {
             return redirect()
@@ -431,22 +445,100 @@ class AEMController extends Controller
             Quotation_requisition::destroy($request->delete_id);
             $qr_items = Qr_items::where('qr_id', $request->delete_id)->get();
             foreach($qr_items as $item){
-                Qr_items::destroy($item->id);
                 $sq_itm = Supplier_quotations::where('item_id',$item->id)->get();
                 foreach ($sq_itm as $sqitm){
                     Supplier_quotations::destroy($sqitm->id);
                 }
-                $qr_inv = Qr_invitations::where('qr_id',$request->delete_id)->get();
-                foreach ($qr_inv as $invd){
-                    Qr_invitations::destroy($invd->id);
-                }
+                Qr_items::destroy($item->id);
+            }
+            $qr_inv = Qr_invitations::where('qr_id',$request->delete_id)->get();
+            foreach ($qr_inv as $invd){
+                Qr_invitations::destroy($invd->id);
             }
             return redirect()
                 ->to('/qr-orders/view')
                 ->with('success-message', 'Quotation Requisition deleted successfully!');
         }
     }
-
+    public function createCategory(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
+        if($request->isMethod('post')){
+            $sup_cats = new Suppliers_category();
+            if($sup_cats->validate($request->all())){
+                $sup_cats->category = $request->category;
+                $sup_cats->save();
+                return redirect()
+                    ->to('suppliers/create-category')
+                    ->with('success-message','Category Created Successfully !');
+            }else{
+                return redirect()
+                    ->to('suppliers/create-category')
+                    ->with('error-message','Category Name Must be Unique !');
+            }
+        }
+        $all_cat = Suppliers_category::orderBy('id','desc')->paginate(20);
+        return view('suppliers.create-category',[
+            'categories' => $all_cat,
+            'footer_js' => 'suppliers.create-category-js'
+        ]);
+    }
+    public function editCategory(Request $request)
+    {
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        } else {
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
+        if($request->isMethod('post')){
+            $sup_e = Suppliers_category::find($request->cat_id);
+            $sup_e -> category = $request -> category;
+            $sup_e->save();
+            return redirect()
+                ->to('suppliers/create-category')
+                ->with('success-message','Category Edited Successfully !');
+        }
+    }
+    public function deleteCategory(Request $request){
+        if (!Auth::user()) {
+            return redirect()
+                ->to('/login')
+                ->with('error-message', 'Please login first!');
+        }else{
+            $id = Auth::id();
+            $user = User::find($id);
+            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                return redirect()
+                    ->back()
+                    ->with('error-message', 'You don\'t have authorization!');
+            }
+        }
+        if($request->isMethod('post')){
+            Suppliers_category::destroy($request->cat_id);
+            return redirect()
+                ->to('suppliers/create-category')
+                ->with('success-message','Category Deleted Successfully !');
+        }
+    }
     public function inviteSuppliers(Request $request){
         if (!Auth::user()) {
             return redirect()

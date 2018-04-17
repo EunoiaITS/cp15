@@ -94,23 +94,7 @@
     $(".close").on("click",function(){
             $(".popup-tender-summary").fadeOut();
     });
-
-    /*--=================
-    jquery auto suggetion call function
-    ===========================--*/
-      var availableSuggestion = [
-      "IT",
-      "Simple",
-      "HTML",
-      "CSS",
-      "JS",
-      "CakePhp",
-    ];
-    $( "#category-auto-suggetion" ).autocomplete({
-      source: availableSuggestion
-    });
-
-
+    
 }());
 
    

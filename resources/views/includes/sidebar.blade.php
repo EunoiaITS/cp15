@@ -66,7 +66,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="@if(isset($page) && $page == 'view-qr-order'){{ "active" }}@endif"><a href="{{url('/qr-orders/view')}}"> Veiw QR Order List</a></li>
+                <li class="@if(isset($page) && $page == 'create-category'){{ "active" }}@endif"><a href="{{url('/suppliers/create-category')}}">Create Category</a></li>
+                <li class="@if(isset($page) && $page == 'view-qr-order'){{ "active" }}@endif"><a href="{{url('/qr-orders/view')}}"> View QR Order List</a></li>
                 <li class="@if(isset($page) && $page == 'invite'){{ "active" }}@endif"><a href="{{url('suppliers/invite-suppliers')}}"> Invite Suppliers</a></li>
                 <li class="@if(isset($page) && $page == 'quotations'){{ "active" }}@endif"><a href="{{url('/view-supplier-quotation')}}"> View Supplier Quotation <span class="label label-default">@if(isset($sup_quo_count)){{$sup_quo_count}}@endif</span></a></li>
                 <li class="@if(isset($page) && $page == 'tender'){{ "active" }}@endif"><a href="{{url('/tender-summery')}}"> Tender Summary<span class="label label-default">@if(isset($tender)){{$tender}}@endif</span></a></li>

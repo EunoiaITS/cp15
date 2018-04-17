@@ -146,7 +146,7 @@
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <input name="category" type="text" class="form-control from-qr" id="edit-pr-category">
+                                <input name="category" type="text" class="form-control from-qr category" id="edit-pr-category">
                             </div>
                             <input type="hidden" name="qr_id" id="edit-qr-id" value="">
                             <div id="add-item-table" class="col-sm-10 table-responsive">

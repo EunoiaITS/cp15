@@ -195,9 +195,9 @@ class DirectorController extends Controller
                     $latest_id = $quot_edit->item_id;
                     $sup_q = Supplier_quotations::Where('item_id','=',$latest_id)
                         ->Where('status','=','requested')->get();
-                    foreach ($sup_q as $sq){
-                        $sq->status = 'rejected';
-                        $sq->save();
+                    foreach ($sup_q as $s){
+                        $s->status = 'rejected';
+                        $s->save();
                     }
                 }else{
                     $quot_edit->status = 'requested';

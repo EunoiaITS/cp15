@@ -44,7 +44,7 @@
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <input type="text" name="category" class="form-control from-qr" id="pr-catagory" required>
+                                <input type="text" name="category" class="form-control from-qr category" id="pr-catagory" required>
                                 @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('category') }}</p>@endif
                             </div>
                             <input type="hidden" name="status" value="requested">

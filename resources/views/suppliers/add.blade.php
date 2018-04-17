@@ -34,7 +34,7 @@
                             </div>
                             <div class="form-group clearfix">
                                 <label for="catagory-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <input type="text" name="category" class="form-control from-qr" id="catagory-catagory">
+                                <input type="text" name="category" class="form-control from-qr category" id="catagory-catagory">
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-email" class="label-d">Email Address <span class="fright">:</span></label>

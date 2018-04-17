@@ -59,6 +59,10 @@ Route::post('suppliers/delete-supplier', 'AEMController@deleteSupplier');
 Route::post('suppliers/invite-suppliers', 'AEMController@inviteSuppliers');
 Route::get('suppliers/invite-suppliers', 'AEMController@inviteSuppliers');
 Route::get('suppliers/invite', 'AEMController@inviteSuppliers');
+Route::get('suppliers/create-category', 'AEMController@createCategory');
+Route::post('suppliers/create-category/add', 'AEMController@createCategory');
+Route::post('suppliers/create-category/edit', 'AEMController@editCategory');
+Route::post('suppliers/create-category/delete', 'AEMController@deleteCategory');
 
 Route::get('/tender-summery', 'AEMController@tenderSummery');
 Route::get('/view-supplier-quotation', 'AEMController@supplierQuotations');
