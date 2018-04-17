@@ -35,7 +35,7 @@ hr {
 
 audio,
 canvas,
-iframe, 
+iframe,
 img,
 svg,
 video {
@@ -1091,6 +1091,33 @@ create qr
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
     -box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 }
+
+/*-- create category page --*/
+
+.category-create-item{
+  margin-bottom: 30px;
+}
+.from-qr-create{
+    width: 35%;
+    float: left;
+    margin-left: 0px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    height: 40px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.btn-price-category {
+    margin-left: 10px;
+    margin-top: 0px !important;
+    height: 40px !important;
+    line-height: 24px;
+}
+.float-inherit{
+  float: none !important;
+}
+
+
 .create-qr .btn.btn-info.add-item-qe {
     position: absolute;
     bottom: 30%;
@@ -1105,6 +1132,7 @@ create qr
     height: 40px;
     width: 95px;
 }
+
 .qr-overfollow{
   overflow: hidden;
   margin-bottom: 30px;
