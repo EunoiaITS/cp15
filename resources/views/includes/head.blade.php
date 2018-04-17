@@ -18,4 +18,6 @@
     <link rel="stylesheet" href="{{ URL::asset('public/assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('public/assets/css/bootstrap-datetimepicker.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('public/assets/css/bootstrap-select.css') }}">
+    <!-- jquery-ui css file -->
+    <link rel="stylesheet" href="{{ URL::asset('public/assets/css/jquery-ui.min.css') }}">
 </head>
