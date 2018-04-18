@@ -28,7 +28,7 @@
                     var cat_id = $('#cat-id-'+item).text();
                     html += '<tr id="sup-show-<?php if(isset($sup->id)){ echo $sup->id;}  ?>">'+
                         '<td>'+sup_name+'</td>'+
-                        '<td><label><input rel="'+sup_id+'" class="supplier-select category'+cat_id+'" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
+                        '<td><label><input rel="'+sup_id+'" class="supplier-select category'+cat_id+' all-sup" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
                         '</tr>';
                 });
                 $('#supplier-list').html(html);
@@ -40,7 +40,7 @@
                     var cat_id = $('#cat-id-'+item).text();
                     html += '<tr>'+
                     '<td>'+sup_name+'</td>'+
-                    '<td><label><input rel="'+sup_id+'" class="supplier-select category'+cat_id+'" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
+                    '<td><label><input rel="'+sup_id+'" class="supplier-select category'+cat_id+' all-sup" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
                     '</tr>';
                 });
                 $('#supplier-list').html(html);
@@ -59,14 +59,14 @@
         $('#supp-cat').on('change',function (ev) {
             ev.preventDefault();
             cat = $(this).val();
+            if(cat == 'del'){
+                $('.all-sup').prop('checked', false);
+                alert("true");
+            }
             if(!$('.'+cat).is(':checked')){
                 $('.'+cat).prop('checked', true);
                 $("."+cat+":checkbox:checked").each(function() {
                 });
-                if(cat == 'del'){
-                    $('.'+cat).prop('checked', false);
-                    //alert("true");
-                }
             }else{
                 $('.'+cat).prop('checked', false);
             }

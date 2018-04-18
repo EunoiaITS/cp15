@@ -329,7 +329,7 @@ class AEMController extends Controller
             'qrs' => $qrs,
             'page' => 'view-qr-order',
             'footer_js' => 'qr_orders.view-js',
-            'cate' => $categories,
+            'cat' => $categories,
         ]);
     }
 

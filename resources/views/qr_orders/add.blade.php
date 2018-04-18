@@ -42,9 +42,9 @@
                                 <input type="text" name="pr_type" class="form-control from-qr" id="pr-type" required>
                                 @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('pr_type') }}</p>@endif
                             </div>
-                            <div class="form-group clearfix">
+                            <div class="form-group live-search">
                                 <label for="pr-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <select name="category" class="form-control from-qr category" id="pr-catagory" required>
+                                <select data-live-search="true" name="category" class="selectpicker category" id="pr-catagory" required>
                                     @foreach($cat as $c)
                                         <option value="{{$c->id}}">{{$c->category}}</option>
                                     @endforeach
