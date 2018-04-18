@@ -34,7 +34,11 @@
                             </div>
                             <div class="form-group clearfix">
                                 <label for="catagory-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <input type="text" name="category" class="form-control from-qr category" id="catagory-catagory">
+                                <select data-live-search="true" name="category" class="form-control from-qr category selectpicker" id="catagory-catagory">
+                                    @foreach($cat as $c)
+                                        <option value="{{$c->id}}">{{$c->category}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-email" class="label-d">Email Address <span class="fright">:</span></label>

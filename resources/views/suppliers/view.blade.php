@@ -41,7 +41,7 @@
                             @foreach($result as $res)
                             <tr>
                                 <td id="name{{$res->id}}">{{$res->name}}</td>
-                                <td id="category{{$res->id}}">@foreach($res->info as $in){{ $in->category }}@endforeach</td>
+                                <td id="category{{$res->id}}" rel="{{$res->cat->category}}">{{ $res->cat->category }}</td>
                                 <td id="email{{$res->id}}">{{$res->email}}</td>
                                 <td id="contact{{$res->id}}">@foreach($res->info as $in){{ $in->contact }}@endforeach</td>
                                 <td><button rel="{{ $res->id }}" id="edit{{ $res->id }}" class="btn btn-info btn-view-table open-popup popup-left">Edit</button>
@@ -87,7 +87,11 @@ edit qr popup
                         </div>
                         <div class="form-group clearfix">
                             <label for="sup-catagory" class="label-d">Category <span class="fright">:</span></label>
-                            <input type="text" name="category" class="form-control from-qr" id="sup-category">
+                            <select name="category" class="form-control from-qr category" id="catagory-catagory">
+                                @foreach($cat as $c)
+                                    <option value="{{$c->id}}">{{$c->category}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group clearfix">
                             <label for="sup-email" class="label-d">Email Address <span class="fright">:</span></label>

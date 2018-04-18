@@ -44,7 +44,11 @@
                             </div>
                             <div class="form-group clearfix">
                                 <label for="pr-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <input type="text" name="category" class="form-control from-qr category" id="pr-catagory" required>
+                                <select name="category" class="form-control from-qr category" id="pr-catagory" required>
+                                    @foreach($cat as $c)
+                                        <option value="{{$c->id}}">{{$c->category}}</option>
+                                    @endforeach
+                                </select>
                                 @if($errors->any())<p class="text-muted small text-danger">{{ $errors->first('category') }}</p>@endif
                             </div>
                             <input type="hidden" name="status" value="requested">

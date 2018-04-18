@@ -4,6 +4,7 @@
     @endforeach
 @php $supplier = rtrim($supplier, ','); @endphp
 <script>
+    var cat = '';
     $(document).ready(function(){
         $('.selectfilter').selectpicker({});
         var suppliers = '';
@@ -24,9 +25,10 @@
                     var sup_id = $('#sup-id-'+item).text();
                     var sup_name = $('#sup-name-'+item).text();
                     var sup_category = $('#sup-category-'+item).text();
+                    var cat_id = $('#cat-id-'+item).text();
                     html += '<tr id="sup-show-<?php if(isset($sup->id)){ echo $sup->id;}  ?>">'+
                         '<td>'+sup_name+'</td>'+
-                        '<td><label><input id="'+sup_category+'" rel="'+sup_id+'" class="supplier-select" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
+                        '<td><label><input rel="'+sup_id+'" class="supplier-select category'+cat_id+'" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
                         '</tr>';
                 });
                 $('#supplier-list').html(html);
@@ -35,9 +37,10 @@
                 all_supp.forEach(function(item){
                     var sup_id = $('#sup-id-'+item).text();
                     var sup_name = $('#sup-name-'+item).text();
+                    var cat_id = $('#cat-id-'+item).text();
                     html += '<tr>'+
                     '<td>'+sup_name+'</td>'+
-                    '<td><label><input rel="'+sup_id+'" class="supplier-select" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
+                    '<td><label><input rel="'+sup_id+'" class="supplier-select category'+cat_id+'" type="checkbox" name="supplier_id'+sup_id+'[]" value="'+sup_id+'"></label></td>'+
                     '</tr>';
                 });
                 $('#supplier-list').html(html);
@@ -45,16 +48,29 @@
         });
         $('#confirm-select').on('click', function(e){
             e.preventDefault();
-            $("input:checkbox[class=supplier-select]:checked").each(function(){
+            $(".supplier-select:checkbox:checked").each(function(){
                 suppliers += $(this).val()+',';
             });
             $('#selected-suppliers'+id).val(suppliers);
             $('#action-add-'+id).val('add');
             suppliers = '';
+            $('.'+cat).prop('checked', false);
+        });
+        $('#supp-cat').on('change',function (ev) {
+            ev.preventDefault();
+            cat = $(this).val();
+            if(!$('.'+cat).is(':checked')){
+                $('.'+cat).prop('checked', true);
+                $("."+cat+":checkbox:checked").each(function() {
+                });
+                if(cat == 'del'){
+                    $('.'+cat).prop('checked', false);
+                    //alert("true");
+                }
+            }else{
+                $('.'+cat).prop('checked', false);
+            }
         });
     });
-    $('#supp-cat').on('change',function (e) {
-        e.preventDefault();
-        var cat = $(this).val();
-    })
+
 </script>

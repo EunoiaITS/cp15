@@ -64,11 +64,11 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
-        $categories = Suppliers_category::all();
-        $cat = null;
-        foreach ($categories as $ca){
-            $cat .= '{label:"'.$ca->category.'"},';
-        }
+        $cat = Suppliers_category::all();
+//        $cat = null;
+//        foreach ($categories as $ca){
+//            $cat .= '{label:"'.$ca->category.'"},';
+//        }
         if($request->isMethod('post')){
             $sup = new User();
             if($sup->validate($request->all())){
@@ -114,6 +114,7 @@ class AEMController extends Controller
                     ->with('error-message', 'You don\'t have authorization!');
             }
         }
+        $cate = Suppliers_category::all();
         $cur_order ='asc';
         if (isset($request->order)){
             $cur_order = $request->order;
@@ -122,14 +123,19 @@ class AEMController extends Controller
             ->orderBy('name',$cur_order)
             ->paginate(20);
         foreach($result as $supplier){
-            $info = Create_suppliers::where('user_id', '=', $supplier->id)->get();
+            $info = Create_suppliers::where('user_id', $supplier->id)->get();
             $supplier->info = $info;
+            foreach ($info as $i){
+                $cat = Suppliers_category::find($i->category);
+                $supplier->cat = $cat;
+            }
         }
         return view('suppliers.view', [
             'result'=> $result,
             'footer_js' => 'suppliers.view-js',
             'page' => 'view-supplier',
-            'cur_order' => $cur_order
+            'cur_order' => $cur_order,
+            'cat' => $cate
         ]);
     }
     public function editSupplier(Request $request){
@@ -231,10 +237,10 @@ class AEMController extends Controller
             }
         }
         $categories = Suppliers_category::all();
-        $cat = null;
-        foreach ($categories as $ca){
-            $cat .= '{label:"'.$ca->category.'"},';
-        }
+//        $cat = null;
+//        foreach ($categories as $ca){
+//            $cat .= '{label:"'.$ca->category.'"},';
+//        }
         if($request->isMethod('post')) {
             $qr = new Quotation_requisition();
             if ($qr->validate($request->all())) {
@@ -288,7 +294,7 @@ class AEMController extends Controller
         return view('qr_orders.add', [
             'page' => 'qr-order',
             'section' => 'add',
-            'cat' => $cat,
+            'cat' => $categories,
             'footer_js' => 'qr_orders.qr-orders-js'
         ]);
     }
@@ -308,20 +314,22 @@ class AEMController extends Controller
             }
         }
         $categories = Suppliers_category::all();
-        $cat = null;
-        foreach ($categories as $ca){
-            $cat .= '{label:"'.$ca->category.'"},';
-        }
+//        $cat = null;
+//        foreach ($categories as $ca){
+//            $cat .= '{label:"'.$ca->category.'"},';
+//        }
         $qrs = Quotation_requisition::latest()->paginate(20);
         foreach($qrs as $qr){
             $items = Qr_items::where('qr_id', $qr->id)->get();
             $qr->items = $items;
+            $cate = Suppliers_category::find($qr->category);
+            $qr->cate = $cate;
         }
         return view('qr_orders.view', [
             'qrs' => $qrs,
             'page' => 'view-qr-order',
-            'cat' => $cat,
-            'footer_js' => 'qr_orders.view-js'
+            'footer_js' => 'qr_orders.view-js',
+            'cate' => $categories,
         ]);
     }
 
@@ -555,15 +563,15 @@ class AEMController extends Controller
         }
         $qrs = Quotation_requisition::all();
         $suppliers = User::where('role', 'suppliers')->get();
-        $sup_cat = array();
         foreach ($suppliers as $sup){
-            $sup_details = Create_suppliers::where('user_id','=',$sup->id)->get();
-            foreach ($sup_details as $sup_det){
-                $sup_cat[] = $sup_det->category;
-                $sup->category = $sup_det->category;
+            $sup_details = Create_suppliers::where('user_id',$sup->id)->get();
+            $sup->details = $sup_details;
+            foreach ($sup_details as $sc){
+                $sup_cat = Suppliers_category::find($sc->category);
+                $sup->cat = $sup_cat;
             }
-            $sup_cat = array_unique($sup_cat);
         }
+        $sup_cat = Suppliers_category::all();
         foreach($qrs as $qr){
             $invitations = Qr_invitations::where('qr_id', $qr->id)->get();
             if($invitations->isNotEmpty()){

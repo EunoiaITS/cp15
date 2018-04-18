@@ -16,7 +16,6 @@
                 //alert(itemCode);
             });
         }
-
     });
     var detectPr = '';
     $('.pr-modal').on('click',function (e) {

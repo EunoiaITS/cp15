@@ -178,7 +178,7 @@ login form css
     color:#4d4d4d;
 }
 .form-control::placeholder{
-    color:#4d4d4d; 
+    color:#4d4d4d;
 }
 .form-control:focus{
     box-shadow: none;

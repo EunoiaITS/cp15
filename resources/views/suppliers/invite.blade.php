@@ -94,8 +94,9 @@ Search popuppage
                                     <td colspan="2">
                                         <div class="supplier-filter-option simple-qr-invite">
                                             <select id="supp-cat" class="selectfilter" title="Category">
-                                                @foreach($categories as $category)
-                                                    <option id="{{$category}}" value="{{$category}}">{{$category}}</option>
+                                                <option value="del">Not Applicable</option>
+                                                @foreach($categories as $c)
+                                                    <option value="category{{$c->id}}">{{$c->category}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -105,7 +106,8 @@ Search popuppage
                             @foreach($suppliers as $sup)
                                 <span id="sup-id-{{ $sup->id }}" class="hidden">{{ $sup->id }}</span>
                                 <span id="sup-name-{{ $sup->id }}" class="hidden">{{ $sup->name }}</span>
-                                <span id="sup-category-{{ $sup->id }}" class="hidden">{{ $sup->category }}</span>
+                                <span id="sup-category-{{ $sup->id }}" class="hidden">{{ $sup->cat->category }}</span>
+                                <span id="cat-id-{{ $sup->id }}" class="hidden">{{ $sup->cat->id }}</span>
                             @endforeach
                             @endif
                         </table>

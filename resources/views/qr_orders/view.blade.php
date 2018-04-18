@@ -33,7 +33,7 @@
                                 <tr>
                                     <td id="pr_id{{ $qr->id }}">{{ $qr->pr_id }}</td>
                                     <td id="pr_type{{ $qr->id }}">{{ $qr->pr_type }}</td>
-                                    <td id="category{{ $qr->id }}">{{ $qr->category }}</td>
+                                    <td id="category{{ $qr->id }}">@foreach($qr->cate as $ca){{ $ca->category }}@endforeach</td>
                                     <?php $count = 0; ?>
                                     @foreach($qr->items as $item)
                                         <?php $count++; ?>

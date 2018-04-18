@@ -94,7 +94,7 @@
     $(".close").on("click",function(){
             $(".popup-tender-summary").fadeOut();
     });
-    
+
 }());
 
    
