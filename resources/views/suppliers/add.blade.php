@@ -32,9 +32,9 @@
                                 <label for="supplier-name" class="label-d">Supplier Name <span class="fright">:</span></label>
                                 <input type="text" name="name" class="form-control from-qr" id="supplier-name">
                             </div>
-                            <div class="form-group clearfix">
+                            <div class="form-group live-search">
                                 <label for="catagory-catagory" class="label-d">Category <span class="fright">:</span></label>
-                                <select data-live-search="true" name="category" class="form-control from-qr category selectpicker" id="catagory-catagory">
+                                <select data-live-search="true" name="category" class="selectpicker" id="catagory-catagory">
                                     @foreach($cat as $c)
                                         <option value="{{$c->id}}">{{$c->category}}</option>
                                     @endforeach
