@@ -1251,6 +1251,16 @@ button:focus, button:active{
   border:0px solid transparent;
 
 }
+.live-search .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 378px;
+    margin: 0px 0px 0px 28px;
+}
+.live-search  .bootstrap-select > .dropdown-toggle {
+    padding-right: 25px;
+    color: #0c0c0c !important;
+    background: #fdfdff;
+    width: 100%;
+}
 /*--
 Responsive area
 =========================--*/
