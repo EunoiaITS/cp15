@@ -41,7 +41,7 @@
                             @foreach($result as $res)
                             <tr>
                                 <td id="name{{$res->id}}">{{$res->name}}</td>
-                                <td id="category{{$res->id}}" rel="{{$res->cat->category}}">{{ $res->cat->category }}</td>
+                                <td id="category{{$res->id}}" rel="{{$res->cat->id}}">{{ $res->cat->category }}</td>
                                 <td id="email{{$res->id}}">{{$res->email}}</td>
                                 <td id="contact{{$res->id}}">@foreach($res->info as $in){{ $in->contact }}@endforeach</td>
                                 <td><button rel="{{ $res->id }}" id="edit{{ $res->id }}" class="btn btn-info btn-view-table open-popup popup-left">Edit</button>
@@ -87,7 +87,7 @@ edit qr popup
                         </div>
                         <div class="form-group live-search">
                             <label for="catagory-catagory" class="label-d">Category <span class="fright">:</span></label>
-                            <select data-live-search="true" name="category" class="selectpicker" id="catagory-catagory">
+                            <select data-live-search="true" name="category" class="selectpicker" id="sup-category">
                                 @foreach($cat as $c)
                                     <option value="{{$c->id}}">{{$c->category}}</option>
                                 @endforeach

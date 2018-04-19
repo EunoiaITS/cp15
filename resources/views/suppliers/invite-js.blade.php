@@ -61,7 +61,6 @@
             cat = $(this).val();
             if(cat == 'del'){
                 $('.all-sup').prop('checked', false);
-                alert("true");
             }
             if(!$('.'+cat).is(':checked')){
                 $('.'+cat).prop('checked', true);
