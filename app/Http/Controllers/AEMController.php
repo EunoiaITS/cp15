@@ -115,6 +115,11 @@ class AEMController extends Controller
             }
         }
         $cate = Suppliers_category::all();
+        $cates = null;
+        foreach ($cate as $ca){
+            $cates .= '{label:"'.$ca->id.'",cname:"'.$ca->category.'"},';
+        }
+        //$cates = rtrim(',',$cates);
         $cur_order ='asc';
         if (isset($request->order)){
             $cur_order = $request->order;
@@ -135,7 +140,8 @@ class AEMController extends Controller
             'footer_js' => 'suppliers.view-js',
             'page' => 'view-supplier',
             'cur_order' => $cur_order,
-            'cat' => $cate
+            'cat' => $cate,
+            'cates' => $cates
         ]);
     }
     public function editSupplier(Request $request){

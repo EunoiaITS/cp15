@@ -10,8 +10,8 @@
             $('#sup-category option').each(function (){
                 $(this).attr('selected',false);
                 if(cat === this.value){
-                    //$('#sup-category').val(cat);
-                    $(this).attr('selected');
+                    $('#sup-category').val(cat);
+                    $(this).attr('selected','selected');
                     //alert('true');
                 }
             });

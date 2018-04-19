@@ -1256,7 +1256,8 @@ button:focus, button:active{
     margin: 0px 0px 0px 28px;
 }
 .live-search-popup .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
-    float: left;
+    float: left !important;
+    margin: 0px 0px 28px 28px;
 }
 .live-search  .bootstrap-select > .dropdown-toggle {
     padding-right: 25px;
