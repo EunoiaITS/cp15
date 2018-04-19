@@ -749,9 +749,6 @@ class AEMController extends Controller
     public function uploadQRFile(){
         return view('qr_orders.upload');
     }
-//    public function testFile(){
-//        return view('qr_orders.test');
-//    }
     public function importQRData(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -773,7 +770,7 @@ class AEMController extends Controller
                     $pr_type = ucwords($pr_t);
                     if (Quotation_requisition::where('pr_id', '=', trim($pr_id))
                         ->Where('pr_type', '=', trim($pr_type))
-                        ->Where('category', '=', 'N/A')->exists()
+                        ->Where('category', '=', 1)->exists()
                     ) {
                         $data = Quotation_requisition::where('pr_id', '=', trim($pr_id))->get();
                         foreach ($data as $d) {
@@ -789,7 +786,7 @@ class AEMController extends Controller
                         $qr = new Quotation_requisition();
                         $qr->pr_id = trim($pr_id);
                         $qr->pr_type = trim($pr_type);
-                        $qr->category = 'N/A';
+                        $qr->category = 1;
                         $qr->status = 'requested';
                         $qr->save();
                         $qr_item_id = $qr->id;
@@ -803,9 +800,6 @@ class AEMController extends Controller
                     }
                 }
             }
-//        return view('qr_orders.test',[
-//            'results' => $results
-//        ]);
             return redirect('/qr-orders/upload-qr-order')
                 ->with('success-message', 'Uploaded Successfully !!');
         }
@@ -834,7 +828,7 @@ class AEMController extends Controller
                         $sup_info = new Create_suppliers();
                         if ($sup_info->validate($request->all())) {
                             $sup_info->user_id = $user_id;
-                            $sup_info->category = trim($r->category);
+                            $sup_info->category = 1;
                             $sup_info->contact = trim($r->contact);
                             $sup_info->save();
                         }

@@ -48,7 +48,7 @@
                                 @php $c ++ @endphp
                                 <tr>
                                     <td>{{ $c }}</td>
-                                    <td id="category{{ $cat->id }}">{{ $cat->category }}</td>
+                                    <td id="category{{ $cat->id }}" class="cat" rel="{{$cat->id}}">{{ $cat->category }}</td>
                                     <td><button rel="{{ $cat->id }}" id="edit{{ $cat->id }}" class="btn btn-info btn-view-table edit-button open-popup-comp float-inherit">Edit</button></td>
                                     <td><button rel="{{ $cat->id }}" id="delete{{ $cat->id }}"class="btn btn-info btn-view-table delete-button float-inherit open-popup-delete popup-left">Delete</button>
                                 </tr>
@@ -95,7 +95,7 @@ View Qr Order Popup:manager
                         <input type="hidden" name="cat_id" id="e-cat">
                         <div class="col-sm-12">
                             <div class="btn-button-group btn-button-group-opitonal clearfix">
-                                <button type="submit" class="btn btn-info btn-price">OK</button>
+                                <button type="submit" class="btn btn-info btn-price e-dis">OK</button>
                                 <button type="button" class="btn btn-info btn-popup close">Cancel</button>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ delete popup
                 <input type="hidden" name="cat_id" id="d-cat" value="">
                     <div class="col-sm-12">
                         <div class="btn-button-group clearfix">
-                            <button type="submit" class="btn btn-info btn-price">Yes</button>
+                            <button type="submit" class="btn btn-info btn-price d-dis">Yes</button>
                             <button type="button" class="btn btn-info btn-popup close">No</button>
                         </div>
                     </div>
