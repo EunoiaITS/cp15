@@ -144,7 +144,7 @@
                                 <label for="pr-type" class="label-d">PR Type <span class="fright">:</span></label>
                                 <input name="pr_type" type="text" class="form-control from-qr" id="edit-pr-type">
                             </div>
-                            <div class="form-group live-search">
+                            <div class="form-group live-search live-search-popup">
                                 <label for="edit-pr-category" class="label-d">Category <span class="fright">:</span></label>
                                 <select data-live-search="true" name="category" type="text" class="selectpicker category" id="edit-pr-category">
                                     @foreach($cat as $c)
