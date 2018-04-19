@@ -49,7 +49,20 @@
             $('#edit-qr-id').val(id);
             $('#edit-pr-id').val($('#pr_id'+id).text());
             $('#edit-pr-type').val($('#pr_type'+id).text());
-            $('#edit-pr-category').val($('#category'+id).text());
+            //$('#edit-pr-category').val($('#category'+id).text());
+            var cat = $('#category'+id).attr('rel');
+            //alert(cat);
+            $('#edit-pr-category option').each(function (){
+                $(this).attr('selected',false);
+                if(cat === this.value){
+                    $('#edit-pr-category').val(cat);
+                    $(this).attr('selected','selected');
+                    var txt = $('#category'+id).text();
+                    //alert(txt);
+                    //$('#sup-category').attr('title',txt);
+                    //alert('true');
+                }
+            });
             var itemCount = $('.item-id'+id).length;
             count = itemCount;
             var html_data = '';

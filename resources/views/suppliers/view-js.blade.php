@@ -12,6 +12,9 @@
                 if(cat === this.value){
                     $('#sup-category').val(cat);
                     $(this).attr('selected','selected');
+                    var txt = $('#category'+id).text();
+                    //alert(txt);
+                    //$('#sup-category').attr('title',txt);
                     //alert('true');
                 }
             });

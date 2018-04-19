@@ -85,9 +85,9 @@ edit qr popup
                             <label for="supplier-name" class="label-d">Supplier Name <span class="fright">:</span></label>
                             <input type="text" name="name" class="form-control from-qr" id="supplier-name" value="">
                         </div>
-                        <div class="form-group live-search live-search-popup">
-                            <label for="catagory-catagory" class="label-d">Category <span class="fright">:</span></label>
-                            <select data-live-search="true" name="category" class="selectpicker" id="sup-category">
+                        <div class="form-group clearfix">
+                            <label for="sup-category" class="label-d">Category <span class="fright">:</span></label>
+                            <select name="category" class="form-control from-qr" id="sup-category">
                                 @foreach($cat as $c)
                                     <option value="{{$c->id}}">{{$c->category}}</option>
                                 @endforeach

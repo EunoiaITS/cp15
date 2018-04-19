@@ -33,7 +33,7 @@
                                 <tr>
                                     <td id="pr_id{{ $qr->id }}">{{ $qr->pr_id }}</td>
                                     <td id="pr_type{{ $qr->id }}">{{ $qr->pr_type }}</td>
-                                    <td id="category{{ $qr->id }}">{{ $qr->cate->category }}</td>
+                                    <td id="category{{ $qr->id }}" rel="{{ $qr->cate->id }}">{{ $qr->cate->category }}</td>
                                     <?php $count = 0; ?>
                                     @foreach($qr->items as $item)
                                         <?php $count++; ?>
@@ -144,9 +144,9 @@
                                 <label for="pr-type" class="label-d">PR Type <span class="fright">:</span></label>
                                 <input name="pr_type" type="text" class="form-control from-qr" id="edit-pr-type">
                             </div>
-                            <div class="form-group live-search live-search-popup">
+                            <div class="form-group clearfix">
                                 <label for="edit-pr-category" class="label-d">Category <span class="fright">:</span></label>
-                                <select data-live-search="true" name="category" type="text" class="selectpicker category" id="edit-pr-category">
+                                <select name="category" class="form-control from-qr category" id="edit-pr-category">
                                     @foreach($cat as $c)
                                         <option value="{{$c->id}}">{{$c->category}}</option>
                                     @endforeach
