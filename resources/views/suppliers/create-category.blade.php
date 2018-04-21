@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-11 col-sm-offset-1">
+                <h3 class="text-uppercase color-bbc">Create Category</h3>
                 <div class="col-sm-10 padding-left-0">
                     @if($errors->any())
                         @foreach($errors->all() as $error)

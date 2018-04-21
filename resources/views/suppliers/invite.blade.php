@@ -88,20 +88,20 @@ Search popuppage
                                 <th>Select</th>
                             </tr>
                             </thead>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="supplier-filter-option simple-qr-invite">
+                                        <select id="supp-cat" class="selectfilter" title="Category">
+                                            <option value="del">Not Applicable</option>
+                                            @foreach($categories as $c)
+                                                <option value="category{{$c->id}}">{{$c->category}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
                             <tbody id="supplier-list">
                             </tbody>
-                               <tr>
-                                    <td colspan="2">
-                                        <div class="supplier-filter-option simple-qr-invite">
-                                            <select id="supp-cat" class="selectfilter" title="Category">
-                                                <option value="del">Not Applicable</option>
-                                                @foreach($categories as $c)
-                                                    <option value="category{{$c->id}}">{{$c->category}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
                             @if(isset($suppliers))
                             @foreach($suppliers as $sup)
                                 <span id="sup-id-{{ $sup->id }}" class="hidden">{{ $sup->id }}</span>
