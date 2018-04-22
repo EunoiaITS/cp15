@@ -80,7 +80,11 @@ class AEMController extends Controller
                 $user_id = $sup->id;
                 $sup_info = new Create_suppliers();
                 $sup_info->user_id = $user_id;
+                if($request->category == ''){
+                    $sup_info->category = 1;
+                }else{
                 $sup_info->category = $request->category;
+                }
                 $sup_info->contact = $request->contact;
                 $sup_info->save();
                 return redirect()
@@ -547,6 +551,16 @@ class AEMController extends Controller
             }
         }
         if($request->isMethod('post')){
+            $sup_table = Create_suppliers::where('category',$request->cat_id)->get();
+            foreach ($sup_table as $st){
+                $st->category = 1;
+                $st->save();
+            }
+            $qr_table = Quotation_requisition::where('category',$request->cat_id)->get();
+            foreach($qr_table as $qt){
+                $qt->category = 1;
+                $qt->save();
+            }
             Suppliers_category::destroy($request->cat_id);
             return redirect()
                 ->to('suppliers/create-category')

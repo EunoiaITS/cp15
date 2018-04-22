@@ -53,7 +53,7 @@ class superUserController extends Controller
                     $sup = new Create_suppliers();
                     $sup->user_id = $user->id;
                     $sup->contact = '';
-                    $sup->category = '';
+                    $sup->category = 1;
                     $sup->save();
                 }
             }
