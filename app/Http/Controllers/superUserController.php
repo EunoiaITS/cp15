@@ -166,5 +166,4 @@ class superUserController extends Controller
             }
         }
     }
-
 }
