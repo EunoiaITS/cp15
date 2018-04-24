@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="login-button clearfix">
                                         <button type="submit" class="btn btn-info btn-login">Submit</button>
-                                        <button type="button" class="btn btn-info btn-cancel">Cancel</button>
+                                        <a class="btn btn-info btn-cancel" href="{{ url('/login') }}">Cancel</a>
                                     </div>
                                 </form>
                             </div>
