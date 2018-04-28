@@ -1176,11 +1176,11 @@ supplier
     font-size: 14px;
 }
 .form-control.from-qr.from-btn-supplier {
-  width: 100px;
+  width: 75px;
   height: 36px;
 }
 .form-control.from-qr.from-supplier {
-  width: 180px;
+  width: 110px;
   height: 36px;
 }
 .profile-btn .label-d {
