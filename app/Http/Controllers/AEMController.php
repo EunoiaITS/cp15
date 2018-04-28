@@ -582,7 +582,7 @@ class AEMController extends Controller
             }
         }
         $qrs = Quotation_requisition::all();
-        $suppliers = User::where('role', 'suppliers')->get();
+        $suppliers = User::where('role', 'suppliers')->orderBy('name','asc')->get();
         foreach ($suppliers as $sup){
             $sup_details = Create_suppliers::where('user_id',$sup->id)->get();
             $sup->details = $sup_details;

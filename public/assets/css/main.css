@@ -699,6 +699,7 @@ input.input-upload{
   opacity: 0;
   right: 0;
   top: 0;
+  cursor: pointer;
 }
 .upload-icon{
     width: 42px;
