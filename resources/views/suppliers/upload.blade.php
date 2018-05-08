@@ -21,9 +21,9 @@
                                 {{csrf_field()}}
                                 <div class="file btn btn-sm btn-primary">
                                     <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload execl</span>
-                                    <input type="file" class="input-upload" name="file" required><br/>
-                                    <input type="submit" value="upload">
+                                    <input type="file" class="input-upload" name="file" required>
                                 </div>
+                                <button class="btn btn-info btn-view-submit" type="submit" value="upload">Submit</button>
                             </form>
                         </div>
                     </div>
