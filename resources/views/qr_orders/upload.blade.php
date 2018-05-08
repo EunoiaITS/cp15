@@ -15,7 +15,7 @@
                             <form action="{{url('/qr-orders/import-data')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="file btn btn-sm btn-primary">
-                                    <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload execl</span>
+                                    <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload excel</span>
                                     <input type="file" class="input-upload" name="file" required><br/>
                                     <input type="submit" value="upload">
                                 </div>
