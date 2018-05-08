@@ -696,6 +696,7 @@ content area
     text-align: center;
     position: relative;
     overflow: hidden;
+    float:left;
 }
 .file.btn.btn-sm.btn-primary span {
     padding: 8px 0px;
@@ -1310,7 +1311,7 @@ Responsive area
         margin: 110px 0px;
     }
     .upload-button {
-        width: 40%;
+        width: 70%;
     }
     .submenu-das {
         padding: 20px 30px 50px;
@@ -1366,7 +1367,7 @@ Responsive area
         width: 90%;
     }
     .upload-button {
-        width: 80%;
+        width:100%;
     }
     .mnb .navbar-header{
         float: left;
