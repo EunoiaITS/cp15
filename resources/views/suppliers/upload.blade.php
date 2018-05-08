@@ -20,7 +20,7 @@
                             <form action="{{url('/suppliers/import-data')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="file btn btn-sm btn-primary">
-                                    <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload execl</span>
+                                    <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload excel</span>
                                     <input type="file" class="input-upload" name="file" required>
                                 </div>
                                 <button class="btn btn-info btn-view-submit" type="submit" value="upload">Submit</button>
