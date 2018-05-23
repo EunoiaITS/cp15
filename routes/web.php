@@ -68,7 +68,6 @@ Route::get('/tender-summery', 'AEMController@tenderSummery');
 Route::get('/view-supplier-quotation', 'AEMController@supplierQuotations');
 
 Route::get('/qr-orders/upload-qr-order', 'AEMController@uploadQRFile');
-//Route::get('/qr-orders/upload-qr-order/test', 'AEMController@testFile');
 Route::get('/qr-orders/import-data', 'AEMController@uploadQRFile');
 Route::post('/qr-orders/import-data', 'AEMController@importQRData');
 

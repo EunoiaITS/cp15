@@ -87,7 +87,7 @@
                                                 <th style="text-align: center;">Item Name</th>
                                                 <th style="text-align: center;">Quantity</th>
                                                 @if(Auth::user()->role == 'manager' || Auth::user()->role == 'executive')
-                                                <th>Unit Price</th>
+                                                <th>Unit Price (including GST)</th>
                                                 @endif
                                                 <th style="text-align: center;">Supplier Name</th>
                                                 <th style="text-align: center;">Comment</th>

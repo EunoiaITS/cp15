@@ -325,7 +325,7 @@ class DirectorController extends Controller
             }
         }
         $page_no = 1;
-        $amount = 10;
+        $amount = 30;
         $start = 1;
         $logs = new \stdClass();
         $invites = Qr_invitations::all();
@@ -351,18 +351,32 @@ class DirectorController extends Controller
         if($total_logs < $amount){
             $amount = $total_logs;
         }
-        if($request->page != null && $page_no != 1){
+        $total_page = $total_logs / $amount;
+        if(is_float($total_page)){
+            $total_page = (int) $total_page;
+            $total_page = $total_page +1;
+        }
+        if($request->page > $total_page){
+            return redirect()
+                ->to('/system-log')
+                ->with('error-message','The page doesn\'t exist !');
+        }
+        if($request->page != null && $request->page != 1){
             $page_no = $request->page;
-            $start = ($page_no * $amount) - 1;
+            $start = ($page_no * $amount) - 29;
         }
         for($i = $start; $i < ($start + $amount); $i++){
-            $logsPerPage->$i = $logs->$i;
+            if(isset($logs->$i)){
+                $logsPerPage->$i = $logs->$i;
+            }
         }
         return view('director.logs', [
             'current' => $page_no,
-            'page' => (($total_logs != 0) ? $total_logs/$amount : 0),
+            'page' => $total_page,
             'logs' => $logsPerPage,
-            'log_page' => 'log'
+            'log_page' => 'log',
+            'total_page' => $total_page,
+            'start'=> $start
         ]);
     }
 
