@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="bbc-footer">
-            <p class="text-center">© Vemax Technology</p>
+           <p class="text-center">Website developed by <a href="https://www.vemax.com.my/">VEMAX TECHNOLOGY SDN BHD</a>
         </div>
     </div>
 </div>
