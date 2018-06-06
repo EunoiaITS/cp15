@@ -11,6 +11,8 @@
     <link rel="apple-touch-icon" href="{{ URL::asset('public/assets/icon.png') }}">
     <!-- Place favicon.ico in the root directory -->
     <!-- font awsome css -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ URL::asset('public/assets/css/font-awesome.min.css') }}">
     <!-- css  file linking -->
     <link rel="stylesheet" href="{{ URL::asset('public/assets/css/normalize.css') }}">

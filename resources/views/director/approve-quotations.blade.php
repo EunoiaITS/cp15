@@ -86,7 +86,7 @@
                                     <th style="text-align: center;">Item Code</th>
                                     <th style="text-align: center;">Item Name</th>
                                     <th style="text-align: center;">Quantity</th>
-                                    <th style="text-align: center;">Unit Price</th>
+                                    <th style="text-align: center;">Unit Price (including GST)</th>
                                     <th style="text-align: center;">Supplier Name</th>
                                     <th style="text-align: center;">Comment</th>
                                     <th style="text-align: center;">File</th>
@@ -100,7 +100,7 @@
                                     @if(isset($qr->ex) && ($qr->ex == 'yes'))
                                         @if(isset($qr->supplierQuote))
                                             @foreach($qr->supplierQuote as $sq)
-                                <?php $c++;?>
+                                <?php $c ++;?>
                                 <tr>
                                     <td style="text-align: center;">{{ $c }}</td>
                                     <td style="text-align: center;">{{ $qr->item_no }}</td>

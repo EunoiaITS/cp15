@@ -33,7 +33,7 @@
                                 <th>Quantity</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
-                                <th>Unit Price</th>
+                                <th>Unit Price (including GST)</th>
                                 <th>Comments</th>
                                 <th>Upload Files</th>
                                 <th>Action</th>
