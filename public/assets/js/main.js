@@ -31,6 +31,16 @@
     $(".close").on("click",function(){
         $(".popup-wrapper-view").fadeOut();
     });
+	
+  /*--===================
+  login and logout hover call
+  ==================================--*/
+  
+  $(".user-login").hover(function(){
+        $(".user-icon-dropdown").addClass("newhover");
+        }, function(){
+        $(".user-icon-dropdown").removeClass("newhover");
+    });
 
 
     /*===================
