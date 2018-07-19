@@ -361,7 +361,7 @@ main navbar and sidebar css
     height: 25px;
     transform: rotate(45deg);
 }
-.mnb .user-login:hover .user-icon-dropdown{
+.user-icon-dropdown.newhover{
     opacity: 1;
     visibility: visible;
     top: 40px;
