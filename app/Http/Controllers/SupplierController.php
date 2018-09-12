@@ -73,6 +73,7 @@ class SupplierController extends Controller
             $qr_tab->items = $qr_items;
         }
         if($request->isMethod('post')) {
+            //dd($request->all());
             $quot_check = Supplier_quotations::Where('item_id','=',$request->item_id)
                 ->Where('supp_id','=',$id);
             if($quot_check->first()){
@@ -80,34 +81,41 @@ class SupplierController extends Controller
                     ->to('supplier-controller/view-qr')
                     ->with('error-message','You already have submitted Quotation for this item !');
             }
-                $sup_quo = new Supplier_quotations();
-                $sup_quo->item_id = $request->item_id;
-                $sup_quo->unit_price = $request->unit_price;
-                $sup_quo->comment = $request->comment;
-                $sup_quo->supp_id = $id;
-                $sup_quo->status = 'requested';
-                $sup_quo->save();
-                if($request->hasFile('attachment')){
-                Storage::disk('uploads')->put('uploaded_file.'.$request->item_id.$id, $request->attachment);
-                $files = File::allFiles(public_path().'/uploads/uploaded_file.'.$request->item_id.$id);
-                $filePath = '';
-                foreach($files as $file){
-                    $filePath = (string)$file;
+                if($request->get('count') != ''){
+                    for($i = 0; $i <= $request->count ; $i++){
+                        $sup_quo = new Supplier_quotations();
+                        $sup_quo->item_id = $request->get('item_id');
+                        $sup_quo->supp_id = $id;
+                        $sup_quo->status = 'requested';
+                        $sup_quo->origin = $request->get('origin'.$i);
+                        $sup_quo->genuine = $request->get('genuine'.$i);
+                        $sup_quo->oem = $request->get('oem'.$i);
+                        $sup_quo->brand = $request->get('brand'.$i);
+                        $sup_quo->delivery_date = $request->get('delivery_date'.$i);
+                        $sup_quo->unit_price = $request->get('unit_price'.$i);
+                        $sup_quo->comment = $request->get('comment'.$i);
+                        $sup_quo->save();
+                        $last_id = Supplier_quotations::orderBy('id', 'desc')->first();
+                        if($request->hasFile('attachment'.$i)) {
+                            $image = $request->file('attachment'.$i);
+                            $name = str_slug($last_id->id).'.'.$image->getClientOriginalExtension();
+                            $destinationPath = public_path('/uploads/suppliers');
+                            $image->move($destinationPath, $name);
+                            $sup_quo->file = $name;
+                            $sup_quo->save();
+                        }
+                    }
                 }
-                $fileName = explode('/', $filePath);
-                $count = sizeof($fileName);
-                $sup_quo->file = $fileName[($count-2)].'\\'.$fileName[($count-1)];
-                $sup_quo->save();
-            }
             return redirect('supplier-controller/view-qr')
                 ->with('success-message', 'Your Quotation has been submitted Successfully !');
-        }
+            }
         return view('supplier-controller.view-qr', [
             'qr_inv' =>  $qr_inv,
             'id'     =>  $id,
             'count' => $count,
             'quoted_items' => $quoted_items,
-            'page'   =>  'view-qr'
+            'page'   =>  'view-qr',
+            'footer_js' => 'supplier-controller.view-qr-js'
         ]);
     }
     public function viewProfile(Request $request)

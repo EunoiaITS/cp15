@@ -18,6 +18,7 @@
                                 <tr>
                                     <th>Serial No</th>
                                     <th>PR ID</th>
+                                    <th>Created By</th>
                                     <th>Date</th>
                                     <th>Time</th>
                                     <th>Supplier</th>
@@ -29,6 +30,7 @@
                                         <tr>
                                             <td>{{ $start }}</td>
                                             <td>{{ $log->details->pr_id }}</td>
+                                            <td>{{ $log->details->created_by }}</td>
                                             <td>{{ date('d/m/Y', strtotime($log->details->created_at)) }}</td>
                                             <td>{{ date('G:i:s A', strtotime($log->details->created_at)) }}</td>
                                             <td>{{ $log->name }}</td>

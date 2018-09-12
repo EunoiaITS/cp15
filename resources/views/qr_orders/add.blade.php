@@ -30,7 +30,7 @@
                                 </p>
                             @endforeach
                         @endif
-                        <form action="{{ url('/qr-orders/add-qr-order') }}" method="post">
+                        <form action="{{ url('/qr-orders/add-qr-order') }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                             <div class="form-group clearfix">
                                 <label for="pr-id" class="label-d">PR ID <span class="fright">:</span></label>
@@ -60,6 +60,7 @@
                                         <th>Items Name</th>
                                         <th>Items Code</th>
                                         <th>Quantity</th>
+                                        <th>Upload File</th>
                                         <th>Remove</th>
                                     </tr>
                                     </thead>
@@ -69,6 +70,12 @@
                                         <td><input name="item_name1" type="text" class="form-control from-qr" id="pr-item-name" name="prItem" required></td>
                                         <td><input name="item_no1" type="text" class="form-control from-qr" id="pr-item-code" name="prItemcode" required></td>
                                         <td><input name="quantity1" type="text" class="form-control from-qr" id="pr-quantity" name="prQuantity" required></td>
+                                        <td>
+                                            <div class="file btn btn-sm btn-primary btn-supplier">
+                                                <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload</span>
+                                                <input type="file" name="item_file1" class="input-upload" id="file1" onchange="uploadFile()">
+                                            </div>
+                                        </td>
                                         <td><button type="button" class="btn btn-primary"><i class="fa fa-times"></i></button></td>
                                         <input type="hidden" name="count" value="1">
                                     </tr>

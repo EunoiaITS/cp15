@@ -191,6 +191,7 @@ class DirectorController extends Controller
                     $quot_edit->status = 'approved';
                     $quot_edit->show_price = 'manager';
                     $quot_edit->show_price_e = 'executive';
+                    $quot_edit->dir_comment = $request->get('dir_comment');
                     $quot_edit->save();
                     $latest_id = $quot_edit->item_id;
                     $sup_q = Supplier_quotations::Where('item_id','=',$latest_id)
@@ -333,6 +334,7 @@ class DirectorController extends Controller
         foreach($invites as $invite){
             $pr_id = Quotation_requisition::where('id', $invite->qr_id)->first();
             $invite->pr_id = $pr_id->pr_id;
+            $invite->created_by = $pr_id->created_by;
             $suppliers = explode(',', $invite->suppliers);
             foreach($suppliers as $s){
                 $supplier = User::find($s);

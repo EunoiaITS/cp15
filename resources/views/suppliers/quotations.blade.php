@@ -91,7 +91,13 @@
                                                 @endif
                                                 <th style="text-align: center;">Supplier Name</th>
                                                 <th style="text-align: center;">Comment</th>
-                                                <th style="text-align: center;">File</th>
+                                                <th style="text-align: center;">File (BBC)</th>
+                                                <th style="text-align: center;">Place of part origin</th>
+                                                <th style="text-align: center;">Genuine</th>
+                                                <th style="text-align: center;">OEM</th>
+                                                <th style="text-align: center;">Brand</th>
+                                                <th style="text-align: center;">Deliver Date</th>
+                                                <th style="text-align: center;">File (Supplier)</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -112,7 +118,13 @@
                                                                 @endif
                                                                 <td style="text-align: center;">{{ $sq->sup_details->name }}</td>
                                                                 <td style="text-align: center;">{{ $sq->comment }}</td>
-                                                                <td style="text-align: center;"><a href="@if($sq->file != null){{ URL::asset('/public/uploads/'.$sq->file) }}@endif" target="_blank"><?php if($sq->file != null){echo "View";}?></a></td>
+                                                                <td style="text-align: center;"><a href="@if($qr->item_file != null){{ URL::asset('/public/uploads/items/'.$qr->item_file) }}@endif" target="_blank"><?php if($qr->item_file != null){echo "View";}?></a></td>
+                                                                <td style="text-align: center;">{{ $sq->origin }}</td>
+                                                                <td style="text-align: center;">{{ $sq->genuine }}</td>
+                                                                <td style="text-align: center;">{{ $sq->oem }}</td>
+                                                                <td style="text-align: center;">{{ $sq->brand }}</td>
+                                                                <td style="text-align: center;">{{ $sq->delivery_date }}</td>
+                                                                <td style="text-align: center;"><a href="@if($sq->file != null){{ URL::asset('/public/uploads/suppliers/'.$sq->file) }}@endif" target="_blank"><?php if($sq->file != null){echo "View";}?></a></td>
                                                             </tr>
                                                         @endforeach
                                                     @endif
