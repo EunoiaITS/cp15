@@ -86,7 +86,7 @@
                                     <th style="text-align: center;">Item Code</th>
                                     <th style="text-align: center;">Item Name</th>
                                     <th style="text-align: center;">Quantity</th>
-                                    <th style="text-align: center;">Unit Price (including GST)</th>
+                                    <th style="text-align: center;">Unit Price</th>
                                     <th style="text-align: center;">Supplier Name</th>
                                     <th style="text-align: center;">File (BBC)</th>
                                     <th style="text-align: center;">Place of part origin</th>

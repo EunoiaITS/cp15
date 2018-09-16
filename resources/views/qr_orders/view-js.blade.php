@@ -68,7 +68,7 @@
             var html_data = '';
             for(i = 1; i <= itemCount; i++){
                 var item_id = $('#item'+i+id).text();
-                var item_name = $('#item-name'+i+id).text();
+                var item_name = $('#item-name'+i+id).text().replace(/"/g, "&quot;");
                 var item_no = $('#item-no'+i+id).text();
                 var quantity = $('#quantity'+i+id).text();
                 html_data += '<tr class="" id="row'+item_id+'">'+
@@ -76,6 +76,12 @@
                 '<td><input name="item_name'+i+'" type="text" class="form-control from-qr" id="pr-item-name-edit" value="'+item_name+'"></td>'+
                 '<td><input name="item_no'+i+'" type="text" class="form-control from-qr" id="pr-item-code-edit" value="'+item_no+'"></td>'+
                 '<td><input name="quantity'+i+'" type="text" class="form-control from-qr" id="pr-quantity-edit" value="'+quantity+'"></td>'+
+                '<td>' +
+                '<div class="file btn btn-sm btn-primary btn-supplier">' + '                                                ' +
+                '<div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload</span>' +
+                '<input type="file" name="item_file'+i+'" class="input-upload" id="file1" onchange="uploadFile()">' +
+                '</div>' +
+                '</td>'+
                 '<td><button type="button" rel="'+item_id+'" class="btn btn-primary item-delete"><i id="btn-delete-'+item_id+'" class="fa fa-times"></i></button></td>'+
                 '<input type="hidden" name="editCount" value="'+i+'">'+
                 '<input type="hidden" name="edit_id'+i+'" value="'+item_id+'">'+

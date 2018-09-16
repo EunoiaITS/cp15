@@ -101,7 +101,7 @@ class DirectorController extends Controller
             }
         }
         $quots = Supplier_quotations::where('status','=','requested')
-            ->orWhere('status','=','rejected')->orderBy('unit_price','desc')->get();
+            ->orderBy('unit_price','desc')->get();
         $pr_ids = array();
         foreach($quots as $q){
             $item_details = Qr_items::where('id', $q->item_id)->get();
@@ -121,7 +121,7 @@ class DirectorController extends Controller
                 $invite->qr_details = $qr_det;
                 $qr_items = Qr_items::Where('qr_id', $qr_det->id)->get();
                 foreach ($qr_items as $item){
-                    $sup_quo = Supplier_quotations::whereRaw('item_id ='.$item->id.' AND (status = "requested" OR status = "rejected")')
+                    $sup_quo = Supplier_quotations::whereRaw('item_id ='.$item->id.' AND (status = "requested")')
                         ->orderBy('unit_price', 'desc')->get();
                     if($sup_quo->first()) {
                         $item->ex = 'yes';
@@ -164,6 +164,12 @@ class DirectorController extends Controller
                 if($request->get('state'.$edit->id) != null){
                     if(Supplier_quotations::where('status','=','approved')
                         ->where('item_id',$quot_edit->item_id)->exists()){
+                        $sup_q = Supplier_quotations::Where('item_id',$quot_edit->item_id)
+                            ->Where('status','requested')->get();
+                        foreach ($sup_q as $s){
+                            $s->status = 'rejected';
+                            $s->save();
+                        }
                         return redirect()
                             ->to('/approve-quotations')
                             ->with('error-message',' Quotation Already Approved !');
@@ -193,9 +199,9 @@ class DirectorController extends Controller
                     $quot_edit->show_price_e = 'executive';
                     $quot_edit->dir_comment = $request->get('dir_comment');
                     $quot_edit->save();
-                    $latest_id = $quot_edit->item_id;
-                    $sup_q = Supplier_quotations::Where('item_id','=',$latest_id)
-                        ->Where('status','=','requested')->get();
+                    $last_id = $quot_edit->item_id;
+                    $sup_q = Supplier_quotations::Where('item_id',$last_id)
+                        ->Where('status','requested')->get();
                     foreach ($sup_q as $s){
                         $s->status = 'rejected';
                         $s->save();

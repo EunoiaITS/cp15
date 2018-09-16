@@ -59,19 +59,35 @@ class SupplierController extends Controller
             }
         }
         $id = Auth::id();
-        $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->paginate(2);
+        $date = date('Y-m-d');
+        $qr_inv = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")
+            ->where('end_date','>=',$date)
+            ->orderBy('id','desc')
+            ->get();
         $count = Qr_invitations::whereRaw("FIND_IN_SET($id,suppliers)")->count();
         $quoted_items = array();
         $quotations = Supplier_quotations::whereRaw("FIND_IN_SET($id,supp_id)")->get();
         foreach($quotations as $quotation){
             $quoted_items[] = $quotation->item_id;
         }
+        $item_ids = array();
         foreach ($qr_inv as $qr_tab){
             $qr_table = Quotation_requisition::where('id', $qr_tab->qr_id)->get();
             $qr_tab->qr_table = $qr_table;
             $qr_items = Qr_items::where('qr_id', $qr_tab->qr_id)->get();
             $qr_tab->items = $qr_items;
+            foreach ($qr_items as $qri){
+                $item_ids[] = $qri->id;
+            }
         }
+        $qri = Qr_items::whereIn('id',$item_ids)
+            ->orderBy('id','desc')
+            ->paginate(20);
+        foreach ($qri as $q){
+            $q->details = Qr_invitations::find($q->qr_id);
+            $q->qr = Quotation_requisition::find($q->qr_id);
+        }
+        //dd($qri);
         if($request->isMethod('post')) {
             //dd($request->all());
             $quot_check = Supplier_quotations::Where('item_id','=',$request->item_id)
@@ -113,6 +129,7 @@ class SupplierController extends Controller
             'qr_inv' =>  $qr_inv,
             'id'     =>  $id,
             'count' => $count,
+            'items' => $qri,
             'quoted_items' => $quoted_items,
             'page'   =>  'view-qr',
             'footer_js' => 'supplier-controller.view-qr-js'

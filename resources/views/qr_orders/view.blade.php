@@ -161,17 +161,11 @@
                                         <th>Items Name</th>
                                         <th>Items Code</th>
                                         <th>Quantity</th>
+                                        <th>File (BBC)</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody id="add-item-table-edit">
-                                    <tr>
-                                        <td>1</td>
-                                        <td><input type="text" class="form-control from-qr" id="pr-item-name-edit" name="prItem"></td>
-                                        <td><input type="text" class="form-control from-qr" id="pr-item-code-edit" name="prItemcode"></td>
-                                        <td><input type="text" class="form-control from-qr" id="pr-quantity-edit" name="prQuantity"></td>
-                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-times"></i></button></td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

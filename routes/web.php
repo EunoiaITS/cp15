@@ -46,7 +46,6 @@ Route::post('/qr-orders/add-qr-order', 'AEMController@addQROrder');
 Route::post('/qr-orders/edit', 'AEMController@editQROrder');
 Route::post('/qr-orders/delete', 'AEMController@deleteQROrder');
 Route::post('/qr-orders/delete-item', 'AEMController@deleteQRItem');
-
 Route::get('/qr-orders/view', 'AEMController@viewQROrder');
 
 Route::get('suppliers/add-supplier', 'AEMController@addSupplier');

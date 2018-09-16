@@ -41,8 +41,8 @@
                             @foreach($qrs as $qr)
                             <tr>
                                 <td>{{ $qr->pr_id }}</td>
-                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.$qr->invite->start_date.'" readonly' }}@endif></td>
-                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.$qr->invite->end_date.'" readonly' }}@endif></td>
+                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.date('d-m-Y',strtotime($qr->invite->start_date)).'" readonly' }}@endif></td>
+                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.date('d-m-Y',strtotime($qr->invite->end_date)).'" readonly' }}@endif></td>
                                 <td><label><input name="suppliers{{ $qr->id }}" type="checkbox" value="{{ $qr->id }}"></label></td>
                                 <td><button rel="{{ $qr->id }}" type="button" class="btn btn-info btn-view-table open-popup select-suppliers">Supplier</button></td>
                                 <input type="hidden" id="selected-suppliers{{ $qr->id }}" name="selected-suppliers{{ $qr->id }}" value="">

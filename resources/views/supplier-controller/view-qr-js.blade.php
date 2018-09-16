@@ -10,7 +10,9 @@
             $('#submit-qr').submit();
         });
         var count = 0;
-        $('#add-item-create').on('click', function(e){
+        $('.add-item-create').on('click', function(e){
+            var rel = $(this).attr('rel');
+            //alert(rel);
             e.preventDefault();
             count++;
             var html_create ='<tr>' +
@@ -28,7 +30,7 @@
                 '</div>' +
                 '</td>' +
                 '</tr>';
-            $('#add-item-table-item').append(html_create);
+            $('#add-item-table-item'+rel).append(html_create);
             $('#total').val(count);
             $(document).on("focus", ".datepicker-f", function(){
                 $('.datepicker-f').datetimepicker({
