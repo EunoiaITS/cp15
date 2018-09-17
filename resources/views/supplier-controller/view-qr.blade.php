@@ -71,7 +71,7 @@
 
     <!-- place quatation -->
     @foreach($items as $item)
-                <form id="submit-qr" action="{{ url('/supplier-controller/submit-qr') }}" method="post" enctype="multipart/form-data">
+                <form id="submit-qr{{ $item->id }}" action="{{ url('/supplier-controller/submit-qr/') }}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div id="prmodal{{ $item->id }}" class="modal fade bs-example-modal-lg popup-prid-comparison" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                         <div class="popup-base">
@@ -87,19 +87,19 @@
                                             <table class="table">
                                                 <thead>
                                                 <tr>
-                                                    <th>Place of part origin</th>
+                                                    <th>Origin</th>
                                                     <th>Genuine</th>
                                                     <th>OEM</th>
                                                     <th>Brand</th>
                                                     <th>Deliver Date</th>
-                                                    <th>Unit Price</th>
+                                                    <th>Unit Price (including tax)</th>
                                                     <th>Comments</th>
                                                     <th>Upload File</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody id="add-item-table-item{{ $item->id }}">
                                                 <tr>
-                                                    <td><input type="text" name="origin0" class="form-control from-btn-supplier from-qr"><input type="hidden" name="item_id" value="{{$item->id}}"></td>
+                                                    <td><input type="text" name="origin0" class="form-control from-btn-supplier from-qr"><input type="hidden" name="item_id0" value="{{$item->id}}"></td>
                                                     <td><input type="text" name="genuine0" class="form-control from-btn-supplier from-qr"></td>
                                                     <td><input type="text" name="oem0" class="form-control from-btn-supplier from-qr"></td>
                                                     <td><input type="text" name="brand0" class="form-control from-btn-supplier from-qr"></td>
@@ -118,7 +118,7 @@
                                         </div>
                                         <div class="place-quatation-submit">
                                             <button type="button" class="btn btn-info btn-view-table edit-qr add-item-create" rel="{{ $item->id }}">Add Item</button>
-                                            <button type="button" class="btn btn-info btn-view-table" data-toggle="modal" data-target="#confirm">Submit</button>
+                                            <button type="button" class="btn btn-info btn-view-table confirm" data-toggle="modal" data-target="#confirm{{ $item->id }}" rel="{{ $item->id }}">Submit</button>
                                             <button type="button" class="btn btn-info btn-view-table  edit-qr">Cancel</button>
                                         </div>
                                     </div><!--// end header got search area -->
@@ -129,8 +129,9 @@
                 </form>
     @endforeach
 
+    @foreach($items as $item)
     <!-- submit popup -->
-    <div id="confirm" class="modal fade bs-example-modal-lg popup-wrapper-delete" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div id="confirm{{ $item->id }}" class="modal fade bs-example-modal-lg popup-wrapper-delete" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="popup-base">
             <div class="search-popup">
                 <i class="close fa fa-remove"></i>
@@ -139,14 +140,16 @@
                     <div class="popup-got-search">
                         <p>Are you sure you want to submit ?</p>
                     </div><!--// end header got search area -->
-                    <div class="col-sm-12">
-                        <div class="btn-button-group clearfix">
-                            <button type="submit" class="btn btn-info btn-price" id="submit">Yes</button>
-                            <button type="button" class="btn btn-info btn-popup close">No</button>
+                        <div class="col-sm-12">
+                            <div class="btn-button-group clearfix">
+                                <button type="submit" class="btn btn-info btn-price" form="submit-qr{{ $item->id }}">Yes</button>
+                                <button type="button" class="btn btn-info btn-popup close">No</button>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+    @endforeach
+
 @endsection

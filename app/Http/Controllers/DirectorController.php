@@ -136,6 +136,7 @@ class DirectorController extends Controller
             }
         }
         if($request->isMethod('post')){
+            //dd($request->all());
             $req_keys = 0;
             foreach ($request->all() as $k => $v){
                 if(strpos($k,'ate') != false){
@@ -194,10 +195,10 @@ class DirectorController extends Controller
                             }
                         }
                     }
+                    $quot_edit->dir_comment = $request->get('dir_comment');
                     $quot_edit->status = 'approved';
                     $quot_edit->show_price = 'manager';
                     $quot_edit->show_price_e = 'executive';
-                    $quot_edit->dir_comment = $request->get('dir_comment');
                     $quot_edit->save();
                     $last_id = $quot_edit->item_id;
                     $sup_q = Supplier_quotations::Where('item_id',$last_id)

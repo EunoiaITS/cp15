@@ -100,9 +100,9 @@ class SupplierController extends Controller
                 if($request->get('count') != ''){
                     for($i = 0; $i <= $request->count ; $i++){
                         $sup_quo = new Supplier_quotations();
-                        $sup_quo->item_id = $request->get('item_id');
                         $sup_quo->supp_id = $id;
                         $sup_quo->status = 'requested';
+                        $sup_quo->item_id = $request->get('item_id'.$i);
                         $sup_quo->origin = $request->get('origin'.$i);
                         $sup_quo->genuine = $request->get('genuine'.$i);
                         $sup_quo->oem = $request->get('oem'.$i);

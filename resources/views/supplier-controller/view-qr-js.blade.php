@@ -1,14 +1,5 @@
 <script>
     $(document).ready(function(){
-        $('#submit').on('click',function (e) {
-            e.preventDefault();
-            /*var up = $('.unit-price').val();
-            if(up === ''){
-                $('.unit-price').after('<div style="color:red;">This field is required</div>');
-                return false;
-            }*/
-            $('#submit-qr').submit();
-        });
         var count = 0;
         $('.add-item-create').on('click', function(e){
             var rel = $(this).attr('rel');
@@ -16,7 +7,7 @@
             e.preventDefault();
             count++;
             var html_create ='<tr>' +
-                '<td><input type="text" name="origin'+count+'" class="form-control from-btn-supplier from-qr"></td>' +
+                '<td><input type="text" name="origin'+count+'" class="form-control from-btn-supplier from-qr"></td><input type="hidden" name="item_id'+count+'" value="'+rel+'">' +
                 '<td><input type="text" name="genuine'+count+'" class="form-control from-btn-supplier from-qr"></td>' +
                 '<td><input type="text" name="oem'+count+'" class="form-control from-btn-supplier from-qr"></td>' +
                 '<td><input type="text" name="brand'+count+'" class="form-control from-btn-supplier from-qr"></td>' +
@@ -34,7 +25,7 @@
             $('#total').val(count);
             $(document).on("focus", ".datepicker-f", function(){
                 $('.datepicker-f').datetimepicker({
-                    format: "YYYY-MM-DD",
+                    format: "DD-MM-YYYY",
                     icons: {
                         up: 'fa fa-angle-up',
                         down: 'fa fa-angle-down',
