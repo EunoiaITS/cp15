@@ -195,7 +195,7 @@ class DirectorController extends Controller
                             }
                         }
                     }
-                    $quot_edit->dir_comment = $request->get('dir_comment');
+                    $quot_edit->dir_comment = $request->get('dir_comment'.$edit->id);
                     $quot_edit->status = 'approved';
                     $quot_edit->show_price = 'manager';
                     $quot_edit->show_price_e = 'executive';
