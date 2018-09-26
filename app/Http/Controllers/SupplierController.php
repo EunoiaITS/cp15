@@ -81,6 +81,7 @@ class SupplierController extends Controller
             }
         }
         $qri = Qr_items::whereIn('id',$item_ids)
+            ->where('status','requested')
             ->orderBy('id','desc')
             ->paginate(20);
         foreach ($qri as $q){
@@ -120,6 +121,9 @@ class SupplierController extends Controller
                             $sup_quo->file = $name;
                             $sup_quo->save();
                         }
+                        $itm = Qr_items::find($request->get('item_id'.$i));
+                        $itm->status = 'submitted';
+                        $itm->save();
                     }
                 }
             return redirect('supplier-controller/view-qr')
