@@ -336,7 +336,7 @@ class DirectorController extends Controller
         $amount = 30;
         $start = 1;
         $logs = new \stdClass();
-        $invites = Qr_invitations::all();
+        $invites = Qr_invitations::orderBy('created_at','desc')->get();
         $delim = 0;
         foreach($invites as $invite){
             $pr_id = Quotation_requisition::where('id', $invite->qr_id)->first();

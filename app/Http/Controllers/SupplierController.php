@@ -81,12 +81,17 @@ class SupplierController extends Controller
             }
         }
         $qri = Qr_items::whereIn('id',$item_ids)
-            ->where('status','requested')
             ->orderBy('id','desc')
             ->paginate(20);
+
         foreach ($qri as $q){
-            $q->details = Qr_invitations::find($q->qr_id);
-            $q->qr = Quotation_requisition::find($q->qr_id);
+            $check = Supplier_quotations::where('item_id',$q->id)
+                ->where('supp_id',$id)->get();
+            if(!$check->first()){
+                $q->check = 'yes';
+                $q->details = Qr_invitations::find($q->qr_id);
+                $q->qr = Quotation_requisition::find($q->qr_id);
+            }
         }
         //dd($qri);
         if($request->isMethod('post')) {
@@ -121,9 +126,6 @@ class SupplierController extends Controller
                             $sup_quo->file = $name;
                             $sup_quo->save();
                         }
-                        $itm = Qr_items::find($request->get('item_id'.$i));
-                        $itm->status = 'submitted';
-                        $itm->save();
                     }
                 }
             return redirect('supplier-controller/view-qr')

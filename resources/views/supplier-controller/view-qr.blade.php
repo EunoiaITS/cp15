@@ -40,6 +40,8 @@
                                 </thead>
                                 <tbody>
                                 @foreach($items as $item)
+                                    @if(isset($item->check))
+                                        @if($item->check == 'yes')
                                             <tr>
                                                 <td>{{ $item->qr->pr_id }}</td>
                                                 <td>{{ $item->item_name}}</td>
@@ -50,6 +52,8 @@
                                                 <td>@if(isset($item->details->end_date)){{ date('d/m/Y',strtotime($item->details->end_date)) }}@endif</td>
                                                 <td><button type="button" class="btn btn-primary btn-supplier input-upload" data-toggle="modal" data-target="#prmodal{{$item->id}}" rel="{{ $item->id }}">Add Quotation</button></td>
                                             </tr>
+                                            @endif
+                                        @endif
                                 @endforeach
                                 </tbody>
                             </table>
