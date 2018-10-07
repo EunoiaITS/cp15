@@ -113,7 +113,9 @@ class DirectorController extends Controller
             }
         }
         $pr_ids = array_unique($pr_ids);
-        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(20);
+        $allInvites = Qr_invitations::orderBy('start_date', 'desc')
+            ->orderBy('end_date','desc')
+            ->paginate(20);
         foreach($allInvites as $invite){
             $qr_det = Quotation_requisition::find($invite->qr_id);
             if(in_array($qr_det->pr_id, $pr_ids)){
