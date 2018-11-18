@@ -6,16 +6,7 @@
             <div class="row">
                 <div class="col-sm-12 col-sm-offset-0">
                     <h3 class="text-uppercase color-bbc">Quotation Approval</h3>
-                    @if(session()->has('success-message'))
-                        <p class="alert alert-success">
-                            {{ session()->get('success-message') }}
-                        </p>
-                    @endif
-                    @if(session()->has('error-message'))
-                        <p class="alert alert-danger">
-                            {{ session()->get('error-message') }}
-                        </p>
-                    @endif
+                    @include('includes.messages')
                     <div class="col-sm-11 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">

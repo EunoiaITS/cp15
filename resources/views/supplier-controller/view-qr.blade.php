@@ -6,23 +6,14 @@
             <div class="row">
                 <div class="col-sm-11 col-sm-offset-1">
                     <h3 class="text-uppercase color-bbc">QR Order</h3>
-                    @if($errors->any())
-                        @foreach($errors->all() as $error)
+                    @if(isset($errors))
+                        @foreach($errors as $error)
                             <p class="alert alert-danger">
                                 {{ $error }}
                             </p>
                         @endforeach
                     @endif
-                    @if(session()->has('success-message'))
-                        <p class="alert alert-success">
-                            {{ session()->get('success-message') }}
-                        </p>
-                    @endif
-                    @if(session()->has('error-message'))
-                        <p class="alert alert-danger">
-                            {{ session()->get('error-message') }}
-                        </p>
-                    @endif
+                    @include('includes.messages')
                     <div class="col-sm-11 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">
@@ -108,7 +99,7 @@
                                                     <td><input type="text" name="oem0" class="form-control from-btn-supplier from-qr"></td>
                                                     <td><input type="text" name="brand0" class="form-control from-btn-supplier from-qr"></td>
                                                     <td><input type="text" name="delivery_date0" class="form-control from-qr from-supplier datepicker-f"></td>
-                                                    <td><input type="number" placeholder="0.0" name="unit_price0" class="form-control from-btn-supplier from-qr unit-price" required></td>
+                                                    <td><input type="text" placeholder="0.0" name="unit_price0" required="" class="form-control from-btn-supplier from-qr unit-price"></td>
                                                     <td><input type="text" name="comment0" class="form-control from-qr from-supplier"><input id="total" type="hidden" name="count" value="0"></td>
                                                     <td>
                                                         <div class="file btn btn-sm btn-primary btn-supplier">

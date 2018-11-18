@@ -6,16 +6,7 @@
             <div class="row">
                 <div class="col-sm-11 col-sm-offset-1">
                     <h3 class="text-uppercase color-bbc">View QR Order List</h3>
-                    @if(session()->has('success-message'))
-                        <p class="alert alert-success">
-                            {{ session()->get('success-message') }}
-                        </p>
-                    @endif
-                    @if(session()->has('error-message'))
-                        <p class="alert alert-danger">
-                            {{ session()->get('error-message') }}
-                        </p>
-                    @endif
+                    @include('includes.messages')
                     <div class="col-sm-10 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">

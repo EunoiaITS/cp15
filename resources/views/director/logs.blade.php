@@ -5,11 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-11 col-sm-offset-1">
-                    @if(session()->has('error-message'))
-                        <p class="alert alert-danger">
-                            {{ session()->get('error-message') }}
-                        </p>
-                    @endif
+                    @include('includes.messages')
                     <h3 class="text-uppercase color-bbc">Log</h3>
                     <div class="col-sm-10 padding-left-0">
                         <div class="table table-responsive">

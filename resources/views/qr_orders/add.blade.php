@@ -8,21 +8,7 @@
                 <div class="col-sm-10 padding-left-0">
                     <div class="create-qr qr-overfollow">
                         <h3 class="text-uppercase color-bbc">Create QR Order</h3>
-                        @if(session()->has('error'))
-                            <p class="alert alert-success">
-                                {{ session()->get('error') }}
-                            </p>
-                        @endif
-                        @if(session()->has('error-message'))
-                            <p class="alert alert-danger">
-                                {{ session()->get('error-message') }}
-                            </p>
-                        @endif
-                        @if(session()->has('success-message'))
-                            <p class="alert alert-success">
-                                {{ session()->get('success-message') }}
-                            </p>
-                        @endif
+                        @include('includes.messages')
                         @if($errors->any())
                             @foreach($errors->all() as $error)
                                 <p class="alert alert-danger">

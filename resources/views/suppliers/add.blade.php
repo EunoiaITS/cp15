@@ -8,16 +8,7 @@
                 <div class="col-sm-10 padding-left-0">
                     <div class="create-qr clearfix">
                         <h3 class="text-uppercase color-bbc">Create Supplier List</h3>
-                        @if(session()->has('error'))
-                            <p class="alert alert-success">
-                                {{ session()->get('error') }}
-                            </p>
-                        @endif
-                        @if(session()->has('success-message'))
-                            <p class="alert alert-success">
-                                {{ session()->get('success-message') }}
-                            </p>
-                        @endif
+                        @include('includes.messages')
                         @if($errors->any())
                             @foreach($errors->all() as $error)
                                 <p class="alert alert-danger">
@@ -25,7 +16,6 @@
                                 </p>
                             @endforeach
                         @endif
-
                         <form action="{{ url('suppliers/add-supplier') }}" method="post">
                                     {{ csrf_field() }}
                             <div class="form-group clearfix">

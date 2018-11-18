@@ -6,11 +6,7 @@
         <div class="row">
             <div class="col-sm-11 col-sm-offset-1">
                 <h3 class="text-uppercase color-bbc">View Supplier List</h3>
-                @if(session()->has('success-message'))
-                    <p class="alert alert-success">
-                        {{ session()->get('success-message') }}
-                    </p>
-                @endif
+                @include('includes.messages')
                 @if($errors->any())
                     @foreach($errors->all() as $error)
                         <p class="alert alert-danger">

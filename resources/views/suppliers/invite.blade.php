@@ -7,16 +7,7 @@
                 {{csrf_field()}}
             <div class="col-sm-11 col-sm-offset-1">
                 <h3 class="text-uppercase color-bbc">Invite Suppliers</h3>
-                @if(session()->has('error'))
-                    <p class="alert alert-danger">
-                        {{ session()->get('error') }}
-                    </p>
-                @endif
-                @if(session()->has('success-message'))
-                    <p class="alert alert-success">
-                        {{ session()->get('success-message') }}
-                    </p>
-                @endif
+                @include('includes.messages')
                 @if($errors->any())
                     @foreach($errors->all() as $error)
                         <p class="alert alert-danger">

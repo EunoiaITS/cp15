@@ -7,16 +7,7 @@
                     <div class="col-sm-10 padding-left-0">
                         <div class="create-qr qr-overfollow">
                             <h3 class="text-uppercase color-bbc">Suppliers List Upload</h3>
-                            @if(session()->has('success-message'))
-                                <p class="alert alert-success">
-                                    {{ session()->get('success-message') }}
-                                </p>
-                            @endif
-                            @if(session()->has('error-message'))
-                                <p class="alert alert-danger">
-                                    {{ session()->get('error-message') }}
-                                </p>
-                            @endif
+                            @include('includes.messages')
                             <form action="{{url('/suppliers/import-data')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="file btn btn-sm btn-primary">

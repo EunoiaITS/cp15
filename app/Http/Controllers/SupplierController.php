@@ -96,6 +96,16 @@ class SupplierController extends Controller
         //dd($qri);
         if($request->isMethod('post')) {
             //dd($request->all());
+            $errors = array();
+            $sq = new Supplier_quotations();
+            if(!$sq->validate($request->all())){
+                $sq_e = $sq->errors();
+                foreach ($sq_e->messages() as $k => $v){
+                    foreach ($v as $e){
+                        $errors[] = $e;
+                    }
+                }
+            }
             $quot_check = Supplier_quotations::Where('item_id','=',$request->item_id)
                 ->Where('supp_id','=',$id);
             if($quot_check->first()){
@@ -103,8 +113,9 @@ class SupplierController extends Controller
                     ->to('supplier-controller/view-qr')
                     ->with('error-message','You already have submitted Quotation for this item !');
             }
-                if($request->get('count') != ''){
-                    for($i = 0; $i <= $request->count ; $i++){
+            if($request->get('count') != ''){
+                for($i = 0; $i <= $request->count ; $i++){
+                    if(is_numeric($request->get('unit_price'.$i)) == true && $request->get('unit_price'.$i) > 0){
                         $sup_quo = new Supplier_quotations();
                         $sup_quo->supp_id = $id;
                         $sup_quo->status = 'requested';
@@ -126,11 +137,17 @@ class SupplierController extends Controller
                             $sup_quo->file = $name;
                             $sup_quo->save();
                         }
+                        return redirect('supplier-controller/view-qr')
+                            ->with('success-message', 'Your Quotation has been submitted Successfully !');
+                    }else{
+                        $errors[] = 'Quotation not Submitted. Please insert numeric values only (Eg: 5 or 7.5)';
+                        return redirect()
+                            ->to('supplier-controller/view-qr')
+                            ->with('errors', $errors);
                     }
                 }
-            return redirect('supplier-controller/view-qr')
-                ->with('success-message', 'Your Quotation has been submitted Successfully !');
             }
+        }
         return view('supplier-controller.view-qr', [
             'qr_inv' =>  $qr_inv,
             'id'     =>  $id,
