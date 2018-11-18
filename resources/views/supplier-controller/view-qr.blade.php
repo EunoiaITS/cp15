@@ -108,7 +108,7 @@
                                                     <td><input type="text" name="oem0" class="form-control from-btn-supplier from-qr"></td>
                                                     <td><input type="text" name="brand0" class="form-control from-btn-supplier from-qr"></td>
                                                     <td><input type="text" name="delivery_date0" class="form-control from-qr from-supplier datepicker-f"></td>
-                                                    <td><input type="number" placeholder="0.0" name="unit_price0" class="form-control from-btn-supplier from-qr unit-price" required></td>
+                                                    <td><input type="number" placeholder="0.0" name="unit_price0" class="form-control from-btn-supplier from-qr unit-price" data-toggle="tooltip" data-placement="bottom" title="Please insert numeric values only (Eg: 5 or 7.5)" required></td>
                                                     <td><input type="text" name="comment0" class="form-control from-qr from-supplier"><input id="total" type="hidden" name="count" value="0"></td>
                                                     <td>
                                                         <div class="file btn btn-sm btn-primary btn-supplier">
