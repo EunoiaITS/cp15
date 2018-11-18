@@ -1244,6 +1244,11 @@ supplier
     position: inherit;
     border-radius: 4px;
 }
+
+.place-quatation-submit .btn-view-table{
+    margin: 20px 15px 0px 0px;
+}
+
 /*-- bootstrap select css --*/
 .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
     width: 170px;
