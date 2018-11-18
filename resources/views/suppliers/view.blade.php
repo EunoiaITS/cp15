@@ -7,13 +7,6 @@
             <div class="col-sm-11 col-sm-offset-1">
                 <h3 class="text-uppercase color-bbc">View Supplier List</h3>
                 @include('includes.messages')
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                        <p class="alert alert-danger">
-                            {{ $error }}
-                        </p>
-                    @endforeach
-                @endif
             <!-- fliter button: new added -->
                 <div class="supplier-filter-option">
                     <select class="selectfilter" title="Filter">
