@@ -115,7 +115,7 @@ class SupplierController extends Controller
             }
             if($request->get('count') != ''){
                 for($i = 0; $i <= $request->count ; $i++){
-                    if(is_numeric($request->get('unit_price'.$i)) == true && $request->get('unit_price'.$i) > 0){
+                    if(is_numeric($request->get('unit_price'.$i)) == true && $request->get('unit_price'.$i) >= 0){
                         $sup_quo = new Supplier_quotations();
                         $sup_quo->supp_id = $id;
                         $sup_quo->status = 'requested';
