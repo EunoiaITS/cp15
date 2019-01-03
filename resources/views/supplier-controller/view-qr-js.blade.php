@@ -22,7 +22,7 @@
                 '</td>' +
                 '</tr>';
             $('#add-item-table-item'+rel).append(html_create);
-            $('#total').val(count);
+            $('.total').val(count);
             $(document).on("focus", ".datepicker-f", function(){
                 $('.datepicker-f').datetimepicker({
                     format: "DD-MM-YYYY",

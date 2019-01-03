@@ -64,7 +64,7 @@
     </div>
     </div>
 
-    <!-- place quatation -->
+    <!-- place quotation -->
     @foreach($items as $item)
                 <form id="submit-qr{{ $item->id }}" action="{{ url('/supplier-controller/submit-qr/') }}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
@@ -100,8 +100,9 @@
                                                     <td><input type="text" name="brand0" class="form-control from-btn-supplier from-qr"></td>
                                                     <td><input type="text" name="delivery_date0" class="form-control from-qr from-supplier datepicker-f"></td>
                                                     <td><input type="text" placeholder="0.0" name="unit_price0" class="form-control from-btn-supplier from-qr unit-price" data-toggle="tooltip" data-placement="bottom" title="Please insert numeric values only (Eg: 5 or 7.5)" required></td>
-                                                    <td><input type="text" name="comment0" class="form-control from-qr from-supplier"><input id="total" type="hidden" name="count" value="0"></td>
+                                                    <td><input type="text" name="comment0" class="form-control from-qr from-supplier"></td>
                                                     <td>
+                                                        <input class="total" type="hidden" name="count" value="0">
                                                         <div class="file btn btn-sm btn-primary btn-supplier">
                                                             <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload</span>
                                                             <input type="file" name="attachment0" class="input-upload">
