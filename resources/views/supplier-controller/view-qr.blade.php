@@ -147,5 +147,35 @@
             </div>
         </div>
     @endforeach
+    <!--=============
+        edit qr popup
+        ==================-->
+    <div class="popup-wrapper-view popup-model-qr">
+        <div class="popup-base">
+            <div class="search-popup">
+                <i class="close check fa fa-remove"></i>
+                <div class="row">
+                    <!-- header got seach area -->
+                    <div class="popup-got-search">
+                        <div class="col-sm-12" style="text-align: left;">
+                            <p>By logging in to BBC Plantation tender system, you confirm hereby to abide to our Terms and Conditions appended Below:</p>
+                            <p style="text-transform: uppercase; margin-top: 30px;">YOU AGREE TO SUPPLY SPARE PARTS WITH EXACT BRAND AND/OR MODEL AND COUNTRY OF ORIGIN AS QUOTED. IF YOU ARE FOUND TO SUPPLY PARTS WITH DIFFERENT BRANDS AND/OR MODEL FROM WHAT YOU HAVE QUOTED OR A COUNTERFEIT IS SUPPLIED INSTEAD, 20 TIMES OF THE AMOUNT QUOTED SHALL BE PENALIZED MULTIPLY BY THE TOTAL QUANTITY OF THE ITEM INDICATED ON THE TENDER SYSTEM.</p>
+
+                            <p style="text-transform: uppercase;">ONCE THE PRICE IS SUBMITTED, THE SUPPLIERS SHALL STRCTLY NOT ALLOWED TO AMEND THE PRICE. SHOULD YOU REFUSE TO SUPPLY ACCORDING TO THE QUOTED PRICE, YOU ARE REQUIRED TO COMPENSATE 30 TIMES OF YOUR QUOTED PRICE FOR A UNIT OF ITEM ORDERED MULTIPLY BY THE TOTAL QUANTITY OF THAT ITEM AS INDICATED ON THE TENDER SYSTEM.</p>
+
+                            <p style="text-transform: uppercase;">OUR ORGANIZATION RESERVES THE RIGHTS TO IMPOSE OR REVIEW ANY CONDITIONS FROM TIME TO TIME WITHOUT ANY PREJUDICE.</p>
+
+                            <p style="text-transform: uppercase;">FROM:TMU.</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="btn-button-group btn-button-group-opitonal clearfix">
+                                <button class="btn btn-info btn-popup okay">Okay</button>
+                            </div>
+                        </div>
+                    </div><!--// end header got search area -->
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

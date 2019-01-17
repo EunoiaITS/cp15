@@ -1,5 +1,18 @@
 <script>
     $(document).ready(function(){
+        var link = '{{ url('/') }}';
+        @if(!session()->has('key'))
+            $('.popup-model-qr').show();
+        @endif
+        $('.check').on('click',function (e) {
+            e.preventDefault();
+            window.location.href = link+'/logout';
+        });
+        $('.okay').on('click',function (e) {
+            e.preventDefault();
+            $('.popup-model-qr').hide();
+            window.location.href = link+'/session';
+        });
         var count = 0;
         $('.add-item-create').on('click', function(e){
             var rel = $(this).attr('rel');

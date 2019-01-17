@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
@@ -137,6 +138,8 @@ class SupplierController extends Controller
                             $sup_quo->file = $name;
                             $sup_quo->save();
                         }
+                        return redirect('supplier-controller/view-qr')
+                            ->with('success-message', 'Your Quotation has been submitted Successfully !');
                     }else{
                         $errors[] = 'Quotation not Submitted. Please insert numeric values only (Eg: 5 or 7.5)';
                         return redirect()
@@ -144,8 +147,6 @@ class SupplierController extends Controller
                             ->with('errors', $errors);
                     }
                 }
-                return redirect('supplier-controller/view-qr')
-                    ->with('success-message', 'Your Quotation has been submitted Successfully !');
             }
         }
         return view('supplier-controller.view-qr', [
@@ -210,6 +211,11 @@ class SupplierController extends Controller
         return redirect()
             ->to('/profile/')
             ->with('success-message', 'Your Info updated successfully!');
+    }
+    public function setSession(){
+        session(['key' => 'value']);
+        return redirect()
+            ->to('/supplier-controller/view-qr');
     }
 
 }

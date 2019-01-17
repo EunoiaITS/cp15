@@ -88,5 +88,6 @@ Route::get('/profile', 'SupplierController@viewProfile');
 Route::post('/profile/edit', 'SupplierController@editProfile');
 Route::get('/supplier-controller/view-qr/', 'SupplierController@viewQR');
 Route::post('/supplier-controller/submit-qr/', 'SupplierController@viewQR');
+Route::get('/session/', 'SupplierController@setSession');
 
 
