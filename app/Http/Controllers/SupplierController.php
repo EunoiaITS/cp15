@@ -138,8 +138,6 @@ class SupplierController extends Controller
                             $sup_quo->file = $name;
                             $sup_quo->save();
                         }
-                        return redirect('supplier-controller/view-qr')
-                            ->with('success-message', 'Your Quotation has been submitted Successfully !');
                     }else{
                         $errors[] = 'Quotation not Submitted. Please insert numeric values only (Eg: 5 or 7.5)';
                         return redirect()
@@ -147,6 +145,8 @@ class SupplierController extends Controller
                             ->with('errors', $errors);
                     }
                 }
+                return redirect('supplier-controller/view-qr')
+                    ->with('success-message', 'Your Quotation has been submitted Successfully !');
             }
         }
         return view('supplier-controller.view-qr', [
