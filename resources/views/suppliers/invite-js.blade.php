@@ -6,6 +6,23 @@
 <script>
     var cat = '';
     $(document).ready(function(){
+        $('.select-qr').on('change', function(e){
+            e.preventDefault();
+            var qrId = $(this).attr('rel');
+            if(this.checked){
+                $('#start-date-'+qrId).prop('disabled', false);
+                $('#end-date-'+qrId).prop('disabled', false);
+                $('#selected-suppliers'+qrId).prop('disabled', false);
+                $('#action-add-'+qrId).prop('disabled', false);
+                $('#action'+qrId).prop('disabled', false);
+            }else{
+                $('#start-date-'+qrId).prop('disabled', true);
+                $('#end-date-'+qrId).prop('disabled', true);
+                $('#selected-suppliers'+qrId).prop('disabled', true);
+                $('#action-add-'+qrId).prop('disabled', true);
+                $('#action'+qrId).prop('disabled', true);
+            }
+        });
         $('.selectfilter').selectpicker({});
         var suppliers = '';
         var sups = '';

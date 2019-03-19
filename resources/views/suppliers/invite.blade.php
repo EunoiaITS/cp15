@@ -32,14 +32,14 @@
                             @foreach($qrs as $qr)
                             <tr>
                                 <td>{{ $qr->pr_id }}</td>
-                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.date('d-m-Y',strtotime($qr->invite->start_date)).'" readonly' }}@endif></td>
-                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.date('d-m-Y',strtotime($qr->invite->end_date)).'" readonly' }}@endif></td>
-                                <td><label><input name="suppliers{{ $qr->id }}" type="checkbox" value="{{ $qr->id }}"></label></td>
+                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.date('d-m-Y',strtotime($qr->invite->start_date)).'" readonly' }}@endif id="start-date-{{ $qr->id }}" disabled></td>
+                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.date('d-m-Y',strtotime($qr->invite->end_date)).'" readonly' }}@endif id="end-date-{{ $qr->id }}" disabled></td>
+                                <td><label><input name="suppliers{{ $qr->id }}" type="checkbox" value="{{ $qr->id }}" class="select-qr" id="qr-{{ $qr->id }}" rel="{{ $qr->id }}"></label></td>
                                 <td><button rel="{{ $qr->id }}" type="button" class="btn btn-info btn-view-table open-popup select-suppliers">Supplier</button></td>
-                                <input type="hidden" id="selected-suppliers{{ $qr->id }}" name="selected-suppliers{{ $qr->id }}" value="">
-                                @if($qr->invite == null)<input type="hidden" id="action-add-{{ $qr->id }}" name="action_add_{{ $qr->id }}" value="">@endif
+                                <input type="hidden" id="selected-suppliers{{ $qr->id }}" name="selected-suppliers{{ $qr->id }}" value="" disabled>
+                                @if($qr->invite == null)<input type="hidden" id="action-add-{{ $qr->id }}" name="action_add_{{ $qr->id }}" value="" disabled>@endif
                             </tr>
-                            @if($qr->invite != null)<input type="hidden" name="action{{ $qr->id }}" value="edit">@endif
+                            @if($qr->invite != null)<input type="hidden" name="action{{ $qr->id }}" id="action{{ $qr->id }}" value="edit" disabled>@endif
                             <span id="sup{{ $qr->id }}" class="hidden">@if($qr->invite != null){{ $qr->invite->suppliers }}@endif</span>
                             @endforeach
                             </tbody>
