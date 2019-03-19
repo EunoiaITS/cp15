@@ -13,11 +13,13 @@
                 var item_name = $('#item-name'+i+id).text();
                 var item_no = $('#item-no'+i+id).text();
                 var quantity = $('#quantity'+i+id).text();
+                var item_file = $('#item-file'+i+id).text();
                 html_data += '<tr>'+
                 '<td>'+i+'</td>'+
                 '<td>'+item_name+'</td>'+
                 '<td>'+item_no+'</td>'+
                 '<td>'+quantity+'</td>'+
+                '<td><a href="'+item_file+'" target="_blank" download><button class="btn btn-primary btn-supplier input-upload"><i class="fa fa-download"></i></button></a></td>'+
                 '</tr>';
             }
             $('#add-item-table-view').html(html_data);

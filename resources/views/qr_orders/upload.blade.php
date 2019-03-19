@@ -7,16 +7,15 @@
                     <div class="col-sm-10 padding-left-0">
                         <div class="create-qr qr-overfollow">
                             <h3 class="text-uppercase color-bbc">Quotation Requisition Upload</h3>
-                            @if(session()->has('success-message'))
-                                <p class="alert alert-success">
-                                    {{ session()->get('success-message') }}
-                                </p>
-                            @endif
+                            @include('includes.messages')
                             <form action="{{url('/qr-orders/import-data')}}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
-                                <label>Upload File</label>
-                                <input type="file" name="file" required><br/>
-                                <input type="submit" value="upload">
+                                <div class="file btn btn-sm btn-primary">
+                                    <div class="upload-icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div><span>Upload excel</span>
+                                    <input type="file" class="input-upload" name="file" required><br/>
+                                    <input type="submit" value="upload">
+                                </div>
+                                <button class="btn btn-info btn-view-submit" type="submit" value="upload">Submit</button>
                             </form>
                         </div>
                     </div>

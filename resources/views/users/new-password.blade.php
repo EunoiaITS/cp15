@@ -41,7 +41,6 @@
                                     @endforeach
                                 @endif
                                 <form method="post" action="{{ url('/new-password/{token}') }}">
-                                <form method="post" action="{{ url('/new-password') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <input name="password" type="password" class="form-control" placeholder="New Password" required="required" value="">
@@ -52,7 +51,7 @@
                                     <input type="text" name="email" value="{{ $email }}" hidden>
                                     <div class="login-button clearfix">
                                         <button type="submit" class="btn btn-info btn-login">Submit</button>
-                                        <button type="button" class="btn btn-info btn-cancel">Cancel</button>
+                                        <button type="reset" class="btn btn-info btn-cancel">Reset</button>
                                     </div>
                                 </form>
                             </div>

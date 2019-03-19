@@ -31,6 +31,16 @@
     $(".close").on("click",function(){
         $(".popup-wrapper-view").fadeOut();
     });
+	
+  /*--===================
+  login and logout hover call
+  ==================================--*/
+  
+  $(".user-login").hover(function(){
+        $(".user-icon-dropdown").addClass("newhover");
+        }, function(){
+        $(".user-icon-dropdown").removeClass("newhover");
+    });
 
 
     /*===================
@@ -104,7 +114,7 @@
   =========================================*/
 
     $('.datepicker-f').datetimepicker({
-        format: "YYYY-MM-DD",
+        format: "DD-MM-YYYY",
         icons: {
         up: 'fa fa-angle-up',
         down: 'fa fa-angle-down',

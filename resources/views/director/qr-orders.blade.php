@@ -29,6 +29,7 @@
                                             <span id="item-name{{ $count.$qr->id }}" class="hidden">{{ $item->item_name }}</span>
                                             <span id="item-no{{ $count.$qr->id }}" class="hidden">{{ $item->item_no }}</span>
                                             <span id="quantity{{ $count.$qr->id }}" class="hidden">{{ $item->quantity }}</span>
+                                            <span id="item-file{{ $count.$qr->id }}" class="hidden">{{ $item->item_file }}</span>
                                         @endforeach
                                         <td><button rel="{{ $qr->id }}" id="view{{ $qr->id }}" class="btn btn-info btn-view-table open-popup view-details">View</button></td>
                                     </tr>
@@ -75,21 +76,10 @@
                                     <th>Items Name</th>
                                     <th>Item Code</th>
                                     <th>Quantity</th>
+                                    <th>File (BBC)</th>
                                 </tr>
                                 </thead>
                                 <tbody id="add-item-table-view">
-                                <tr>
-                                    <td>01</td>
-                                    <td>12345</td>
-                                    <td>abc</td>
-                                    <td>Xyz</td>
-                                </tr>
-                                <tr>
-                                    <td>02</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>

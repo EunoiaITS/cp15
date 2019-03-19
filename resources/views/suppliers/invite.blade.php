@@ -7,16 +7,7 @@
                 {{csrf_field()}}
             <div class="col-sm-11 col-sm-offset-1">
                 <h3 class="text-uppercase color-bbc">Invite Suppliers</h3>
-                @if(session()->has('error'))
-                    <p class="alert alert-danger">
-                        {{ session()->get('error') }}
-                    </p>
-                @endif
-                @if(session()->has('success-message'))
-                    <p class="alert alert-success">
-                        {{ session()->get('success-message') }}
-                    </p>
-                @endif
+                @include('includes.messages')
                 @if($errors->any())
                     @foreach($errors->all() as $error)
                         <p class="alert alert-danger">
@@ -41,8 +32,8 @@
                             @foreach($qrs as $qr)
                             <tr>
                                 <td>{{ $qr->pr_id }}</td>
-                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.$qr->invite->start_date.'" readonly' }}@endif></td>
-                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.$qr->invite->end_date.'" readonly' }}@endif></td>
+                                <td><input type="text" name="start_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.date('d-m-Y',strtotime($qr->invite->start_date)).'" readonly' }}@endif></td>
+                                <td><input type="text" name="end_date{{ $qr->id }}" class="form-control from-qr datepicker-f" @if($qr->invite != null){{ 'value="'.date('d-m-Y',strtotime($qr->invite->end_date)).'" readonly' }}@endif></td>
                                 <td><label><input name="suppliers{{ $qr->id }}" type="checkbox" value="{{ $qr->id }}"></label></td>
                                 <td><button rel="{{ $qr->id }}" type="button" class="btn btn-info btn-view-table open-popup select-suppliers">Supplier</button></td>
                                 <input type="hidden" id="selected-suppliers{{ $qr->id }}" name="selected-suppliers{{ $qr->id }}" value="">

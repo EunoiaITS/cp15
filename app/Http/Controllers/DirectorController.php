@@ -101,7 +101,7 @@ class DirectorController extends Controller
             }
         }
         $quots = Supplier_quotations::where('status','=','requested')
-            ->orWhere('status','=','rejected')->orderBy('unit_price','desc')->get();
+            ->orderBy('unit_price','desc')->get();
         $pr_ids = array();
         foreach($quots as $q){
             $item_details = Qr_items::where('id', $q->item_id)->get();
@@ -113,7 +113,9 @@ class DirectorController extends Controller
             }
         }
         $pr_ids = array_unique($pr_ids);
-        $allInvites = Qr_invitations::orderBy('start_date', 'desc')->paginate(20);
+        $allInvites = Qr_invitations::orderBy('start_date', 'desc')
+            ->orderBy('end_date','desc')
+            ->paginate(20);
         foreach($allInvites as $invite){
             $qr_det = Quotation_requisition::find($invite->qr_id);
             if(in_array($qr_det->pr_id, $pr_ids)){
@@ -121,7 +123,7 @@ class DirectorController extends Controller
                 $invite->qr_details = $qr_det;
                 $qr_items = Qr_items::Where('qr_id', $qr_det->id)->get();
                 foreach ($qr_items as $item){
-                    $sup_quo = Supplier_quotations::whereRaw('item_id ='.$item->id.' AND (status = "requested" OR status = "rejected")')
+                    $sup_quo = Supplier_quotations::whereRaw('item_id ='.$item->id.' AND (status = "requested")')
                         ->orderBy('unit_price', 'desc')->get();
                     if($sup_quo->first()) {
                         $item->ex = 'yes';
@@ -136,6 +138,7 @@ class DirectorController extends Controller
             }
         }
         if($request->isMethod('post')){
+            //dd($request->all());
             $req_keys = 0;
             foreach ($request->all() as $k => $v){
                 if(strpos($k,'ate') != false){
@@ -164,6 +167,12 @@ class DirectorController extends Controller
                 if($request->get('state'.$edit->id) != null){
                     if(Supplier_quotations::where('status','=','approved')
                         ->where('item_id',$quot_edit->item_id)->exists()){
+                        $sup_q = Supplier_quotations::Where('item_id',$quot_edit->item_id)
+                            ->Where('status','requested')->get();
+                        foreach ($sup_q as $s){
+                            $s->status = 'rejected';
+                            $s->save();
+                        }
                         return redirect()
                             ->to('/approve-quotations')
                             ->with('error-message',' Quotation Already Approved !');
@@ -188,13 +197,14 @@ class DirectorController extends Controller
                             }
                         }
                     }
+                    $quot_edit->dir_comment = $request->get('dir_comment'.$edit->id);
                     $quot_edit->status = 'approved';
                     $quot_edit->show_price = 'manager';
                     $quot_edit->show_price_e = 'executive';
                     $quot_edit->save();
-                    $latest_id = $quot_edit->item_id;
-                    $sup_q = Supplier_quotations::Where('item_id','=',$latest_id)
-                        ->Where('status','=','requested')->get();
+                    $last_id = $quot_edit->item_id;
+                    $sup_q = Supplier_quotations::Where('item_id',$last_id)
+                        ->Where('status','requested')->get();
                     foreach ($sup_q as $s){
                         $s->status = 'rejected';
                         $s->save();
@@ -325,14 +335,15 @@ class DirectorController extends Controller
             }
         }
         $page_no = 1;
-        $amount = 10;
+        $amount = 30;
         $start = 1;
         $logs = new \stdClass();
-        $invites = Qr_invitations::all();
+        $invites = Qr_invitations::orderBy('created_at','desc')->get();
         $delim = 0;
         foreach($invites as $invite){
             $pr_id = Quotation_requisition::where('id', $invite->qr_id)->first();
             $invite->pr_id = $pr_id->pr_id;
+            $invite->created_by = $pr_id->created_by;
             $suppliers = explode(',', $invite->suppliers);
             foreach($suppliers as $s){
                 $supplier = User::find($s);
@@ -351,18 +362,32 @@ class DirectorController extends Controller
         if($total_logs < $amount){
             $amount = $total_logs;
         }
-        if($request->page != null && $page_no != 1){
+        $total_page = $total_logs / $amount;
+        if(is_float($total_page)){
+            $total_page = (int) $total_page;
+            $total_page = $total_page +1;
+        }
+        if($request->page > $total_page){
+            return redirect()
+                ->to('/system-log')
+                ->with('error-message','The page doesn\'t exist !');
+        }
+        if($request->page != null && $request->page != 1){
             $page_no = $request->page;
-            $start = ($page_no * $amount) - 1;
+            $start = ($page_no * $amount) - 29;
         }
         for($i = $start; $i < ($start + $amount); $i++){
-            $logsPerPage->$i = $logs->$i;
+            if(isset($logs->$i)){
+                $logsPerPage->$i = $logs->$i;
+            }
         }
         return view('director.logs', [
             'current' => $page_no,
-            'page' => (($total_logs != 0) ? $total_logs/$amount : 0),
+            'page' => $total_page,
             'logs' => $logsPerPage,
-            'log_page' => 'log'
+            'log_page' => 'log',
+            'total_page' => $total_page,
+            'start'=> $start
         ]);
     }
 

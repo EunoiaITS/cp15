@@ -6,16 +6,7 @@
             <div class="row">
                 <div class="col-sm-11 col-sm-offset-1">
                     <h3 class="text-uppercase color-bbc">View QR Order List</h3>
-                    @if(session()->has('success-message'))
-                        <p class="alert alert-success">
-                            {{ session()->get('success-message') }}
-                        </p>
-                    @endif
-                    @if(session()->has('error-message'))
-                        <p class="alert alert-danger">
-                            {{ session()->get('error-message') }}
-                        </p>
-                    @endif
+                    @include('includes.messages')
                     <div class="col-sm-10 padding-left-0">
                         <div class="table table-responsive">
                             <table class="table">
@@ -161,17 +152,11 @@
                                         <th>Items Name</th>
                                         <th>Items Code</th>
                                         <th>Quantity</th>
+                                        <th>File (BBC)</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody id="add-item-table-edit">
-                                    <tr>
-                                        <td>1</td>
-                                        <td><input type="text" class="form-control from-qr" id="pr-item-name-edit" name="prItem"></td>
-                                        <td><input type="text" class="form-control from-qr" id="pr-item-code-edit" name="prItemcode"></td>
-                                        <td><input type="text" class="form-control from-qr" id="pr-quantity-edit" name="prQuantity"></td>
-                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-times"></i></button></td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

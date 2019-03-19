@@ -47,16 +47,13 @@ Route::post('/qr-orders/add-qr-order', 'AEMController@addQROrder');
 Route::post('/qr-orders/edit', 'AEMController@editQROrder');
 Route::post('/qr-orders/delete', 'AEMController@deleteQROrder');
 Route::post('/qr-orders/delete-item', 'AEMController@deleteQRItem');
-
 Route::get('/qr-orders/view', 'AEMController@viewQROrder');
 
 Route::get('suppliers/add-supplier', 'AEMController@addSupplier');
 Route::post('suppliers/add-supplier', 'AEMController@addSupplier');
-
 Route::get('suppliers/view-supplier', 'AEMController@viewSupplier');
 Route::post('suppliers/edit-supplier', 'AEMController@editSupplier');
 Route::post('suppliers/delete-supplier', 'AEMController@deleteSupplier');
-
 Route::post('suppliers/invite-suppliers', 'AEMController@inviteSuppliers');
 Route::get('suppliers/invite-suppliers', 'AEMController@inviteSuppliers');
 Route::get('suppliers/invite', 'AEMController@inviteSuppliers');
@@ -69,7 +66,6 @@ Route::get('/tender-summery', 'AEMController@tenderSummery');
 Route::get('/view-supplier-quotation', 'AEMController@supplierQuotations');
 
 Route::get('/qr-orders/upload-qr-order', 'AEMController@uploadQRFile');
-//Route::get('/qr-orders/upload-qr-order/test', 'AEMController@testFile');
 Route::get('/qr-orders/import-data', 'AEMController@uploadQRFile');
 Route::post('/qr-orders/import-data', 'AEMController@importQRData');
 
@@ -93,5 +89,6 @@ Route::get('/profile', 'SupplierController@viewProfile');
 Route::post('/profile/edit', 'SupplierController@editProfile');
 Route::get('/supplier-controller/view-qr/', 'SupplierController@viewQR');
 Route::post('/supplier-controller/submit-qr/', 'SupplierController@viewQR');
+Route::get('/session/', 'SupplierController@setSession');
 
 

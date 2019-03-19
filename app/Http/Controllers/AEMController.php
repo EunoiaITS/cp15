@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 use DateTime;
+use Illuminate\Support\Facades\Storage;
 
 class AEMController extends Controller
 {
@@ -99,8 +100,7 @@ class AEMController extends Controller
         return view('suppliers.add', [
             'page' => 'supplier',
             'section' => 'add',
-            'cat'=> $cat,
-            'footer_js' => 'suppliers.add-js'
+            'cat'=> $cat
         ]);
     }
 
@@ -247,10 +247,6 @@ class AEMController extends Controller
             }
         }
         $categories = Suppliers_category::all();
-//        $cat = null;
-//        foreach ($categories as $ca){
-//            $cat .= '{label:"'.$ca->category.'"},';
-//        }
         if($request->isMethod('post')) {
             $qr = new Quotation_requisition();
             if ($qr->validate($request->all())) {
@@ -271,6 +267,7 @@ class AEMController extends Controller
                 $qr->pr_type = $request->pr_type;
                 $qr->category = $request->category;
                 $qr->status = 'requested';
+                $qr->created_by = Auth::user()->name;;
                 $qr->save();
                 $qr_item_id = $qr->id;
                 for($i = 1; $i <= $request->count; $i++){
@@ -289,6 +286,14 @@ class AEMController extends Controller
                         $qr_item->item_no = $request->get('item_no' . $i);
                         $qr_item->quantity  = $request->get('quantity' .$i);
                         $qr_item->save();
+                        if($request->hasFile('item_file'.$i)) {
+                            $image = $request->file('item_file'.$i);
+                            $name = str_slug($request->get('item_no' . $i)).'.'.$image->getClientOriginalExtension();
+                            $destinationPath = public_path('/uploads/items');
+                            $image->move($destinationPath, $name);
+                            $qr_item->item_file = $name;
+                            $qr_item->save();
+                        }
                     }
                 }
                 return redirect()
@@ -324,10 +329,6 @@ class AEMController extends Controller
             }
         }
         $categories = Suppliers_category::all();
-//        $cat = null;
-//        foreach ($categories as $ca){
-//            $cat .= '{label:"'.$ca->category.'"},';
-//        }
         $qrs = Quotation_requisition::latest()->paginate(20);
         foreach($qrs as $qr){
             $items = Qr_items::where('qr_id', $qr->id)->get();
@@ -369,6 +370,14 @@ class AEMController extends Controller
                 $qr_item->item_no = $request->get('item_no'.$i);
                 $qr_item->quantity = $request->get('quantity'.$i);
                 $qr_item->save();
+                if($request->hasFile('item_file'.$i)) {
+                    $image = $request->file('item_file'.$i);
+                    $name = str_slug($request->get('item_no' . $i)).'.'.$image->getClientOriginalExtension();
+                    $destinationPath = public_path('/uploads/items');
+                    $image->move($destinationPath, $name);
+                    $qr_item->item_file = $name;
+                    $qr_item->save();
+                }
             }
             for($i = 1; $i <= $request->addCount; $i++){
                 if($request->get('add_item_name' . $i) != null && $request->get('add_item_no' . $i) != null && $request->get('add_quantity' .$i) != null){
@@ -582,7 +591,7 @@ class AEMController extends Controller
             }
         }
         $qrs = Quotation_requisition::all();
-        $suppliers = User::where('role', 'suppliers')->get();
+        $suppliers = User::where('role', 'suppliers')->orderBy('name','asc')->get();
         foreach ($suppliers as $sup){
             $sup_details = Create_suppliers::where('user_id',$sup->id)->get();
             $sup->details = $sup_details;
@@ -621,8 +630,8 @@ class AEMController extends Controller
                         $invites['suppliers'] = $request->get('selected-suppliers'.$qr->id);
                         if($invitee->validate($invites)){
                             $invitee->qr_id = $qr->id;
-                            $invitee->start_date = $request->get('start_date'.$qr->id);
-                            $invitee->end_date = $request->get('end_date'.$qr->id);
+                            $invitee->start_date = date('Y-m-d H:i:s', strtotime($request->get('start_date'.$qr->id)));
+                            $invitee->end_date = date('Y-m-d H:i:s', strtotime($request->get('end_date'.$qr->id)));
                             $invitee->suppliers = rtrim($request->get('selected-suppliers'.$qr->id), ',');
                             $invitee->save();
                             $qr->status = 'invited';

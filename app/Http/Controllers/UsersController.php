@@ -89,8 +89,9 @@ class UsersController extends Controller
         return view('users.login');
     }
 
-    public function logout(){
+    public function logout(Request $request){
         if(Auth::logout());
+        $request->session()->flush();
         return redirect('/login');
     }
 

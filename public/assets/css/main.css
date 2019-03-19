@@ -57,22 +57,23 @@ a:hover, a:focus{
 .clearfix{
     overflow: hidden;
     clear: both;
+    -webkit-overflow-scrolling: touch;
 }
 
 .float-pagination{
-  float: none;
-  display: table;
-  margin:40px auto 0px;
+    float: none;
+    display: table;
+    margin:40px auto 0px;
 }
 
 .float-right{
-  float: right;
-  display: block;
-  margin-top: 40px;
+    float: right;
+    display: block;
+    margin-top: 40px;
 }
 .pagination > li > a, .pagination > li > span{
-  color: #029ff9;
-  transition: all .2s ease-in;
+    color: #029ff9;
+    transition: all .2s ease-in;
 }
 .pagination > li > a:hover,
 .pagination > li > span:hover,
@@ -110,10 +111,10 @@ button:focus{
     padding-left: 0px;
 }
 .color-bbc{
-  color: #0716cc;
-  font-size: 25px;
-  display: block;
-  margin-bottom: 25px;
+    color: #0716cc;
+    font-size: 25px;
+    display: block;
+    margin-bottom: 25px;
 }
 body{
     font-family: 'Open Sans', sans-serif;
@@ -121,6 +122,7 @@ body{
     color: #6d6d6d;
     line-height: 27px;
     overflow-x:hidden !important;
+    -webkit-overflow-scrolling: touch;
 }
 /*--
 login form css
@@ -219,8 +221,8 @@ login form css
 main navbar and sidebar css
 =======================--*/
 .navbar-default {
-  background-color: #f2f2f2;
-  margin-left: 290px;
+    background-color: #f2f2f2;
+    margin-left: 290px;
 }
 .header-logo h3{
     font-size: 22px;
@@ -230,23 +232,25 @@ main navbar and sidebar css
 
 /*main side bar*/
 .msb {
-  width: 290px;
-  background-color: #F5F7F9;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: auto;
-  min-height: 100%;
-  overflow-y: auto;
-  white-space: nowrap;
-  height: 100%;
-  z-index: 1;
-  border-right: 1px solid #ddd;
+    width: 290px;
+    background-color: #F5F7F9;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    white-space: nowrap;
+    height: 100%;
+    z-index: 1;
+    border-right: 1px solid #ddd;
+    -webkit-overflow-scrolling: touch;
 }
 .msb .brand-name-wrapper{
     clear: both;
     overflow: hidden;
     background: #0716cc;
+    -webkit-overflow-scrolling: touch;
 }
 .msb .navbar-brand {
     float: left;
@@ -268,19 +272,19 @@ main navbar and sidebar css
     font-weight: 600;
 }
 .msb .navbar {
-  border: none;
-  margin-left: 0;
-  background-color: inherit;
+    border: none;
+    margin-left: 0;
+    background-color: inherit;
 }
 .msb .navbar-header {
-  width: 100%;
-  background: #fff;
+    width: 100%;
+    background: #fff;
 }
 .msb .navbar-nav .panel {
-  border: 0 none;
-  box-shadow: none;
-  margin: 0;
-  background: inherit;
+    border: 0 none;
+    box-shadow: none;
+    margin: 0;
+    background: inherit;
 }
 .msb .sidebar-user{
     background: #182758;
@@ -298,7 +302,8 @@ main navbar and sidebar css
     clear: both;
     width: 100%;
     overflow: hidden;
-}  
+    -webkit-overflow-scrolling: touch;
+}
 .msb .sidebar-user span{
     font-size: 14px;
     display: block;
@@ -318,10 +323,10 @@ main navbar and sidebar css
     -moz-transition: all .2s ease-in;
 }
 .mnb .user-login:hover{
-  color: #fff;
-  border-color: #0e142e;
-  background: #0e142e;
-  box-shadow: 1px 1px 10px rgba(0,0,0,.2);
+    color: #fff;
+    border-color: #0e142e;
+    background: #0e142e;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.2);
 }
 .mnb .user-login i{
     text-align: center;
@@ -356,16 +361,16 @@ main navbar and sidebar css
     height: 25px;
     transform: rotate(45deg);
 }
-.mnb .user-login:hover .user-icon-dropdown{
-  opacity: 1;
-  visibility: visible;
-  top: 40px;
+.user-icon-dropdown.newhover{
+    opacity: 1;
+    visibility: visible;
+    top: 40px;
 }
 
 .user-icon-dropdown ul{
-  list-style: none;
-  margin:0;
-  padding: 0;
+    list-style: none;
+    margin:0;
+    padding: 0;
 }
 .user-icon-dropdown ul li a {
     color: #fff;
@@ -390,8 +395,8 @@ main navbar and sidebar css
 }
 
 .msb .navbar-nav li {
-  display: block;
-  width: 100%;
+    display: block;
+    width: 100%;
 }
 .msb .navbar-nav li a {
     padding: 12px 15px;
@@ -426,7 +431,7 @@ main navbar and sidebar css
     font-weight: normal;
 }
 #msbo{
- position: relative;   
+    position: relative;
 }
 #msbo:before{
     content: "\f0c9";
@@ -439,7 +444,7 @@ main navbar and sidebar css
     position: absolute;
     top: 0px;
     left: 16px;
-    transition: all .3s ease-in; 
+    transition: all .3s ease-in;
 }
 .msbo-click#msbo:before{
     content:"\f00d";
@@ -463,67 +468,68 @@ main navbar and sidebar css
     display: block;
 }
 .msb .navbar-nav li a .glyphicon, .msb .navbar-nav li a .fa {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 .msb .nb {
-  padding-top: 5px;
-  padding-left: 10px;
-  margin-bottom: 30px;
-  overflow: hidden;
+    padding-top: 5px;
+    padding-left: 10px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 /*sb: sidebar*/
 /*nv: nav*/
 ul.nv,
 ul.ns {
-  position: relative;
-  padding: 0;
-  list-style: none;
+    position: relative;
+    padding: 0;
+    list-style: none;
 }
 
 .nv {
-  /*ns: nav-sub*/
+    /*ns: nav-sub*/
 }
 .nv li {
-  display: block;
-  position: relative;
+    display: block;
+    position: relative;
 }
 .nv li::before {
-  clear: both;
-  content: "";
-  display: table;
+    clear: both;
+    content: "";
+    display: table;
 }
 .nv li a {
-  color: #444;
-  padding: 10px 25px;
-  display: block;
-  vertical-align: middle;
+    color: #444;
+    padding: 10px 25px;
+    display: block;
+    vertical-align: middle;
 }
 .nv li a .ic {
-  font-size: 16px;
-  margin-right: 5px;
-  font-weight: 300;
-  display: inline-block;
+    font-size: 16px;
+    margin-right: 5px;
+    font-weight: 300;
+    display: inline-block;
 }
 .nv .ns li a {
-  padding: 10px 50px;
+    padding: 10px 50px;
 }
 
 /*main content wrapper*/
 .mcw {
-  margin-left: 290px;
-  position: relative;
-  min-height: 100%;
-  /*content view*/
+    margin-left: 290px;
+    position: relative;
+    min-height: 100%;
+    /*content view*/
 }
 
 .msb, .mnb {
-  -moz-animation: slideout 300ms forwards;
-  -o-animation: slideout 300ms forwards;
-  -webkit-animation: slideout 300ms forwards;
-  animation: slideout 300ms forwards;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+    -moz-animation: slideout 300ms forwards;
+    -o-animation: slideout 300ms forwards;
+    -webkit-animation: slideout 300ms forwards;
+    animation: slideout 300ms forwards;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 .msb{
     background: #0e152d;
@@ -531,128 +537,128 @@ ul.ns {
 }
 
 .mcw {
-  margin-left: 0;
-  -moz-animation: bodyslideout 300ms forwards;
-  -o-animation: bodyslideout 300ms forwards;
-  -webkit-animation: bodyslideout 300ms forwards;
-  animation: bodyslideout 300ms forwards;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+    margin-left: 0;
+    -moz-animation: bodyslideout 300ms forwards;
+    -o-animation: bodyslideout 300ms forwards;
+    -webkit-animation: bodyslideout 300ms forwards;
+    animation: bodyslideout 300ms forwards;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
 body.msb-x .mcw, body.msb-x .mnb {
-  -moz-animation: bodyslidein 300ms forwards;
-  -o-animation: bodyslidein 300ms forwards;
-  -webkit-animation: bodyslidein 300ms forwards;
-  animation: bodyslidein 300ms forwards;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+    -moz-animation: bodyslidein 300ms forwards;
+    -o-animation: bodyslidein 300ms forwards;
+    -webkit-animation: bodyslidein 300ms forwards;
+    animation: bodyslidein 300ms forwards;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 body.msb-x .msb {
-  -moz-animation: slidein 300ms forwards;
-  -o-animation: slidein 300ms forwards;
-  -webkit-animation: slidein 300ms forwards;
-  animation: slidein 300ms forwards;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+    -moz-animation: slidein 300ms forwards;
+    -o-animation: slidein 300ms forwards;
+    -webkit-animation: slidein 300ms forwards;
+    animation: slidein 300ms forwards;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
 /* Slide in animation */
 @-moz-keyframes slidein {
-  0% {
-    left: -290px;
-  }
-  100% {
-    left: 0;
-  }
+    0% {
+        left: -290px;
+    }
+    100% {
+        left: 0;
+    }
 }
 @-webkit-keyframes slidein {
-  0% {
-    left: -290px;
-  }
-  100% {
-    left: 0;
-  }
+    0% {
+        left: -290px;
+    }
+    100% {
+        left: 0;
+    }
 }
 @keyframes slidein {
-  0% {
-    left: -290px;
-  }
-  100% {
-    left: 0;
-  }
+    0% {
+        left: -290px;
+    }
+    100% {
+        left: 0;
+    }
 }
 @-moz-keyframes slideout {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -290px;
-  }
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -290px;
+    }
 }
 @-webkit-keyframes slideout {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -290px;
-  }
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -290px;
+    }
 }
 @keyframes slideout {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -290px;
-  }
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -290px;
+    }
 }
 @-moz-keyframes bodyslidein {
-  0% {
-    left: 0;
-  }
-  100% {
-    margin-left: 290px;
-  }
+    0% {
+        left: 0;
+    }
+    100% {
+        margin-left: 290px;
+    }
 }
 @-webkit-keyframes bodyslidein {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: 0;
-  }
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 0;
+    }
 }
 @keyframes bodyslidein {
-  0% {
-    margin-left: 0;
-  }
-  100% {
-    margin-left: 290px;
-  }
+    0% {
+        margin-left: 0;
+    }
+    100% {
+        margin-left: 290px;
+    }
 }
 @-moz-keyframes bodyslideout {
-  0% {
-    margin-left: 290px;
-  }
-  100% {
-    margin-right: 0;
-  }
+    0% {
+        margin-left: 290px;
+    }
+    100% {
+        margin-right: 0;
+    }
 }
 @-webkit-keyframes bodyslideout {
-  0% {
-    margin-left: 290px;
-  }
-  100% {
-    margin-left: 0;
-  }
+    0% {
+        margin-left: 290px;
+    }
+    100% {
+        margin-left: 0;
+    }
 }
 @keyframes bodyslideout {
-  0% {
-    margin-left: 290px;
-  }
-  100% {
-    margin-left: 0;
-  }
+    0% {
+        margin-left: 290px;
+    }
+    100% {
+        margin-left: 0;
+    }
 }
 
 
@@ -664,12 +670,20 @@ content area
     display: block;
 }
 .upload-button {
-    width: 30%;
+    width: 45%;
     background: #f2f2f2;
     border-radius: 8px;
     box-shadow: 0px 1px 5px rgba(0,0,0,.2);
     margin-bottom: 50px;
     padding: 30px 20px;
+}
+.btn.btn-view-submit {
+    width: 100px;
+    height: 45px;
+    font-size: 14px;
+    margin-left: 24px;
+    line-height: 20px;
+    margin-top: 1px;
 }
 .upload-button h3{
     font-size: 18px;
@@ -688,17 +702,20 @@ content area
     text-align: center;
     position: relative;
     overflow: hidden;
+    float:left;
+    -webkit-overflow-scrolling: touch;
 }
 .file.btn.btn-sm.btn-primary span {
     padding: 8px 0px;
     display: block;
 }
 input.input-upload{
-  position: absolute;
-  font-size: 50px;
-  opacity: 0;
-  right: 0;
-  top: 0;
+    position: absolute;
+    font-size: 50px;
+    opacity: 0;
+    right: 0;
+    top: 0;
+    cursor: pointer;
 }
 .upload-icon{
     width: 42px;
@@ -724,16 +741,16 @@ input.input-upload{
     margin-bottom: 8px;
 }
 .table > thead > tr > th,
-.table > tbody > tr > th, 
+.table > tbody > tr > th,
 .table > tfoot > tr > th,
 .table > thead > tr > td,
-.table > tbody > tr > td, 
+.table > tbody > tr > td,
 .table > tfoot > tr > td {
     padding: 16px 15px;
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 1px solid #ddd;
-    font-size: 15px;
+    font-size: 14px;
     color: #3e3e67;
     text-align: center;
 }
@@ -788,7 +805,7 @@ dashboard
     color: #fff;
 }
 .btn.btn-info.btn-left.odd{
-  margin-right: 30px;  
+    margin-right: 30px;
 }
 .btn.btn-view-table{
     width: 80px;
@@ -815,9 +832,9 @@ dashboard
     border:2px solid #1031a5 !important;
 }
 .btn-button-group{
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*--=======================
@@ -858,10 +875,11 @@ Search popup
     height: 100%;
     left: 0;
     max-height: 100%;
-    overflow: auto;
+    overflow: scroll;
     position: absolute;
     top: 50%;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -885,11 +903,11 @@ Search popup
 }
 .close:hover,
 .close-comp:hover{
-  color: #0716cc;
-  border:1px solid #0716cc;
+    color: #0716cc;
+    border:1px solid #0716cc;
 }
 .popup-prid-comparison .search-popup {
-  width: 80% !important;
+    width: 80% !important;
 }
 .search-popup {
     background: #fff;
@@ -903,7 +921,7 @@ Search popup
     border-radius: 8px;
 }
 .popup-tender-summary .search-popup{
-  width:80% !important;
+    width:80% !important;
 }
 .popup-rateme-main{
     background: #fff;
@@ -975,25 +993,25 @@ Search popup
     transition: all .3s ease-in;
 }
 .btn-popup:hover{
-  color: #fff !important;
-  background:#0716cc !important;
-  text-shadow: none !important;
+    color: #fff !important;
+    background:#0716cc !important;
+    text-shadow: none !important;
 }
 .search-destination h4{
     color: #191919;
 }
 .search-destination h4 span{
-  color: #0716cc;
+    color: #0716cc;
 }
 
 /*--===========
 edit model bootstrap
 =============================--*/
 .bs-example-modal-sm{
-  z-index: 10000;
+    z-index: 10000;
 }
 .popup-model-qr{
-  z-index: 99;
+    z-index: 99;
 }
 .close-edit-button{
     color: #0716cc;
@@ -1012,7 +1030,7 @@ edit model bootstrap
     font-size: 15px;
 }
 .close-edit-button:hover{
-  background: transparent;
+    background: transparent;
 }
 .modal-header {
     min-height: 16.42857143px;
@@ -1036,12 +1054,12 @@ edit model bootstrap
     padding: 5px 0px;
 }
 .btn-group-sm-list{
-  display: table;
-  margin-left: auto;
-  margin-right:auto;
+    display: table;
+    margin-left: auto;
+    margin-right:auto;
 }
 .btn-group-sm-list .btn{
-  margin-top: 0px !important;
+    margin-top: 0px !important;
 }
 .btn-primary {
     color: #fff;
@@ -1079,7 +1097,7 @@ create qr
     margin-left: 15px;
 }
 .fright{
-  float: right;
+    float: right;
 }
 .form-control.from-qr{
     width: 50%;
@@ -1095,7 +1113,7 @@ create qr
 /*-- create category page --*/
 
 .category-create-item{
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 .from-qr-create{
     width: 35%;
@@ -1114,7 +1132,7 @@ create qr
     line-height: 24px;
 }
 .float-inherit{
-  float: none !important;
+    float: none !important;
 }
 
 
@@ -1134,17 +1152,18 @@ create qr
 }
 
 .qr-overfollow{
-  overflow: hidden;
-  margin-bottom: 30px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    -webkit-overflow-scrolling: touch;
 }
 #add-item-table{
-  margin-top: 30px;
+    margin-top: 30px;
 }
 .create-qr .btn-button-group {
     margin: 36px auto;
 }
 .popup-left{
-  margin-right: 10px;
+    margin-right: 10px;
 }
 #canvas-holder {
     width: 48%;
@@ -1155,9 +1174,10 @@ create qr
 }
 
 .popup-pie{
-  overflow-y: scroll;
-  height: 420px;
-  display: block;
+    overflow-y: scroll;
+    height: 420px;
+    display: block;
+    -webkit-overflow-scrolling: touch;
 }
 .table .form-control.from-qr {
     width: 110px;
@@ -1176,18 +1196,18 @@ supplier
     font-size: 14px;
 }
 .form-control.from-qr.from-btn-supplier {
-  width: 100px;
-  height: 36px;
+    width: 75px;
+    height: 36px;
 }
 .form-control.from-qr.from-supplier {
-  width: 180px;
-  height: 36px;
+    width: 110px;
+    height: 36px;
 }
 .profile-btn .label-d {
     width: 24%;
 }
 .profile-btn .form-control.from-qr {
-  width: 64%;
+    width: 64%;
 }
 .create-qr .btn-button-group.btn-group-profile {
     margin: 18px 0px;
@@ -1221,9 +1241,14 @@ supplier
     font-size: 14px;
 }
 .btn-price.close.approve{
-  position: inherit;
-  border-radius: 4px;
+    position: inherit;
+    border-radius: 4px;
 }
+
+.place-quatation-submit .btn-view-table{
+    margin: 20px 15px 0px 0px;
+}
+
 /*-- bootstrap select css --*/
 .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
     width: 170px;
@@ -1232,7 +1257,7 @@ supplier
 .simple-qr-invite .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
     width: 170px;
     margin: 5px 0px;
-} 
+}
 .bootstrap-select > .dropdown-toggle {
     padding-right: 25px;
     color:#ffffff !important;
@@ -1248,7 +1273,7 @@ supplier
     color: #029ff9;
 }
 button:focus, button:active{
-  border:0px solid transparent;
+    border:0px solid transparent;
 
 }
 .live-search .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
@@ -1286,14 +1311,14 @@ Responsive area
 }
 
 @media (min-width: 992px){
-  .canvas-holder-2{
-      border-bottom: 1px solid #e6e4e4;
-      border-right: 1px solid #e6e4e4;
-  }
-  .canvas-holder-1{
-      border-top: 1px solid #e6e4e4;
-      border-left: 1px solid #e6e4e4;
-  }
+    .canvas-holder-2{
+        border-bottom: 1px solid #e6e4e4;
+        border-right: 1px solid #e6e4e4;
+    }
+    .canvas-holder-1{
+        border-top: 1px solid #e6e4e4;
+        border-left: 1px solid #e6e4e4;
+    }
 }
 
 @media(max-width: 992px){
@@ -1301,21 +1326,21 @@ Responsive area
         margin: 110px 0px;
     }
     .upload-button {
-        width: 40%;
+        width: 70%;
     }
     .submenu-das {
         padding: 20px 30px 50px;
     }
     .search-popup {
-      background: #fff;
-      width: 90%;
+        background: #fff;
+        width: 90%;
     }
     .create-qr .btn.btn-info.add-item-qe,
     .btn-price.btn-popup-add{
-      right: 13px;
-      width: 86px;
-      font-size: 14px;
-   }
+        right: 13px;
+        width: 86px;
+        font-size: 14px;
+    }
     #canvas-holder {
         width: 60%;
         display: block;
@@ -1338,7 +1363,7 @@ Responsive area
         font-size: 30px;
     }
     .navbar-brand h3 {
-      font-size: 15px;
+        font-size: 15px;
     }
     .logo-area {
         margin-bottom: 70px;
@@ -1350,14 +1375,14 @@ Responsive area
         margin: 40px 20px 30px 14px;
     }
     .btn.btn-info {
-      width: 115px;
-      margin-bottom: 10px;
+        width: 115px;
+        margin-bottom: 10px;
     }
     .sign-in-form p {
         width: 90%;
     }
     .upload-button {
-        width: 80%;
+        width:100%;
     }
     .mnb .navbar-header{
         float: left;
@@ -1368,7 +1393,7 @@ Responsive area
         margin: 18px 0px;
     }
     .mnb .user-login {
-      right: 10px;
+        right: 10px;
     }
     .msb {
         width: 250px;
@@ -1385,37 +1410,37 @@ Responsive area
         font-size: 13px;
     }
     .btn-info.btn-price{
-      width: 154px;
+        width: 154px;
     }
     .btn-button-group {
-      display: table;
-      margin-left: auto;
-      margin-right: auto;
-      width: 40%;
-      margin-bottom: 30px;
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-bottom: 30px;
     }
     .btn-button-group-opitonal{
         margin-top: 70px !important;
     }
     .create-qr {
-      padding: 20px 25px;
+        padding: 20px 25px;
     }
     .label-d {
-      width: 40%;
+        width: 40%;
     }
     .form-control.from-qr {
-      width: 51%;
-      margin-left: 16px;
+        width: 51%;
+        margin-left: 16px;
     }
-    
+
     .create-qr .btn.btn-info.add-item-qe{
-      right: 6px;
-      bottom: 34%;
+        right: 6px;
+        bottom: 34%;
     }
     .btn-price.btn-popup-add {
-      right: 6px;
-      bottom: 33%;
-      width: 94px;
+        right: 6px;
+        bottom: 33%;
+        width: 94px;
     }
     .create-qr .btn-button-group {
         margin: 65px auto;
@@ -1423,14 +1448,14 @@ Responsive area
     .open-popup-comp{
         margin-bottom: 30px;
     }
-     #canvas-holder {
+    #canvas-holder {
         width: 100%;
         display: block;
         float: none;
         margin: 25px auto;
     }
     #msbo{
-      margin-left: 35px;
+        margin-left: 35px;
     }
 }
 
@@ -1444,14 +1469,14 @@ Responsive area
     }
     .create-qr .btn.btn-info.add-item-qe,
     .btn-price.btn-popup-add{
-      right: 39px;
-      bottom: 29%;
+        right: 39px;
+        bottom: 29%;
     }
     #canvas-holder {
-      width: 70%;
-      display: block;
-      float: none;
-      margin: 25px auto;
+        width: 70%;
+        display: block;
+        float: none;
+        margin: 25px auto;
     }
 }
 
@@ -1473,6 +1498,7 @@ Responsive area
     border: 0;
     clip: rect(0 0 0 0);
     -webkit-clip-path: inset(50%);
+    -webkit-overflow-scrolling: touch;
     clip-path: inset(50%);
     height: 1px;
     margin: -1px;
@@ -1516,14 +1542,14 @@ Responsive area
    ========================================================================== */
 
 @media only screen and (min-width: 35em) {
-    
+
 }
 
 @media print,
-       (-webkit-min-device-pixel-ratio: 1.25),
-       (min-resolution: 1.25dppx),
-       (min-resolution: 120dpi) {
-    
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 1.25dppx),
+(min-resolution: 120dpi) {
+
 }
 
 /* ==========================================================================

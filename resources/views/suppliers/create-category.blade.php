@@ -13,16 +13,7 @@
                             </p>
                         @endforeach
                     @endif
-                    @if(session()->has('success-message'))
-                        <p class="alert alert-success">
-                            {{ session()->get('success-message') }}
-                        </p>
-                    @endif
-                    @if(session()->has('error-message'))
-                        <p class="alert alert-danger">
-                            {{ session()->get('error-message') }}
-                        </p>
-                    @endif
+                        @include('includes.messages')
                 </div>
                 <form action="{{ url('suppliers/create-category/add') }}" method="post">
                     {{ csrf_field() }}

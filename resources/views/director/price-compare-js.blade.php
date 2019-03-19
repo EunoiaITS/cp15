@@ -46,9 +46,9 @@
         var html_chart = '';
         for(var i = 0; i < uniqueNames.length; i++){
             html_chart += '<div id="canvas-holder">'+
-            '<p class="text-center">'+uniqueNames[i]+'</p>'+
-            '<canvas id="chart-area'+i+'"/>'+
-            '</div>';
+                '<p class="text-center">'+uniqueNames[i]+'</p>'+
+                '<canvas id="chart-area'+i+'"/>'+
+                '</div>';
         }
         $('#item-chart').html(html_chart);
         for(var i = 0; i < uniqueNames.length; i++){
@@ -82,6 +82,19 @@
                         display: true,
                         position: 'bottom'
                     },
+                    scaleShowValues: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false
+                            }
+                        }]
+                    }
                 }
             };
             var ctx = document.getElementById("chart-area"+i).getContext("2d");

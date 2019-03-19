@@ -6,18 +6,7 @@
         <div class="row">
             <div class="col-sm-11 col-sm-offset-1">
                 <h3 class="text-uppercase color-bbc">View Supplier List</h3>
-                @if(session()->has('success-message'))
-                    <p class="alert alert-success">
-                        {{ session()->get('success-message') }}
-                    </p>
-                @endif
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                        <p class="alert alert-danger">
-                            {{ $error }}
-                        </p>
-                    @endforeach
-                @endif
+                @include('includes.messages')
             <!-- fliter button: new added -->
                 <div class="supplier-filter-option">
                     <select class="selectfilter" title="Filter">
