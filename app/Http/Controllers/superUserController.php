@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Create_suppliers;
+use App\Qr_invitations;
+use App\Qr_items;
+use App\Quotation_requisition;
 use App\User;
 use Illuminate\Http\Request;
 use App\superUser;
@@ -166,4 +169,48 @@ class superUserController extends Controller
             }
         }
     }
+
+    public function deleteSavage(Request $request){
+        $qrs = array();
+        $qr_items = array();
+        $qr_invites = array();
+        $qr_quotes = array();
+        $dates = array();
+        $period = new \DatePeriod(
+            new \DateTime('2018-01-01'),
+            new \DateInterval('P1D'),
+            new \DateTime('2018-08-31')
+        );
+        $dates[] = '2018-01-01';
+        foreach ($period as $key => $value) {
+            $dates[] = $value->format('Y-m-d');
+        }
+        $allQrs = Quotation_requisition::all();
+        foreach($allQrs as $qr){
+            if(in_array(date('Y-m-d', strtotime($qr->created_at)), $dates)){
+                $qrs[] = $qr->id;
+                $allItems = Qr_items::where('qr_id', $qr->id)
+                    ->get();
+                foreach($allItems as $item){
+                    $qr_items[] = $item->id;
+                    $allQuotes = Supplier_quotations::where('item_id', $item->id)
+                        ->get();
+                    foreach($allQuotes as $quote){
+                        $qr_quotes[] = $quote->id;
+                    }
+                }
+                $allInvites = Qr_invitations::where('qr_id', $qr->id)
+                    ->get();
+                foreach($allInvites as $invite){
+                    $qr_invites[] = $invite->id;
+                }
+            }
+        }
+        Quotation_requisition::destroy($qrs);
+        Qr_items::destroy($qr_items);
+        Qr_invitations::destroy($qr_invites);
+        Supplier_quotations::destroy($qr_quotes);
+        die();
+    }
+
 }

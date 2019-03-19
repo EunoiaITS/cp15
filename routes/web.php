@@ -37,6 +37,7 @@ Route::get('/superuser', 'superUserController@saveUser');
 Route::get('/superuser/users-list', 'superUserController@viewUsers');
 Route::post('/superuser/users-edit', 'superUserController@editUsers');
 Route::post('/superuser/users-delete', 'superUserController@deleteUsers');
+Route::get('/superuser/delete-savage', 'superUserController@deleteSavage');
 
 /**
  * Admin Executive Manager routes
