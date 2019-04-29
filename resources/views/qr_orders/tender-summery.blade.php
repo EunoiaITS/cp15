@@ -20,18 +20,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php $count = 0; ?>
+                                <?php $count = $i = 0; ?>
                                 @foreach($allInvites as $invite)
-                                    @if(isset($invite->invited) && $invite->invited == 'yes')
-                                        <?php $count++; ?>
+                                    @php $i++ @endphp
                                         <tr>
-                                            <td>{{ $count }}</td>
-                                            <td><a style="cursor: pointer" class="pr-modal" rel="{{ $count }}" data-toggle="modal" data-target="#myModal{{ $count }}">{{ $invite->qr_details->pr_id }}</a></td>
-                                            <td>{{ $invite->qr_details->pr_type }}</td>
+                                            <td>{{ $i }}</td>
+                                            <td>@if(isset($invite->invited) && $invite->invited == 'yes') @php $count++ @endphp<a style="cursor: pointer" class="pr-modal" rel="{{ $count }}" data-toggle="modal" data-target="#myModal{{ $count }}">{{ $invite->qr_details->pr_id }}</a>@else {{ 'Under Processing (Awaiting Approval)' }} @endif</td>
+                                            <td>@if(isset($invite->invited) && $invite->invited == 'yes'){{ $invite->qr_details->pr_type }} @else {{ '------' }} @endif</td>
                                             <td>{{ date('d-M-Y', strtotime($invite->start_date)) }}</td>
                                             <td>{{ date('d-M-Y', strtotime($invite->end_date)) }}</td>
                                         </tr>
-                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
@@ -90,7 +88,7 @@
                                                 <th style="text-align: center;">Comment(Supplier)</th>
                                                 <th style="text-align: center;">Comment(Director)</th>
                                                 @if(Auth::user()->role == 'director')
-                                                <th style="text-align: center;">Unit Price</th>
+                                                    <th style="text-align: center;">Unit Price</th>
                                                 @endif
                                                 <th style="text-align: center;">File (Supplier)</th>
                                             </tr>

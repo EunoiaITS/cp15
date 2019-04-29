@@ -84,7 +84,7 @@ class AEMController extends Controller
                 if($request->category == ''){
                     $sup_info->category = 1;
                 }else{
-                $sup_info->category = $request->category;
+                    $sup_info->category = $request->category;
                 }
                 $sup_info->contact = $request->contact;
                 $sup_info->save();
@@ -203,24 +203,24 @@ class AEMController extends Controller
                     Supplier_quotations::destroy($sq->id);
                 }
                 $sqr_inv = Qr_invitations::whereRaw("FIND_IN_SET($request->user_id,suppliers)")->get();
-                    foreach ($sqr_inv as $sqi) {
-                        $suppliers = explode(',', $sqi->suppliers);
-                        for($i =0;$i < sizeof($suppliers);$i++){
-                            if ($suppliers[$i] === $request->user_id) {
-                                unset($suppliers[$i]);
-                            }
+                foreach ($sqr_inv as $sqi) {
+                    $suppliers = explode(',', $sqi->suppliers);
+                    for($i =0;$i < sizeof($suppliers);$i++){
+                        if ($suppliers[$i] === $request->user_id) {
+                            unset($suppliers[$i]);
                         }
-                        $updated_sups = '';
-                        foreach ($suppliers as $sup){
-                            $updated_sups .= $sup . ',';
-                        }
-                        $sqi->suppliers = rtrim($updated_sups,',');
-                        $sqi->save();
                     }
+                    $updated_sups = '';
+                    foreach ($suppliers as $sup){
+                        $updated_sups .= $sup . ',';
+                    }
+                    $sqi->suppliers = rtrim($updated_sups,',');
+                    $sqi->save();
+                }
                 $check = Qr_invitations::where('suppliers','=','')->get();
-                    foreach ($check as $ch){
-                        Qr_invitations::destroy($ch->id);
-                    }
+                foreach ($check as $ch){
+                    Qr_invitations::destroy($ch->id);
+                }
                 return redirect()
                     ->to('suppliers/view-supplier')
                     ->with('success-message', 'Supplier Deleted Successfully !');
@@ -345,20 +345,20 @@ class AEMController extends Controller
     }
 
     public function editQROrder(Request $request){
-        if (!Auth::user()) {
-            return redirect()
-                ->to('/login')
-                ->with('error-message', 'Please login first!');
-        }else{
-            $id = Auth::id();
-            $user = User::find($id);
-            if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
-                return redirect()
-                    ->back()
-                    ->with('error-message', 'You don\'t have authorization!');
-            }
-        }
         if($request->isMethod('post')){
+            if (!Auth::user()) {
+                return redirect()
+                    ->to('/login')
+                    ->with('error-message', 'Please login first!');
+            }else{
+                $id = Auth::id();
+                $user = User::find($id);
+                if (!in_array($user->role, ['admin', 'executive', 'manager'])) {
+                    return redirect()
+                        ->back()
+                        ->with('error-message', 'You don\'t have authorization!');
+                }
+            }
             $qr = Quotation_requisition::find($request->qr_id);
             $qr->pr_id = $request->pr_id;
             $qr->pr_type = $request->pr_type;
